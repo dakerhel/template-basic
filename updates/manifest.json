@@ -3,9 +3,9 @@
   "versionCode": 31,
   "minSupported": "1.0.13",
   "coreVersion": "1.4.0",
-  "notes": "Release v1.0.30: Bank-grade App Lock, PIN Code, System Biometrics (Fingerprint / Face ID), and Auto-Lock",
+  "notes": "Release v1.0.30",
   "sha256": {
-    "android": "39288bb957f10a6ca2b8c2964ee0d245d2db452a3a3bf72220696fd7a1222094"
+    "android": "7f0b4e3a02eccd67a3f3b5838ac55780ef4dd292777bb0318e90448eb89de7d4"
   },
   "files": {
     "android": "https://github.com/dakerhel/template-basic/releases/download/v1.0.30/my_app-1.0.30.apk"
