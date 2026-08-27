@@ -1,13 +1,13 @@
 {
-  "version": "1.0.16",
-  "versionCode": 17,
+  "version": "1.0.17",
+  "versionCode": 18,
   "minSupported": "1.0.13",
   "coreVersion": "1.4.0",
-  "notes": "Автоматическое обновление через GitHub Releases",
+  "notes": "Release v1.0.17",
   "sha256": {
-    "android": "243302641556243f23b9d3519536cf44cc7d3c967bcf983e409f5d2a70fee001"
+    "android": "facd90d0ea2e17a2e26566348c72c10104a09ccb3c34d3c724b83e6670787499"
   },
   "files": {
-    "android": "https://github.com/dakerhel/template-basic/releases/download/v1.0.16/my_app-1.0.16.apk"
+    "android": "https://github.com/dakerhel/template-basic/releases/download/v1.0.17/my_app-1.0.17.apk"
   }
 }
