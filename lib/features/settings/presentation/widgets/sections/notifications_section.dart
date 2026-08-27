@@ -1,10 +1,7 @@
-import 'dart:io';
-
-import 'package:android_intent_plus/android_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
+import 'package:my_app/core/utils/native_intent_launcher.dart';
 import 'package:my_app/features/settings/presentation/widgets/common/settings_group_header.dart';
 import 'package:my_app/features/settings/presentation/widgets/common/settings_link_tile.dart';
 import 'package:my_app/features/update/presentation/update_settings_provider.dart';
@@ -36,32 +33,20 @@ class NotificationsSection extends ConsumerWidget {
           icon: Icons.notifications_active_outlined,
           title: l10n.notificationsPermissionTitle,
           subtitle: l10n.notificationsPermissionSubtitle,
-          onTap: () => _openNotificationSettings(context),
+          onTap: () => _openNotifications(context),
         ),
       ],
     );
   }
 
-  Future<void> _openNotificationSettings(BuildContext context) async {
-    if (!Platform.isAndroid) return;
-    final info = await PackageInfo.fromPlatform();
-    final intent = AndroidIntent(
-      action: 'android.settings.APP_NOTIFICATION_SETTINGS',
-      arguments: <String, String>{
-        'android.provider.extra.APP_PACKAGE': info.packageName,
-      },
-    );
-    try {
-      await intent.launch();
-    } on Exception {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content:
-                Text(AppLocalizations.of(context)!.failedToOpen('Settings')),
-          ),
-        );
-      }
+  Future<void> _openNotifications(BuildContext context) async {
+    final success = await NativeIntentLauncher.openNotificationSettings();
+    if (!success && context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.failedToOpen('Settings')),
+        ),
+      );
     }
   }
 }

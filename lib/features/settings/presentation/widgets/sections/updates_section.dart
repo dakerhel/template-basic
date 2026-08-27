@@ -1,10 +1,7 @@
-import 'dart:io';
-
-import 'package:android_intent_plus/android_intent.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
+import 'package:my_app/core/utils/native_intent_launcher.dart';
 import 'package:my_app/features/settings/presentation/widgets/common/settings_group_header.dart';
 import 'package:my_app/features/settings/presentation/widgets/common/settings_interval_card.dart';
 import 'package:my_app/features/settings/presentation/widgets/common/settings_link_tile.dart';
@@ -93,13 +90,13 @@ class UpdatesSection extends ConsumerWidget {
           icon: Icons.install_mobile_outlined,
           title: l10n.installPermissionTitle,
           subtitle: l10n.installPermissionSubtitle,
-          onTap: () => _openInstallPermissionSettings(context),
+          onTap: () => _openInstallPermission(context),
         ),
         SettingsLinkTile(
           icon: Icons.battery_saver_outlined,
           title: l10n.backgroundWorkTitle,
           subtitle: l10n.backgroundWorkSubtitle,
-          onTap: () => _openBatteryOptimizationSettings(context),
+          onTap: () => _openBatteryOptimization(context),
         ),
       ],
     );
@@ -127,31 +124,17 @@ class UpdatesSection extends ConsumerWidget {
     };
   }
 
-  Future<void> _openBatteryOptimizationSettings(BuildContext context) async {
-    if (!Platform.isAndroid) return;
-    final info = await PackageInfo.fromPlatform();
-    final intent = AndroidIntent(
-      action: 'android.settings.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS',
-      data: 'package:${info.packageName}',
-    );
-    try {
-      await intent.launch();
-    } on Exception {
-      if (context.mounted) _showSettingsError(context);
+  Future<void> _openBatteryOptimization(BuildContext context) async {
+    final success = await NativeIntentLauncher.openBatteryOptimizationSettings();
+    if (!success && context.mounted) {
+      _showSettingsError(context);
     }
   }
 
-  Future<void> _openInstallPermissionSettings(BuildContext context) async {
-    if (!Platform.isAndroid) return;
-    final info = await PackageInfo.fromPlatform();
-    final intent = AndroidIntent(
-      action: 'android.settings.MANAGE_UNKNOWN_APP_SOURCES',
-      data: 'package:${info.packageName}',
-    );
-    try {
-      await intent.launch();
-    } on Exception {
-      if (context.mounted) _showSettingsError(context);
+  Future<void> _openInstallPermission(BuildContext context) async {
+    final success = await NativeIntentLauncher.openInstallPermissionSettings();
+    if (!success && context.mounted) {
+      _showSettingsError(context);
     }
   }
 
