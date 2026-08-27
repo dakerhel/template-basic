@@ -18,6 +18,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
 
       - name: ☕ Setup Java
         uses: actions/setup-java@v5
@@ -58,14 +59,6 @@ jobs:
       - name: 📋 Update manifest.json
         run: dart run tool/update_manifest.dart build/app/outputs/flutter-apk/app-release.apk
 
-      - name: 🔄 Commit updated manifest.json
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add updates/manifest.json
-          git diff --staged --quiet || git commit -m "chore: update manifest for ${{ steps.version.outputs.tag }}"
-          git push origin HEAD:main
-
       - name: 📁 Rename APK for release
         run: |
           mv build/app/outputs/flutter-apk/app-release.apk \
@@ -83,8 +76,22 @@ jobs:
             
             ### Установка
             Скачайте `${{ steps.version.outputs.apk_name }}` и установите на Android.
-          files: build/app/outputs/flutter-apk/${{ steps.version.outputs.apk_name }}
+          files: |
+            build/app/outputs/flutter-apk/${{ steps.version.outputs.apk_name }}
+            updates/manifest.json
           draft: false
           prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: 🔄 Commit updated manifest.json to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin main:main || true
+          git checkout main || true
+          git add updates/manifest.json
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: update manifest for ${{ steps.version.outputs.tag }} [skip ci]"
+            git push origin main || echo "Could not push manifest to main"
+          fi
