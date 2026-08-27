@@ -1,13 +1,13 @@
 {
-  "version": "1.0.19",
-  "versionCode": 20,
+  "version": "1.0.20",
+  "versionCode": 21,
   "minSupported": "1.0.13",
   "coreVersion": "1.4.0",
-  "notes": "Release v1.0.19",
+  "notes": "Release v1.0.20: Unified Theme System (Light/Dark/OLED) & Apple Liquid Glass",
   "sha256": {
     "android": "bf5c566da7167c1cb7b37d2b9e99c8c216f94df8ad37dd672819301c5ef8f6d5"
   },
   "files": {
-    "android": "https://github.com/dakerhel/template-basic/releases/download/v1.0.19/my_app-1.0.19.apk"
+    "android": "https://github.com/dakerhel/template-basic/releases/download/v1.0.20/my_app-1.0.20.apk"
   }
 }

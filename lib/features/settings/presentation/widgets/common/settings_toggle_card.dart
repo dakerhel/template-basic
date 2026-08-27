@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:my_app/core/theme/widgets/app_glass.dart';
+
 class SettingsToggleCard extends StatelessWidget {
   const SettingsToggleCard({
     super.key,
@@ -19,13 +21,10 @@ class SettingsToggleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Card(
-        elevation: 0,
-        color: Theme.of(context)
-            .colorScheme
-            .surfaceContainerHighest
-            .withValues(alpha: 0.5),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      child: AppGlassCard(
+        borderRadius: 16,
+        padding: const EdgeInsets.symmetric(vertical: 4),
         child: SwitchListTile(
           value: value,
           onChanged: enabled ? onChanged : null,

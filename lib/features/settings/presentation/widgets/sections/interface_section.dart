@@ -8,8 +8,7 @@ import 'package:my_app/core/theme/theme_mode_provider.dart';
 import 'package:my_app/features/settings/presentation/widgets/common/settings_group_header.dart';
 import 'package:my_app/features/settings/presentation/widgets/sheets/font_picker_sheet.dart';
 import 'package:my_app/features/settings/presentation/widgets/sheets/language_picker_sheet.dart';
-import 'package:my_app/features/settings/presentation/widgets/sheets/palette_picker_sheet.dart';
-import 'package:my_app/features/settings/presentation/widgets/sheets/theme_picker_sheet.dart';
+import 'package:my_app/features/settings/presentation/widgets/sheets/unified_theme_sheet.dart';
 import 'package:my_app/l10n/generated/app_localizations.dart';
 
 class InterfaceSection extends ConsumerWidget {
@@ -23,8 +22,9 @@ class InterfaceSection extends ConsumerWidget {
     final font = ref.watch(fontProvider);
     final palette = ref.watch(colorPaletteProvider);
 
-    final paletteTitle =
-        locale?.languageCode == 'ru' ? 'Цветовая палитра' : 'Color Palette';
+    final themeStyleTitle = locale?.languageCode == 'ru'
+        ? 'Тема и оформление'
+        : 'Theme & Style';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,16 +37,12 @@ class InterfaceSection extends ConsumerWidget {
           onTap: () => LanguagePickerSheet.show(context, ref),
         ),
         ListTile(
-          leading: const Icon(Icons.brightness_6_outlined),
-          title: Text(l10n.settingsTheme),
-          subtitle: Text(ThemePickerSheet.getThemeName(context, themeMode)),
-          onTap: () => ThemePickerSheet.show(context, ref),
-        ),
-        ListTile(
           leading: const Icon(Icons.palette_outlined),
-          title: Text(paletteTitle),
-          subtitle: Text(palette.localizedName(locale)),
-          onTap: () => PalettePickerSheet.show(context, ref),
+          title: Text(themeStyleTitle),
+          subtitle: Text(
+            '${themeMode.localizedName(locale)} · ${palette.localizedName(locale)}',
+          ),
+          onTap: () => UnifiedThemeSheet.show(context, ref),
         ),
         ListTile(
           leading: const Icon(Icons.text_fields),

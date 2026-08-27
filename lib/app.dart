@@ -8,7 +8,6 @@ import 'core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 import 'core/theme/color_palette_provider.dart';
 import 'core/theme/font_provider.dart';
-import 'core/theme/oled_mode_provider.dart';
 import 'core/theme/theme_mode_provider.dart';
 import 'l10n/generated/app_localizations.dart';
 
@@ -21,7 +20,6 @@ class MyApp extends ConsumerWidget {
     final themeMode = ref.watch(themeModeProvider);
     final font = ref.watch(fontProvider);
     final palette = ref.watch(colorPaletteProvider);
-    final isOled = ref.watch(oledModeProvider);
 
     return MaterialApp.router(
       title: AppConfig.appName,
@@ -32,9 +30,9 @@ class MyApp extends ConsumerWidget {
       darkTheme: AppTheme.dark(
         palette: palette,
         fontFamily: font.themeFontFamily,
-        isOled: isOled,
+        isOled: themeMode.isOled,
       ),
-      themeMode: themeMode,
+      themeMode: themeMode.flutterThemeMode,
       locale: locale,
       localizationsDelegates: const [
         AppLocalizations.delegate,
