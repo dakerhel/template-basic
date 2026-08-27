@@ -1,0 +1,75 @@
+{
+  "@@locale": "ko",
+  "appTitle": "My App",
+  "homeGreeting": "기반이 준비되었습니다",
+  "settingsTitle": "설정",
+  "aboutPrivacy": "개인정보 처리방침",
+  "failedToOpen": "{url}을(를) 열 수 없습니다",
+  "settingsLanguage": "언어",
+  "languageSystem": "시스템 설정 따르기",
+  "settingsTheme": "테마",
+  "themeSystem": "시스템 설정 따르기",
+  "themeLight": "라이트",
+  "themeDark": "다크",
+  "interfaceGroup": "인터페이스",
+  "settingsFont": "글꼴",
+  "fontScale": "글꼴 크기",
+  "fontSystem": "시스템 설정 따르기",
+  "fontDefault": "기본값",
+  "updatesGroup": "업데이트",
+  "backgroundCheckTitle": "백그라운드 업데이트 확인",
+  "backgroundCheckSubtitle": "앱이 백그라운드에서 업데이트를 확인합니다. 배터리를 절약하려면 끄세요. 수동 확인은 항상 가능합니다.",
+  "checkIntervalTitle": "확인 간격",
+  "intervalHours": "{hours}시간",
+  "backgroundInstallTitle": "백그라운드 설치",
+  "backgroundInstallSubtitle": "발견된 업데이트를 자동으로 다운로드 및 설치",
+  "aboutGroup": "앱 정보",
+  "appNameLabel": "앱 이름",
+  "appVersionLabel": "앱 버전",
+  "coreVersionLabel": "코어 버전",
+  "deviceLabel": "기기",
+  "sourceCodeLabel": "소스 코드",
+  "intervalMinutes": "{minutes}분",
+  "installPermissionTitle": "설치 권한",
+  "installPermissionSubtitle": "이 출처에서 앱 설치 허용",
+  "notificationsPermissionTitle": "알림 권한",
+  "notificationsPermissionSubtitle": "발견된 업데이트 알림용",
+  "notificationsGroup": "알림",
+  "notifyUpdatesToggle": "업데이트 알림 받기",
+  "backgroundWorkTitle": "백그라운드 실행",
+  "backgroundWorkSubtitle": "배터리 제한 없이 실행 허용",
+  "notifUpdateTitle": "업데이트 {version} 사용 가능",
+  "notifUpdateBody": "설치하려면 앱을 여세요",
+  "notifUpdatedTitle": "앱이 업데이트되었습니다",
+  "notifUpdatedBody": "설치된 버전: {version}",
+  "checkForUpdate": "업데이트 확인",
+  "updateChecking": "확인 중...",
+  "updateUpToDate": "최신 버전입니다",
+  "updateAvailable": "버전 {version} 사용 가능",
+  "updateDownload": "다운로드 중: {percent}%",
+  "updateButton": "{version}(으)로 업데이트",
+  "updateCheckFailed": "업데이트 확인 실패: {error}",
+  "updateFailed": "업데이트 실패: {error}",
+  "errorWithMessage": "오류: {error}",
+  "@errorWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "whatsNewLabel": "새 소식",
+  "forceUpdateTitle": "업데이트 필요",
+  "forceUpdateBody": "더 이상 지원되지 않는 버전입니다. 계속하려면 업데이트를 설치하세요.",
+  "storageGroup": "저장 공간",
+  "storageUsed": "업데이트 파일: {size} MB",
+  "clearCacheAction": "지우기",
+  "cacheCleared": "지워졌습니다",
+  "@storageUsed": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "@@locale": "fr",
+  "appTitle": "My App",
+  "homeGreeting": "La base est prête",
+  "settingsTitle": "Paramètres",
+  "aboutPrivacy": "Politique de confidentialité",
+  "failedToOpen": "Impossible d'ouvrir {url}",
+  "settingsLanguage": "Langue",
+  "languageSystem": "Comme le système",
+  "settingsTheme": "Thème",
+  "themeSystem": "Comme le système",
+  "themeLight": "Clair",
+  "themeDark": "Sombre",
+  "interfaceGroup": "Interface",
+  "settingsFont": "Police",
+  "fontScale": "Taille de police",
+  "fontSystem": "Comme le système",
+  "fontDefault": "Par défaut",
+  "updatesGroup": "Mises à jour",
+  "backgroundCheckTitle": "Vérification en arrière-plan",
+  "backgroundCheckSubtitle": "L'application recherche les mises à jour en arrière-plan. Désactivez pour économiser la batterie. La vérification manuelle reste disponible.",
+  "checkIntervalTitle": "Intervalle de vérification",
+  "intervalHours": "{hours} h",
+  "backgroundInstallTitle": "Installation en arrière-plan",
+  "backgroundInstallSubtitle": "Télécharger et installer automatiquement les mises à jour trouvées",
+  "aboutGroup": "À propos de l'application",
+  "appNameLabel": "Nom de l'application",
+  "appVersionLabel": "Version de l'application",
+  "coreVersionLabel": "Version du noyau",
+  "deviceLabel": "Appareil",
+  "sourceCodeLabel": "Code source",
+  "intervalMinutes": "{minutes} min",
+  "installPermissionTitle": "Autorisation d'installation",
+  "installPermissionSubtitle": "Autoriser l'installation d'applications depuis cette source",
+  "notificationsPermissionTitle": "Autorisation de notification",
+  "notificationsPermissionSubtitle": "Pour les notifications de mises à jour trouvées",
+  "notificationsGroup": "Notifications",
+  "notifyUpdatesToggle": "Me notifier des mises à jour",
+  "backgroundWorkTitle": "Exécution en arrière-plan",
+  "backgroundWorkSubtitle": "Autoriser l'exécution sans restrictions de batterie",
+  "notifUpdateTitle": "Mise à jour {version} disponible",
+  "notifUpdateBody": "Ouvrez l'application pour installer",
+  "notifUpdatedTitle": "Application mise à jour",
+  "notifUpdatedBody": "Version installée : {version}",
+  "checkForUpdate": "Rechercher des mises à jour",
+  "updateChecking": "Vérification...",
+  "updateUpToDate": "Vous avez la dernière version",
+  "updateAvailable": "La version {version} est disponible",
+  "updateDownload": "Téléchargement : {percent} %",
+  "updateButton": "Mettre à jour vers {version}",
+  "updateCheckFailed": "Échec de la vérification des mises à jour : {error}",
+  "updateFailed": "Échec de la mise à jour : {error}",
+  "errorWithMessage": "Erreur : {error}",
+  "@errorWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "whatsNewLabel": "Nouveautés",
+  "forceUpdateTitle": "Mise à jour requise",
+  "forceUpdateBody": "Votre version n'est plus prise en charge. Installez la mise à jour pour continuer.",
+  "storageGroup": "Stockage",
+  "storageUsed": "Fichiers de mise à jour : {size} Mo",
+  "clearCacheAction": "Effacer",
+  "cacheCleared": "Effacé",
+  "@storageUsed": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  }
+}

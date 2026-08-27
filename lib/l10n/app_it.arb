@@ -1,0 +1,75 @@
+{
+  "@@locale": "it",
+  "appTitle": "My App",
+  "homeGreeting": "La base è pronta",
+  "settingsTitle": "Impostazioni",
+  "aboutPrivacy": "Informativa sulla privacy",
+  "failedToOpen": "Impossibile aprire {url}",
+  "settingsLanguage": "Lingua",
+  "languageSystem": "Come il sistema",
+  "settingsTheme": "Tema",
+  "themeSystem": "Come il sistema",
+  "themeLight": "Chiaro",
+  "themeDark": "Scuro",
+  "interfaceGroup": "Interfaccia",
+  "settingsFont": "Carattere",
+  "fontScale": "Dimensione carattere",
+  "fontSystem": "Come il sistema",
+  "fontDefault": "Predefinito",
+  "updatesGroup": "Aggiornamenti",
+  "backgroundCheckTitle": "Controllo aggiornamenti in background",
+  "backgroundCheckSubtitle": "L'app controlla gli aggiornamenti in background. Disattiva per risparmiare batteria. Il controllo manuale è sempre disponibile.",
+  "checkIntervalTitle": "Intervallo di controllo",
+  "intervalHours": "{hours} ore",
+  "backgroundInstallTitle": "Installazione in background",
+  "backgroundInstallSubtitle": "Scarica e installa automaticamente gli aggiornamenti trovati",
+  "aboutGroup": "Info app",
+  "appNameLabel": "Nome dell'app",
+  "appVersionLabel": "Versione dell'app",
+  "coreVersionLabel": "Versione del core",
+  "deviceLabel": "Dispositivo",
+  "sourceCodeLabel": "Codice sorgente",
+  "intervalMinutes": "{minutes} min",
+  "installPermissionTitle": "Autorizzazione di installazione",
+  "installPermissionSubtitle": "Consenti l'installazione di app da questa fonte",
+  "notificationsPermissionTitle": "Autorizzazione notifiche",
+  "notificationsPermissionSubtitle": "Per le notifiche degli aggiornamenti trovati",
+  "notificationsGroup": "Notifiche",
+  "notifyUpdatesToggle": "Avvisami degli aggiornamenti",
+  "backgroundWorkTitle": "Esecuzione in background",
+  "backgroundWorkSubtitle": "Consenti l'esecuzione senza restrizioni batteria",
+  "notifUpdateTitle": "Aggiornamento {version} disponibile",
+  "notifUpdateBody": "Apri l'app per installare",
+  "notifUpdatedTitle": "App aggiornata",
+  "notifUpdatedBody": "Versione installata: {version}",
+  "checkForUpdate": "Cerca aggiornamenti",
+  "updateChecking": "Verifica in corso...",
+  "updateUpToDate": "Hai l'ultima versione",
+  "updateAvailable": "Versione {version} disponibile",
+  "updateDownload": "Download: {percent}%",
+  "updateButton": "Aggiorna alla {version}",
+  "updateCheckFailed": "Verifica aggiornamenti non riuscita: {error}",
+  "updateFailed": "Aggiornamento non riuscito: {error}",
+  "errorWithMessage": "Errore: {error}",
+  "@errorWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "whatsNewLabel": "Novità",
+  "forceUpdateTitle": "Aggiornamento richiesto",
+  "forceUpdateBody": "La tua versione non è più supportata. Installa l'aggiornamento per continuare.",
+  "storageGroup": "Archiviazione",
+  "storageUsed": "File di aggiornamento: {size} MB",
+  "clearCacheAction": "Cancella",
+  "cacheCleared": "Cancellato",
+  "@storageUsed": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  }
+}

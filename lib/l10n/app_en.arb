@@ -1,0 +1,145 @@
+{
+  "@@locale": "en",
+  "appTitle": "My App",
+  "homeGreeting": "Foundation ready",
+  "settingsTitle": "Settings",
+  "aboutPrivacy": "Privacy policy",
+  "failedToOpen": "Failed to open {url}",
+  "@failedToOpen": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsLanguage": "Language",
+  "languageSystem": "System",
+  "settingsTheme": "Theme",
+  "themeSystem": "System",
+  "themeLight": "Light",
+  "themeDark": "Dark",
+  "interfaceGroup": "Interface",
+  "settingsFont": "Font",
+  "fontScale": "Font size",
+  "fontSystem": "System",
+  "fontDefault": "Default",
+  "updatesGroup": "Updates",
+  "backgroundCheckTitle": "Background update check",
+  "backgroundCheckSubtitle": "The app checks for updates in the background. Disable to save battery. Manual check is always available.",
+  "checkIntervalTitle": "Check interval",
+  "intervalHours": "{hours} h",
+  "@intervalHours": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      }
+    }
+  },
+  "backgroundInstallTitle": "Background installation",
+  "backgroundInstallSubtitle": "Automatically download and install found updates",
+  "aboutGroup": "About the app",
+  "appNameLabel": "App name",
+  "appVersionLabel": "App version",
+  "coreVersionLabel": "Core version",
+  "deviceLabel": "Device",
+  "sourceCodeLabel": "Source code",
+  "intervalMinutes": "{minutes} min",
+  "@intervalMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "installPermissionTitle": "Install permission",
+  "installPermissionSubtitle": "Allow installing apps from this source",
+  "notificationsPermissionTitle": "Notification permission",
+  "notificationsPermissionSubtitle": "For notifications about found updates",
+  "notificationsGroup": "Notifications",
+  "notifyUpdatesToggle": "Notify about updates",
+  "backgroundWorkTitle": "Background execution",
+  "backgroundWorkSubtitle": "Allow running without battery restrictions",
+  "notifUpdateTitle": "Update {version} available",
+  "@notifUpdateTitle": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "notifUpdateBody": "Open the app to install",
+  "notifUpdatedTitle": "App updated",
+  "notifUpdatedBody": "Installed version {version}",
+  "@notifUpdatedBody": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "checkForUpdate": "Check for updates",
+  "updateChecking": "Checking...",
+  "updateUpToDate": "You have the latest version",
+  "updateAvailable": "Version {version} available",
+  "@updateAvailable": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "updateDownload": "Downloading: {percent}%",
+  "@updateDownload": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "updateButton": "Update to {version}",
+  "@updateButton": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "updateCheckFailed": "Failed to check for updates: {error}",
+  "@updateCheckFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "updateFailed": "Update failed: {error}",
+  "@updateFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "errorWithMessage": "Error: {error}",
+  "@errorWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "whatsNewLabel": "What's new",
+  "forceUpdateTitle": "Update required",
+  "forceUpdateBody": "Your version is no longer supported. Install the update to continue.",
+  "storageGroup": "Storage",
+  "storageUsed": "Update files: {size} MB",
+  "clearCacheAction": "Clear",
+  "cacheCleared": "Cleared",
+  "@storageUsed": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  }
+}

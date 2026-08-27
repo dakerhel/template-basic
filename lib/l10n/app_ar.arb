@@ -1,0 +1,75 @@
+{
+  "@@locale": "ar",
+  "appTitle": "My App",
+  "homeGreeting": "الأساس جاهز",
+  "settingsTitle": "الإعدادات",
+  "aboutPrivacy": "سياسة الخصوصية",
+  "failedToOpen": "تعذر فتح {url}",
+  "settingsLanguage": "اللغة",
+  "languageSystem": "حسب النظام",
+  "settingsTheme": "المظهر",
+  "themeSystem": "حسب النظام",
+  "themeLight": "فاتح",
+  "themeDark": "داكن",
+  "interfaceGroup": "الواجهة",
+  "settingsFont": "الخط",
+  "fontScale": "حجم الخط",
+  "fontSystem": "حسب النظام",
+  "fontDefault": "افتراضي",
+  "updatesGroup": "التحديثات",
+  "backgroundCheckTitle": "التحقق من التحديثات في الخلفية",
+  "backgroundCheckSubtitle": "يتحقق التطبيق من التحديثات في الخلفية. عطّله لتوفير البطارية. التحقق اليدوي متاح دائماً.",
+  "checkIntervalTitle": "فترة التحقق",
+  "intervalHours": "{hours} س",
+  "backgroundInstallTitle": "التثبيت في الخلفية",
+  "backgroundInstallSubtitle": "تنزيل وتثبيت التحديثات التي يتم العثور عليها تلقائياً",
+  "aboutGroup": "حول التطبيق",
+  "appNameLabel": "اسم التطبيق",
+  "appVersionLabel": "إصدار التطبيق",
+  "coreVersionLabel": "إصدار النواة",
+  "deviceLabel": "الجهاز",
+  "sourceCodeLabel": "الكود المصدري",
+  "intervalMinutes": "{minutes} د",
+  "installPermissionTitle": "إذن التثبيت",
+  "installPermissionSubtitle": "السماح بتثبيت التطبيقات من هذا المصدر",
+  "notificationsPermissionTitle": "إذن الإشعارات",
+  "notificationsPermissionSubtitle": "للإشعارات عن التحديثات التي يتم العثور عليها",
+  "notificationsGroup": "الإشعارات",
+  "notifyUpdatesToggle": "إشعاري بالتحديثات",
+  "backgroundWorkTitle": "العمل في الخلفية",
+  "backgroundWorkSubtitle": "السماح بالعمل دون قيود البطارية",
+  "notifUpdateTitle": "التحديث {version} متاح",
+  "notifUpdateBody": "افتح التطبيق للتثبيت",
+  "notifUpdatedTitle": "تم تحديث التطبيق",
+  "notifUpdatedBody": "تم تثبيت الإصدار {version}",
+  "checkForUpdate": "التحقق من التحديثات",
+  "updateChecking": "جارٍ التحقق...",
+  "updateUpToDate": "لديك أحدث إصدار",
+  "updateAvailable": "الإصدار {version} متاح",
+  "updateDownload": "جارٍ التنزيل: {percent}%",
+  "updateButton": "التحديث إلى {version}",
+  "updateCheckFailed": "فشل التحقق من التحديثات: {error}",
+  "updateFailed": "فشل التحديث: {error}",
+  "errorWithMessage": "خطأ: {error}",
+  "@errorWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "whatsNewLabel": "ما الجديد",
+  "forceUpdateTitle": "التحديث مطلوب",
+  "forceUpdateBody": "إصدارك لم يعد مدعومًا. قم بتثبيت التحديث للمتابعة.",
+  "storageGroup": "التخزين",
+  "storageUsed": "ملفات التحديث: {size} ميجابايت",
+  "clearCacheAction": "مسح",
+  "cacheCleared": "تم المسح",
+  "@storageUsed": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  }
+}

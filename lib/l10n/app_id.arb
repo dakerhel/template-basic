@@ -1,0 +1,75 @@
+{
+  "@@locale": "id",
+  "appTitle": "My App",
+  "homeGreeting": "Fondasi siap",
+  "settingsTitle": "Pengaturan",
+  "aboutPrivacy": "Kebijakan privasi",
+  "failedToOpen": "Gagal membuka {url}",
+  "settingsLanguage": "Bahasa",
+  "languageSystem": "Ikuti sistem",
+  "settingsTheme": "Tema",
+  "themeSystem": "Ikuti sistem",
+  "themeLight": "Terang",
+  "themeDark": "Gelap",
+  "interfaceGroup": "Antarmuka",
+  "settingsFont": "Font",
+  "fontScale": "Ukuran font",
+  "fontSystem": "Ikuti sistem",
+  "fontDefault": "Bawaan",
+  "updatesGroup": "Pembaruan",
+  "backgroundCheckTitle": "Pemeriksaan pembaruan latar belakang",
+  "backgroundCheckSubtitle": "Aplikasi memeriksa pembaruan di latar belakang. Matikan untuk menghemat baterai. Pemeriksaan manual selalu tersedia.",
+  "checkIntervalTitle": "Interval pemeriksaan",
+  "intervalHours": "{hours} jam",
+  "backgroundInstallTitle": "Instalasi latar belakang",
+  "backgroundInstallSubtitle": "Otomatis unduh dan instal pembaruan yang ditemukan",
+  "aboutGroup": "Tentang aplikasi",
+  "appNameLabel": "Nama aplikasi",
+  "appVersionLabel": "Versi aplikasi",
+  "coreVersionLabel": "Versi inti",
+  "deviceLabel": "Perangkat",
+  "sourceCodeLabel": "Kode sumber",
+  "intervalMinutes": "{minutes} mnt",
+  "installPermissionTitle": "Izin instalasi",
+  "installPermissionSubtitle": "Izinkan memasang aplikasi dari sumber ini",
+  "notificationsPermissionTitle": "Izin notifikasi",
+  "notificationsPermissionSubtitle": "Untuk notifikasi pembaruan yang ditemukan",
+  "notificationsGroup": "Notifikasi",
+  "notifyUpdatesToggle": "Beri tahu tentang pembaruan",
+  "backgroundWorkTitle": "Eksekusi latar belakang",
+  "backgroundWorkSubtitle": "Izinkan berjalan tanpa pembatasan baterai",
+  "notifUpdateTitle": "Pembaruan {version} tersedia",
+  "notifUpdateBody": "Buka aplikasi untuk memasang",
+  "notifUpdatedTitle": "Aplikasi diperbarui",
+  "notifUpdatedBody": "Versi terpasang: {version}",
+  "checkForUpdate": "Periksa pembaruan",
+  "updateChecking": "Memeriksa...",
+  "updateUpToDate": "Anda sudah memiliki versi terbaru",
+  "updateAvailable": "Versi {version} tersedia",
+  "updateDownload": "Mengunduh: {percent}%",
+  "updateButton": "Perbarui ke {version}",
+  "updateCheckFailed": "Gagal memeriksa pembaruan: {error}",
+  "updateFailed": "Pembaruan gagal: {error}",
+  "errorWithMessage": "Kesalahan: {error}",
+  "@errorWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "whatsNewLabel": "Yang baru",
+  "forceUpdateTitle": "Pembaruan diperlukan",
+  "forceUpdateBody": "Versi Anda tidak lagi didukung. Instal pembaruan untuk melanjutkan.",
+  "storageGroup": "Penyimpanan",
+  "storageUsed": "File pembaruan: {size} MB",
+  "clearCacheAction": "Hapus",
+  "cacheCleared": "Dihapus",
+  "@storageUsed": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  }
+}

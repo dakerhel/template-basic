@@ -1,0 +1,75 @@
+{
+  "@@locale": "ja",
+  "appTitle": "My App",
+  "homeGreeting": "基盤の準備ができました",
+  "settingsTitle": "設定",
+  "aboutPrivacy": "プライバシーポリシー",
+  "failedToOpen": "{url} を開けませんでした",
+  "settingsLanguage": "言語",
+  "languageSystem": "システムに従う",
+  "settingsTheme": "テーマ",
+  "themeSystem": "システムに従う",
+  "themeLight": "ライト",
+  "themeDark": "ダーク",
+  "interfaceGroup": "インターフェース",
+  "settingsFont": "フォント",
+  "fontScale": "フォントサイズ",
+  "fontSystem": "システムに従う",
+  "fontDefault": "デフォルト",
+  "updatesGroup": "アップデート",
+  "backgroundCheckTitle": "バックグラウンド更新チェック",
+  "backgroundCheckSubtitle": "アプリはバックグラウンドでアップデートを確認します。バッテリー節約のため無効にできます。手動チェックはいつでも可能です。",
+  "checkIntervalTitle": "チェック間隔",
+  "intervalHours": "{hours}時間",
+  "backgroundInstallTitle": "バックグラウンドインストール",
+  "backgroundInstallSubtitle": "見つかったアップデートを自動的にダウンロードしてインストール",
+  "aboutGroup": "アプリについて",
+  "appNameLabel": "アプリ名",
+  "appVersionLabel": "アプリバージョン",
+  "coreVersionLabel": "コアバージョン",
+  "deviceLabel": "デバイス",
+  "sourceCodeLabel": "ソースコード",
+  "intervalMinutes": "{minutes}分",
+  "installPermissionTitle": "インストール権限",
+  "installPermissionSubtitle": "このソースからのアプリのインストールを許可",
+  "notificationsPermissionTitle": "通知権限",
+  "notificationsPermissionSubtitle": "見つかったアップデートの通知用",
+  "notificationsGroup": "通知",
+  "notifyUpdatesToggle": "アップデートを通知",
+  "backgroundWorkTitle": "バックグラウンド実行",
+  "backgroundWorkSubtitle": "バッテリー制限なしでの実行を許可",
+  "notifUpdateTitle": "アップデート {version} が利用可能",
+  "notifUpdateBody": "アプリを開いてインストール",
+  "notifUpdatedTitle": "アプリを更新しました",
+  "notifUpdatedBody": "インストールされたバージョン: {version}",
+  "checkForUpdate": "アップデートを確認",
+  "updateChecking": "確認中...",
+  "updateUpToDate": "最新バージョンです",
+  "updateAvailable": "バージョン {version} が利用可能",
+  "updateDownload": "ダウンロード中：{percent}%",
+  "updateButton": "{version} にアップデート",
+  "updateCheckFailed": "アップデートの確認に失敗しました：{error}",
+  "updateFailed": "アップデートに失敗しました：{error}",
+  "errorWithMessage": "エラー: {error}",
+  "@errorWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "whatsNewLabel": "新機能",
+  "forceUpdateTitle": "アップデートが必要です",
+  "forceUpdateBody": "このバージョンはサポート終了です。続行するにはアップデートをインストールしてください。",
+  "storageGroup": "ストレージ",
+  "storageUsed": "更新ファイル: {size} MB",
+  "clearCacheAction": "消去",
+  "cacheCleared": "消去しました",
+  "@storageUsed": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  }
+}

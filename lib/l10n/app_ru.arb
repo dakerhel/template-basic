@@ -1,0 +1,75 @@
+{
+  "@@locale": "ru",
+  "appTitle": "My App",
+  "homeGreeting": "Фундамент готов",
+  "settingsTitle": "Настройки",
+  "aboutPrivacy": "Политика конфиденциальности",
+  "failedToOpen": "Не удалось открыть {url}",
+  "settingsLanguage": "Язык",
+  "languageSystem": "Как в системе",
+  "settingsTheme": "Тема",
+  "themeSystem": "Как в системе",
+  "themeLight": "Светлая",
+  "themeDark": "Тёмная",
+  "interfaceGroup": "Интерфейс",
+  "settingsFont": "Шрифт",
+  "fontScale": "Размер шрифта",
+  "fontSystem": "Как в системе",
+  "fontDefault": "Дефолтный",
+  "updatesGroup": "Обновления",
+  "backgroundCheckTitle": "Фоновая проверка обновлений",
+  "backgroundCheckSubtitle": "Приложение в фоне проверяет обновления. Для экономии батареи — отключите. Проверка всегда доступна в ручном режиме.",
+  "checkIntervalTitle": "Интервал проверки",
+  "intervalHours": "{hours} ч",
+  "backgroundInstallTitle": "Установка в фоне",
+  "backgroundInstallSubtitle": "Автоматически скачивать и устанавливать найденные обновления",
+  "aboutGroup": "О приложении",
+  "appNameLabel": "Название приложения",
+  "appVersionLabel": "Версия приложения",
+  "coreVersionLabel": "Версия ядра",
+  "deviceLabel": "Устройство",
+  "sourceCodeLabel": "Исходный код",
+  "intervalMinutes": "{minutes} мин",
+  "installPermissionTitle": "Разрешение на установку",
+  "installPermissionSubtitle": "Разрешить установку приложений из этого источника",
+  "notificationsPermissionTitle": "Разрешение на уведомления",
+  "notificationsPermissionSubtitle": "Для уведомлений о найденных обновлениях",
+  "notificationsGroup": "Уведомления",
+  "notifyUpdatesToggle": "Уведомлять об обновлениях",
+  "backgroundWorkTitle": "Работа в фоне",
+  "backgroundWorkSubtitle": "Разрешить работу без ограничений батареи",
+  "notifUpdateTitle": "Доступно обновление {version}",
+  "notifUpdateBody": "Откройте приложение, чтобы установить",
+  "notifUpdatedTitle": "Приложение обновлено",
+  "notifUpdatedBody": "Установлена версия {version}",
+  "checkForUpdate": "Проверить наличие обновления",
+  "updateChecking": "Проверяем...",
+  "updateUpToDate": "У вас последняя версия",
+  "updateAvailable": "Доступна версия {version}",
+  "updateDownload": "Загрузка: {percent}%",
+  "updateButton": "Обновить до {version}",
+  "updateCheckFailed": "Не удалось проверить обновления: {error}",
+  "updateFailed": "Ошибка обновления: {error}",
+  "errorWithMessage": "Ошибка: {error}",
+  "@errorWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "whatsNewLabel": "Что нового",
+  "forceUpdateTitle": "Требуется обновление",
+  "forceUpdateBody": "Ваша версия больше не поддерживается. Установите обновление, чтобы продолжить.",
+  "storageGroup": "Память",
+  "storageUsed": "Файлы обновлений: {size} МБ",
+  "clearCacheAction": "Очистить",
+  "cacheCleared": "Очищено",
+  "@storageUsed": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  }
+}

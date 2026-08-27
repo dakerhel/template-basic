@@ -1,0 +1,75 @@
+{
+  "@@locale": "hi",
+  "appTitle": "My App",
+  "homeGreeting": "आधार तैयार है",
+  "settingsTitle": "सेटिंग्स",
+  "aboutPrivacy": "गोपनीयता नीति",
+  "failedToOpen": "{url} खोलने में विफल",
+  "settingsLanguage": "भाषा",
+  "languageSystem": "सिस्टम के अनुसार",
+  "settingsTheme": "थीम",
+  "themeSystem": "सिस्टम के अनुसार",
+  "themeLight": "लाइट",
+  "themeDark": "डार्क",
+  "interfaceGroup": "इंटरफ़ेस",
+  "settingsFont": "फ़ॉन्ट",
+  "fontScale": "फ़ॉन्ट आकार",
+  "fontSystem": "सिस्टम के अनुसार",
+  "fontDefault": "डिफ़ॉल्ट",
+  "updatesGroup": "अपडेट",
+  "backgroundCheckTitle": "बैकग्राउंड अपडेट जांच",
+  "backgroundCheckSubtitle": "ऐप बैकग्राउंड में अपडेट की जांच करता है। बैटरी बचाने के लिए इसे बंद करें। मैन्युअल जांच हमेशा उपलब्ध है।",
+  "checkIntervalTitle": "जांच अंतराल",
+  "intervalHours": "{hours} घंटे",
+  "backgroundInstallTitle": "बैकग्राउंड इंस्टॉलेशन",
+  "backgroundInstallSubtitle": "मिले अपडेट को स्वतः डाउनलोड और इंस्टॉल करें",
+  "aboutGroup": "ऐप के बारे में",
+  "appNameLabel": "ऐप का नाम",
+  "appVersionLabel": "ऐप संस्करण",
+  "coreVersionLabel": "कोर संस्करण",
+  "deviceLabel": "डिवाइस",
+  "sourceCodeLabel": "सोर्स कोड",
+  "intervalMinutes": "{minutes} मिनट",
+  "installPermissionTitle": "इंस्टॉलेशन अनुमति",
+  "installPermissionSubtitle": "इस स्रोत से ऐप इंस्टॉल करने की अनुमति दें",
+  "notificationsPermissionTitle": "अधिसूचना अनुमति",
+  "notificationsPermissionSubtitle": "मिले अपडेट की सूचनाओं के लिए",
+  "notificationsGroup": "सूचनाएं",
+  "notifyUpdatesToggle": "अपडेट के बारे में सूचित करें",
+  "backgroundWorkTitle": "बैकग्राउंड निष्पादन",
+  "backgroundWorkSubtitle": "बैटरी प्रतिबंधों के बिना चलने की अनुमति दें",
+  "notifUpdateTitle": "अपडेट {version} उपलब्ध",
+  "notifUpdateBody": "इंस्टॉल करने के लिए ऐप खोलें",
+  "notifUpdatedTitle": "ऐप अपडेट हो गया",
+  "notifUpdatedBody": "इंस्टॉल किया गया संस्करण {version}",
+  "checkForUpdate": "अपडेट के लिए जांचें",
+  "updateChecking": "जांच जारी है...",
+  "updateUpToDate": "आपके पास नवीनतम संस्करण है",
+  "updateAvailable": "संस्करण {version} उपलब्ध है",
+  "updateDownload": "डाउनलोड हो रहा है: {percent}%",
+  "updateButton": "{version} में अपडेट करें",
+  "updateCheckFailed": "अपडेट की जांच विफल: {error}",
+  "updateFailed": "अपडेट विफल: {error}",
+  "errorWithMessage": "त्रुटि: {error}",
+  "@errorWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "whatsNewLabel": "नया क्या है",
+  "forceUpdateTitle": "अपडेट आवश्यक है",
+  "forceUpdateBody": "आपका संस्करण अब समर्थित नहीं है। जारी रखने के लिए अपडेट इंस्टॉल करें।",
+  "storageGroup": "स्टोरेज",
+  "storageUsed": "अपडेट फ़ाइलें: {size} MB",
+  "clearCacheAction": "साफ़ करें",
+  "cacheCleared": "साफ़ हो गया",
+  "@storageUsed": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  }
+}

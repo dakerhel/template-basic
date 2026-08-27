@@ -1,0 +1,75 @@
+{
+  "@@locale": "es",
+  "appTitle": "My App",
+  "homeGreeting": "La base está lista",
+  "settingsTitle": "Ajustes",
+  "aboutPrivacy": "Política de privacidad",
+  "failedToOpen": "No se pudo abrir {url}",
+  "settingsLanguage": "Idioma",
+  "languageSystem": "Como el sistema",
+  "settingsTheme": "Tema",
+  "themeSystem": "Como el sistema",
+  "themeLight": "Claro",
+  "themeDark": "Oscuro",
+  "interfaceGroup": "Interfaz",
+  "settingsFont": "Fuente",
+  "fontScale": "Tamaño de fuente",
+  "fontSystem": "Como el sistema",
+  "fontDefault": "Predeterminado",
+  "updatesGroup": "Actualizaciones",
+  "backgroundCheckTitle": "Comprobación en segundo plano",
+  "backgroundCheckSubtitle": "La aplicación busca actualizaciones en segundo plano. Desactívalo para ahorrar batería. La comprobación manual siempre está disponible.",
+  "checkIntervalTitle": "Intervalo de comprobación",
+  "intervalHours": "{hours} h",
+  "backgroundInstallTitle": "Instalación en segundo plano",
+  "backgroundInstallSubtitle": "Descargar e instalar automáticamente las actualizaciones encontradas",
+  "aboutGroup": "Acerca de la aplicación",
+  "appNameLabel": "Nombre de la aplicación",
+  "appVersionLabel": "Versión de la aplicación",
+  "coreVersionLabel": "Versión del núcleo",
+  "deviceLabel": "Dispositivo",
+  "sourceCodeLabel": "Código fuente",
+  "intervalMinutes": "{minutes} min",
+  "installPermissionTitle": "Permiso de instalación",
+  "installPermissionSubtitle": "Permitir instalar aplicaciones de esta fuente",
+  "notificationsPermissionTitle": "Permiso de notificaciones",
+  "notificationsPermissionSubtitle": "Para notificaciones de actualizaciones encontradas",
+  "notificationsGroup": "Notificaciones",
+  "notifyUpdatesToggle": "Avisar de actualizaciones",
+  "backgroundWorkTitle": "Ejecución en segundo plano",
+  "backgroundWorkSubtitle": "Permitir ejecutar sin restricciones de batería",
+  "notifUpdateTitle": "Actualización {version} disponible",
+  "notifUpdateBody": "Abre la aplicación para instalar",
+  "notifUpdatedTitle": "Aplicación actualizada",
+  "notifUpdatedBody": "Versión instalada: {version}",
+  "checkForUpdate": "Buscar actualizaciones",
+  "updateChecking": "Comprobando...",
+  "updateUpToDate": "Tienes la última versión",
+  "updateAvailable": "Versión {version} disponible",
+  "updateDownload": "Descargando: {percent}%",
+  "updateButton": "Actualizar a {version}",
+  "updateCheckFailed": "No se pudieron buscar actualizaciones: {error}",
+  "updateFailed": "Error de actualización: {error}",
+  "errorWithMessage": "Error: {error}",
+  "@errorWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "whatsNewLabel": "Novedades",
+  "forceUpdateTitle": "Actualización necesaria",
+  "forceUpdateBody": "Tu versión ya no es compatible. Instala la actualización para continuar.",
+  "storageGroup": "Almacenamiento",
+  "storageUsed": "Archivos de actualización: {size} MB",
+  "clearCacheAction": "Borrar",
+  "cacheCleared": "Borrado",
+  "@storageUsed": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  }
+}

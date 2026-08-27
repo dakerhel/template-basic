@@ -1,0 +1,75 @@
+{
+  "@@locale": "tr",
+  "appTitle": "My App",
+  "homeGreeting": "Temel hazır",
+  "settingsTitle": "Ayarlar",
+  "aboutPrivacy": "Gizlilik politikası",
+  "failedToOpen": "{url} açılamadı",
+  "settingsLanguage": "Dil",
+  "languageSystem": "Sistem gibi",
+  "settingsTheme": "Tema",
+  "themeSystem": "Sistem gibi",
+  "themeLight": "Açık",
+  "themeDark": "Koyu",
+  "interfaceGroup": "Arayüz",
+  "settingsFont": "Yazı tipi",
+  "fontScale": "Yazı tipi boyutu",
+  "fontSystem": "Sistem gibi",
+  "fontDefault": "Varsayılan",
+  "updatesGroup": "Güncellemeler",
+  "backgroundCheckTitle": "Arka planda güncelleme kontrolü",
+  "backgroundCheckSubtitle": "Uygulama arka planda güncellemeleri kontrol eder. Pil tasarrufu için kapatın. Manuel kontrol her zaman mümkündür.",
+  "checkIntervalTitle": "Kontrol aralığı",
+  "intervalHours": "{hours} sa",
+  "backgroundInstallTitle": "Arka plan kurulumu",
+  "backgroundInstallSubtitle": "Bulunan güncellemeleri otomatik indir ve kur",
+  "aboutGroup": "Uygulama hakkında",
+  "appNameLabel": "Uygulama adı",
+  "appVersionLabel": "Uygulama sürümü",
+  "coreVersionLabel": "Çekirdek sürümü",
+  "deviceLabel": "Cihaz",
+  "sourceCodeLabel": "Kaynak kodu",
+  "intervalMinutes": "{minutes} dk",
+  "installPermissionTitle": "Yükleme izni",
+  "installPermissionSubtitle": "Bu kaynaktan uygulama yüklemeye izin ver",
+  "notificationsPermissionTitle": "Bildirim izni",
+  "notificationsPermissionSubtitle": "Bulunan güncelleme bildirimleri için",
+  "notificationsGroup": "Bildirimler",
+  "notifyUpdatesToggle": "Güncellemelerden haberdar et",
+  "backgroundWorkTitle": "Arka planda çalışma",
+  "backgroundWorkSubtitle": "Pil kısıtlaması olmadan çalışmaya izin ver",
+  "notifUpdateTitle": "{version} güncellemesi mevcut",
+  "notifUpdateBody": "Yüklemek için uygulamayı açın",
+  "notifUpdatedTitle": "Uygulama güncellendi",
+  "notifUpdatedBody": "Yüklü sürüm: {version}",
+  "checkForUpdate": "Güncellemeleri kontrol et",
+  "updateChecking": "Kontrol ediliyor...",
+  "updateUpToDate": "En son sürüme sahipsiniz",
+  "updateAvailable": "Sürüm {version} mevcut",
+  "updateDownload": "İndiriliyor: %{percent}",
+  "updateButton": "{version} sürümüne güncelle",
+  "updateCheckFailed": "Güncelleme kontrolü başarısız: {error}",
+  "updateFailed": "Güncelleme başarısız: {error}",
+  "errorWithMessage": "Hata: {error}",
+  "@errorWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "whatsNewLabel": "Yenilikler",
+  "forceUpdateTitle": "Güncelleme gerekli",
+  "forceUpdateBody": "Sürümünüz artık desteklenmiyor. Devam etmek için güncellemeyi yükleyin.",
+  "storageGroup": "Depolama",
+  "storageUsed": "Güncelleme dosyaları: {size} MB",
+  "clearCacheAction": "Temizle",
+  "cacheCleared": "Temizlendi",
+  "@storageUsed": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  }
+}

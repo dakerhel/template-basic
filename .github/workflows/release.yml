@@ -1,0 +1,79 @@
+name: Build & Release APK
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    name: Build APK and create GitHub Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: ☕ Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: 🐦 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.32.x'
+          channel: 'stable'
+          cache: true
+
+      - name: 📦 Install dependencies
+        run: flutter pub get
+
+      - name: 🔨 Build release APK
+        run: flutter build apk --release
+
+      - name: 🔍 Get version from pubspec
+        id: version
+        run: |
+          VERSION=$(grep '^version:' pubspec.yaml | awk '{print $2}' | cut -d'+' -f1)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+          echo "apk_name=my_app-$VERSION.apk" >> $GITHUB_OUTPUT
+
+      - name: 📋 Update manifest.json
+        run: |
+          dart pub global activate --source path . 2>/dev/null || true
+          dart run tool/update_manifest.dart build/app/outputs/flutter-apk/app-release.apk
+
+      - name: 🔄 Commit updated manifest.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add updates/manifest.json
+          git diff --staged --quiet || git commit -m "chore: update manifest for ${{ steps.version.outputs.tag }}"
+          git push origin HEAD:main
+
+      - name: 🚀 Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.version.outputs.tag }}
+          name: "Release ${{ steps.version.outputs.tag }}"
+          body: |
+            ## 📱 Что нового в ${{ steps.version.outputs.tag }}
+            
+            Автоматическая сборка через GitHub Actions.
+            
+            ### Установка
+            Скачайте `${{ steps.version.outputs.apk_name }}` и установите на Android.
+          files: |
+            build/app/outputs/flutter-apk/app-release.apk#${{ steps.version.outputs.apk_name }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

@@ -1,0 +1,75 @@
+{
+  "@@locale": "zh",
+  "appTitle": "My App",
+  "homeGreeting": "基础已就绪",
+  "settingsTitle": "设置",
+  "aboutPrivacy": "隐私政策",
+  "failedToOpen": "无法打开 {url}",
+  "settingsLanguage": "语言",
+  "languageSystem": "跟随系统",
+  "settingsTheme": "主题",
+  "themeSystem": "跟随系统",
+  "themeLight": "浅色",
+  "themeDark": "深色",
+  "interfaceGroup": "界面",
+  "settingsFont": "字体",
+  "fontScale": "字体大小",
+  "fontSystem": "跟随系统",
+  "fontDefault": "默认",
+  "updatesGroup": "更新",
+  "backgroundCheckTitle": "后台检查更新",
+  "backgroundCheckSubtitle": "应用在后台检查更新。为节省电量可关闭。随时可以手动检查更新。",
+  "checkIntervalTitle": "检查间隔",
+  "intervalHours": "{hours} 小时",
+  "backgroundInstallTitle": "后台安装",
+  "backgroundInstallSubtitle": "自动下载并安装找到的更新",
+  "aboutGroup": "关于应用",
+  "appNameLabel": "应用名称",
+  "appVersionLabel": "应用版本",
+  "coreVersionLabel": "核心版本",
+  "deviceLabel": "设备",
+  "sourceCodeLabel": "源代码",
+  "intervalMinutes": "{minutes} 分钟",
+  "installPermissionTitle": "安装权限",
+  "installPermissionSubtitle": "允许从此来源安装应用",
+  "notificationsPermissionTitle": "通知权限",
+  "notificationsPermissionSubtitle": "用于发现更新时发送通知",
+  "notificationsGroup": "通知",
+  "notifyUpdatesToggle": "更新时通知我",
+  "backgroundWorkTitle": "后台运行",
+  "backgroundWorkSubtitle": "允许不受电池限制地运行",
+  "notifUpdateTitle": "有可用更新 {version}",
+  "notifUpdateBody": "打开应用以安装",
+  "notifUpdatedTitle": "应用已更新",
+  "notifUpdatedBody": "已安装版本 {version}",
+  "checkForUpdate": "检查更新",
+  "updateChecking": "检查中...",
+  "updateUpToDate": "已是最新版本",
+  "updateAvailable": "新版本 {version} 可用",
+  "updateDownload": "下载中：{percent}%",
+  "updateButton": "更新到 {version}",
+  "updateCheckFailed": "无法检查更新：{error}",
+  "updateFailed": "更新失败：{error}",
+  "errorWithMessage": "错误：{error}",
+  "@errorWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "whatsNewLabel": "更新内容",
+  "forceUpdateTitle": "需要更新",
+  "forceUpdateBody": "您的版本已不再受支持。请安装更新以继续。",
+  "storageGroup": "存储",
+  "storageUsed": "更新文件：{size} MB",
+  "clearCacheAction": "清除",
+  "cacheCleared": "已清除",
+  "@storageUsed": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  }
+}

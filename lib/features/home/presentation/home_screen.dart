@@ -1,0 +1,136 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../core/notifications/notification_service.dart';
+import '../../../l10n/generated/app_localizations.dart';
+import '../../update/data/background_update_task.dart';
+import '../../update/presentation/update_controller.dart';
+import 'home_controller.dart';
+
+class HomeScreen extends ConsumerStatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+final class _HomeScreenState extends ConsumerState<HomeScreen> {
+  bool _forceDialogVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final l10n = AppLocalizations.of(context)!;
+      ref.read(updateControllerProvider.notifier).maybeBackgroundCheck(
+            notifTitleBuilder: l10n.notifUpdateTitle,
+            notifBody: l10n.notifUpdateBody,
+          );
+      _notifyIfJustUpdated();
+      UpdateBackgroundScheduler.sync();
+    });
+  }
+
+  void _maybeShowForceDialog(UpdateAvailable state) {
+    if (!state.update.required || _forceDialogVisible) return;
+    _forceDialogVisible = true;
+    final l10n = AppLocalizations.of(context)!;
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) {
+        return PopScope(
+          canPop: false,
+          child: AlertDialog(
+            title: Text(l10n.forceUpdateTitle),
+            content: Text(l10n.forceUpdateBody),
+            actions: [
+              FilledButton(
+                onPressed: () {
+                  Navigator.of(dialogContext).pop();
+                  _forceDialogVisible = false;
+                  ref
+                      .read(updateControllerProvider.notifier)
+                      .downloadAndInstall();
+                },
+                child: Text(l10n.updateButton(state.update.version)),
+              ),
+            ],
+          ),
+        );
+      },
+    ).then((_) => _forceDialogVisible = false);
+  }
+
+  Future<void> _notifyIfJustUpdated() async {
+    final info = await PackageInfo.fromPlatform();
+    final prefs = await SharedPreferences.getInstance();
+    final last = prefs.getString('last_run_version');
+    if (last != null && last != info.version && mounted) {
+      if (prefs.getBool('notify_updates') ?? true) {
+        final l10n = AppLocalizations.of(context)!;
+        await NotificationService.showUpdated(
+          info.version,
+          l10n.notifUpdatedTitle,
+          l10n.notifUpdatedBody(info.version),
+        );
+      }
+    }
+    await prefs.setString('last_run_version', info.version);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final counter = ref.watch(counterProvider);
+    final greeting = ref.watch(greetingProvider);
+    ref.listen<UpdateState>(updateControllerProvider, (previous, next) {
+      if (next is UpdateAvailable) {
+        _maybeShowForceDialog(next);
+      } else {
+        _forceDialogVisible = false;
+      }
+    });
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(l10n.appTitle),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            tooltip: l10n.settingsTitle,
+            onPressed: () => context.push('/settings'),
+          ),
+        ],
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            greeting.when(
+              data: (_) => Text(
+                l10n.homeGreeting,
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+              loading: () => const CircularProgressIndicator(),
+              error: (error, _) => Text(
+                l10n.errorWithMessage('$error'),
+                style: Theme.of(context).textTheme.headlineSmall,
+              ),
+            ),
+            const SizedBox(height: 24),
+            Text('$counter',
+                style: Theme.of(context).textTheme.displayMedium),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => ref.read(counterProvider.notifier).increment(),
+        child: const Icon(Icons.add),
+      ),
+    );
+  }
+}

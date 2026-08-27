@@ -1,0 +1,75 @@
+{
+  "@@locale": "de",
+  "appTitle": "My App",
+  "homeGreeting": "Basis ist bereit",
+  "settingsTitle": "Einstellungen",
+  "aboutPrivacy": "Datenschutzrichtlinie",
+  "failedToOpen": "{url} konnte nicht geöffnet werden",
+  "settingsLanguage": "Sprache",
+  "languageSystem": "Wie im System",
+  "settingsTheme": "Design",
+  "themeSystem": "Wie im System",
+  "themeLight": "Hell",
+  "themeDark": "Dunkel",
+  "interfaceGroup": "Oberfläche",
+  "settingsFont": "Schrift",
+  "fontScale": "Schriftgröße",
+  "fontSystem": "Wie im System",
+  "fontDefault": "Standard",
+  "updatesGroup": "Updates",
+  "backgroundCheckTitle": "Hintergrund-Update-Prüfung",
+  "backgroundCheckSubtitle": "Die App prüft im Hintergrund auf Updates. Zum Akkusparen deaktivieren. Die manuelle Prüfung ist jederzeit möglich.",
+  "checkIntervalTitle": "Prüfintervall",
+  "intervalHours": "{hours} Std.",
+  "backgroundInstallTitle": "Hintergrundinstallation",
+  "backgroundInstallSubtitle": "Gefundene Updates automatisch herunterladen und installieren",
+  "aboutGroup": "Über die App",
+  "appNameLabel": "App-Name",
+  "appVersionLabel": "App-Version",
+  "coreVersionLabel": "Kern-Version",
+  "deviceLabel": "Gerät",
+  "sourceCodeLabel": "Quellcode",
+  "intervalMinutes": "{minutes} Min.",
+  "installPermissionTitle": "Installationsberechtigung",
+  "installPermissionSubtitle": "Installation von Apps aus dieser Quelle erlauben",
+  "notificationsPermissionTitle": "Benachrichtigungsberechtigung",
+  "notificationsPermissionSubtitle": "Für Benachrichtigungen über gefundene Updates",
+  "notificationsGroup": "Benachrichtigungen",
+  "notifyUpdatesToggle": "Über Updates benachrichtigen",
+  "backgroundWorkTitle": "Hintergrund-Ausführung",
+  "backgroundWorkSubtitle": "Ausführung ohne Akku-Einschränkungen erlauben",
+  "notifUpdateTitle": "Update {version} verfügbar",
+  "notifUpdateBody": "App öffnen, um zu installieren",
+  "notifUpdatedTitle": "App aktualisiert",
+  "notifUpdatedBody": "Installierte Version: {version}",
+  "checkForUpdate": "Nach Updates suchen",
+  "updateChecking": "Wird geprüft...",
+  "updateUpToDate": "Du hast die neueste Version",
+  "updateAvailable": "Version {version} verfügbar",
+  "updateDownload": "Wird geladen: {percent} %",
+  "updateButton": "Auf {version} aktualisieren",
+  "updateCheckFailed": "Update-Prüfung fehlgeschlagen: {error}",
+  "updateFailed": "Update fehlgeschlagen: {error}",
+  "errorWithMessage": "Fehler: {error}",
+  "@errorWithMessage": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "whatsNewLabel": "Neuigkeiten",
+  "forceUpdateTitle": "Aktualisierung erforderlich",
+  "forceUpdateBody": "Ihre Version wird nicht mehr unterstützt. Installieren Sie das Update, um fortzufahren.",
+  "storageGroup": "Speicher",
+  "storageUsed": "Updatedateien: {size} MB",
+  "clearCacheAction": "Löschen",
+  "cacheCleared": "Gelöscht",
+  "@storageUsed": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  }
+}

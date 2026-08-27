@@ -1,0 +1,17 @@
+{
+  "version": "1.0.14",
+  "versionCode": 15,
+  "minSupported": "1.0.13",
+  "coreVersion": "1.4.0",
+  "notes": "Тестовое обновление по Wi-Fi без проводов и GitHub!",
+  "sha256": {
+    "android": "a95298b7ac3203f33f3c8771419b60d0fd19c5d684e1f4381c862812fc0eb8b8"
+  },
+  "files": {
+    "android": "my_app-1.0.13.apk",
+    "windows": "my_app-1.0.13-windows-setup.exe",
+    "linux": "my_app-1.0.13.AppImage",
+    "macos": "my_app-1.0.13.dmg",
+    "ios": "https://apps.apple.com/app/id000000000"
+  }
+}
