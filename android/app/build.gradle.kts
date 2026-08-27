@@ -42,7 +42,12 @@ android {
         create("release") {
             keyAlias = keystoreProperties["keyAlias"] as String?
             keyPassword = keystoreProperties["keyPassword"] as String?
-            storeFile = (keystoreProperties["storeFile"] as String?)?.let { file(it) }
+            val storeFilePath = keystoreProperties["storeFile"] as String?
+            storeFile = storeFilePath?.let {
+                // Если путь относительный — ищем рядом с key.properties
+                val f = file(it)
+                if (f.isAbsolute) f else keystorePropertiesFile.parentFile.resolve(it)
+            }
             storePassword = keystoreProperties["storePassword"] as String?
         }
     }
