@@ -1,7 +1,7 @@
 import 'dart:convert';
+
 import 'package:crypto/crypto.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -9,19 +9,13 @@ import '../domain/models/security_settings.dart';
 import '../domain/repositories/security_repository.dart';
 
 final securityRepositoryProvider = Provider<SecurityRepository>((ref) {
-  return SecurityRepositoryImpl(
-    storage: const FlutterSecureStorage(),
-    localAuth: LocalAuthentication(),
-  );
+  return SecurityRepositoryImpl(localAuth: LocalAuthentication());
 });
 
 class SecurityRepositoryImpl implements SecurityRepository {
-  SecurityRepositoryImpl({
-    this.storage = const FlutterSecureStorage(),
-    LocalAuthentication? localAuth,
-  }) : _localAuth = localAuth ?? LocalAuthentication();
+  SecurityRepositoryImpl({LocalAuthentication? localAuth})
+    : _localAuth = localAuth ?? LocalAuthentication();
 
-  final FlutterSecureStorage storage;
   final LocalAuthentication _localAuth;
 
   static const _pinHashKey = 'app_pin_hash';
@@ -32,14 +26,16 @@ class SecurityRepositoryImpl implements SecurityRepository {
 
   @override
   Future<bool> hasPin() async {
-    final hash = await storage.read(key: _pinHashKey);
+    final prefs = await SharedPreferences.getInstance();
+    final hash = prefs.getString(_pinHashKey);
     return hash != null && hash.isNotEmpty;
   }
 
   @override
   Future<bool> verifyPin(String pin) async {
-    final savedHash = await storage.read(key: _pinHashKey);
-    final salt = await storage.read(key: _pinSaltKey);
+    final prefs = await SharedPreferences.getInstance();
+    final savedHash = prefs.getString(_pinHashKey);
+    final salt = prefs.getString(_pinSaltKey);
     if (savedHash == null || salt == null) return false;
 
     final computedHash = _hashPin(pin, salt);
@@ -48,11 +44,12 @@ class SecurityRepositoryImpl implements SecurityRepository {
 
   @override
   Future<void> setPin(String pin) async {
+    final prefs = await SharedPreferences.getInstance();
     final salt = DateTime.now().microsecondsSinceEpoch.toString();
     final hash = _hashPin(pin, salt);
 
-    await storage.write(key: _pinHashKey, value: hash);
-    await storage.write(key: _pinSaltKey, value: salt);
+    await prefs.setString(_pinHashKey, hash);
+    await prefs.setString(_pinSaltKey, salt);
 
     final current = await loadSettings();
     await saveSettings(current.copyWith(isPinEnabled: true));
@@ -60,8 +57,9 @@ class SecurityRepositoryImpl implements SecurityRepository {
 
   @override
   Future<void> removePin() async {
-    await storage.delete(key: _pinHashKey);
-    await storage.delete(key: _pinSaltKey);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_pinHashKey);
+    await prefs.remove(_pinSaltKey);
 
     final current = await loadSettings();
     await saveSettings(
@@ -103,11 +101,9 @@ class SecurityRepositoryImpl implements SecurityRepository {
   Future<SecuritySettings> loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
     final isPinEnabled = prefs.getBool(_prefPinEnabled) ?? false;
-    final isBiometricsEnabled =
-        prefs.getBool(_prefBiometricsEnabled) ?? false;
+    final isBiometricsEnabled = prefs.getBool(_prefBiometricsEnabled) ?? false;
     final autoLockSec = prefs.getInt(_prefAutoLockSeconds);
 
-    // Дополнительная валидация: если флаг включен, но хеша нет в KeyStore
     final pinExists = await hasPin();
     final realPinEnabled = isPinEnabled && pinExists;
 
@@ -122,14 +118,8 @@ class SecurityRepositoryImpl implements SecurityRepository {
   Future<void> saveSettings(SecuritySettings settings) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_prefPinEnabled, settings.isPinEnabled);
-    await prefs.setBool(
-      _prefBiometricsEnabled,
-      settings.isBiometricsEnabled,
-    );
-    await prefs.setInt(
-      _prefAutoLockSeconds,
-      settings.autoLockDuration.seconds,
-    );
+    await prefs.setBool(_prefBiometricsEnabled, settings.isBiometricsEnabled);
+    await prefs.setInt(_prefAutoLockSeconds, settings.autoLockDuration.seconds);
   }
 
   String _hashPin(String pin, String salt) {
