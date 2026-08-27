@@ -1,9 +1,9 @@
 {
-  "version": "1.0.17",
-  "versionCode": 18,
+  "version": "1.0.18",
+  "versionCode": 19,
   "minSupported": "1.0.13",
   "coreVersion": "1.4.0",
-  "notes": "Release v1.0.17",
+  "notes": "Release v1.0.18",
   "sha256": {
     "android": "facd90d0ea2e17a2e26566348c72c10104a09ccb3c34d3c724b83e6670787499"
   },
