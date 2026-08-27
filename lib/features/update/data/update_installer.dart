@@ -26,6 +26,10 @@ final class OpenFileInstaller implements UpdateInstaller {
 
   @override
   Future<void> install(String filePath, AppUpdate update) async {
+    final file = File(filePath);
+    if (!await file.exists()) {
+      throw const UpdateFailure('Файл обновления не найден на устройстве');
+    }
     final result = await OpenFilex.open(filePath);
     if (result.type != ResultType.done) {
       throw UpdateFailure('Не удалось запустить установку: ${result.message}');
@@ -38,6 +42,10 @@ final class LinuxAppImageInstaller implements UpdateInstaller {
 
   @override
   Future<void> install(String filePath, AppUpdate update) async {
+    final file = File(filePath);
+    if (!await file.exists()) {
+      throw const UpdateFailure('Файл обновления не найден на устройстве');
+    }
     await Process.run('chmod', ['+x', filePath]);
     final result = await OpenFilex.open(filePath);
     if (result.type != ResultType.done) {

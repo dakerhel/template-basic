@@ -14,18 +14,19 @@ import '../../domain/repositories/update_repository.dart';
 import '../update_installer.dart';
 
 final class UpdateRepositoryImpl implements UpdateRepository {
-  UpdateRepositoryImpl(this._dio);
+  UpdateRepositoryImpl(this._dio, [UpdateInstaller? installer])
+      : _installer = installer ?? createInstaller();
 
   final Dio _dio;
+  final UpdateInstaller _installer;
 
   @override
   Future<AppUpdate?> checkForUpdate() async {
-    final manifestUri = Uri.parse(AppConfig.updateManifestUrl);
-    final response = await _dio.get<dynamic>(manifestUri.toString());
-    final data = response.data is String
-        ? jsonDecode(response.data as String) as Map<String, dynamic>
-        : response.data as Map<String, dynamic>;
-    final update = AppUpdate.fromJson(data, Platform.operatingSystem, manifestUri);
+    final uri = Uri.parse(AppConfig.updateManifestUrl);
+    final response = await _dio.getUri<Map<String, dynamic>>(uri);
+    final data = response.data;
+    if (data == null) throw const UpdateFailure('Пустой ответ манифеста');
+    final update = AppUpdate.fromJson(data, uri);
     final info = await PackageInfo.fromPlatform();
     final minSupported = update.minSupported;
     final isForced =
@@ -43,24 +44,45 @@ final class UpdateRepositoryImpl implements UpdateRepository {
     final dir = await getApplicationCacheDirectory();
     final segments = Uri.parse(update.fileUrl).pathSegments;
     final urlName = segments.isNotEmpty ? segments.last : 'download';
-    final ext = urlName.contains('.') ? urlName.substring(urlName.lastIndexOf('.')) : '';
+    final ext = urlName.contains('.')
+        ? urlName.substring(urlName.lastIndexOf('.'))
+        : '';
     final savePath =
         '${dir.path}${Platform.pathSeparator}update-download$ext';
-    final old = File(savePath);
-    if (await old.exists()) {
-      await old.delete();
+    final targetFile = File(savePath);
+
+    // Гарантируем существование директории кеша
+    if (!await targetFile.parent.exists()) {
+      await targetFile.parent.create(recursive: true);
     }
+    if (await targetFile.exists()) {
+      try {
+        await targetFile.delete();
+      } on FileSystemException {
+        // best effort cleanup
+      }
+    }
+
     await _dio.download(
       update.fileUrl,
       savePath,
       onReceiveProgress: onProgress,
     );
-    _verifyChecksum(File(savePath), update.sha256);
+
+    final downloadedFile = File(savePath);
+    if (!await downloadedFile.exists()) {
+      throw const UpdateFailure('Файл обновления не был сохранён на диск');
+    }
+
+    _verifyChecksum(downloadedFile, update.sha256);
     return savePath;
   }
 
   void _verifyChecksum(File file, String? expectedSha256) {
     if (expectedSha256 == null || expectedSha256.isEmpty) return;
+    if (!file.existsSync()) {
+      throw const UpdateFailure('Файл для проверки контрольной суммы не найден');
+    }
     final bytes = file.readAsBytesSync();
     final digest = sha256.convert(bytes);
     final actual = digest.toString();
@@ -112,15 +134,18 @@ final class UpdateRepositoryImpl implements UpdateRepository {
     try {
       dirs.add(await getApplicationDocumentsDirectory());
     } on Exception {
-      return dirs;
+      // ignore
     }
-    dirs.add(await getApplicationCacheDirectory());
+    try {
+      dirs.add(await getApplicationCacheDirectory());
+    } on Exception {
+      // ignore
+    }
     return dirs;
   }
 
   @override
-  Future<void> installUpdate(AppUpdate update, String filePath) async {
-    final installer = createInstaller();
-    await installer.install(filePath, update);
+  Future<void> installUpdate(AppUpdate update, String filePath) {
+    return _installer.install(filePath, update);
   }
 }
