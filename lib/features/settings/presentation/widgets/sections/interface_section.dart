@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:my_app/core/locale/locale_provider.dart';
+import 'package:my_app/core/theme/color_palette_provider.dart';
 import 'package:my_app/core/theme/font_provider.dart';
 import 'package:my_app/core/theme/theme_mode_provider.dart';
 import 'package:my_app/features/settings/presentation/widgets/common/settings_group_header.dart';
 import 'package:my_app/features/settings/presentation/widgets/sheets/font_picker_sheet.dart';
 import 'package:my_app/features/settings/presentation/widgets/sheets/language_picker_sheet.dart';
+import 'package:my_app/features/settings/presentation/widgets/sheets/palette_picker_sheet.dart';
 import 'package:my_app/features/settings/presentation/widgets/sheets/theme_picker_sheet.dart';
 import 'package:my_app/l10n/generated/app_localizations.dart';
 
@@ -19,6 +21,10 @@ class InterfaceSection extends ConsumerWidget {
     final locale = ref.watch(localeProvider);
     final themeMode = ref.watch(themeModeProvider);
     final font = ref.watch(fontProvider);
+    final palette = ref.watch(colorPaletteProvider);
+
+    final paletteTitle =
+        locale?.languageCode == 'ru' ? 'Цветовая палитра' : 'Color Palette';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,6 +41,12 @@ class InterfaceSection extends ConsumerWidget {
           title: Text(l10n.settingsTheme),
           subtitle: Text(ThemePickerSheet.getThemeName(context, themeMode)),
           onTap: () => ThemePickerSheet.show(context, ref),
+        ),
+        ListTile(
+          leading: const Icon(Icons.palette_outlined),
+          title: Text(paletteTitle),
+          subtitle: Text(palette.localizedName(locale)),
+          onTap: () => PalettePickerSheet.show(context, ref),
         ),
         ListTile(
           leading: const Icon(Icons.text_fields),

@@ -1,9 +1,9 @@
 {
-  "version": "1.0.18",
-  "versionCode": 19,
+  "version": "1.0.19",
+  "versionCode": 20,
   "minSupported": "1.0.13",
   "coreVersion": "1.4.0",
-  "notes": "Release v1.0.18",
+  "notes": "Release v1.0.19: 8 curated wow color palettes and OLED mode",
   "sha256": {
     "android": "e70f1c04d72f5062b64d35a3943604c453d31867b038bef8ad9c4c41dd24b082"
   },
