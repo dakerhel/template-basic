@@ -38,6 +38,7 @@ jobs:
       - name: 🔑 Setup signing keystore
         run: |
           echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/upload-keystore.jks
+          cp android/app/upload-keystore.jks android/upload-keystore.jks
           cat > android/key.properties <<EOF
           storeFile=upload-keystore.jks
           storePassword=${{ secrets.KEY_STORE_PASSWORD }}
