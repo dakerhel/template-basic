@@ -1,13 +1,13 @@
 {
-  "version": "1.0.22",
-  "versionCode": 23,
+  "version": "1.0.23",
+  "versionCode": 24,
   "minSupported": "1.0.13",
   "coreVersion": "1.4.0",
-  "notes": "Release v1.0.22",
+  "notes": "Release v1.0.23: Fix Dio manifest String/Map response parsing on raw redirects",
   "sha256": {
-    "android": "7603c28258ac87a45d6c17b3dc82d77bcf3cf804b800110652fb7fb43b11bcf6"
+    "android": "793e938472336484eec3b3abb72a6310647214371eee415f0b27810b8a76e221"
   },
   "files": {
-    "android": "https://github.com/dakerhel/template-basic/releases/download/v1.0.22/my_app-1.0.22.apk"
+    "android": "https://github.com/dakerhel/template-basic/releases/download/v1.0.23/my_app-1.0.23.apk"
   }
 }

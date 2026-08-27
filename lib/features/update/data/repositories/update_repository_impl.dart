@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:crypto/crypto.dart';
@@ -22,9 +23,26 @@ final class UpdateRepositoryImpl implements UpdateRepository {
   @override
   Future<AppUpdate?> checkForUpdate() async {
     final uri = Uri.parse(AppConfig.updateManifestUrl);
-    final response = await _dio.getUri<Map<String, dynamic>>(uri);
-    final data = response.data;
-    if (data == null) throw const UpdateFailure('Пустой ответ манифеста');
+    final response = await _dio.getUri<dynamic>(
+      uri,
+      options: Options(responseType: ResponseType.plain),
+    );
+    final rawData = response.data;
+    if (rawData == null) throw const UpdateFailure('Пустой ответ манифеста');
+
+    final Map<String, dynamic> data;
+    if (rawData is Map<String, dynamic>) {
+      data = rawData;
+    } else if (rawData is String) {
+      try {
+        data = jsonDecode(rawData) as Map<String, dynamic>;
+      } catch (_) {
+        throw const UpdateFailure('Не удалось разобрать JSON манифеста');
+      }
+    } else {
+      throw const UpdateFailure('Неверный формат манифеста');
+    }
+
     final update = AppUpdate.fromJson(data, Platform.operatingSystem, uri);
     final info = await PackageInfo.fromPlatform();
     final minSupported = update.minSupported;
