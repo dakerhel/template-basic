@@ -22,10 +22,6 @@ class InterfaceSection extends ConsumerWidget {
     final font = ref.watch(fontProvider);
     final palette = ref.watch(colorPaletteProvider);
 
-    final themeStyleTitle = locale?.languageCode == 'ru'
-        ? 'Тема и оформление'
-        : 'Theme & Style';
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -38,9 +34,9 @@ class InterfaceSection extends ConsumerWidget {
         ),
         ListTile(
           leading: const Icon(Icons.palette_outlined),
-          title: Text(themeStyleTitle),
+          title: Text(l10n.settingsTheme),
           subtitle: Text(
-            '${themeMode.localizedName(locale)} · ${palette.localizedName(locale)}',
+            '${themeMode.localizedName(locale, l10n)} · ${palette.localizedName(locale)}',
           ),
           onTap: () => UnifiedThemeSheet.show(context, ref),
         ),

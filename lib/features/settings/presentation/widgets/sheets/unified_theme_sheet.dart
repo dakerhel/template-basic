@@ -6,6 +6,7 @@ import 'package:my_app/core/theme/app_color_palette.dart';
 import 'package:my_app/core/theme/color_palette_provider.dart';
 import 'package:my_app/core/theme/theme_mode_provider.dart';
 import 'package:my_app/core/theme/widgets/app_glass.dart';
+import 'package:my_app/l10n/generated/app_localizations.dart';
 
 class UnifiedThemeSheet extends ConsumerWidget {
   const UnifiedThemeSheet({super.key});
@@ -25,12 +26,12 @@ class UnifiedThemeSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     final currentMode = ref.watch(themeModeProvider);
     final currentPalette = ref.watch(colorPaletteProvider);
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final locale = Localizations.localeOf(context);
-    final isRu = locale.languageCode == 'ru';
 
     return Container(
       decoration: BoxDecoration(
@@ -67,7 +68,7 @@ class UnifiedThemeSheet extends ConsumerWidget {
 
               // Заголовок
               Text(
-                isRu ? 'Тема и оформление' : 'Theme & Appearance',
+                l10n.settingsTheme,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: colorScheme.onSurface,
@@ -78,7 +79,7 @@ class UnifiedThemeSheet extends ConsumerWidget {
               // Нативный адаптивный 4-сегментный селектор темы (на 100% ширины)
               _NativeThemeModeBar(
                 currentMode: currentMode,
-                isRu: isRu,
+                l10n: l10n,
                 onModeSelected: (mode) {
                   HapticFeedback.selectionClick();
                   ref.read(themeModeProvider.notifier).setThemeMode(mode);
@@ -88,7 +89,11 @@ class UnifiedThemeSheet extends ConsumerWidget {
 
               // Подзаголовок палитр
               Text(
-                isRu ? 'Цветовые палитры' : 'Color Schemes',
+                locale.languageCode == 'ru'
+                    ? 'Цветовые палитры'
+                    : locale.languageCode == 'zh'
+                        ? '配色方案'
+                        : 'Color Schemes',
                 style: theme.textTheme.titleSmall?.copyWith(
                   color: colorScheme.primary,
                   fontWeight: FontWeight.w600,
@@ -190,12 +195,12 @@ class UnifiedThemeSheet extends ConsumerWidget {
 class _NativeThemeModeBar extends StatelessWidget {
   const _NativeThemeModeBar({
     required this.currentMode,
-    required this.isRu,
+    required this.l10n,
     required this.onModeSelected,
   });
 
   final AppThemeMode currentMode;
-  final bool isRu;
+  final AppLocalizations l10n;
   final ValueChanged<AppThemeMode> onModeSelected;
 
   @override
@@ -204,10 +209,10 @@ class _NativeThemeModeBar extends StatelessWidget {
     final colorScheme = theme.colorScheme;
 
     final modes = [
-      (AppThemeMode.system, Icons.brightness_auto, isRu ? 'Авто' : 'Auto'),
-      (AppThemeMode.light, Icons.light_mode, isRu ? 'Светлая' : 'Light'),
-      (AppThemeMode.dark, Icons.dark_mode, isRu ? 'Тёмная' : 'Dark'),
-      (AppThemeMode.oled, Icons.contrast, isRu ? 'OLED' : 'OLED'),
+      (AppThemeMode.system, Icons.brightness_auto, l10n.themeSystem),
+      (AppThemeMode.light, Icons.light_mode, l10n.themeLight),
+      (AppThemeMode.dark, Icons.dark_mode, l10n.themeDark),
+      (AppThemeMode.oled, Icons.contrast, 'OLED'),
     ];
 
     return Container(

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../l10n/generated/app_localizations.dart';
+
 enum AppThemeMode {
   system(
     id: 'system',
@@ -49,7 +51,15 @@ enum AppThemeMode {
     AppThemeMode.oled => ThemeMode.dark,
   };
 
-  String localizedName(Locale? locale) {
+  String localizedName(Locale? locale, [AppLocalizations? l10n]) {
+    if (l10n != null) {
+      return switch (this) {
+        AppThemeMode.system => l10n.themeSystem,
+        AppThemeMode.light => l10n.themeLight,
+        AppThemeMode.dark => l10n.themeDark,
+        AppThemeMode.oled => 'OLED',
+      };
+    }
     if (locale?.languageCode == 'ru') return nameRu;
     return nameEn;
   }
