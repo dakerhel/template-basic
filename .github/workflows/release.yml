@@ -46,7 +46,7 @@ jobs:
           EOF
 
       - name: 🔨 Build release APK
-        run: flutter build apk --release
+        run: flutter build apk --release --verbose
 
       - name: 🔍 Get version from pubspec
         id: version
