@@ -1,17 +1,66 @@
-# my_app
+# 📱 Template Basic
 
-A new Flutter project.
+Готовый шаблон современного мобильного приложения на **Flutter** с полноценной системой автоматических обновлений по воздуху (**OTA Auto-Updates**) через **GitHub Releases** и **GitHub Actions (CI/CD)**.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## ✨ Возможности
 
-A few resources to get you started if this is your first Flutter project:
+- 🚀 **OTA Auto-Updates**: автоматическая проверка обновлений, фоновая загрузка, сверка контрольной суммы (SHA-256) и установка обновлений без Google Play / сторонних маркетов.
+- ⚡ **GitHub Actions CI/CD**: автоматическая сборка релизного APK при пуше тега `v*.*.*`, подпись APK секретным keystore, генерация `manifest.json` и публикация в GitHub Releases.
+- 🎨 **Material Design 3**: светлая / тёмная / системная темы, выбор шрифтов и масштабирования.
+- 🌐 **Мультиязычность (l10n)**: встроенная поддержка 14 языков (Русский, English, Español, 中文, Deutsch, Français, и др.).
+- 🧱 **Архитектура**: чистая модульная архитектура на основе **Flutter Riverpod** и **GoRouter**.
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🚀 Как выпустить обновление
+
+Для выпуска новой версии достаточно двух простых действий:
+
+1. **Поднимите версию в `pubspec.yaml`**:
+   ```yaml
+   version: 1.0.17+18
+   ```
+
+2. **Запустите публикацию**:
+   Запустите локальный скрипт `publish_update.bat` или выполните в терминале:
+   ```bash
+   git add .
+   git commit -m "feat: описание новой версии"
+   git tag -a v1.0.17 -m "Release v1.0.17"
+   git push origin main
+   git push origin v1.0.17
+   ```
+
+GitHub Actions автоматически соберёт APK, подпишет его, опубликует релиз и обновит манифест. Пользователи получат уведомление об обновлении прямо в приложении!
+
+---
+
+## 📁 Структура проекта
+
+```
+lib/
+├── app.dart                  # Конфигурация MaterialApp, роутинг, тема
+├── main.dart                 # Точка входа, инициализация фоновых служб
+├── core/
+│   ├── config.dart           # Глобальная конфигурация и URL манифеста
+│   ├── locale/               # Провайдер языка приложения
+│   ├── network/              # Клиент сетевых запросов Dio
+│   ├── notifications/        # Локальные push-уведомления
+│   ├── router/               # Навигация GoRouter
+│   └── theme/                # Темы оформления и шрифты
+├── features/
+│   ├── home/                 # Главный экран
+│   ├── settings/             # Экран настроек, темы, языка и обновлений
+│   └── update/               # Сервис проверки, загрузки и установки OTA-обновлений
+tool/
+└── update_manifest.dart      # Скрипт генерации manifest.json при CI/CD сборке
+```
+
+---
+
+## 🔒 Безопасность
+
+- Все релизные APK подписываются приватным Keystore через зашифрованные секреты репозитория (`GH_TOKEN`, `KEYSTORE_BASE64`, `KEY_STORE_PASSWORD`, `KEY_ALIAS`, `KEY_PASSWORD`).
+- Приложение сверяет хэш `SHA-256` загруженного APK с манифестом перед установкой для защиты от подмены.

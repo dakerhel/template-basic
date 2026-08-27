@@ -1,9 +1,11 @@
 final class AppConfig {
-  static const appName = 'My App';
+  static const appName = 'Template Basic';
 
   static const coreVersion = '1.4.0';
-  static const privacyPolicyUrl = 'https://example.com/privacy';
-  static const sourceCodeUrl = 'https://github.com/example/my_app';
+  static const privacyPolicyUrl =
+      'https://github.com/dakerhel/template-basic#readme';
+  static const sourceCodeUrl =
+      'https://github.com/dakerhel/template-basic';
 
   static const updateManifestUrl = String.fromEnvironment(
     'UPDATE_MANIFEST_URL',

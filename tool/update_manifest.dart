@@ -6,9 +6,9 @@ import 'package:yaml/yaml.dart';
 void main(List<String> args) {
   // Читаем версию из pubspec.yaml
   final pubspec = loadYaml(File('pubspec.yaml').readAsStringSync()) as Map;
-  final versionFull = pubspec['version'].toString(); // e.g. "1.0.15+16"
-  final version = versionFull.split('+').first; // e.g. "1.0.15"
-  final versionCode = int.parse(versionFull.split('+').last); // e.g. 16
+  final versionFull = pubspec['version'].toString(); // e.g. "1.0.17+18"
+  final version = versionFull.split('+').first;
+  final versionCode = int.parse(versionFull.split('+').last);
 
   // APK файл — либо из аргумента, либо из build папки
   final apkPath = args.isNotEmpty
@@ -27,14 +27,9 @@ void main(List<String> args) {
   final hash = sha256.convert(bytes).toString();
   print('✅ SHA-256: $hash');
 
-  // Читаем конфиг репо
   const owner = 'dakerhel';
   const repo = 'template-basic';
-
-  // Имя APK для релиза
   final apkName = 'my_app-$version.apk';
-
-  // URL файла на GitHub Releases
   final downloadUrl =
       'https://github.com/$owner/$repo/releases/download/v$version/$apkName';
 
@@ -45,12 +40,13 @@ void main(List<String> args) {
 
   manifest['version'] = version;
   manifest['versionCode'] = versionCode;
+  manifest['notes'] = 'Release v$version';
   (manifest['sha256'] as Map<String, dynamic>)['android'] = hash;
   (manifest['files'] as Map<String, dynamic>)['android'] = downloadUrl;
 
   const encoder = JsonEncoder.withIndent('  ');
   manifestFile.writeAsStringSync('${encoder.convert(manifest)}\n');
 
-  print('✅ manifest.json обновлён: версия $version, versionCode $versionCode');
+  print('✅ manifest.json обновлён: версия $version ($versionCode)');
   print('   URL: $downloadUrl');
 }
