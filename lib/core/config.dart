@@ -10,7 +10,7 @@ final class AppConfig {
   static const updateManifestUrl = String.fromEnvironment(
     'UPDATE_MANIFEST_URL',
     defaultValue:
-        'https://raw.githubusercontent.com/dakerhel/template-basic/main/updates/manifest.json',
+        'https://github.com/dakerhel/template-basic/releases/latest/download/manifest.json',
   );
 
   static const githubOwner = 'dakerhel';

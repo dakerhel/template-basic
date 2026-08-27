@@ -5,7 +5,7 @@
   "coreVersion": "1.4.0",
   "notes": "Release v1.0.20",
   "sha256": {
-    "android": "4923d179dfc340be75ea043870f78e893a6e8ea0b85ac70c94d9cba52371ea41"
+    "android": "793e938472336484eec3b3abb72a6310647214371eee415f0b27810b8a76e221"
   },
   "files": {
     "android": "https://github.com/dakerhel/template-basic/releases/download/v1.0.20/my_app-1.0.20.apk"

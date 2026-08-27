@@ -2,6 +2,9 @@ sealed class Failure {
   const Failure(this.message);
 
   final String message;
+
+  @override
+  String toString() => message;
 }
 
 final class NetworkFailure extends Failure {
