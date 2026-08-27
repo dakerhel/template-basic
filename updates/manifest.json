@@ -5,9 +5,9 @@
   "coreVersion": "1.4.0",
   "notes": "Release v1.0.18",
   "sha256": {
-    "android": "facd90d0ea2e17a2e26566348c72c10104a09ccb3c34d3c724b83e6670787499"
+    "android": "e70f1c04d72f5062b64d35a3943604c453d31867b038bef8ad9c4c41dd24b082"
   },
   "files": {
-    "android": "https://github.com/dakerhel/template-basic/releases/download/v1.0.17/my_app-1.0.17.apk"
+    "android": "https://github.com/dakerhel/template-basic/releases/download/v1.0.18/my_app-1.0.18.apk"
   }
 }
