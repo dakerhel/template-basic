@@ -9,6 +9,8 @@ import 'core/theme/app_theme.dart';
 import 'core/theme/color_palette_provider.dart';
 import 'core/theme/font_provider.dart';
 import 'core/theme/theme_mode_provider.dart';
+import 'features/security/presentation/controllers/security_controller.dart';
+import 'features/security/presentation/screens/lock_screen.dart';
 import 'l10n/generated/app_localizations.dart';
 
 class MyApp extends ConsumerWidget {
@@ -20,6 +22,7 @@ class MyApp extends ConsumerWidget {
     final themeMode = ref.watch(themeModeProvider);
     final font = ref.watch(fontProvider);
     final palette = ref.watch(colorPaletteProvider);
+    final securityState = ref.watch(securityControllerProvider);
 
     return MaterialApp.router(
       title: AppConfig.appName,
@@ -40,11 +43,22 @@ class MyApp extends ConsumerWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: appRouter,
       builder: (context, child) {
-        return MediaQuery(
+        final scaledChild = MediaQuery(
           data: MediaQuery.of(context)
               .copyWith(textScaler: TextScaler.linear(font.scale)),
-          child: child!,
+          child: child ?? const SizedBox.shrink(),
         );
+
+        if (securityState.isLocked && securityState.isInitialized) {
+          return Stack(
+            children: [
+              scaledChild,
+              const Positioned.fill(child: LockScreen()),
+            ],
+          );
+        }
+
+        return scaledChild;
       },
     );
   }

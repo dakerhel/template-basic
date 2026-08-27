@@ -92,8 +92,8 @@ class UnifiedThemeSheet extends ConsumerWidget {
                 locale.languageCode == 'ru'
                     ? 'Цветовые палитры'
                     : locale.languageCode == 'zh'
-                        ? '配色方案'
-                        : 'Color Schemes',
+                    ? '配色方案'
+                    : 'Color Schemes',
                 style: theme.textTheme.titleSmall?.copyWith(
                   color: colorScheme.primary,
                   fontWeight: FontWeight.w600,
