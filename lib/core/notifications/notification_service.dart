@@ -45,15 +45,11 @@ final class NotificationService {
     );
   }
 
-  static Future<void> showUpdateAvailable(
-    String version,
-    String title,
-    String body,
-  ) {
+  static Future<void> showUpdateAvailable(String title, String body) {
     return _show(id: 1, title: title, body: body);
   }
 
-  static Future<void> showUpdated(String version, String title, String body) {
+  static Future<void> showUpdated(String title, String body) {
     return _show(id: 2, title: title, body: body);
   }
 }

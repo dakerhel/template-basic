@@ -1,11 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../data/repositories/home_repository_impl.dart';
-
-final greetingProvider = FutureProvider<void>((ref) {
-  return ref.watch(homeRepositoryProvider).loadGreeting();
-});
-
 final counterProvider =
     NotifierProvider<CounterNotifier, int>(CounterNotifier.new);
 

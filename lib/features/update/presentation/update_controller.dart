@@ -46,6 +46,7 @@ final updateControllerProvider =
     NotifierProvider<UpdateController, UpdateState>(UpdateController.new);
 
 final class UpdateController extends Notifier<UpdateState> {
+  // Хранит timestamp последней проверки — это состояние, не настройка
   static const _lastCheckKey = 'last_update_check_ms';
 
   @override
@@ -63,11 +64,9 @@ final class UpdateController extends Notifier<UpdateState> {
       if (update != null) {
         state = UpdateAvailable(update);
         if (silent && notifTitleBuilder != null) {
-          final prefs = await SharedPreferences.getInstance();
-          final notify = prefs.getBool('notify_updates') ?? true;
+          final notify = ref.read(updateSettingsProvider).notifyUpdates;
           if (notify) {
             await NotificationService.showUpdateAvailable(
-              update.version,
               notifTitleBuilder(update.version),
               notifBody ?? '',
             );
@@ -106,16 +105,20 @@ final class UpdateController extends Notifier<UpdateState> {
     required String Function(String version) notifTitleBuilder,
     required String notifBody,
   }) async {
-    final prefs = await SharedPreferences.getInstance();
     final repo = ref.read(updateRepositoryProvider);
     await repo.cleanupOldDownloads();
+
+    // Настройки читаем из провайдера (единственный источник истины)
+    final settings = ref.read(updateSettingsProvider);
+    if (!settings.backgroundCheck) return;
+
+    // _lastCheckKey — это состояние (не настройка), хранится в prefs напрямую
+    final prefs = await SharedPreferences.getInstance();
     const minuteMs = 60000;
-    if (!(prefs.getBool('background_check') ?? true)) return;
-    final intervalMinutes =
-        prefs.getInt('check_interval_minutes') ?? defaultCheckIntervalMinutes;
     final last = prefs.getInt(_lastCheckKey) ?? 0;
     final now = DateTime.now().millisecondsSinceEpoch;
-    if (now - last < intervalMinutes * minuteMs) return;
+    if (now - last < settings.intervalMinutes * minuteMs) return;
+
     await checkForUpdate(
       silent: true,
       notifTitleBuilder: notifTitleBuilder,
@@ -123,8 +126,8 @@ final class UpdateController extends Notifier<UpdateState> {
     );
     if (state is! UpdateAvailable && state is! UpdateUpToDate) return;
     await prefs.setInt(_lastCheckKey, now);
-    if (state is UpdateAvailable &&
-        (prefs.getBool('background_install') ?? false)) {
+
+    if (state is UpdateAvailable && settings.backgroundInstall) {
       await downloadAndInstall();
     }
   }

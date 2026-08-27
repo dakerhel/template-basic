@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:open_filex/open_filex.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
 
@@ -56,14 +55,13 @@ Future<void> runBackgroundUpdateCheck() async {
     final notify = prefs.getBool('notify_updates') ?? true;
     if (notify) {
       await NotificationService.showUpdateAvailable(
-        update.version,
         AppConfig.appName,
-        update.notes ?? 'Update available: ${update.version}',
+        update.notes ?? 'Доступно обновление ${update.version}',
       );
     }
     if (prefs.getBool('background_install') ?? false) {
       final path = await repo.downloadUpdate(update);
-      await OpenFilex.open(path);
+      await repo.installUpdate(update, path);
     }
   } on Exception {
     return;

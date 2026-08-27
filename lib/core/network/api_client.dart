@@ -4,9 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final apiClientProvider = Provider<Dio>((ref) {
   return Dio(
     BaseOptions(
-      baseUrl: 'https://api.example.com',
-      connectTimeout: const Duration(seconds: 15),
-      receiveTimeout: const Duration(seconds: 15),
+      connectTimeout: const Duration(seconds: 30),
+      receiveTimeout: const Duration(minutes: 5), // APK могут весить 50-150 МБ
     ),
   );
 });

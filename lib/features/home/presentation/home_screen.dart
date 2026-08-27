@@ -8,6 +8,7 @@ import '../../../core/notifications/notification_service.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../update/data/background_update_task.dart';
 import '../../update/presentation/update_controller.dart';
+import '../../update/presentation/update_settings_provider.dart';
 import 'home_controller.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -70,10 +71,10 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
     final prefs = await SharedPreferences.getInstance();
     final last = prefs.getString('last_run_version');
     if (last != null && last != info.version && mounted) {
-      if (prefs.getBool('notify_updates') ?? true) {
+      final notify = ref.read(updateSettingsProvider).notifyUpdates;
+      if (notify) {
         final l10n = AppLocalizations.of(context)!;
         await NotificationService.showUpdated(
-          info.version,
           l10n.notifUpdatedTitle,
           l10n.notifUpdatedBody(info.version),
         );
@@ -86,7 +87,6 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final counter = ref.watch(counterProvider);
-    final greeting = ref.watch(greetingProvider);
     ref.listen<UpdateState>(updateControllerProvider, (previous, next) {
       if (next is UpdateAvailable) {
         _maybeShowForceDialog(next);
@@ -110,16 +110,9 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            greeting.when(
-              data: (_) => Text(
-                l10n.homeGreeting,
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
-              loading: () => const CircularProgressIndicator(),
-              error: (error, _) => Text(
-                l10n.errorWithMessage('$error'),
-                style: Theme.of(context).textTheme.headlineSmall,
-              ),
+            Text(
+              l10n.homeGreeting,
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 24),
             Text('$counter',

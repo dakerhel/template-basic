@@ -50,7 +50,8 @@ class UpdateSettings {
       );
 }
 
-const updateIntervalOptions = <int>[3, 180, 360, 720, 1440];
+// Минимум 15 минут — ограничение WorkManager на Android
+const updateIntervalOptions = <int>[15, 60, 180, 360, 720, 1440];
 
 final updateSettingsProvider =
     NotifierProvider<UpdateSettingsController, UpdateSettings>(
