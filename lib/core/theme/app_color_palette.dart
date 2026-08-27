@@ -121,11 +121,18 @@ enum AppColorPalette {
           ? Colors.black
           : Colors.white;
 
+      final isAccentBright = accentColor.computeLuminance() > 0.45;
+      final onPrimaryContainer = isAccentBright
+          ? const Color(0xFF101010)
+          : accentColor;
+
       return ColorScheme.light(
         primary: accentColor,
         onPrimary: onPrimary,
-        primaryContainer: accentColor.withValues(alpha: 0.15),
-        onPrimaryContainer: accentColor,
+        primaryContainer: isAccentBright
+            ? accentColor.withValues(alpha: 0.22)
+            : accentColor.withValues(alpha: 0.12),
+        onPrimaryContainer: onPrimaryContainer,
         secondary: accentColor.withValues(alpha: 0.8),
         onSecondary: onPrimary,
         surface: surfaceColor,

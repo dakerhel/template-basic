@@ -63,6 +63,14 @@ abstract final class AppTheme {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
         ),
       ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: colorScheme.primary,
+        foregroundColor: colorScheme.onPrimary,
+        elevation: 3,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+      ),
     );
   }
 }
