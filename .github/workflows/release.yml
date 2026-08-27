@@ -66,6 +66,11 @@ jobs:
           git diff --staged --quiet || git commit -m "chore: update manifest for ${{ steps.version.outputs.tag }}"
           git push origin HEAD:main
 
+      - name: 📁 Rename APK for release
+        run: |
+          mv build/app/outputs/flutter-apk/app-release.apk \
+             build/app/outputs/flutter-apk/${{ steps.version.outputs.apk_name }}
+
       - name: 🚀 Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
@@ -78,8 +83,7 @@ jobs:
             
             ### Установка
             Скачайте `${{ steps.version.outputs.apk_name }}` и установите на Android.
-          files: |
-            build/app/outputs/flutter-apk/app-release.apk#${{ steps.version.outputs.apk_name }}
+          files: build/app/outputs/flutter-apk/${{ steps.version.outputs.apk_name }}
           draft: false
           prerelease: false
         env:
