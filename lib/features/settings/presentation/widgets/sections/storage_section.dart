@@ -42,9 +42,7 @@ class StorageSection extends ConsumerWidget {
     await clearUpdateArtifacts();
     if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(AppLocalizations.of(context)!.cacheCleared),
-      ),
+      SnackBar(content: Text(AppLocalizations.of(context)!.cacheCleared)),
     );
     ref.read(storageRefreshProvider.notifier).bump();
   }

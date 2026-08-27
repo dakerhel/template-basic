@@ -30,8 +30,8 @@ class UpdatesSection extends ConsumerWidget {
           onTap: updateState is UpdateChecking
               ? null
               : () => ref
-                  .read(updateControllerProvider.notifier)
-                  .checkForUpdate(),
+                    .read(updateControllerProvider.notifier)
+                    .checkForUpdate(),
         ),
         if (updateState is UpdateAvailable) ...[
           Padding(
@@ -108,24 +108,27 @@ class UpdatesSection extends ConsumerWidget {
     return switch (state) {
       UpdateChecking() => Text(l10n.updateChecking, style: style),
       UpdateUpToDate() => Text(l10n.updateUpToDate, style: style),
-      UpdateAvailable(:final update) =>
-        Text(l10n.updateAvailable(update.version), style: style),
+      UpdateAvailable(:final update) => Text(
+        l10n.updateAvailable(update.version),
+        style: style,
+      ),
       UpdateDownloading(:final progress) => Text(
-          l10n.updateDownload((progress * 100).toStringAsFixed(0)),
-          style: style,
-        ),
+        l10n.updateDownload((progress * 100).toStringAsFixed(0)),
+        style: style,
+      ),
       UpdateError(:final error, :final isCheck) => Text(
-          isCheck
-              ? l10n.updateCheckFailed('$error')
-              : l10n.updateFailed('$error'),
-          style: style?.copyWith(color: Theme.of(context).colorScheme.error),
-        ),
+        isCheck
+            ? l10n.updateCheckFailed('$error')
+            : l10n.updateFailed('$error'),
+        style: style?.copyWith(color: Theme.of(context).colorScheme.error),
+      ),
       UpdateIdle() => null,
     };
   }
 
   Future<void> _openBatteryOptimization(BuildContext context) async {
-    final success = await NativeIntentLauncher.openBatteryOptimizationSettings();
+    final success =
+        await NativeIntentLauncher.openBatteryOptimizationSettings();
     if (!success && context.mounted) {
       _showSettingsError(context);
     }

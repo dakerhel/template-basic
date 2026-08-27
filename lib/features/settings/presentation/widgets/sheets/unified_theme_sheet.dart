@@ -104,7 +104,8 @@ class UnifiedThemeSheet extends ConsumerWidget {
                 child: ListView.separated(
                   shrinkWrap: true,
                   itemCount: AppColorPalette.values.length,
-                  separatorBuilder: (context, index) => const SizedBox(height: 8),
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 8),
                   itemBuilder: (context, index) {
                     final palette = AppColorPalette.values[index];
                     final isSelected = palette == currentPalette;
@@ -150,12 +151,13 @@ class UnifiedThemeSheet extends ConsumerWidget {
                                 Flexible(
                                   child: Text(
                                     palette.localizedName(locale),
-                                    style: theme.textTheme.titleMedium?.copyWith(
-                                      color: colorScheme.onSurface,
-                                      fontWeight: isSelected
-                                          ? FontWeight.bold
-                                          : FontWeight.w500,
-                                    ),
+                                    style: theme.textTheme.titleMedium
+                                        ?.copyWith(
+                                          color: colorScheme.onSurface,
+                                          fontWeight: isSelected
+                                              ? FontWeight.bold
+                                              : FontWeight.w500,
+                                        ),
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
@@ -213,9 +215,7 @@ class _NativeThemeModeBar extends StatelessWidget {
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.6),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: colorScheme.outline.withValues(alpha: 0.15),
-        ),
+        border: Border.all(color: colorScheme.outline.withValues(alpha: 0.15)),
       ),
       child: Row(
         children: [
@@ -326,7 +326,9 @@ class _PaletteSwatch extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(
-          color: isSelected ? accentColor : Colors.white.withValues(alpha: 0.25),
+          color: isSelected
+              ? accentColor
+              : Colors.white.withValues(alpha: 0.25),
           width: 2.0,
         ),
       ),

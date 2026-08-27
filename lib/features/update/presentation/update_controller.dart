@@ -59,8 +59,7 @@ final class UpdateController extends Notifier<UpdateState> {
   }) async {
     if (!silent) state = const UpdateChecking();
     try {
-      final update =
-          await ref.read(updateRepositoryProvider).checkForUpdate();
+      final update = await ref.read(updateRepositoryProvider).checkForUpdate();
       if (update != null) {
         state = UpdateAvailable(update);
         if (silent && notifTitleBuilder != null) {

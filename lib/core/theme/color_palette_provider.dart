@@ -5,7 +5,8 @@ import 'app_color_palette.dart';
 
 final colorPaletteProvider =
     NotifierProvider<ColorPaletteController, AppColorPalette>(
-        ColorPaletteController.new);
+      ColorPaletteController.new,
+    );
 
 final class ColorPaletteController extends Notifier<AppColorPalette> {
   static const _prefKey = 'app_color_palette_id';

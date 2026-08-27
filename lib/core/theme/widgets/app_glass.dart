@@ -1,4 +1,5 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 /// Высококлассный компонент в стиле Apple Liquid Glass / Frosted Glass (iOS / visionOS).
@@ -54,10 +55,7 @@ class AppGlassCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: glassColor,
             borderRadius: BorderRadius.circular(borderRadius),
-            border: Border.all(
-              color: topBorderColor,
-              width: 1.0,
-            ),
+            border: Border.all(color: topBorderColor, width: 1.0),
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,

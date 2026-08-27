@@ -43,11 +43,11 @@ class UpdateSettings {
 
   @override
   int get hashCode => Object.hash(
-        backgroundCheck,
-        intervalMinutes,
-        backgroundInstall,
-        notifyUpdates,
-      );
+    backgroundCheck,
+    intervalMinutes,
+    backgroundInstall,
+    notifyUpdates,
+  );
 }
 
 // Минимум 15 минут — ограничение WorkManager на Android
@@ -55,7 +55,8 @@ const updateIntervalOptions = <int>[15, 60, 180, 360, 720, 1440];
 
 final updateSettingsProvider =
     NotifierProvider<UpdateSettingsController, UpdateSettings>(
-        UpdateSettingsController.new);
+      UpdateSettingsController.new,
+    );
 
 final class UpdateSettingsController extends Notifier<UpdateSettings> {
   static const _checkKey = 'background_check';

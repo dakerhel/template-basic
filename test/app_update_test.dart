@@ -8,35 +8,24 @@ Map<String, dynamic> manifest({
   Object? files,
   Object? sha256,
   Object? minSupported,
-}) =>
-    {
-      'version': version,
-      'versionCode': 14,
-      'notes': 'test notes',
-      'files': files ??
-          {
-            'android': 'my_app-1.0.13.apk',
-            'windows': 'my_app-1.0.13.exe',
-          },
-      'sha256': ?sha256,
-      'minSupported': ?minSupported,
-    };
+}) => {
+  'version': version,
+  'versionCode': 14,
+  'notes': 'test notes',
+  'files':
+      files ?? {'android': 'my_app-1.0.13.apk', 'windows': 'my_app-1.0.13.exe'},
+  'sha256': ?sha256,
+  'minSupported': ?minSupported,
+};
 
 void main() {
   group('AppUpdate.fromJson', () {
     test('parses platform file and resolves relative url', () {
-      final update = AppUpdate.fromJson(
-        manifest(),
-        'android',
-        manifestUri(),
-      );
+      final update = AppUpdate.fromJson(manifest(), 'android', manifestUri());
       expect(update.version, '1.0.13');
       expect(update.versionCode, 14);
       expect(update.notes, 'test notes');
-      expect(
-        update.fileUrl,
-        'http://localhost:8080/my_app-1.0.13.apk',
-      );
+      expect(update.fileUrl, 'http://localhost:8080/my_app-1.0.13.apk');
       expect(update.required, isFalse);
     });
 
@@ -46,10 +35,7 @@ void main() {
         'android',
         manifestUri(),
       );
-      expect(
-        update.fileUrl,
-        'http://localhost:8080/builds/android/app.apk',
-      );
+      expect(update.fileUrl, 'http://localhost:8080/builds/android/app.apk');
     });
 
     test('parses sha256 for platform', () {

@@ -1,7 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final counterProvider =
-    NotifierProvider<CounterNotifier, int>(CounterNotifier.new);
+final counterProvider = NotifierProvider<CounterNotifier, int>(
+  CounterNotifier.new,
+);
 
 final class CounterNotifier extends Notifier<int> {
   @override

@@ -13,7 +13,8 @@ final class NotificationService {
     await _plugin.initialize(settings: settings);
     await _plugin
         .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
+          AndroidFlutterLocalNotificationsPlugin
+        >()
         ?.createNotificationChannel(
           const AndroidNotificationChannel(
             _channelId,

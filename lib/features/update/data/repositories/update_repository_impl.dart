@@ -15,7 +15,7 @@ import '../update_installer.dart';
 
 final class UpdateRepositoryImpl implements UpdateRepository {
   UpdateRepositoryImpl(this._dio, [UpdateInstaller? installer])
-      : _installer = installer ?? createInstaller();
+    : _installer = installer ?? createInstaller();
 
   final Dio _dio;
   final UpdateInstaller _installer;
@@ -64,8 +64,7 @@ final class UpdateRepositoryImpl implements UpdateRepository {
     final ext = urlName.contains('.')
         ? urlName.substring(urlName.lastIndexOf('.'))
         : '';
-    final savePath =
-        '${dir.path}${Platform.pathSeparator}update-download$ext';
+    final savePath = '${dir.path}${Platform.pathSeparator}update-download$ext';
     final targetFile = File(savePath);
 
     // Гарантируем существование директории кеша
@@ -98,7 +97,9 @@ final class UpdateRepositoryImpl implements UpdateRepository {
   void _verifyChecksum(File file, String? expectedSha256) {
     if (expectedSha256 == null || expectedSha256.isEmpty) return;
     if (!file.existsSync()) {
-      throw const UpdateFailure('Файл для проверки контрольной суммы не найден');
+      throw const UpdateFailure(
+        'Файл для проверки контрольной суммы не найден',
+      );
     }
     final bytes = file.readAsBytesSync();
     final digest = sha256.convert(bytes);
@@ -130,8 +131,8 @@ final class UpdateRepositoryImpl implements UpdateRepository {
         if (entity is! File) continue;
         try {
           final name = entity.uri.pathSegments.last;
-          final isDownloadArtifact = name.startsWith('my_app-') ||
-              name.startsWith('update-download');
+          final isDownloadArtifact =
+              name.startsWith('my_app-') || name.startsWith('update-download');
           if (!isDownloadArtifact) continue;
           final stat = entity.statSync();
           final isStale =

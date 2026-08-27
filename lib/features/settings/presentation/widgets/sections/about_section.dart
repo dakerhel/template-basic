@@ -32,9 +32,9 @@ class AboutSection extends StatelessWidget {
             future: PackageInfo.fromPlatform(),
             builder: (context, snapshot) {
               final info = snapshot.data;
-              return Text(info != null
-                  ? '${info.version} (${info.buildNumber})'
-                  : '...');
+              return Text(
+                info != null ? '${info.version} (${info.buildNumber})' : '...',
+              );
             },
           ),
         ),
@@ -64,13 +64,13 @@ class AboutSection extends StatelessWidget {
   }
 
   String get _platformName => switch (Platform.operatingSystem) {
-        'android' => 'Android',
-        'ios' => 'iOS',
-        'windows' => 'Windows',
-        'linux' => 'Linux',
-        'macos' => 'macOS',
-        final name => name,
-      };
+    'android' => 'Android',
+    'ios' => 'iOS',
+    'windows' => 'Windows',
+    'linux' => 'Linux',
+    'macos' => 'macOS',
+    final name => name,
+  };
 
   Future<void> _openUrl(BuildContext context, String url) async {
     final uri = Uri.parse(url);

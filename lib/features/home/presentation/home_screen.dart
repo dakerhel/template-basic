@@ -26,7 +26,9 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final l10n = AppLocalizations.of(context)!;
-      ref.read(updateControllerProvider.notifier).maybeBackgroundCheck(
+      ref
+          .read(updateControllerProvider.notifier)
+          .maybeBackgroundCheck(
             notifTitleBuilder: l10n.notifUpdateTitle,
             notifBody: l10n.notifUpdateBody,
           );
@@ -115,8 +117,7 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 24),
-            Text('$counter',
-                style: Theme.of(context).textTheme.displayMedium),
+            Text('$counter', style: Theme.of(context).textTheme.displayMedium),
           ],
         ),
       ),

@@ -18,14 +18,14 @@ class AppUpdate {
   final bool required;
 
   AppUpdate withRequired(bool value) => AppUpdate(
-        version: version,
-        fileUrl: fileUrl,
-        versionCode: versionCode,
-        notes: notes,
-        sha256: sha256,
-        minSupported: minSupported,
-        required: value,
-      );
+    version: version,
+    fileUrl: fileUrl,
+    versionCode: versionCode,
+    notes: notes,
+    sha256: sha256,
+    minSupported: minSupported,
+    required: value,
+  );
 
   factory AppUpdate.fromJson(
     Map<String, dynamic> json,

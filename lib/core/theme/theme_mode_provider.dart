@@ -43,11 +43,11 @@ enum AppThemeMode {
   bool get isOled => this == AppThemeMode.oled;
 
   ThemeMode get flutterThemeMode => switch (this) {
-        AppThemeMode.system => ThemeMode.system,
-        AppThemeMode.light => ThemeMode.light,
-        AppThemeMode.dark => ThemeMode.dark,
-        AppThemeMode.oled => ThemeMode.dark,
-      };
+    AppThemeMode.system => ThemeMode.system,
+    AppThemeMode.light => ThemeMode.light,
+    AppThemeMode.dark => ThemeMode.dark,
+    AppThemeMode.oled => ThemeMode.dark,
+  };
 
   String localizedName(Locale? locale) {
     if (locale?.languageCode == 'ru') return nameRu;
@@ -63,9 +63,9 @@ enum AppThemeMode {
   }
 }
 
-final themeModeProvider =
-    NotifierProvider<ThemeModeController, AppThemeMode>(
-        ThemeModeController.new);
+final themeModeProvider = NotifierProvider<ThemeModeController, AppThemeMode>(
+  ThemeModeController.new,
+);
 
 final class ThemeModeController extends Notifier<AppThemeMode> {
   static const _prefsKey = 'app_theme_mode_v2';

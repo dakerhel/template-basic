@@ -6,25 +6,23 @@ abstract final class AppTheme {
   static ThemeData light({
     AppColorPalette palette = AppColorPalette.fuchsiaPine,
     String? fontFamily,
-  }) =>
-      _theme(
-        brightness: Brightness.light,
-        palette: palette,
-        fontFamily: fontFamily,
-        isOled: false,
-      );
+  }) => _theme(
+    brightness: Brightness.light,
+    palette: palette,
+    fontFamily: fontFamily,
+    isOled: false,
+  );
 
   static ThemeData dark({
     AppColorPalette palette = AppColorPalette.fuchsiaPine,
     String? fontFamily,
     bool isOled = false,
-  }) =>
-      _theme(
-        brightness: Brightness.dark,
-        palette: palette,
-        fontFamily: fontFamily,
-        isOled: isOled,
-      );
+  }) => _theme(
+    brightness: Brightness.dark,
+    palette: palette,
+    fontFamily: fontFamily,
+    isOled: isOled,
+  );
 
   static ThemeData _theme({
     required Brightness brightness,
@@ -51,9 +49,7 @@ abstract final class AppTheme {
       cardTheme: CardThemeData(
         color: colorScheme.surfaceContainerHighest,
         elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
@@ -67,9 +63,7 @@ abstract final class AppTheme {
         backgroundColor: colorScheme.primary,
         foregroundColor: colorScheme.onPrimary,
         elevation: 3,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
     );
   }

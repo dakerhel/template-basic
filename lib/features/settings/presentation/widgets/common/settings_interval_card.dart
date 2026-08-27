@@ -6,10 +6,7 @@ import 'package:my_app/features/update/presentation/update_settings_provider.dar
 import 'package:my_app/l10n/generated/app_localizations.dart';
 
 class SettingsIntervalCard extends ConsumerWidget {
-  const SettingsIntervalCard({
-    super.key,
-    required this.settings,
-  });
+  const SettingsIntervalCard({super.key, required this.settings});
 
   final UpdateSettings settings;
 
