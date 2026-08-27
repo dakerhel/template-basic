@@ -82,7 +82,7 @@ abstract final class NativeIntentLauncher {
         arguments: <String, String>{
           'android.provider.extra.APP_PACKAGE': packageName,
           'app_package': packageName,
-          'app_uid': '${info.buildNumber}',
+          'app_uid': info.buildNumber,
         },
       );
       await intent.launch();

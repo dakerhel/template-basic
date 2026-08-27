@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:crypto/crypto.dart';
@@ -26,7 +25,7 @@ final class UpdateRepositoryImpl implements UpdateRepository {
     final response = await _dio.getUri<Map<String, dynamic>>(uri);
     final data = response.data;
     if (data == null) throw const UpdateFailure('Пустой ответ манифеста');
-    final update = AppUpdate.fromJson(data, uri);
+    final update = AppUpdate.fromJson(data, Platform.operatingSystem, uri);
     final info = await PackageInfo.fromPlatform();
     final minSupported = update.minSupported;
     final isForced =
