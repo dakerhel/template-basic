@@ -16,6 +16,7 @@ final class NotificationService {
     if (_isInitialized) return;
 
     // 1. Регистрация базовых обработчиков в NotificationRouter
+    NotificationRouter.instance.clearHandlers();
     NotificationRouter.instance.registerHandler(
       const UpdateNotificationHandler(),
     );

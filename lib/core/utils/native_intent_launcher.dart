@@ -82,8 +82,9 @@ abstract final class NativeIntentLauncher {
         action: 'android.settings.APP_NOTIFICATION_SETTINGS',
         arguments: <String, String>{
           'android.provider.extra.APP_PACKAGE': packageName,
+          // app_package — для совместимости со старыми прошивками
           'app_package': packageName,
-          'app_uid': info.buildNumber,
+          // app_uid намеренно убран: buildNumber — String, а Android ожидает int
         },
       );
       await intent.launch();

@@ -92,25 +92,26 @@ final class UpdateRepositoryImpl implements UpdateRepository {
       throw const UpdateFailure('Файл обновления не был сохранён на диск');
     }
 
-    _verifyChecksum(downloadedFile, update.sha256);
+    await _verifyChecksum(downloadedFile, update.sha256);
     return savePath;
   }
 
-  void _verifyChecksum(File file, String? expectedSha256) {
+  Future<void> _verifyChecksum(File file, String? expectedSha256) async {
     if (expectedSha256 == null || expectedSha256.isEmpty) return;
-    if (!file.existsSync()) {
+    if (!await file.exists()) {
       throw const UpdateFailure(
         'Файл для проверки контрольной суммы не найден',
       );
     }
-    final bytes = file.readAsBytesSync();
+    // Читаем асинхронно чтобы не блокировать UI-поток (APK 50-150 МБ)
+    final bytes = await file.readAsBytes();
     final digest = sha256.convert(bytes);
     final actual = digest.toString().toLowerCase();
     final expected = expectedSha256.toLowerCase().replaceAll(' ', '');
 
     if (!_constantTimeEquals(actual, expected)) {
       try {
-        file.deleteSync();
+        await file.delete();
       } on FileSystemException {
         // best effort cleanup
       }
@@ -173,8 +174,11 @@ final class UpdateRepositoryImpl implements UpdateRepository {
   }
 
   static void _validateHttps(Uri uri) {
-    if (!uri.hasScheme || (uri.scheme != 'https' && uri.scheme != 'http')) {
-      throw const UpdateFailure('Недопустимый протокол URL обновления');
+    // Разрешаем только HTTPS для защиты от MITM-атак при загрузке APK
+    if (!uri.hasScheme || uri.scheme != 'https') {
+      throw const UpdateFailure(
+        'Недопустимый протокол URL обновления. Требуется HTTPS.',
+      );
     }
   }
 

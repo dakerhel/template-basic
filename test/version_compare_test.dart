@@ -27,6 +27,13 @@ void main() {
       expect(compareVersions('10.0.0', '9.99.99'), greaterThan(0));
     });
 
+    test('handles v prefix and build metadata', () {
+      expect(compareVersions('v1.0.1', '1.0.0'), greaterThan(0));
+      expect(compareVersions('1.0.39+40', '1.0.38'), greaterThan(0));
+      expect(compareVersions('1.0.39+40', '1.0.39'), 0);
+      expect(compareVersions('1.0.0-beta.1', '1.0.0'), 0);
+    });
+
     test('garbage segments treated as zero', () {
       expect(compareVersions('1.0.x', '1.0.0'), 0);
       expect(compareVersions('abc', '0.0.0'), 0);

@@ -14,10 +14,11 @@ const _updateCheckUniqueName = 'update-check-periodic';
 
 @pragma('vm:entry-point')
 void callbackDispatcher() {
-  Workmanager().executeTask((task, inputData) async {
+  // return гарантирует что Workmanager дождётся завершения async-задачи
+  return Workmanager().executeTask((task, inputData) async {
     await NotificationService.init();
     await runBackgroundUpdateCheck();
-    return Future.value(true);
+    return true;
   });
 }
 
@@ -47,7 +48,18 @@ class UpdateBackgroundScheduler {
 Future<void> runBackgroundUpdateCheck() async {
   final prefs = await SharedPreferences.getInstance();
   if (!(prefs.getBool('background_check') ?? true)) return;
-  final repo = UpdateRepositoryImpl(Dio());
+  final repo = UpdateRepositoryImpl(
+    Dio(
+      BaseOptions(
+        // Явные таймауты чтобы фоновая задача не зависала при недоступном сервере
+        connectTimeout: const Duration(seconds: 30),
+        sendTimeout: const Duration(seconds: 30),
+        receiveTimeout: const Duration(minutes: 5),
+        followRedirects: true,
+        maxRedirects: 5,
+      ),
+    ),
+  );
   try {
     await repo.cleanupOldDownloads();
     final update = await repo.checkForUpdate();

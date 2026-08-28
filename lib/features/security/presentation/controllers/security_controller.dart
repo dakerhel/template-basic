@@ -188,10 +188,10 @@ class SecurityController extends Notifier<SecurityState>
   Future<void> setPin(String pin) async {
     await _repository.setPin(pin);
     _countdownTimer?.cancel();
-    final updated = state.settings.copyWith(isPinEnabled: true);
-    await _repository.saveSettings(updated);
+    // setPin уже вызывает saveSettings внутри репозитория — повторный вызов не нужен
+    final settings = await _repository.loadSettings();
     state = state.copyWith(
-      settings: updated,
+      settings: settings,
       isLocked: false,
       isPrivacyShieldActive: false,
       lockout: const LockoutInfo(),

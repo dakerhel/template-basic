@@ -15,18 +15,20 @@ Future<List<Directory>> _artifactDirectories() async {
   try {
     dirs.add(await getApplicationDocumentsDirectory());
   } on Exception {
-    return dirs;
+    // Пробуем следующую директорию (не делаем ранний return)
   }
   try {
     dirs.add(await getApplicationCacheDirectory());
   } on Exception {
-    return dirs;
+    // ignore
   }
   return dirs;
 }
 
 bool _isArtifact(String name) =>
-    name.startsWith('my_app-') || name.startsWith('update-download');
+    name.startsWith('my_app-') ||
+    name.startsWith('update-download') ||
+    name.startsWith('app-update-package');
 
 Future<StorageUsage> computeUpdateArtifactsUsage() async {
   var total = 0;

@@ -92,7 +92,11 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
     ref.listen<UpdateState>(updateControllerProvider, (previous, next) {
       if (next is UpdateAvailable) {
         _maybeShowForceDialog(next);
-      } else {
+      } else if (next is UpdateIdle ||
+          next is UpdateUpToDate ||
+          next is UpdateError) {
+        // Сбрасываем флаг только в терминальных состояниях
+        // UpdateDownloading не сбрасывает флаг — пользователь уже подтвердил обновление
         _forceDialogVisible = false;
       }
     });

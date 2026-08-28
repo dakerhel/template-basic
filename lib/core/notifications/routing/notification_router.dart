@@ -21,6 +21,10 @@ class NotificationRouter {
     }
   }
 
+  void clearHandlers() {
+    _handlers.clear();
+  }
+
   void unregisterHandler(NotificationHandler handler) {
     _handlers.remove(handler);
   }

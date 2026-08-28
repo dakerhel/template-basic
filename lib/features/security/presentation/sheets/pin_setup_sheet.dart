@@ -76,9 +76,12 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
   }
 
   Future<void> _handleComplete() async {
+    final isRu = Localizations.localeOf(context).languageCode == 'ru';
+
     if (_step == 1) {
       // Переход ко второму шагу подтверждения
       await Future<void>.delayed(const Duration(milliseconds: 150));
+      if (!mounted) return;
       setState(() {
         _firstPin = _currentPin;
         _currentPin = '';
@@ -94,8 +97,11 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
       } else {
         HapticFeedback.vibrate();
         await _shakeController.forward(from: 0.0);
+        if (!mounted) return;
         setState(() {
-          _errorMessage = 'PIN-коды не совпадают. Попробуйте снова';
+          _errorMessage = isRu
+              ? 'PIN-коды не совпадают. Попробуйте снова'
+              : 'PINs do not match. Please try again';
           _currentPin = '';
           _firstPin = '';
           _step = 1;
@@ -109,15 +115,19 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
+    final isRu = Localizations.localeOf(context).languageCode == 'ru';
+
     final title = _step == 1
-        ? (widget.isChanging ? 'Новый PIN-код' : 'Создайте PIN-код')
-        : 'Подтвердите PIN-код';
+        ? (widget.isChanging
+            ? (isRu ? 'Новый PIN-код' : 'New PIN Code')
+            : (isRu ? 'Создайте PIN-код' : 'Create PIN Code'))
+        : (isRu ? 'Подтвердите PIN-код' : 'Confirm PIN Code');
 
     final subtitle =
         _errorMessage ??
         (_step == 1
-            ? 'Введите 4 цифры для защиты приложения'
-            : 'Повторите введенный ранее PIN-код');
+            ? (isRu ? 'Введите 4 цифры для защиты приложения' : 'Enter 4 digits to protect the app')
+            : (isRu ? 'Повторите введенный ранее PIN-код' : 'Repeat the PIN code you just entered'));
 
     return Container(
       decoration: BoxDecoration(
