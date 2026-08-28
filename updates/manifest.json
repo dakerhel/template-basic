@@ -3,9 +3,9 @@
   "versionCode": 37,
   "minSupported": "1.0.13",
   "coreVersion": "1.5.0",
-  "notes": "Release v1.0.36: Comprehensive Device & App Information Subsystem, Screen Metrics, Accessibility, Network Status, and System Diagnostics Sheet with 1-click report copy",
+  "notes": "Release v1.0.36",
   "sha256": {
-    "android": "39288bb957f10a6ca2b8c2964ee0d245d2db452a3a3bf72220696fd7a1222094"
+    "android": "60bc4440f59913a03e2d39c91c12d545967b8d31296bced9f91821d875792878"
   },
   "files": {
     "android": "https://github.com/dakerhel/template-basic/releases/download/v1.0.36/my_app-1.0.36.apk"
