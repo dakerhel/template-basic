@@ -3,9 +3,9 @@
   "versionCode": 36,
   "minSupported": "1.0.13",
   "coreVersion": "1.5.0",
-  "notes": "Release v1.0.35: Bank-grade Security Facade API (security.lock/unlock/isLocked) and Privacy Shield (Hide Sensitive Content in App Switcher)",
+  "notes": "Release v1.0.35",
   "sha256": {
-    "android": "39288bb957f10a6ca2b8c2964ee0d245d2db452a3a3bf72220696fd7a1222094"
+    "android": "239e3ceb0b50974019b2102340aeaaa0b84d0c3e13509d5c4d69c8d75b38fe19"
   },
   "files": {
     "android": "https://github.com/dakerhel/template-basic/releases/download/v1.0.35/my_app-1.0.35.apk"
