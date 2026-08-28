@@ -3,9 +3,9 @@
   "versionCode": 32,
   "minSupported": "1.0.13",
   "coreVersion": "1.4.0",
-  "notes": "Release v1.0.31: Bank-grade PIN retry limits, progressive lockout, biometric disable, and anti-reboot protection",
+  "notes": "Release v1.0.31",
   "sha256": {
-    "android": "39288bb957f10a6ca2b8c2964ee0d245d2db452a3a3bf72220696fd7a1222094"
+    "android": "5bf2bf8fb3f38fe235309facf1aceb07b043dd8180d09e0f3f6d3204631fac0a"
   },
   "files": {
     "android": "https://github.com/dakerhel/template-basic/releases/download/v1.0.31/my_app-1.0.31.apk"
