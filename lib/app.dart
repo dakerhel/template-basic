@@ -11,6 +11,7 @@ import 'core/theme/font_provider.dart';
 import 'core/theme/theme_mode_provider.dart';
 import 'features/security/presentation/controllers/security_controller.dart';
 import 'features/security/presentation/screens/lock_screen.dart';
+import 'features/security/presentation/screens/privacy_shield_screen.dart';
 import 'l10n/generated/app_localizations.dart';
 
 class MyApp extends ConsumerWidget {
@@ -49,16 +50,15 @@ class MyApp extends ConsumerWidget {
           child: child ?? const SizedBox.shrink(),
         );
 
-        if (securityState.isLocked && securityState.isInitialized) {
-          return Stack(
-            children: [
-              scaledChild,
+        return Stack(
+          children: [
+            scaledChild,
+            if (securityState.isLocked && securityState.isInitialized)
               const Positioned.fill(child: LockScreen()),
-            ],
-          );
-        }
-
-        return scaledChild;
+            if (securityState.isPrivacyShieldActive)
+              const Positioned.fill(child: PrivacyShieldScreen()),
+          ],
+        );
       },
     );
   }

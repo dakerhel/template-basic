@@ -63,6 +63,20 @@ class SecuritySection extends ConsumerWidget {
                 .setAutoLockDuration(dur),
           ),
 
+          // Скрытие контента в диспетчере задач (Privacy Shield)
+          SettingsToggleCard(
+            title: isRu
+                ? 'Скрывать контент в списке задач'
+                : 'Hide in App Switcher',
+            subtitle: isRu
+                ? 'Защита от подглядывания при переключении между приложениями'
+                : 'Privacy shield overlay when switching apps',
+            value: security.settings.isHideContentEnabled,
+            onChanged: (value) => ref
+                .read(securityControllerProvider.notifier)
+                .setHideContentEnabled(value),
+          ),
+
           // Смена PIN-кода
           ListTile(
             leading: const Icon(Icons.password_rounded),

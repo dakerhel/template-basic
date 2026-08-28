@@ -10,6 +10,7 @@ import '../../domain/repositories/security_repository.dart';
 class SecurityState {
   const SecurityState({
     this.isLocked = false,
+    this.isPrivacyShieldActive = false,
     this.settings = const SecuritySettings(),
     this.lockout = const LockoutInfo(),
     this.canUseBiometrics = false,
@@ -17,6 +18,7 @@ class SecurityState {
   });
 
   final bool isLocked;
+  final bool isPrivacyShieldActive;
   final SecuritySettings settings;
   final LockoutInfo lockout;
   final bool canUseBiometrics;
@@ -24,6 +26,7 @@ class SecurityState {
 
   SecurityState copyWith({
     bool? isLocked,
+    bool? isPrivacyShieldActive,
     SecuritySettings? settings,
     LockoutInfo? lockout,
     bool? canUseBiometrics,
@@ -31,6 +34,8 @@ class SecurityState {
   }) {
     return SecurityState(
       isLocked: isLocked ?? this.isLocked,
+      isPrivacyShieldActive:
+          isPrivacyShieldActive ?? this.isPrivacyShieldActive,
       settings: settings ?? this.settings,
       lockout: lockout ?? this.lockout,
       canUseBiometrics: canUseBiometrics ?? this.canUseBiometrics,
@@ -83,11 +88,20 @@ class SecurityController extends Notifier<SecurityState>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (!this.state.settings.isPinEnabled) return;
 
-    if (state == AppLifecycleState.paused ||
-        state == AppLifecycleState.inactive) {
+    if (state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.paused) {
       _pausedAt ??= DateTime.now();
+
+      // Активируем Privacy Shield для диспетчера задач
+      if (this.state.settings.isHideContentEnabled &&
+          !this.state.isPrivacyShieldActive) {
+        this.state = this.state.copyWith(isPrivacyShieldActive: true);
+      }
     } else if (state == AppLifecycleState.resumed) {
-      // При выходе из фона синхронизируем таймер блокировки
+      // Снимаем Privacy Shield при возврате на передний план
+      this.state = this.state.copyWith(isPrivacyShieldActive: false);
+
+      // Синхронизируем таймер блокировки
       _refreshLockout();
 
       if (_pausedAt != null) {
@@ -130,7 +144,11 @@ class SecurityController extends Notifier<SecurityState>
     final isValid = await _repository.verifyPin(pin);
     if (isValid) {
       _countdownTimer?.cancel();
-      state = state.copyWith(isLocked: false, lockout: const LockoutInfo());
+      state = state.copyWith(
+        isLocked: false,
+        isPrivacyShieldActive: false,
+        lockout: const LockoutInfo(),
+      );
       _pausedAt = null;
       return true;
     } else {
@@ -156,7 +174,11 @@ class SecurityController extends Notifier<SecurityState>
     if (success) {
       _countdownTimer?.cancel();
       await _repository.resetLockout();
-      state = state.copyWith(isLocked: false, lockout: const LockoutInfo());
+      state = state.copyWith(
+        isLocked: false,
+        isPrivacyShieldActive: false,
+        lockout: const LockoutInfo(),
+      );
       _pausedAt = null;
       return true;
     }
@@ -171,6 +193,7 @@ class SecurityController extends Notifier<SecurityState>
     state = state.copyWith(
       settings: updated,
       isLocked: false,
+      isPrivacyShieldActive: false,
       lockout: const LockoutInfo(),
     );
   }
@@ -185,6 +208,7 @@ class SecurityController extends Notifier<SecurityState>
     state = state.copyWith(
       settings: updated,
       isLocked: false,
+      isPrivacyShieldActive: false,
       lockout: const LockoutInfo(),
     );
   }
@@ -197,6 +221,12 @@ class SecurityController extends Notifier<SecurityState>
 
   Future<void> setAutoLockDuration(AutoLockDuration duration) async {
     final updated = state.settings.copyWith(autoLockDuration: duration);
+    await _repository.saveSettings(updated);
+    state = state.copyWith(settings: updated);
+  }
+
+  Future<void> setHideContentEnabled(bool enabled) async {
+    final updated = state.settings.copyWith(isHideContentEnabled: enabled);
     await _repository.saveSettings(updated);
     state = state.copyWith(settings: updated);
   }

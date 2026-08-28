@@ -24,21 +24,25 @@ class SecuritySettings {
     this.isPinEnabled = false,
     this.isBiometricsEnabled = false,
     this.autoLockDuration = AutoLockDuration.immediately,
+    this.isHideContentEnabled = true,
   });
 
   final bool isPinEnabled;
   final bool isBiometricsEnabled;
   final AutoLockDuration autoLockDuration;
+  final bool isHideContentEnabled;
 
   SecuritySettings copyWith({
     bool? isPinEnabled,
     bool? isBiometricsEnabled,
     AutoLockDuration? autoLockDuration,
+    bool? isHideContentEnabled,
   }) {
     return SecuritySettings(
       isPinEnabled: isPinEnabled ?? this.isPinEnabled,
       isBiometricsEnabled: isBiometricsEnabled ?? this.isBiometricsEnabled,
       autoLockDuration: autoLockDuration ?? this.autoLockDuration,
+      isHideContentEnabled: isHideContentEnabled ?? this.isHideContentEnabled,
     );
   }
 }

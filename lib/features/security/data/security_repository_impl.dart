@@ -115,12 +115,15 @@ class SecurityRepositoryImpl implements SecurityRepository {
     }
   }
 
+  static const _prefHideContentEnabled = 'security_hide_content_enabled';
+
   @override
   Future<SecuritySettings> loadSettings() async {
     final prefs = await SharedPreferences.getInstance();
     final isPinEnabled = prefs.getBool(_prefPinEnabled) ?? false;
     final isBiometricsEnabled = prefs.getBool(_prefBiometricsEnabled) ?? false;
     final autoLockSec = prefs.getInt(_prefAutoLockSeconds);
+    final isHideContent = prefs.getBool(_prefHideContentEnabled) ?? true;
 
     final pinExists = await hasPin();
     final realPinEnabled = isPinEnabled && pinExists;
@@ -129,6 +132,7 @@ class SecurityRepositoryImpl implements SecurityRepository {
       isPinEnabled: realPinEnabled,
       isBiometricsEnabled: isBiometricsEnabled && realPinEnabled,
       autoLockDuration: AutoLockDuration.fromSeconds(autoLockSec),
+      isHideContentEnabled: isHideContent,
     );
   }
 
@@ -138,6 +142,7 @@ class SecurityRepositoryImpl implements SecurityRepository {
     await prefs.setBool(_prefPinEnabled, settings.isPinEnabled);
     await prefs.setBool(_prefBiometricsEnabled, settings.isBiometricsEnabled);
     await prefs.setInt(_prefAutoLockSeconds, settings.autoLockDuration.seconds);
+    await prefs.setBool(_prefHideContentEnabled, settings.isHideContentEnabled);
   }
 
   @override

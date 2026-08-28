@@ -18,21 +18,27 @@ void main() {
       expect(AutoLockDuration.fromSeconds(9999), AutoLockDuration.immediately);
     });
 
-    test('SecuritySettings copyWith updates values', () {
-      const settings = SecuritySettings();
-      expect(settings.isPinEnabled, isFalse);
-      expect(settings.isBiometricsEnabled, isFalse);
-      expect(settings.autoLockDuration, AutoLockDuration.immediately);
+    test(
+      'SecuritySettings copyWith updates values including isHideContentEnabled',
+      () {
+        const settings = SecuritySettings();
+        expect(settings.isPinEnabled, isFalse);
+        expect(settings.isBiometricsEnabled, isFalse);
+        expect(settings.autoLockDuration, AutoLockDuration.immediately);
+        expect(settings.isHideContentEnabled, isTrue);
 
-      final updated = settings.copyWith(
-        isPinEnabled: true,
-        isBiometricsEnabled: true,
-        autoLockDuration: AutoLockDuration.fiveMinutes,
-      );
-      expect(updated.isPinEnabled, isTrue);
-      expect(updated.isBiometricsEnabled, isTrue);
-      expect(updated.autoLockDuration, AutoLockDuration.fiveMinutes);
-    });
+        final updated = settings.copyWith(
+          isPinEnabled: true,
+          isBiometricsEnabled: true,
+          autoLockDuration: AutoLockDuration.fiveMinutes,
+          isHideContentEnabled: false,
+        );
+        expect(updated.isPinEnabled, isTrue);
+        expect(updated.isBiometricsEnabled, isTrue);
+        expect(updated.autoLockDuration, AutoLockDuration.fiveMinutes);
+        expect(updated.isHideContentEnabled, isFalse);
+      },
+    );
 
     test('Cryptographic hash formula produces consistent hashes', () {
       String hashPin(String pin, String salt) {
