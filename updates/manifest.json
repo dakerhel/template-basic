@@ -3,9 +3,9 @@
   "versionCode": 39,
   "minSupported": "1.0.13",
   "coreVersion": "1.5.0",
-  "notes": "Release v1.0.38: Enterprise Notifications System, Android Notification Channels, and Unified Notification Router (Notification -> Payload -> Router -> Feature Handlers)",
+  "notes": "Release v1.0.38",
   "sha256": {
-    "android": "39288bb957f10a6ca2b8c2964ee0d245d2db452a3a3bf72220696fd7a1222094"
+    "android": "64d92fd2dfee87ca98f124e7a3e5cd440c45f6e17ab67db346ace40a91447cde"
   },
   "files": {
     "android": "https://github.com/dakerhel/template-basic/releases/download/v1.0.38/my_app-1.0.38.apk"
