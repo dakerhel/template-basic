@@ -1,7 +1,7 @@
 final class AppConfig {
   static const appName = 'Template Basic';
 
-  static const coreVersion = '1.4.0';
+  static const coreVersion = '1.5.0';
   static const privacyPolicyUrl =
       'https://github.com/dakerhel/template-basic#readme';
   static const sourceCodeUrl = 'https://github.com/dakerhel/template-basic';

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:my_app/core/theme/app_color_palette.dart';
 import 'package:my_app/core/theme/color_palette_provider.dart';
+import 'package:my_app/core/theme/liquid_glass_provider.dart';
 import 'package:my_app/core/theme/theme_mode_provider.dart';
 import 'package:my_app/core/theme/widgets/app_glass.dart';
 import 'package:my_app/l10n/generated/app_localizations.dart';
@@ -29,9 +30,14 @@ class UnifiedThemeSheet extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final currentMode = ref.watch(themeModeProvider);
     final currentPalette = ref.watch(colorPaletteProvider);
+    final isLiquidGlass = ref.watch(liquidGlassProvider);
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final locale = Localizations.localeOf(context);
+    final lang = locale.languageCode;
+
+    final isRu = lang == 'ru';
+    final isZh = lang == 'zh';
 
     return Container(
       decoration: BoxDecoration(
@@ -74,24 +80,102 @@ class UnifiedThemeSheet extends ConsumerWidget {
                   color: colorScheme.onSurface,
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 14),
 
-              // Нативный адаптивный 4-сегментный селектор темы (на 100% ширины)
+              // Нативный адаптивный 4-сегментный селектор темы (на 100% ширины без обрезки текста)
               _NativeThemeModeBar(
                 currentMode: currentMode,
                 l10n: l10n,
+                locale: locale,
                 onModeSelected: (mode) {
                   HapticFeedback.selectionClick();
                   ref.read(themeModeProvider.notifier).setThemeMode(mode);
                 },
               ),
-              const SizedBox(height: 18),
+              const SizedBox(height: 14),
+
+              // Отдельная плашка управления эффектом Liquid Glass
+              AppGlassCard(
+                borderRadius: 16,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 10,
+                ),
+                onTap: () {
+                  HapticFeedback.selectionClick();
+                  ref
+                      .read(liquidGlassProvider.notifier)
+                      .setLiquidGlassEnabled(!isLiquidGlass);
+                },
+                child: Row(
+                  children: [
+                    Container(
+                      width: 36,
+                      height: 36,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: isLiquidGlass
+                            ? colorScheme.primary.withValues(alpha: 0.15)
+                            : colorScheme.surfaceContainerHighest,
+                      ),
+                      child: Icon(
+                        Icons.blur_on_rounded,
+                        size: 22,
+                        color: isLiquidGlass
+                            ? colorScheme.primary
+                            : colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            isRu
+                                ? 'Эффект Liquid Glass'
+                                : isZh
+                                ? '液态玻璃效果'
+                                : 'Liquid Glass Effect',
+                            style: theme.textTheme.titleSmall?.copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: colorScheme.onSurface,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            isRu
+                                ? 'Оптическое размытие и блики'
+                                : isZh
+                                ? '光学模糊与高光折射'
+                                : 'Optical blur & specular reflections',
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: colorScheme.onSurfaceVariant,
+                              fontSize: 11,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Switch.adaptive(
+                      value: isLiquidGlass,
+                      onChanged: (val) {
+                        HapticFeedback.selectionClick();
+                        ref
+                            .read(liquidGlassProvider.notifier)
+                            .setLiquidGlassEnabled(val);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 16),
 
               // Подзаголовок палитр
               Text(
-                locale.languageCode == 'ru'
+                isRu
                     ? 'Цветовые палитры'
-                    : locale.languageCode == 'zh'
+                    : isZh
                     ? '配色方案'
                     : 'Color Schemes',
                 style: theme.textTheme.titleSmall?.copyWith(
@@ -104,7 +188,7 @@ class UnifiedThemeSheet extends ConsumerWidget {
               // Список палитр с Glass-эффектом и абсолютным контрастом
               ConstrainedBox(
                 constraints: BoxConstraints(
-                  maxHeight: MediaQuery.of(context).size.height * 0.46,
+                  maxHeight: MediaQuery.of(context).size.height * 0.42,
                 ),
                 child: ListView.separated(
                   shrinkWrap: true,
@@ -158,11 +242,17 @@ class UnifiedThemeSheet extends ConsumerWidget {
                                     palette.localizedName(locale),
                                     style: theme.textTheme.titleMedium
                                         ?.copyWith(
-                                          color: colorScheme.onSurface,
                                           fontWeight: isSelected
                                               ? FontWeight.bold
                                               : FontWeight.w500,
+                                          color: isSelected
+                                              ? (colorScheme.brightness ==
+                                                        Brightness.dark
+                                                    ? Colors.white
+                                                    : Colors.black)
+                                              : colorScheme.onSurface,
                                         ),
+                                    maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
@@ -191,17 +281,49 @@ class UnifiedThemeSheet extends ConsumerWidget {
   }
 }
 
-/// Нативный адаптивный бар выбора темы (4 равные колонки без горизонтального скролла)
+/// Нативный адаптивный бар выбора темы (4 равные колонки без обрезки текста)
 class _NativeThemeModeBar extends StatelessWidget {
   const _NativeThemeModeBar({
     required this.currentMode,
     required this.l10n,
+    required this.locale,
     required this.onModeSelected,
   });
 
   final AppThemeMode currentMode;
   final AppLocalizations l10n;
+  final Locale locale;
   final ValueChanged<AppThemeMode> onModeSelected;
+
+  String _getSystemLabel() {
+    switch (locale.languageCode) {
+      case 'ru':
+        return 'Система';
+      case 'zh':
+        return '系统';
+      case 'ja':
+        return 'システム';
+      case 'ko':
+        return '시스템';
+      case 'de':
+        return 'System';
+      case 'fr':
+        return 'Système';
+      case 'es':
+      case 'pt':
+      case 'it':
+        return 'Sistema';
+      case 'tr':
+      case 'id':
+        return 'Sistem';
+      case 'ar':
+        return 'النظام';
+      case 'hi':
+        return 'सिस्टम';
+      default:
+        return 'System';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -209,7 +331,7 @@ class _NativeThemeModeBar extends StatelessWidget {
     final colorScheme = theme.colorScheme;
 
     final modes = [
-      (AppThemeMode.system, Icons.brightness_auto, l10n.themeSystem),
+      (AppThemeMode.system, Icons.brightness_auto, _getSystemLabel()),
       (AppThemeMode.light, Icons.light_mode, l10n.themeLight),
       (AppThemeMode.dark, Icons.dark_mode, l10n.themeDark),
       (AppThemeMode.oled, Icons.contrast, 'OLED'),
@@ -268,7 +390,7 @@ class _ThemeTabItem extends StatelessWidget {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           curve: Curves.easeInOut,
-          padding: const EdgeInsets.symmetric(vertical: 8),
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
           decoration: BoxDecoration(
             color: isSelected ? colorScheme.primary : Colors.transparent,
             borderRadius: BorderRadius.circular(12),
@@ -293,16 +415,19 @@ class _ThemeTabItem extends StatelessWidget {
                     : colorScheme.onSurfaceVariant,
               ),
               const SizedBox(height: 4),
-              Text(
-                label,
-                style: theme.textTheme.labelSmall?.copyWith(
-                  color: isSelected
-                      ? colorScheme.onPrimary
-                      : colorScheme.onSurfaceVariant,
-                  fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  label,
+                  style: theme.textTheme.labelSmall?.copyWith(
+                    color: isSelected
+                        ? colorScheme.onPrimary
+                        : colorScheme.onSurfaceVariant,
+                    fontWeight: isSelected ? FontWeight.bold : FontWeight.w600,
+                    fontSize: 11.5,
+                  ),
+                  maxLines: 1,
                 ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
@@ -326,18 +451,22 @@ class _PaletteSwatch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 36,
-      height: 36,
+      width: 44,
+      height: 44,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(
-          color: isSelected
-              ? accentColor
-              : Colors.white.withValues(alpha: 0.25),
-          width: 2.0,
+          color: isSelected ? accentColor : Colors.white.withValues(alpha: 0.3),
+          width: isSelected ? 2.5 : 1.5,
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.2),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
-      padding: const EdgeInsets.all(2),
       child: ClipOval(
         child: Row(
           children: [

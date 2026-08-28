@@ -38,10 +38,33 @@ void main() {
       }
     });
 
-    test('provides Russian and English localized names', () {
+    test('provides localized names across all 14 supported languages', () {
+      final locales = [
+        'ru',
+        'en',
+        'zh',
+        'es',
+        'pt',
+        'de',
+        'fr',
+        'it',
+        'ja',
+        'ko',
+        'tr',
+        'id',
+        'ar',
+        'hi',
+      ];
+
       for (final palette in AppColorPalette.values) {
-        expect(palette.localizedName(const Locale('ru')), isNotEmpty);
-        expect(palette.localizedName(const Locale('en')), isNotEmpty);
+        for (final code in locales) {
+          final localized = palette.localizedName(Locale(code));
+          expect(
+            localized,
+            isNotEmpty,
+            reason: 'Palette ${palette.id} should have translation for $code',
+          );
+        }
       }
     });
   });

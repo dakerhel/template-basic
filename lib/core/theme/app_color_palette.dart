@@ -83,8 +83,241 @@ enum AppColorPalette {
   final IconData icon;
 
   String localizedName(Locale? locale) {
-    if (locale?.languageCode == 'ru') return nameRu;
-    return nameEn;
+    final lang = locale?.languageCode ?? 'en';
+    switch (lang) {
+      case 'ru':
+        return nameRu;
+      case 'zh':
+        switch (this) {
+          case AppColorPalette.fuchsiaPine:
+            return '松绿与洋红';
+          case AppColorPalette.indigoGold:
+            return '靛蓝与金黄';
+          case AppColorPalette.acidViolet:
+            return '荧光霓虹';
+          case AppColorPalette.warmAmber:
+            return '暖黄烈焰';
+          case AppColorPalette.rubyGold:
+            return '红宝石金';
+          case AppColorPalette.pistachioMilk:
+            return '开心果乳白';
+          case AppColorPalette.cyberCyan:
+            return '赛博青蓝';
+          case AppColorPalette.toxicOled:
+            return '极客终端';
+        }
+      case 'es':
+        switch (this) {
+          case AppColorPalette.fuchsiaPine:
+            return 'Pino y Fucsia';
+          case AppColorPalette.indigoGold:
+            return 'Índigo y Oro';
+          case AppColorPalette.acidViolet:
+            return 'Neón Ácido';
+          case AppColorPalette.warmAmber:
+            return 'Carmesí en Amarillo';
+          case AppColorPalette.rubyGold:
+            return 'Oro en Rubí';
+          case AppColorPalette.pistachioMilk:
+            return 'Leche de Pistacho';
+          case AppColorPalette.cyberCyan:
+            return 'Cíber Cian';
+          case AppColorPalette.toxicOled:
+            return 'Terminal Tóxico';
+        }
+      case 'pt':
+        switch (this) {
+          case AppColorPalette.fuchsiaPine:
+            return 'Pinheiro e Fúcsia';
+          case AppColorPalette.indigoGold:
+            return 'Índigo e Ouro';
+          case AppColorPalette.acidViolet:
+            return 'Neon Ácido';
+          case AppColorPalette.warmAmber:
+            return 'Carmim no Amarelo';
+          case AppColorPalette.rubyGold:
+            return 'Ouro no Rubi';
+          case AppColorPalette.pistachioMilk:
+            return 'Leite de Pistache';
+          case AppColorPalette.cyberCyan:
+            return 'Ciano Cyber';
+          case AppColorPalette.toxicOled:
+            return 'Terminal Tóxico';
+        }
+      case 'de':
+        switch (this) {
+          case AppColorPalette.fuchsiaPine:
+            return 'Kiefer & Fuchsia';
+          case AppColorPalette.indigoGold:
+            return 'Indigo & Gold';
+          case AppColorPalette.acidViolet:
+            return 'Säure-Neon';
+          case AppColorPalette.warmAmber:
+            return 'Karmesin auf Gelb';
+          case AppColorPalette.rubyGold:
+            return 'Gold auf Rubin';
+          case AppColorPalette.pistachioMilk:
+            return 'Pistazienmilch';
+          case AppColorPalette.cyberCyan:
+            return 'Cyber-Cyan';
+          case AppColorPalette.toxicOled:
+            return 'Toxisches Terminal';
+        }
+      case 'fr':
+        switch (this) {
+          case AppColorPalette.fuchsiaPine:
+            return 'Pin & Fuchsia';
+          case AppColorPalette.indigoGold:
+            return 'Indigo & Or';
+          case AppColorPalette.acidViolet:
+            return 'Néon Acide';
+          case AppColorPalette.warmAmber:
+            return 'Cramoisi sur Jaune';
+          case AppColorPalette.rubyGold:
+            return 'Or sur Rubis';
+          case AppColorPalette.pistachioMilk:
+            return 'Lait de Pistache';
+          case AppColorPalette.cyberCyan:
+            return 'Cyber Cyan';
+          case AppColorPalette.toxicOled:
+            return 'Terminal Toxique';
+        }
+      case 'it':
+        switch (this) {
+          case AppColorPalette.fuchsiaPine:
+            return 'Pino e Fucsia';
+          case AppColorPalette.indigoGold:
+            return 'Indaco e Oro';
+          case AppColorPalette.acidViolet:
+            return 'Neon Acido';
+          case AppColorPalette.warmAmber:
+            return 'Cremisi su Giallo';
+          case AppColorPalette.rubyGold:
+            return 'Oro su Rubino';
+          case AppColorPalette.pistachioMilk:
+            return 'Latte di Pistacchio';
+          case AppColorPalette.cyberCyan:
+            return 'Ciano Cyber';
+          case AppColorPalette.toxicOled:
+            return 'Terminale Tossico';
+        }
+      case 'ja':
+        switch (this) {
+          case AppColorPalette.fuchsiaPine:
+            return '松葉とフューシャ';
+          case AppColorPalette.indigoGold:
+            return '藍とゴールド';
+          case AppColorPalette.acidViolet:
+            return 'アシッドネオン';
+          case AppColorPalette.warmAmber:
+            return '琥珀とクリムゾン';
+          case AppColorPalette.rubyGold:
+            return 'ルビーとゴールド';
+          case AppColorPalette.pistachioMilk:
+            return 'ピスタチオミルク';
+          case AppColorPalette.cyberCyan:
+            return 'サイバーシアン';
+          case AppColorPalette.toxicOled:
+            return 'トキシック端末';
+        }
+      case 'ko':
+        switch (this) {
+          case AppColorPalette.fuchsiaPine:
+            return '소나무 & 퓨샤';
+          case AppColorPalette.indigoGold:
+            return '인디고 & 골드';
+          case AppColorPalette.acidViolet:
+            return '애시드 네온';
+          case AppColorPalette.warmAmber:
+            return '웜 앰버 & 레드';
+          case AppColorPalette.rubyGold:
+            return '루비 & 골드';
+          case AppColorPalette.pistachioMilk:
+            return '피스타치오 밀크';
+          case AppColorPalette.cyberCyan:
+            return '사이버 시안';
+          case AppColorPalette.toxicOled:
+            return '톡식 터미널';
+        }
+      case 'tr':
+        switch (this) {
+          case AppColorPalette.fuchsiaPine:
+            return 'Çam ve Fuşya';
+          case AppColorPalette.indigoGold:
+            return 'İndigo ve Altın';
+          case AppColorPalette.acidViolet:
+            return 'Asit Neon';
+          case AppColorPalette.warmAmber:
+            return 'Sarı Üzeri Kırmızı';
+          case AppColorPalette.rubyGold:
+            return 'Yakut Üzeri Altın';
+          case AppColorPalette.pistachioMilk:
+            return 'Fıstık Sütü';
+          case AppColorPalette.cyberCyan:
+            return 'Siber Camgöbeği';
+          case AppColorPalette.toxicOled:
+            return 'Toksik Terminal';
+        }
+      case 'id':
+        switch (this) {
+          case AppColorPalette.fuchsiaPine:
+            return 'Pinus & Fusia';
+          case AppColorPalette.indigoGold:
+            return 'Nila & Emas';
+          case AppColorPalette.acidViolet:
+            return 'Neon Asam';
+          case AppColorPalette.warmAmber:
+            return 'Merah pada Kuning';
+          case AppColorPalette.rubyGold:
+            return 'Emas pada Rubi';
+          case AppColorPalette.pistachioMilk:
+            return 'Susu Pistachio';
+          case AppColorPalette.cyberCyan:
+            return 'Siber Sian';
+          case AppColorPalette.toxicOled:
+            return 'Terminal Toksik';
+        }
+      case 'ar':
+        switch (this) {
+          case AppColorPalette.fuchsiaPine:
+            return 'الصنوبر والفوشيا';
+          case AppColorPalette.indigoGold:
+            return 'النيلي والذهب';
+          case AppColorPalette.acidViolet:
+            return 'نيون حمضي';
+          case AppColorPalette.warmAmber:
+            return 'قرمزي على أصفر';
+          case AppColorPalette.rubyGold:
+            return 'ذهب على ياقوت';
+          case AppColorPalette.pistachioMilk:
+            return 'حليب الفستق';
+          case AppColorPalette.cyberCyan:
+            return 'سماوي سايبر';
+          case AppColorPalette.toxicOled:
+            return 'طرفية سامة';
+        }
+      case 'hi':
+        switch (this) {
+          case AppColorPalette.fuchsiaPine:
+            return 'चीड़ और फوشिया';
+          case AppColorPalette.indigoGold:
+            return 'इंडिगो और सोना';
+          case AppColorPalette.acidViolet:
+            return 'एसिड नियॉन';
+          case AppColorPalette.warmAmber:
+            return 'पीले पर लाल';
+          case AppColorPalette.rubyGold:
+            return 'रूबी पर सोना';
+          case AppColorPalette.pistachioMilk:
+            return 'पिस्ता दूध';
+          case AppColorPalette.cyberCyan:
+            return 'साइबर सियान';
+          case AppColorPalette.toxicOled:
+            return 'विषाक्त टर्मिनल';
+        }
+      default:
+        return nameEn;
+    }
   }
 
   ColorScheme toColorScheme({
