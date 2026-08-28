@@ -3,9 +3,9 @@
   "versionCode": 40,
   "minSupported": "1.0.13",
   "coreVersion": "1.5.0",
-  "notes": "Release v1.0.39: Bank-grade security hardening (256-bit CSPRNG salt, constant-time comparison against timing attacks, HTTPS enforcement, path traversal defense, and GoRouter fallbacks)",
+  "notes": "Release v1.0.39",
   "sha256": {
-    "android": "39288bb957f10a6ca2b8c2964ee0d245d2db452a3a3bf72220696fd7a1222094"
+    "android": "0aea02cd2faa57ca9129c0ae0b39af6126b23a4b0ab10dc10667729835a19835"
   },
   "files": {
     "android": "https://github.com/dakerhel/template-basic/releases/download/v1.0.39/my_app-1.0.39.apk"
