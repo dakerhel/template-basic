@@ -42,3 +42,43 @@ class SecuritySettings {
     );
   }
 }
+
+class LockoutInfo {
+  const LockoutInfo({
+    this.failedAttempts = 0,
+    this.lockoutUntilUtcMs,
+    this.remainingSeconds = 0,
+  });
+
+  final int failedAttempts;
+  final int? lockoutUntilUtcMs;
+  final int remainingSeconds;
+
+  bool get isLockedOut => remainingSeconds > 0;
+  bool get isBiometricsLockedOut => failedAttempts >= 3;
+
+  int get attemptsUntilNextLockout {
+    final mod = failedAttempts % 3;
+    return mod == 0 ? 3 : 3 - mod;
+  }
+
+  static int calculateLockoutSeconds(int attempts) {
+    if (attempts < 3) return 0;
+    if (attempts < 6) return 30; // 30 секунд
+    if (attempts < 9) return 300; // 5 минут
+    if (attempts < 12) return 900; // 15 минут
+    return 3600; // 60 минут
+  }
+
+  LockoutInfo copyWith({
+    int? failedAttempts,
+    int? lockoutUntilUtcMs,
+    int? remainingSeconds,
+  }) {
+    return LockoutInfo(
+      failedAttempts: failedAttempts ?? this.failedAttempts,
+      lockoutUntilUtcMs: lockoutUntilUtcMs ?? this.lockoutUntilUtcMs,
+      remainingSeconds: remainingSeconds ?? this.remainingSeconds,
+    );
+  }
+}

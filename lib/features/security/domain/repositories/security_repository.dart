@@ -11,4 +11,8 @@ abstract interface class SecurityRepository {
 
   Future<SecuritySettings> loadSettings();
   Future<void> saveSettings(SecuritySettings settings);
+
+  Future<LockoutInfo> getLockoutInfo();
+  Future<LockoutInfo> recordFailedAttempt();
+  Future<void> resetLockout();
 }

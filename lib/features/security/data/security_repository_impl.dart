@@ -24,6 +24,10 @@ class SecurityRepositoryImpl implements SecurityRepository {
   static const _prefBiometricsEnabled = 'security_biometrics_enabled';
   static const _prefAutoLockSeconds = 'security_autolock_seconds';
 
+  static const _prefFailedAttempts = 'security_failed_attempts';
+  static const _prefLockoutUntilUtcMs = 'security_lockout_until_utc_ms';
+  static const _prefLastObservedUtcMs = 'security_last_observed_utc_ms';
+
   @override
   Future<bool> hasPin() async {
     final prefs = await SharedPreferences.getInstance();
@@ -39,7 +43,12 @@ class SecurityRepositoryImpl implements SecurityRepository {
     if (savedHash == null || salt == null) return false;
 
     final computedHash = _hashPin(pin, salt);
-    return computedHash == savedHash;
+    final isValid = computedHash == savedHash;
+
+    if (isValid) {
+      await resetLockout();
+    }
+    return isValid;
   }
 
   @override
@@ -51,6 +60,8 @@ class SecurityRepositoryImpl implements SecurityRepository {
     await prefs.setString(_pinHashKey, hash);
     await prefs.setString(_pinSaltKey, salt);
 
+    await resetLockout();
+
     final current = await loadSettings();
     await saveSettings(current.copyWith(isPinEnabled: true));
   }
@@ -60,6 +71,8 @@ class SecurityRepositoryImpl implements SecurityRepository {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_pinHashKey);
     await prefs.remove(_pinSaltKey);
+
+    await resetLockout();
 
     final current = await loadSettings();
     await saveSettings(
@@ -81,6 +94,11 @@ class SecurityRepositoryImpl implements SecurityRepository {
   @override
   Future<bool> authenticateWithBiometrics({required String reason}) async {
     try {
+      final lockout = await getLockoutInfo();
+      if (lockout.isBiometricsLockedOut || lockout.isLockedOut) {
+        return false;
+      }
+
       final canAuth = await canCheckBiometrics();
       if (!canAuth) return false;
 
@@ -120,6 +138,74 @@ class SecurityRepositoryImpl implements SecurityRepository {
     await prefs.setBool(_prefPinEnabled, settings.isPinEnabled);
     await prefs.setBool(_prefBiometricsEnabled, settings.isBiometricsEnabled);
     await prefs.setInt(_prefAutoLockSeconds, settings.autoLockDuration.seconds);
+  }
+
+  @override
+  Future<LockoutInfo> getLockoutInfo() async {
+    final prefs = await SharedPreferences.getInstance();
+    final failedAttempts = prefs.getInt(_prefFailedAttempts) ?? 0;
+    final lockoutUntilUtcMs = prefs.getInt(_prefLockoutUntilUtcMs);
+    final lastObserved = prefs.getInt(_prefLastObservedUtcMs) ?? 0;
+
+    final nowUtcMs = DateTime.now().toUtc().millisecondsSinceEpoch;
+
+    // Защита от перевода часов назад (Anti-clock tampering)
+    final effectiveNowMs = (nowUtcMs < lastObserved) ? lastObserved : nowUtcMs;
+    if (nowUtcMs > lastObserved) {
+      await prefs.setInt(_prefLastObservedUtcMs, nowUtcMs);
+    }
+
+    int remainingSeconds = 0;
+    if (lockoutUntilUtcMs != null) {
+      final diffMs = lockoutUntilUtcMs - effectiveNowMs;
+      if (diffMs > 0) {
+        remainingSeconds = (diffMs / 1000).ceil();
+      } else {
+        await prefs.remove(_prefLockoutUntilUtcMs);
+      }
+    }
+
+    return LockoutInfo(
+      failedAttempts: failedAttempts,
+      lockoutUntilUtcMs: remainingSeconds > 0 ? lockoutUntilUtcMs : null,
+      remainingSeconds: remainingSeconds,
+    );
+  }
+
+  @override
+  Future<LockoutInfo> recordFailedAttempt() async {
+    final prefs = await SharedPreferences.getInstance();
+    final currentAttempts = (prefs.getInt(_prefFailedAttempts) ?? 0) + 1;
+    await prefs.setInt(_prefFailedAttempts, currentAttempts);
+
+    final nowUtcMs = DateTime.now().toUtc().millisecondsSinceEpoch;
+    await prefs.setInt(_prefLastObservedUtcMs, nowUtcMs);
+
+    int remainingSeconds = 0;
+    int? lockoutUntilUtcMs;
+
+    // Блокировка срабатывает каждые 3 неверные попытки (3, 6, 9, 12...)
+    if (currentAttempts % 3 == 0) {
+      final lockoutDurationSec = LockoutInfo.calculateLockoutSeconds(
+        currentAttempts,
+      );
+      lockoutUntilUtcMs = nowUtcMs + (lockoutDurationSec * 1000);
+      remainingSeconds = lockoutDurationSec;
+      await prefs.setInt(_prefLockoutUntilUtcMs, lockoutUntilUtcMs);
+    }
+
+    return LockoutInfo(
+      failedAttempts: currentAttempts,
+      lockoutUntilUtcMs: lockoutUntilUtcMs,
+      remainingSeconds: remainingSeconds,
+    );
+  }
+
+  @override
+  Future<void> resetLockout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_prefFailedAttempts);
+    await prefs.remove(_prefLockoutUntilUtcMs);
   }
 
   String _hashPin(String pin, String salt) {

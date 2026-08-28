@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -9,24 +11,28 @@ class SecurityState {
   const SecurityState({
     this.isLocked = false,
     this.settings = const SecuritySettings(),
+    this.lockout = const LockoutInfo(),
     this.canUseBiometrics = false,
     this.isInitialized = false,
   });
 
   final bool isLocked;
   final SecuritySettings settings;
+  final LockoutInfo lockout;
   final bool canUseBiometrics;
   final bool isInitialized;
 
   SecurityState copyWith({
     bool? isLocked,
     SecuritySettings? settings,
+    LockoutInfo? lockout,
     bool? canUseBiometrics,
     bool? isInitialized,
   }) {
     return SecurityState(
       isLocked: isLocked ?? this.isLocked,
       settings: settings ?? this.settings,
+      lockout: lockout ?? this.lockout,
       canUseBiometrics: canUseBiometrics ?? this.canUseBiometrics,
       isInitialized: isInitialized ?? this.isInitialized,
     );
@@ -40,12 +46,16 @@ class SecurityController extends Notifier<SecurityState>
     with WidgetsBindingObserver {
   late final SecurityRepository _repository;
   DateTime? _pausedAt;
+  Timer? _countdownTimer;
 
   @override
   SecurityState build() {
     _repository = ref.watch(securityRepositoryProvider);
     WidgetsBinding.instance.addObserver(this);
-    ref.onDispose(() => WidgetsBinding.instance.removeObserver(this));
+    ref.onDispose(() {
+      _countdownTimer?.cancel();
+      WidgetsBinding.instance.removeObserver(this);
+    });
 
     Future.microtask(_init);
     return const SecurityState();
@@ -54,13 +64,19 @@ class SecurityController extends Notifier<SecurityState>
   Future<void> _init() async {
     final settings = await _repository.loadSettings();
     final canBio = await _repository.canCheckBiometrics();
+    final lockout = await _repository.getLockoutInfo();
 
     state = state.copyWith(
       settings: settings,
+      lockout: lockout,
       canUseBiometrics: canBio,
       isLocked: settings.isPinEnabled,
       isInitialized: true,
     );
+
+    if (lockout.isLockedOut) {
+      _startLockoutCountdown();
+    }
   }
 
   @override
@@ -71,6 +87,9 @@ class SecurityController extends Notifier<SecurityState>
         state == AppLifecycleState.inactive) {
       _pausedAt ??= DateTime.now();
     } else if (state == AppLifecycleState.resumed) {
+      // При выходе из фона синхронизируем таймер блокировки
+      _refreshLockout();
+
       if (_pausedAt != null) {
         final elapsed = DateTime.now().difference(_pausedAt!).inSeconds;
         final timeout = this.state.settings.autoLockDuration.seconds;
@@ -83,24 +102,61 @@ class SecurityController extends Notifier<SecurityState>
     }
   }
 
+  Future<void> _refreshLockout() async {
+    final lockout = await _repository.getLockoutInfo();
+    state = state.copyWith(lockout: lockout);
+    if (lockout.isLockedOut) {
+      _startLockoutCountdown();
+    } else {
+      _countdownTimer?.cancel();
+    }
+  }
+
+  void _startLockoutCountdown() {
+    _countdownTimer?.cancel();
+    _countdownTimer = Timer.periodic(const Duration(seconds: 1), (_) async {
+      final lockout = await _repository.getLockoutInfo();
+      state = state.copyWith(lockout: lockout);
+
+      if (!lockout.isLockedOut) {
+        _countdownTimer?.cancel();
+      }
+    });
+  }
+
   Future<bool> verifyAndUnlock(String pin) async {
+    if (state.lockout.isLockedOut) return false;
+
     final isValid = await _repository.verifyPin(pin);
     if (isValid) {
-      state = state.copyWith(isLocked: false);
+      _countdownTimer?.cancel();
+      state = state.copyWith(isLocked: false, lockout: const LockoutInfo());
       _pausedAt = null;
       return true;
+    } else {
+      final updatedLockout = await _repository.recordFailedAttempt();
+      state = state.copyWith(lockout: updatedLockout);
+
+      if (updatedLockout.isLockedOut) {
+        _startLockoutCountdown();
+      }
+      return false;
     }
-    return false;
   }
 
   Future<bool> unlockWithBiometrics({required String reason}) async {
     if (!state.settings.isBiometricsEnabled) return false;
+    if (state.lockout.isBiometricsLockedOut || state.lockout.isLockedOut) {
+      return false;
+    }
 
     final success = await _repository.authenticateWithBiometrics(
       reason: reason,
     );
     if (success) {
-      state = state.copyWith(isLocked: false);
+      _countdownTimer?.cancel();
+      await _repository.resetLockout();
+      state = state.copyWith(isLocked: false, lockout: const LockoutInfo());
       _pausedAt = null;
       return true;
     }
@@ -109,18 +165,28 @@ class SecurityController extends Notifier<SecurityState>
 
   Future<void> setPin(String pin) async {
     await _repository.setPin(pin);
+    _countdownTimer?.cancel();
     final updated = state.settings.copyWith(isPinEnabled: true);
     await _repository.saveSettings(updated);
-    state = state.copyWith(settings: updated, isLocked: false);
+    state = state.copyWith(
+      settings: updated,
+      isLocked: false,
+      lockout: const LockoutInfo(),
+    );
   }
 
   Future<void> removePin() async {
     await _repository.removePin();
+    _countdownTimer?.cancel();
     final updated = state.settings.copyWith(
       isPinEnabled: false,
       isBiometricsEnabled: false,
     );
-    state = state.copyWith(settings: updated, isLocked: false);
+    state = state.copyWith(
+      settings: updated,
+      isLocked: false,
+      lockout: const LockoutInfo(),
+    );
   }
 
   Future<void> setBiometricsEnabled(bool enabled) async {
