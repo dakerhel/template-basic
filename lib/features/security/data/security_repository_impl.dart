@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:crypto/crypto.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,6 +24,7 @@ class SecurityRepositoryImpl implements SecurityRepository {
   static const _prefPinEnabled = 'security_pin_enabled';
   static const _prefBiometricsEnabled = 'security_biometrics_enabled';
   static const _prefAutoLockSeconds = 'security_autolock_seconds';
+  static const _prefHideContentEnabled = 'security_hide_content_enabled';
 
   static const _prefFailedAttempts = 'security_failed_attempts';
   static const _prefLockoutUntilUtcMs = 'security_lockout_until_utc_ms';
@@ -43,7 +45,7 @@ class SecurityRepositoryImpl implements SecurityRepository {
     if (savedHash == null || salt == null) return false;
 
     final computedHash = _hashPin(pin, salt);
-    final isValid = computedHash == savedHash;
+    final isValid = _constantTimeEquals(computedHash, savedHash);
 
     if (isValid) {
       await resetLockout();
@@ -54,7 +56,11 @@ class SecurityRepositoryImpl implements SecurityRepository {
   @override
   Future<void> setPin(String pin) async {
     final prefs = await SharedPreferences.getInstance();
-    final salt = DateTime.now().microsecondsSinceEpoch.toString();
+    // Криптографически стойкая генерация соли (256 бит энтропии)
+    final random = Random.secure();
+    final saltBytes = List<int>.generate(32, (_) => random.nextInt(256));
+    final salt = base64UrlEncode(saltBytes);
+
     final hash = _hashPin(pin, salt);
 
     await prefs.setString(_pinHashKey, hash);
@@ -114,8 +120,6 @@ class SecurityRepositoryImpl implements SecurityRepository {
       return false;
     }
   }
-
-  static const _prefHideContentEnabled = 'security_hide_content_enabled';
 
   @override
   Future<SecuritySettings> loadSettings() async {
@@ -214,7 +218,23 @@ class SecurityRepositoryImpl implements SecurityRepository {
   }
 
   String _hashPin(String pin, String salt) {
-    final bytes = utf8.encode('$salt:$pin:$salt');
-    return sha256.convert(bytes).toString();
+    // 2-этапный криптографический хэш с солью
+    final firstPass = sha256
+        .convert(utf8.encode('$salt:$pin:$salt'))
+        .toString();
+    final secondPass = sha256
+        .convert(utf8.encode('$pin:$firstPass:$salt'))
+        .toString();
+    return secondPass;
+  }
+
+  /// Constant-time string comparison для защиты от атак по времени (Timing Attacks)
+  static bool _constantTimeEquals(String a, String b) {
+    if (a.length != b.length) return false;
+    int result = 0;
+    for (int i = 0; i < a.length; i++) {
+      result |= a.codeUnitAt(i) ^ b.codeUnitAt(i);
+    }
+    return result == 0;
   }
 }

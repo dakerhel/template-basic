@@ -5,6 +5,7 @@ import '../../features/settings/presentation/settings_screen.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/',
+  errorBuilder: (context, state) => const HomeScreen(),
   routes: [
     GoRoute(path: '/', builder: (context, state) => const HomeScreen()),
     GoRoute(

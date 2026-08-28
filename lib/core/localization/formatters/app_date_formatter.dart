@@ -29,8 +29,12 @@ abstract final class AppDateFormatter {
     }
 
     if (difference.inDays == 1) {
-      final timeStr = DateFormat.Hm(locale).format(dateTime);
-      return isRu ? 'вчера в $timeStr' : 'yesterday at $timeStr';
+      try {
+        final timeStr = DateFormat.Hm(locale).format(dateTime);
+        return isRu ? 'вчера в $timeStr' : 'yesterday at $timeStr';
+      } catch (_) {
+        return isRu ? 'вчера' : 'yesterday';
+      }
     }
 
     if (difference.inDays < 7) {
@@ -42,27 +46,47 @@ abstract final class AppDateFormatter {
     }
 
     // Если больше недели — выводим локализованную дату
-    return DateFormat.yMMMd(locale).format(dateTime);
+    try {
+      return DateFormat.yMMMd(locale).format(dateTime);
+    } catch (_) {
+      return '${dateTime.year}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.day.toString().padLeft(2, '0')}';
+    }
   }
 
   /// Полная локализованная дата («28 августа 2026 г.» / «August 28, 2026»)
   static String formatFullDate(DateTime dateTime, {String? locale}) {
-    return DateFormat.yMMMMd(locale).format(dateTime);
+    try {
+      return DateFormat.yMMMMd(locale).format(dateTime);
+    } catch (_) {
+      return '${dateTime.year}-${dateTime.month}-${dateTime.day}';
+    }
   }
 
   /// Краткая дата («28.08.2026» / «8/28/2026»)
   static String formatShortDate(DateTime dateTime, {String? locale}) {
-    return DateFormat.yMd(locale).format(dateTime);
+    try {
+      return DateFormat.yMd(locale).format(dateTime);
+    } catch (_) {
+      return '${dateTime.day}.${dateTime.month}.${dateTime.year}';
+    }
   }
 
   /// Время («14:30» / «2:30 PM»)
   static String formatTime(DateTime dateTime, {String? locale}) {
-    return DateFormat.jm(locale).format(dateTime);
+    try {
+      return DateFormat.jm(locale).format(dateTime);
+    } catch (_) {
+      return '${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}';
+    }
   }
 
   /// Дата и время («28 авг., 14:30»)
   static String formatDateTime(DateTime dateTime, {String? locale}) {
-    return DateFormat.yMMMd(locale).add_jm().format(dateTime);
+    try {
+      return DateFormat.yMMMd(locale).add_jm().format(dateTime);
+    } catch (_) {
+      return '${dateTime.year}-${dateTime.month}-${dateTime.day} ${dateTime.hour}:${dateTime.minute}';
+    }
   }
 
   static String _pluralMinutesRu(int n) {

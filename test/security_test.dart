@@ -40,10 +40,15 @@ void main() {
       },
     );
 
-    test('Cryptographic hash formula produces consistent hashes', () {
+    test('Cryptographic double-hash formula produces consistent hashes', () {
       String hashPin(String pin, String salt) {
-        final bytes = utf8.encode('$salt:$pin:$salt');
-        return sha256.convert(bytes).toString();
+        final firstPass = sha256
+            .convert(utf8.encode('$salt:$pin:$salt'))
+            .toString();
+        final secondPass = sha256
+            .convert(utf8.encode('$pin:$firstPass:$salt'))
+            .toString();
+        return secondPass;
       }
 
       final hash1 = hashPin('1234', 'salt_123');

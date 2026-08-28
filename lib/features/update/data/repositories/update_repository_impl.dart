@@ -23,6 +23,8 @@ final class UpdateRepositoryImpl implements UpdateRepository {
   @override
   Future<AppUpdate?> checkForUpdate() async {
     final uri = Uri.parse(AppConfig.updateManifestUrl);
+    _validateHttps(uri);
+
     final response = await _dio.getUri<dynamic>(
       uri,
       options: Options(responseType: ResponseType.plain),
@@ -58,13 +60,13 @@ final class UpdateRepositoryImpl implements UpdateRepository {
     AppUpdate update, {
     void Function(int received, int? total)? onProgress,
   }) async {
+    final updateUri = Uri.parse(update.fileUrl);
+    _validateHttps(updateUri);
+
     final dir = await getApplicationCacheDirectory();
-    final segments = Uri.parse(update.fileUrl).pathSegments;
-    final urlName = segments.isNotEmpty ? segments.last : 'download';
-    final ext = urlName.contains('.')
-        ? urlName.substring(urlName.lastIndexOf('.'))
-        : '';
-    final savePath = '${dir.path}${Platform.pathSeparator}update-download$ext';
+    final ext = _sanitizeExtension(updateUri.path);
+    final savePath =
+        '${dir.path}${Platform.pathSeparator}app-update-package$ext';
     final targetFile = File(savePath);
 
     // Гарантируем существование директории кеша
@@ -103,9 +105,10 @@ final class UpdateRepositoryImpl implements UpdateRepository {
     }
     final bytes = file.readAsBytesSync();
     final digest = sha256.convert(bytes);
-    final actual = digest.toString();
+    final actual = digest.toString().toLowerCase();
     final expected = expectedSha256.toLowerCase().replaceAll(' ', '');
-    if (actual != expected) {
+
+    if (!_constantTimeEquals(actual, expected)) {
       try {
         file.deleteSync();
       } on FileSystemException {
@@ -132,7 +135,9 @@ final class UpdateRepositoryImpl implements UpdateRepository {
         try {
           final name = entity.uri.pathSegments.last;
           final isDownloadArtifact =
-              name.startsWith('my_app-') || name.startsWith('update-download');
+              name.startsWith('my_app-') ||
+              name.startsWith('update-download') ||
+              name.startsWith('app-update-package');
           if (!isDownloadArtifact) continue;
           final stat = entity.statSync();
           final isStale =
@@ -165,5 +170,29 @@ final class UpdateRepositoryImpl implements UpdateRepository {
   @override
   Future<void> installUpdate(AppUpdate update, String filePath) {
     return _installer.install(filePath, update);
+  }
+
+  static void _validateHttps(Uri uri) {
+    if (!uri.hasScheme || (uri.scheme != 'https' && uri.scheme != 'http')) {
+      throw const UpdateFailure('Недопустимый протокол URL обновления');
+    }
+  }
+
+  static String _sanitizeExtension(String path) {
+    const allowed = ['.apk', '.exe', '.dmg', '.zip', '.appimage'];
+    final lower = path.toLowerCase();
+    for (final ext in allowed) {
+      if (lower.endsWith(ext)) return ext;
+    }
+    return '.apk';
+  }
+
+  static bool _constantTimeEquals(String a, String b) {
+    if (a.length != b.length) return false;
+    int result = 0;
+    for (int i = 0; i < a.length; i++) {
+      result |= a.codeUnitAt(i) ^ b.codeUnitAt(i);
+    }
+    return result == 0;
   }
 }
