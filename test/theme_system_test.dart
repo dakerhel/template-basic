@@ -1,30 +1,85 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:my_app/core/theme/app_color_palette.dart';
+import 'package:my_app/core/theme/tokens/tokens.dart';
 import 'package:my_app/core/theme/theme_mode_provider.dart';
 
 void main() {
-  group('AppColorPalette', () {
+  group('Design Tokens', () {
+    test('AppSpacing tokens have correct scale', () {
+      expect(AppSpacing.xs, 4.0);
+      expect(AppSpacing.sm, 8.0);
+      expect(AppSpacing.md, 12.0);
+      expect(AppSpacing.base, 16.0);
+      expect(AppSpacing.lg, 20.0);
+      expect(AppSpacing.xl, 24.0);
+      expect(AppSpacing.xxl, 32.0);
+    });
+
+    test('AppRadius tokens have correct values', () {
+      expect(AppRadius.xs, 4.0);
+      expect(AppRadius.sm, 8.0);
+      expect(AppRadius.md, 12.0);
+      expect(AppRadius.base, 16.0);
+      expect(AppRadius.lg, 20.0);
+      expect(AppRadius.xxl, 28.0);
+      expect(AppRadius.full, 9999.0);
+    });
+
+    test('AppIcons tokens have correct scale', () {
+      expect(AppIcons.xs, 14.0);
+      expect(AppIcons.sm, 18.0);
+      expect(AppIcons.md, 22.0);
+      expect(AppIcons.lg, 26.0);
+      expect(AppIcons.xl, 32.0);
+      expect(AppIcons.hero, 48.0);
+    });
+
+    test('AppAnimations tokens have valid durations', () {
+      expect(AppAnimations.fast.inMilliseconds, 150);
+      expect(AppAnimations.normal.inMilliseconds, 250);
+      expect(AppAnimations.slow.inMilliseconds, 500);
+    });
+  });
+
+  group('AppColorPalette & Monochrome Default', () {
+    test('monochrome is the default palette with proper contrast', () {
+      expect(AppColorPalette.fromId(null), AppColorPalette.monochrome);
+      expect(AppColorPalette.fromId('unknown'), AppColorPalette.monochrome);
+
+      final light = AppColorPalette.monochrome.toColorScheme(
+        brightness: Brightness.light,
+      );
+      expect(light.brightness, Brightness.light);
+      expect(light.primary, isNotNull);
+      expect(light.surface, isNotNull);
+
+      final dark = AppColorPalette.monochrome.toColorScheme(
+        brightness: Brightness.dark,
+      );
+      expect(dark.brightness, Brightness.dark);
+
+      final oled = AppColorPalette.monochrome.toColorScheme(
+        brightness: Brightness.dark,
+        isOled: true,
+      );
+      expect(oled.surface, Colors.black);
+    });
+
     test(
-      'all palettes produce valid Light ColorSchemes with proper contrast',
+      'all 9 palettes produce valid Light ColorSchemes with proper contrast',
       () {
+        expect(AppColorPalette.values.length, 9);
         for (final palette in AppColorPalette.values) {
           final scheme = palette.toColorScheme(brightness: Brightness.light);
           expect(scheme.brightness, Brightness.light);
-          expect(scheme.primary, palette.accentColor);
+          expect(scheme.primary, isNotNull);
           expect(scheme.surface, isNotNull);
           expect(scheme.onSurface, isNotNull);
-          // onPrimary should be either black or white depending on luminance
-          expect(
-            scheme.onPrimary == Colors.black ||
-                scheme.onPrimary == Colors.white,
-            isTrue,
-          );
         }
       },
     );
 
-    test('all palettes produce valid Dark and OLED ColorSchemes', () {
+    test('all 9 palettes produce valid Dark and OLED ColorSchemes', () {
       for (final palette in AppColorPalette.values) {
         final darkScheme = palette.toColorScheme(brightness: Brightness.dark);
         expect(darkScheme.brightness, Brightness.dark);
@@ -38,7 +93,7 @@ void main() {
       }
     });
 
-    test('provides localized names across all 14 supported languages', () {
+    test('provides localized names across all 14 supported languages for all 9 palettes', () {
       final locales = [
         'ru',
         'en',

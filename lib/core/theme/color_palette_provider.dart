@@ -14,7 +14,7 @@ final class ColorPaletteController extends Notifier<AppColorPalette> {
   @override
   AppColorPalette build() {
     _restore();
-    return AppColorPalette.fuchsiaPine;
+    return AppColorPalette.monochrome;
   }
 
   Future<void> _restore() async {

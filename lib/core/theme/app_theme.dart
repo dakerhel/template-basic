@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'app_color_palette.dart';
+import 'tokens/tokens.dart';
 
 abstract final class AppTheme {
   static ThemeData light({
-    AppColorPalette palette = AppColorPalette.fuchsiaPine,
+    AppColorPalette palette = AppColorPalette.monochrome,
     String? fontFamily,
   }) => _theme(
     brightness: Brightness.light,
@@ -14,7 +14,7 @@ abstract final class AppTheme {
   );
 
   static ThemeData dark({
-    AppColorPalette palette = AppColorPalette.fuchsiaPine,
+    AppColorPalette palette = AppColorPalette.monochrome,
     String? fontFamily,
     bool isOled = false,
   }) => _theme(
@@ -40,30 +40,51 @@ abstract final class AppTheme {
       colorScheme: colorScheme,
       scaffoldBackgroundColor: colorScheme.surface,
       fontFamily: fontFamily,
+      splashFactory: InkSparkle.splashFactory,
       appBarTheme: AppBarTheme(
         backgroundColor: colorScheme.surface,
         foregroundColor: colorScheme.onSurface,
         elevation: 0,
         centerTitle: false,
+        titleTextStyle: AppTypography.titleLarge.copyWith(
+          color: colorScheme.onSurface,
+          fontFamily: fontFamily,
+        ),
       ),
       cardTheme: CardThemeData(
         color: colorScheme.surfaceContainerHighest,
         elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(borderRadius: AppRadius.card),
+        margin: EdgeInsets.zero,
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+          shape: RoundedRectangleBorder(borderRadius: AppRadius.button),
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppSpacing.lg,
+            vertical: AppSpacing.md,
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+          textStyle: AppTypography.labelLarge.copyWith(fontFamily: fontFamily),
         ),
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         backgroundColor: colorScheme.primary,
         foregroundColor: colorScheme.onPrimary,
-        elevation: 3,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        elevation: 2,
+        shape: RoundedRectangleBorder(borderRadius: AppRadius.rLg),
+      ),
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: colorScheme.surface,
+        modalBackgroundColor: colorScheme.surface,
+        shape: RoundedRectangleBorder(borderRadius: AppRadius.sheet),
+        elevation: 0,
+      ),
+      listTileTheme: ListTileThemeData(
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.base,
+          vertical: AppSpacing.xs,
+        ),
+        shape: RoundedRectangleBorder(borderRadius: AppRadius.rMd),
       ),
     );
   }

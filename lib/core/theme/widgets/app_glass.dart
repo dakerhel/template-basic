@@ -14,7 +14,7 @@ class AppGlassCard extends ConsumerWidget {
     super.key,
     required this.child,
     this.borderRadius = 20.0,
-    this.blur = 16.0,
+    this.blur = 18.0,
     this.tintOpacity = 0.65,
     this.borderOpacity = 0.25,
     this.padding,
@@ -43,12 +43,10 @@ class AppGlassCard extends ConsumerWidget {
     Widget content;
 
     if (isGlassEnabled == true) {
-      // Базовый цвет стекла адаптируется под тему (темный оттенок на dark/oled, светлый на light)
       final glassColor = isDark
           ? colorScheme.surfaceContainerHighest.withValues(alpha: tintOpacity)
           : colorScheme.surface.withValues(alpha: tintOpacity);
 
-      // Градиентная кайма: сверху блик света (светлее), снизу затенение
       final topBorderColor = isDark
           ? Colors.white.withValues(alpha: borderOpacity)
           : Colors.white.withValues(alpha: borderOpacity * 1.5);
@@ -80,7 +78,6 @@ class AppGlassCard extends ConsumerWidget {
         ),
       );
     } else {
-      // Solid Material 3 Surface
       content = Container(
         padding: padding,
         decoration: BoxDecoration(
