@@ -3,6 +3,16 @@ import 'dart:ui';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../localization/models/app_language.dart';
+
+export '../localization/errors/app_localized_error.dart';
+export '../localization/extensions/localization_context_ext.dart';
+export '../localization/formatters/app_currency_formatter.dart';
+export '../localization/formatters/app_date_formatter.dart';
+export '../localization/formatters/app_number_formatter.dart';
+export '../localization/models/app_language.dart';
+export '../localization/notifications/app_localized_notification.dart';
+
 final localeProvider = NotifierProvider<LocaleController, Locale?>(
   LocaleController.new,
 );
@@ -32,5 +42,13 @@ final class LocaleController extends Notifier<Locale?> {
     } else {
       await prefs.setString(_prefsKey, locale.languageCode);
     }
+  }
+
+  Future<void> setLanguage(AppLanguage language) async {
+    await setLocale(language.locale);
+  }
+
+  Future<void> resetToSystem() async {
+    await setLocale(null);
   }
 }
