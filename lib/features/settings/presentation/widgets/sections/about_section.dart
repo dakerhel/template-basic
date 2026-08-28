@@ -5,6 +5,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:my_app/core/config.dart';
+import 'package:my_app/core/device/presentation/sheets/system_diagnostics_sheet.dart';
 import 'package:my_app/features/settings/presentation/widgets/common/settings_group_header.dart';
 import 'package:my_app/features/settings/presentation/widgets/common/settings_link_tile.dart';
 import 'package:my_app/l10n/generated/app_localizations.dart';
@@ -47,6 +48,21 @@ class AboutSection extends StatelessWidget {
           leading: const Icon(Icons.devices),
           title: Text(l10n.deviceLabel),
           subtitle: Text(_platformName),
+        ),
+        ListTile(
+          leading: const Icon(Icons.developer_board_rounded),
+          title: Text(
+            Localizations.localeOf(context).languageCode == 'ru'
+                ? 'Системная диагностика'
+                : 'System Diagnostics',
+          ),
+          subtitle: Text(
+            Localizations.localeOf(context).languageCode == 'ru'
+                ? 'Параметры экрана, ОС, сети и устройства'
+                : 'Screen, OS, network, and hardware specs',
+          ),
+          trailing: const Icon(Icons.chevron_right_rounded),
+          onTap: () => SystemDiagnosticsSheet.show(context),
         ),
         SettingsLinkTile(
           icon: Icons.privacy_tip_outlined,
