@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../l10n/generated/app_localizations.dart';
-import '../../../theme/tokens/tokens.dart';
-import '../../../theme/widgets/app_glass.dart';
+import '../../../l10n/generated/app_localizations.dart';
+import '../../theme/tokens/tokens.dart';
+import '../../theme/widgets/app_glass.dart';
 import '../providers/permission_onboarding_provider.dart';
 
 /// Высококлассная банковская шторка запроса разрешений на уведомления (Pre-Prompt).

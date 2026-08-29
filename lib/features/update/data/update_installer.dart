@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:open_filex/open_filex.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../../core/error/failure.dart';
+import '../../../core/error/failure.dart';
 import '../domain/entities/app_update.dart';
 
 abstract interface class UpdateInstaller {
