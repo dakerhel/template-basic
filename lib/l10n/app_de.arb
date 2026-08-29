@@ -71,5 +71,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "permissionOnboardingTitle": "Auf dem Laufenden bleiben",
+  "permissionOnboardingBody": "Aktivieren Sie Benachrichtigungen, um sofort über neue Updates und Sicherheitsmeldungen informiert zu werden.",
+  "permissionOnboardingAction": "Benachrichtigungen aktivieren",
+  "permissionOnboardingDismiss": "Später",
+  "permissionUpdatesBenefitTitle": "OTA-Updates",
+  "permissionUpdatesBenefitDesc": "Sofortige Hinweise auf neue Versionen & Features",
+  "permissionSecurityBenefitTitle": "Sicherheit & Schutz",
+  "permissionSecurityBenefitDesc": "Kritische Sicherheitsereignisse & Sitzungswarnungen",
+  "permissionGrantedSnackbar": "Benachrichtigungen erfolgreich aktiviert",
+  "permissionDeniedSnackbar": "Benachrichtigungen deaktiviert. Sie können sie jederzeit in den Einstellungen aktivieren."
 }

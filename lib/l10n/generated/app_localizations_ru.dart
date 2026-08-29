@@ -208,8 +208,74 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get clearCacheAction => 'Очистить';
+  String get cacheCleared => 'Очищено';
 
   @override
-  String get cacheCleared => 'Очищено';
+  String get permissionOnboardingTitle => 'Будьте в курсе важного';
+
+  @override
+  String get permissionOnboardingBody =>
+      'Включите уведомления, чтобы мгновенно узнавать о выходе обновлений и важных событиях безопасности.';
+
+  @override
+  String get permissionOnboardingAction => 'Включить уведомления';
+
+  @override
+  String get permissionOnboardingDismiss => 'Позже';
+
+  @override
+  String get permissionUpdatesBenefitTitle => 'OTA-обновления';
+
+  @override
+  String get permissionUpdatesBenefitDesc =>
+      'Оповещения о выходе новых версий и функций';
+
+  @override
+  String get permissionSecurityBenefitTitle => 'Безопасность';
+
+  @override
+  String get permissionSecurityBenefitDesc =>
+      'Контроль критических событий и статуса защиты';
+
+  @override
+  String get permissionGrantedSnackbar => 'Уведомления успешно включены';
+
+  @override
+  String get permissionDeniedSnackbar =>
+      'Уведомления отключены. Вы можете включить их в любой момент в Настройках.';
+
+  @override
+  String get profileTitle => 'Профиль';
+
+  @override
+  String get profileGuestName => 'Гостевой профиль';
+
+  @override
+  String get profileGuestDesc => 'Локальная сессия без облачной синхронизации';
+
+  @override
+  String get profileLinkAccount => 'Привязать аккаунт';
+
+  @override
+  String get profileLinkAccountDesc =>
+      'Войдите через Google, Telegram или GitHub';
+
+  @override
+  String get profileAccountSection => 'Учетная запись';
+
+  @override
+  String get profileSecuritySection => 'Безопасность и сессии';
+
+  @override
+  String get profileActiveSessions => 'Активные устройства';
+
+  @override
+  String get profileCurrentDevice => 'Текущее устройство';
+
+  @override
+  String get profileDeleteAccount => 'Очистить профиль и данные';
+
+  @override
+  String get profileDeleteConfirm =>
+      'Вы уверены? Все локальные данные и кэш сессий будут удалены.';
 }

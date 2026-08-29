@@ -208,8 +208,74 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
-  String get clearCacheAction => 'Limpar';
+  String get cacheCleared => 'Limpo';
 
   @override
-  String get cacheCleared => 'Limpo';
+  String get permissionOnboardingTitle => 'Mantenha-se informado';
+
+  @override
+  String get permissionOnboardingBody =>
+      'Ative as notificações para receber alertas instantâneos sobre atualizações e segurança.';
+
+  @override
+  String get permissionOnboardingAction => 'Ativar notificações';
+
+  @override
+  String get permissionOnboardingDismiss => 'Mais tarde';
+
+  @override
+  String get permissionUpdatesBenefitTitle => 'Atualizações OTA';
+
+  @override
+  String get permissionUpdatesBenefitDesc =>
+      'Alertas instantâneos de novas versões e recursos';
+
+  @override
+  String get permissionSecurityBenefitTitle => 'Segurança e proteção';
+
+  @override
+  String get permissionSecurityBenefitDesc =>
+      'Eventos críticos de segurança e alertas de sessão';
+
+  @override
+  String get permissionGrantedSnackbar => 'Notificações ativadas com sucesso';
+
+  @override
+  String get permissionDeniedSnackbar =>
+      'Notificações desativadas. Você pode ativá-las nas Configurações.';
+
+  @override
+  String get profileTitle => 'Perfil';
+
+  @override
+  String get profileGuestName => 'Usuário Convidado';
+
+  @override
+  String get profileGuestDesc => 'Sessão local offline';
+
+  @override
+  String get profileLinkAccount => 'Vincular conta';
+
+  @override
+  String get profileLinkAccountDesc =>
+      'Conecte com Google, Telegram ou GitHub';
+
+  @override
+  String get profileAccountSection => 'Conta';
+
+  @override
+  String get profileSecuritySection => 'Segurança e sessões';
+
+  @override
+  String get profileActiveSessions => 'Dispositivos ativos';
+
+  @override
+  String get profileCurrentDevice => 'Este dispositivo';
+
+  @override
+  String get profileDeleteAccount => 'Limpar perfil e dados';
+
+  @override
+  String get profileDeleteConfirm =>
+      'Tem certeza? Todos os dados locais serão excluídos.';
 }

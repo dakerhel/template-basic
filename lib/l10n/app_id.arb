@@ -71,5 +71,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "permissionOnboardingTitle": "Tetap Terinformasi & Aman",
+  "permissionOnboardingBody": "Aktifkan notifikasi untuk menerima info pembaruan instan dan peringatan keamanan.",
+  "permissionOnboardingAction": "Aktifkan Notifikasi",
+  "permissionOnboardingDismiss": "Nanti Saja",
+  "permissionUpdatesBenefitTitle": "Pembaruan OTA",
+  "permissionUpdatesBenefitDesc": "Peringatan instan untuk versi & fitur baru",
+  "permissionSecurityBenefitTitle": "Keamanan & Perlindungan",
+  "permissionSecurityBenefitDesc": "Peringatan peristiwa keamanan kritis & sesi",
+  "permissionGrantedSnackbar": "Notifikasi berhasil diaktifkan",
+  "permissionDeniedSnackbar": "Notifikasi dinonaktifkan. Anda dapat mengaktifkannya di Pengaturan kapan saja."
 }

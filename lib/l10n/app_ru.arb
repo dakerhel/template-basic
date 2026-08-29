@@ -71,5 +71,26 @@
         "type": "String"
       }
     }
-  }
+  },
+  "permissionOnboardingTitle": "Будьте в курсе важного",
+  "permissionOnboardingBody": "Включите уведомления, чтобы мгновенно узнавать о выходе обновлений и важных событиях безопасности.",
+  "permissionOnboardingAction": "Включить уведомления",
+  "permissionOnboardingDismiss": "Позже",
+  "permissionUpdatesBenefitTitle": "OTA-обновления",
+  "permissionUpdatesBenefitDesc": "Оповещения о выходе новых версий и функций",
+  "permissionSecurityBenefitTitle": "Безопасность",
+  "permissionSecurityBenefitDesc": "Контроль критических событий и статуса защиты",
+  "permissionGrantedSnackbar": "Уведомления успешно включены",
+  "permissionDeniedSnackbar": "Уведомления отключены. Вы можете включить их в любой момент в Настройках.",
+  "profileTitle": "Профиль",
+  "profileGuestName": "Гостевой профиль",
+  "profileGuestDesc": "Локальная сессия без облачной синхронизации",
+  "profileLinkAccount": "Привязать аккаунт",
+  "profileLinkAccountDesc": "Войдите через Google, Telegram или GitHub",
+  "profileAccountSection": "Учетная запись",
+  "profileSecuritySection": "Безопасность и сессии",
+  "profileActiveSessions": "Активные устройства",
+  "profileCurrentDevice": "Текущее устройство",
+  "profileDeleteAccount": "Очистить профиль и данные",
+  "profileDeleteConfirm": "Вы уверены? Все локальные данные и кэш сессий будут удалены."
 }

@@ -71,5 +71,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "permissionOnboardingTitle": "Haberdar Kalın",
+  "permissionOnboardingBody": "Güncellemeler ve güvenlik uyarıları hakkında anında bilgi almak için bildirimleri etkinleştirin.",
+  "permissionOnboardingAction": "Bildirimleri Etkinleştir",
+  "permissionOnboardingDismiss": "Daha Sonra",
+  "permissionUpdatesBenefitTitle": "OTA Güncellemeleri",
+  "permissionUpdatesBenefitDesc": "Yeni sürümler ve özellikler için anında uyarılar",
+  "permissionSecurityBenefitTitle": "Güvenlik ve Koruma",
+  "permissionSecurityBenefitDesc": "Kritik güvenlik olayları ve oturum uyarıları",
+  "permissionGrantedSnackbar": "Bildirimler başarıyla etkinleştirildi",
+  "permissionDeniedSnackbar": "Bildirimler devre dışı. Ayarlar bölümünden istediğiniz zaman etkinleştirebilirsiniz."
 }

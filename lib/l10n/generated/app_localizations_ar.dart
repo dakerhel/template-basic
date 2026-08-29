@@ -207,8 +207,74 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get clearCacheAction => 'مسح';
+  String get cacheCleared => 'تم المسح';
 
   @override
-  String get cacheCleared => 'تم المسح';
+  String get permissionOnboardingTitle => 'ابقَ على اطلاع دائم';
+
+  @override
+  String get permissionOnboardingBody =>
+      'قم بتمكين الإشعارات لتلقي تنبيهات فورية حول تحديثات التطبيق والأمان.';
+
+  @override
+  String get permissionOnboardingAction => 'تمكين الإشعارات';
+
+  @override
+  String get permissionOnboardingDismiss => 'لاحقاً';
+
+  @override
+  String get permissionUpdatesBenefitTitle => 'تحديثات OTA';
+
+  @override
+  String get permissionUpdatesBenefitDesc =>
+      'تنبيهات فورية للإصدارات والميزات الجديدة';
+
+  @override
+  String get permissionSecurityBenefitTitle => 'الأمان والحماية';
+
+  @override
+  String get permissionSecurityBenefitDesc =>
+      'تنبيهات أحداث الأمان الهامة والجلسات';
+
+  @override
+  String get permissionGrantedSnackbar => 'تم تمكين الإشعارات بنجاح';
+
+  @override
+  String get permissionDeniedSnackbar =>
+      'الإشعارات معطلة. يمكنك تفعيلها من الإعدادات.';
+
+  @override
+  String get profileTitle => 'الملف الشخصي';
+
+  @override
+  String get profileGuestName => 'مستخدم ضيف';
+
+  @override
+  String get profileGuestDesc => 'جلسة محلية بدون اتصال بالإنترنت';
+
+  @override
+  String get profileLinkAccount => 'ربط الحساب';
+
+  @override
+  String get profileLinkAccountDesc =>
+      'تسجيل الدخول عبر Google أو Telegram أو GitHub';
+
+  @override
+  String get profileAccountSection => 'الحساب';
+
+  @override
+  String get profileSecuritySection => 'الأمان والجلسات';
+
+  @override
+  String get profileActiveSessions => 'الأجهزة النشطة';
+
+  @override
+  String get profileCurrentDevice => 'هذا الجهاز';
+
+  @override
+  String get profileDeleteAccount => 'مسح الملف الشخصي والبيانات';
+
+  @override
+  String get profileDeleteConfirm =>
+      'هل أنت متأكد؟ سيتم حذف جميع البيانات المحلية.';
 }

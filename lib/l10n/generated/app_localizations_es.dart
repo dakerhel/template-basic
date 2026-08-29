@@ -208,8 +208,75 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get clearCacheAction => 'Borrar';
+  String get cacheCleared => 'Borrado';
 
   @override
-  String get cacheCleared => 'Borrado';
+  String get permissionOnboardingTitle => 'Mantente informado';
+
+  @override
+  String get permissionOnboardingBody =>
+      'Activa las notificaciones para recibir alertas instantáneas sobre nuevas actualizaciones y seguridad.';
+
+  @override
+  String get permissionOnboardingAction => 'Activar notificaciones';
+
+  @override
+  String get permissionOnboardingDismiss => 'Más tarde';
+
+  @override
+  String get permissionUpdatesBenefitTitle => 'Actualizaciones OTA';
+
+  @override
+  String get permissionUpdatesBenefitDesc =>
+      'Alertas instantáneas de nuevas versiones y funciones';
+
+  @override
+  String get permissionSecurityBenefitTitle => 'Seguridad y protección';
+
+  @override
+  String get permissionSecurityBenefitDesc =>
+      'Eventos críticos de seguridad y alertas de sesión';
+
+  @override
+  String get permissionGrantedSnackbar =>
+      'Notificaciones activadas correctamente';
+
+  @override
+  String get permissionDeniedSnackbar =>
+      'Notificaciones desactivadas. Puedes activarlas en Configuración.';
+
+  @override
+  String get profileTitle => 'Perfil';
+
+  @override
+  String get profileGuestName => 'Usuario Invitado';
+
+  @override
+  String get profileGuestDesc => 'Sesión local sin conexión';
+
+  @override
+  String get profileLinkAccount => 'Vincular cuenta';
+
+  @override
+  String get profileLinkAccountDesc =>
+      'Conéctate con Google, Telegram o GitHub';
+
+  @override
+  String get profileAccountSection => 'Cuenta';
+
+  @override
+  String get profileSecuritySection => 'Seguridad y sesiones';
+
+  @override
+  String get profileActiveSessions => 'Dispositivos activos';
+
+  @override
+  String get profileCurrentDevice => 'Este dispositivo';
+
+  @override
+  String get profileDeleteAccount => 'Borrar perfil y datos';
+
+  @override
+  String get profileDeleteConfirm =>
+      '¿Estás seguro? Se eliminarán todos los datos locales.';
 }

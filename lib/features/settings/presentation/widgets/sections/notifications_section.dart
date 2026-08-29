@@ -131,6 +131,22 @@ class NotificationsSection extends ConsumerWidget {
                     },
                   ),
                 ),
+                const SizedBox(height: 8),
+                SizedBox(
+                  width: double.infinity,
+                  child: TextButton.icon(
+                    icon: const Icon(Icons.touch_app_outlined, size: 16),
+                    label: Text(
+                      isRu
+                          ? 'Проверить онбординг разрешений'
+                          : 'Preview Permission Onboarding',
+                    ),
+                    onPressed: () {
+                      HapticFeedback.lightImpact();
+                      PermissionOnboardingSheet.show(context);
+                    },
+                  ),
+                ),
               ],
             ),
           ),

@@ -71,5 +71,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "permissionOnboardingTitle": "最新情報を確認",
+  "permissionOnboardingBody": "アプリの更新情報やセキュリティ通知を受け取るには通知を有効にしてください。",
+  "permissionOnboardingAction": "通知を有効にする",
+  "permissionOnboardingDismiss": "後で",
+  "permissionUpdatesBenefitTitle": "OTAアップデート",
+  "permissionUpdatesBenefitDesc": "新バージョンや新機能の即時アラート",
+  "permissionSecurityBenefitTitle": "セキュリティ保護",
+  "permissionSecurityBenefitDesc": "重大なセキュリティイベントとセッション通知",
+  "permissionGrantedSnackbar": "通知が有効になりました",
+  "permissionDeniedSnackbar": "通知は無効です。設定からいつでも有効にできます。"
 }

@@ -71,5 +71,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "permissionOnboardingTitle": "ابقَ على اطلاع دائم",
+  "permissionOnboardingBody": "قم بتمكين الإشعارات لتلقي تنبيهات فورية حول تحديثات التطبيق والأمان.",
+  "permissionOnboardingAction": "تمكين الإشعارات",
+  "permissionOnboardingDismiss": "لاحقاً",
+  "permissionUpdatesBenefitTitle": "تحديثات OTA",
+  "permissionUpdatesBenefitDesc": "تنبيهات فورية للإصدارات والميزات الجديدة",
+  "permissionSecurityBenefitTitle": "الأمان والحماية",
+  "permissionSecurityBenefitDesc": "تنبيهات أحداث الأمان الهامة والجلسات",
+  "permissionGrantedSnackbar": "تم تمكين الإشعارات بنجاح",
+  "permissionDeniedSnackbar": "الإشعارات معطلة. يمكنك تفعيلها من الإعدادات."
 }

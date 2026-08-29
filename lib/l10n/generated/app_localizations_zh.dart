@@ -202,8 +202,70 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
-  String get clearCacheAction => '清除';
+  String get cacheCleared => '已清除';
 
   @override
-  String get cacheCleared => '已清除';
+  String get permissionOnboardingTitle => '保持最新与安全';
+
+  @override
+  String get permissionOnboardingBody =>
+      '开启通知以即时获取应用更新与重要安全提示。';
+
+  @override
+  String get permissionOnboardingAction => '开启通知';
+
+  @override
+  String get permissionOnboardingDismiss => '稍后';
+
+  @override
+  String get permissionUpdatesBenefitTitle => 'OTA更新';
+
+  @override
+  String get permissionUpdatesBenefitDesc => '新版本与功能的即时提醒';
+
+  @override
+  String get permissionSecurityBenefitTitle => '安全与防护';
+
+  @override
+  String get permissionSecurityBenefitDesc => '关键安全事件与会话提醒';
+
+  @override
+  String get permissionGrantedSnackbar => '通知已成功开启';
+
+  @override
+  String get permissionDeniedSnackbar =>
+      '通知已关闭。您可随时在“设置”中开启。';
+
+  @override
+  String get profileTitle => '个人资料';
+
+  @override
+  String get profileGuestName => '访客用户';
+
+  @override
+  String get profileGuestDesc => '本地离线会话';
+
+  @override
+  String get profileLinkAccount => '绑定账号';
+
+  @override
+  String get profileLinkAccountDesc => '通过 Google、Telegram 或 GitHub 登录';
+
+  @override
+  String get profileAccountSection => '账号设置';
+
+  @override
+  String get profileSecuritySection => '安全与会话';
+
+  @override
+  String get profileActiveSessions => '活跃设备';
+
+  @override
+  String get profileCurrentDevice => '当前设备';
+
+  @override
+  String get profileDeleteAccount => '清除资料与数据';
+
+  @override
+  String get profileDeleteConfirm => '确定要清除吗？所有本地数据将被删除。';
 }

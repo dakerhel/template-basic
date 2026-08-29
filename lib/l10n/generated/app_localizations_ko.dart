@@ -203,8 +203,71 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
-  String get clearCacheAction => '지우기';
+  String get cacheCleared => '지워졌습니다';
 
   @override
-  String get cacheCleared => '지워졌습니다';
+  String get permissionOnboardingTitle => '최신 상태 및 보안 유지';
+
+  @override
+  String get permissionOnboardingBody =>
+      '앱 업데이트 및 보안 알림을 즉시 받으려면 알림을 켜세요.';
+
+  @override
+  String get permissionOnboardingAction => '알림 활성화';
+
+  @override
+  String get permissionOnboardingDismiss => '나중에';
+
+  @override
+  String get permissionUpdatesBenefitTitle => 'OTA 업데이트';
+
+  @override
+  String get permissionUpdatesBenefitDesc => '새 버전 및 기능에 대한 즉각적인 알림';
+
+  @override
+  String get permissionSecurityBenefitTitle => '보안 및 보호';
+
+  @override
+  String get permissionSecurityBenefitDesc => '중요한 보안 이벤트 및 세션 알림';
+
+  @override
+  String get permissionGrantedSnackbar => '알림이 성공적으로 활성화되었습니다';
+
+  @override
+  String get permissionDeniedSnackbar =>
+      '알림이 비활성화되었습니다. 설정에서 언제든지 활성화할 수 있습니다.';
+
+  @override
+  String get profileTitle => '프로필';
+
+  @override
+  String get profileGuestName => '게스트 사용자';
+
+  @override
+  String get profileGuestDesc => '로컬 오프라인 세션';
+
+  @override
+  String get profileLinkAccount => '계정 연결';
+
+  @override
+  String get profileLinkAccountDesc => 'Google, Telegram 또는 GitHub로 로그인';
+
+  @override
+  String get profileAccountSection => '계정';
+
+  @override
+  String get profileSecuritySection => '보안 및 세션';
+
+  @override
+  String get profileActiveSessions => '활성 기기';
+
+  @override
+  String get profileCurrentDevice => '이 기기';
+
+  @override
+  String get profileDeleteAccount => '프로필 및 데이터 지우기';
+
+  @override
+  String get profileDeleteConfirm =>
+      '정말 삭제하시겠습니까? 모든 로컬 데이터가 삭제됩니다.';
 }

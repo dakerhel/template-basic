@@ -71,5 +71,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "permissionOnboardingTitle": "최신 상태 및 보안 유지",
+  "permissionOnboardingBody": "앱 업데이트 및 보안 알림을 즉시 받으려면 알림을 켜세요.",
+  "permissionOnboardingAction": "알림 활성화",
+  "permissionOnboardingDismiss": "나중에",
+  "permissionUpdatesBenefitTitle": "OTA 업데이트",
+  "permissionUpdatesBenefitDesc": "새 버전 및 기능에 대한 즉각적인 알림",
+  "permissionSecurityBenefitTitle": "보안 및 보호",
+  "permissionSecurityBenefitDesc": "중요한 보안 이벤트 및 세션 알림",
+  "permissionGrantedSnackbar": "알림이 성공적으로 활성화되었습니다",
+  "permissionDeniedSnackbar": "알림이 비활성화되었습니다. 설정에서 언제든지 활성화할 수 있습니다."
 }

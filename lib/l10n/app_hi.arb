@@ -71,5 +71,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "permissionOnboardingTitle": "अपडेट और सुरक्षित रहें",
+  "permissionOnboardingBody": "ऐप अपडेट और महत्वपूर्ण सुरक्षा चेतावनियों के लिए नोटिफिकेशन सक्षम करें।",
+  "permissionOnboardingAction": "सूचनाएं सक्षम करें",
+  "permissionOnboardingDismiss": "बाद में",
+  "permissionUpdatesBenefitTitle": "OTA अपडेट",
+  "permissionUpdatesBenefitDesc": "नए संस्करणों और सुविधाओं के लिए त्वरित अलर्ट",
+  "permissionSecurityBenefitTitle": "सुरक्षा और संरक्षण",
+  "permissionSecurityBenefitDesc": "महत्वपूर्ण सुरक्षा घटनाएं और सत्र अलर्ट",
+  "permissionGrantedSnackbar": "सूचनाएं सफलतापूर्वक सक्षम की गईं",
+  "permissionDeniedSnackbar": "सूचनाएं अक्षम हैं। आप इन्हें कभी भी सेटिंग्स में चालू कर सकते हैं।"
 }

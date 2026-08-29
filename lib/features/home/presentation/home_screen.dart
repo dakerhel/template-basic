@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../core/notifications/notification_service.dart';
+import '../../../core/notifications/notifications.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../update/data/background_update_task.dart';
 import '../../update/presentation/update_controller.dart';
@@ -34,7 +34,18 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
           );
       _notifyIfJustUpdated();
       UpdateBackgroundScheduler.sync();
+      _maybeShowPermissionOnboarding();
     });
+  }
+
+  Future<void> _maybeShowPermissionOnboarding() async {
+    if (!mounted) return;
+    final shouldPrompt = await ref
+        .read(permissionOnboardingProvider.notifier)
+        .checkShouldPrompt();
+    if (shouldPrompt && mounted && !_forceDialogVisible) {
+      await PermissionOnboardingSheet.show(context);
+    }
   }
 
   void _maybeShowForceDialog(UpdateAvailable state) {
@@ -105,6 +116,11 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
       appBar: AppBar(
         title: Text(l10n.appTitle),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.account_circle_outlined),
+            tooltip: l10n.profileTitle,
+            onPressed: () => context.push('/profile'),
+          ),
           IconButton(
             icon: const Icon(Icons.settings),
             tooltip: l10n.settingsTitle,

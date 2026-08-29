@@ -208,8 +208,74 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
-  String get clearCacheAction => 'Hapus';
+  String get cacheCleared => 'Dihapus';
 
   @override
-  String get cacheCleared => 'Dihapus';
+  String get permissionOnboardingTitle => 'Tetap Terinformasi & Aman';
+
+  @override
+  String get permissionOnboardingBody =>
+      'Aktifkan notifikasi untuk menerima info pembaruan instan dan peringatan keamanan.';
+
+  @override
+  String get permissionOnboardingAction => 'Aktifkan Notifikasi';
+
+  @override
+  String get permissionOnboardingDismiss => 'Nanti Saja';
+
+  @override
+  String get permissionUpdatesBenefitTitle => 'Pembaruan OTA';
+
+  @override
+  String get permissionUpdatesBenefitDesc =>
+      'Peringatan instan untuk versi & fitur baru';
+
+  @override
+  String get permissionSecurityBenefitTitle => 'Keamanan & Perlindungan';
+
+  @override
+  String get permissionSecurityBenefitDesc =>
+      'Peringatan peristiwa keamanan kritis & sesi';
+
+  @override
+  String get permissionGrantedSnackbar => 'Notifikasi berhasil diaktifkan';
+
+  @override
+  String get permissionDeniedSnackbar =>
+      'Notifikasi dinonaktifkan. Anda dapat mengaktifkannya di Pengaturan kapan saja.';
+
+  @override
+  String get profileTitle => 'Profil';
+
+  @override
+  String get profileGuestName => 'Pengguna Tamu';
+
+  @override
+  String get profileGuestDesc => 'Sesi offline lokal';
+
+  @override
+  String get profileLinkAccount => 'Tautkan Akun';
+
+  @override
+  String get profileLinkAccountDesc =>
+      'Masuk dengan Google, Telegram, atau GitHub';
+
+  @override
+  String get profileAccountSection => 'Akun';
+
+  @override
+  String get profileSecuritySection => 'Keamanan & Sesi';
+
+  @override
+  String get profileActiveSessions => 'Perangkat Aktif';
+
+  @override
+  String get profileCurrentDevice => 'Perangkat Ini';
+
+  @override
+  String get profileDeleteAccount => 'Hapus Profil & Data';
+
+  @override
+  String get profileDeleteConfirm =>
+      'Apakah Anda yakin? Semua data lokal akan dihapus.';
 }

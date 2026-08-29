@@ -71,5 +71,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "permissionOnboardingTitle": "Mantenha-se informado",
+  "permissionOnboardingBody": "Ative as notificações para receber alertas instantâneos sobre atualizações e segurança.",
+  "permissionOnboardingAction": "Ativar notificações",
+  "permissionOnboardingDismiss": "Mais tarde",
+  "permissionUpdatesBenefitTitle": "Atualizações OTA",
+  "permissionUpdatesBenefitDesc": "Alertas instantâneos de novas versões e recursos",
+  "permissionSecurityBenefitTitle": "Segurança e proteção",
+  "permissionSecurityBenefitDesc": "Eventos críticos de segurança e alertas de sessão",
+  "permissionGrantedSnackbar": "Notifiche ativadas com sucesso",
+  "permissionDeniedSnackbar": "Notificações desativadas. Você pode ativá-las nas Configurações."
 }

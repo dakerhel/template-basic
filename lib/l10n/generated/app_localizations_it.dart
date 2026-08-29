@@ -208,8 +208,73 @@ class AppLocalizationsIt extends AppLocalizations {
   }
 
   @override
-  String get clearCacheAction => 'Cancella';
+  String get cacheCleared => 'Cancellato';
 
   @override
-  String get cacheCleared => 'Cancellato';
+  String get permissionOnboardingTitle => 'Rimani informato';
+
+  @override
+  String get permissionOnboardingBody =>
+      'Attiva le notifiche per ricevere avvisi immediati sugli aggiornamenti e sulla sicurezza.';
+
+  @override
+  String get permissionOnboardingAction => 'Attiva notifiche';
+
+  @override
+  String get permissionOnboardingDismiss => 'Più tardi';
+
+  @override
+  String get permissionUpdatesBenefitTitle => 'Aggiornamenti OTA';
+
+  @override
+  String get permissionUpdatesBenefitDesc =>
+      'Avvisi immediati per nuove versioni e funzionalità';
+
+  @override
+  String get permissionSecurityBenefitTitle => 'Sicurezza e protezione';
+
+  @override
+  String get permissionSecurityBenefitDesc =>
+      'Eventi critici di sicurezza e avvisi di sessione';
+
+  @override
+  String get permissionGrantedSnackbar => 'Notifiche attivate con successo';
+
+  @override
+  String get permissionDeniedSnackbar =>
+      'Notifiche disattivate. Puoi attivarle nelle Impostazioni.';
+
+  @override
+  String get profileTitle => 'Profilo';
+
+  @override
+  String get profileGuestName => 'Utente Ospite';
+
+  @override
+  String get profileGuestDesc => 'Sessione offline locale';
+
+  @override
+  String get profileLinkAccount => 'Collega account';
+
+  @override
+  String get profileLinkAccountDesc => 'Accedi con Google, Telegram o GitHub';
+
+  @override
+  String get profileAccountSection => 'Account';
+
+  @override
+  String get profileSecuritySection => 'Sicurezza e sessioni';
+
+  @override
+  String get profileActiveSessions => 'Dispositivi attivi';
+
+  @override
+  String get profileCurrentDevice => 'Questo dispositivo';
+
+  @override
+  String get profileDeleteAccount => 'Cancella profilo e dati';
+
+  @override
+  String get profileDeleteConfirm =>
+      'Sei sicuro? Tutti i dati locali verranno rimossi.';
 }

@@ -469,6 +469,69 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cleared'**
   String get cacheCleared;
+
+  /// No description provided for @permissionOnboardingTitle.
+  String get permissionOnboardingTitle;
+
+  /// No description provided for @permissionOnboardingBody.
+  String get permissionOnboardingBody;
+
+  /// No description provided for @permissionOnboardingAction.
+  String get permissionOnboardingAction;
+
+  /// No description provided for @permissionOnboardingDismiss.
+  String get permissionOnboardingDismiss;
+
+  /// No description provided for @permissionUpdatesBenefitTitle.
+  String get permissionUpdatesBenefitTitle;
+
+  /// No description provided for @permissionUpdatesBenefitDesc.
+  String get permissionUpdatesBenefitDesc;
+
+  /// No description provided for @permissionSecurityBenefitTitle.
+  String get permissionSecurityBenefitTitle;
+
+  /// No description provided for @permissionSecurityBenefitDesc.
+  String get permissionSecurityBenefitDesc;
+
+  /// No description provided for @permissionGrantedSnackbar.
+  String get permissionGrantedSnackbar;
+
+  /// No description provided for @permissionDeniedSnackbar.
+  String get permissionDeniedSnackbar;
+
+  /// No description provided for @profileTitle.
+  String get profileTitle;
+
+  /// No description provided for @profileGuestName.
+  String get profileGuestName;
+
+  /// No description provided for @profileGuestDesc.
+  String get profileGuestDesc;
+
+  /// No description provided for @profileLinkAccount.
+  String get profileLinkAccount;
+
+  /// No description provided for @profileLinkAccountDesc.
+  String get profileLinkAccountDesc;
+
+  /// No description provided for @profileAccountSection.
+  String get profileAccountSection;
+
+  /// No description provided for @profileSecuritySection.
+  String get profileSecuritySection;
+
+  /// No description provided for @profileActiveSessions.
+  String get profileActiveSessions;
+
+  /// No description provided for @profileCurrentDevice.
+  String get profileCurrentDevice;
+
+  /// No description provided for @profileDeleteAccount.
+  String get profileDeleteAccount;
+
+  /// No description provided for @profileDeleteConfirm.
+  String get profileDeleteConfirm;
 }
 
 class _AppLocalizationsDelegate

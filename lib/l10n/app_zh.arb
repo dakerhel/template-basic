@@ -71,5 +71,15 @@
         "type": "String"
       }
     }
-  }
+  },
+  "permissionOnboardingTitle": "保持最新与安全",
+  "permissionOnboardingBody": "开启通知以即时获取应用更新与重要安全提示。",
+  "permissionOnboardingAction": "开启通知",
+  "permissionOnboardingDismiss": "稍后",
+  "permissionUpdatesBenefitTitle": "OTA更新",
+  "permissionUpdatesBenefitDesc": "新版本与功能的即时提醒",
+  "permissionSecurityBenefitTitle": "安全与防护",
+  "permissionSecurityBenefitDesc": "关键安全事件与会话提醒",
+  "permissionGrantedSnackbar": "通知已成功开启",
+  "permissionDeniedSnackbar": "通知已关闭。您可随时在“设置”中开启。"
 }

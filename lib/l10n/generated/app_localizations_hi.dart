@@ -207,8 +207,74 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
-  String get clearCacheAction => 'साफ़ करें';
+  String get cacheCleared => 'साफ़ हो गया';
 
   @override
-  String get cacheCleared => 'साफ़ हो गया';
+  String get permissionOnboardingTitle => 'अपडेट और सुरक्षित रहें';
+
+  @override
+  String get permissionOnboardingBody =>
+      'ऐप अपडेट और महत्वपूर्ण सुरक्षा चेतावनियों के लिए नोटिफिकेशन सक्षम करें।';
+
+  @override
+  String get permissionOnboardingAction => 'सूचनाएं सक्षम करें';
+
+  @override
+  String get permissionOnboardingDismiss => 'बाद में';
+
+  @override
+  String get permissionUpdatesBenefitTitle => 'OTA अपडेट';
+
+  @override
+  String get permissionUpdatesBenefitDesc =>
+      'नए संस्करणों और सुविधाओं के लिए त्वरित अलर्ट';
+
+  @override
+  String get permissionSecurityBenefitTitle => 'सुरक्षा और संरक्षण';
+
+  @override
+  String get permissionSecurityBenefitDesc =>
+      'महत्वपूर्ण सुरक्षा घटनाएं और सत्र अलर्ट';
+
+  @override
+  String get permissionGrantedSnackbar => 'सूचनाएं सफलतापूर्वक सक्षम की गईं';
+
+  @override
+  String get permissionDeniedSnackbar =>
+      'सूचनाएं अक्षम हैं। आप इन्हें कभी भी सेटिंग्स में चालू कर सकते हैं।';
+
+  @override
+  String get profileTitle => 'प्रोफ़ाइल';
+
+  @override
+  String get profileGuestName => 'अतिथि उपयोगकर्ता';
+
+  @override
+  String get profileGuestDesc => 'स्थानीय ऑफ़लाइन सत्र';
+
+  @override
+  String get profileLinkAccount => 'खाता लिंक करें';
+
+  @override
+  String get profileLinkAccountDesc =>
+      'Google, Telegram या GitHub के माध्यम से साइन इन करें';
+
+  @override
+  String get profileAccountSection => 'खाता';
+
+  @override
+  String get profileSecuritySection => 'सुरक्षा और सत्र';
+
+  @override
+  String get profileActiveSessions => 'सक्रिय डिवाइस';
+
+  @override
+  String get profileCurrentDevice => 'यह डिवाइस';
+
+  @override
+  String get profileDeleteAccount => 'प्रोफ़ाइल और डेटा साफ़ करें';
+
+  @override
+  String get profileDeleteConfirm =>
+      'क्या आप सुनिश्चित हैं? सारा स्थानीय डेटा हटा दिया जाएगा।';
 }

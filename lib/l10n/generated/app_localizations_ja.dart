@@ -203,8 +203,72 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
-  String get clearCacheAction => '消去';
+  String get cacheCleared => '消去しました';
 
   @override
-  String get cacheCleared => '消去しました';
+  String get permissionOnboardingTitle => '最新情報を確認';
+
+  @override
+  String get permissionOnboardingBody =>
+      'アプリの更新情報やセキュリティ通知を受け取るには通知を有効にしてください。';
+
+  @override
+  String get permissionOnboardingAction => '通知を有効にする';
+
+  @override
+  String get permissionOnboardingDismiss => '後で';
+
+  @override
+  String get permissionUpdatesBenefitTitle => 'OTAアップデート';
+
+  @override
+  String get permissionUpdatesBenefitDesc => '新バージョンや新機能の即時アラート';
+
+  @override
+  String get permissionSecurityBenefitTitle => 'セキュリティ保護';
+
+  @override
+  String get permissionSecurityBenefitDesc =>
+      '重大なセキュリティイベントとセッション通知';
+
+  @override
+  String get permissionGrantedSnackbar => '通知が有効になりました';
+
+  @override
+  String get permissionDeniedSnackbar =>
+      '通知は無効です。設定からいつでも有効にできます。';
+
+  @override
+  String get profileTitle => 'プロフィール';
+
+  @override
+  String get profileGuestName => 'ゲストユーザー';
+
+  @override
+  String get profileGuestDesc => 'ローカルオフラインセッション';
+
+  @override
+  String get profileLinkAccount => 'アカウント連携';
+
+  @override
+  String get profileLinkAccountDesc => 'Google、Telegram、GitHubでログイン';
+
+  @override
+  String get profileAccountSection => 'アカウント';
+
+  @override
+  String get profileSecuritySection => 'セキュリティとセッション';
+
+  @override
+  String get profileActiveSessions => 'アクティブなデバイス';
+
+  @override
+  String get profileCurrentDevice => 'このデバイス';
+
+  @override
+  String get profileDeleteAccount => 'プロフィールとデータを削除';
+
+  @override
+  String get profileDeleteConfirm =>
+      'よろしいですか？すべてのローカルデータが削除されます。';
 }

@@ -208,8 +208,74 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get clearCacheAction => 'Clear';
+  String get cacheCleared => 'Cleared';
 
   @override
-  String get cacheCleared => 'Cleared';
+  String get permissionOnboardingTitle => 'Stay Updated & Secure';
+
+  @override
+  String get permissionOnboardingBody =>
+      'Enable notifications to receive instant updates about new features, version releases, and important security alerts.';
+
+  @override
+  String get permissionOnboardingAction => 'Enable Notifications';
+
+  @override
+  String get permissionOnboardingDismiss => 'Maybe Later';
+
+  @override
+  String get permissionUpdatesBenefitTitle => 'OTA Updates';
+
+  @override
+  String get permissionUpdatesBenefitDesc =>
+      'Instant alerts for new versions & features';
+
+  @override
+  String get permissionSecurityBenefitTitle => 'Security & Protection';
+
+  @override
+  String get permissionSecurityBenefitDesc =>
+      'Critical security events & session alerts';
+
+  @override
+  String get permissionGrantedSnackbar => 'Notifications enabled successfully';
+
+  @override
+  String get permissionDeniedSnackbar =>
+      'Notifications disabled. You can enable them anytime in Settings.';
+
+  @override
+  String get profileTitle => 'Profile';
+
+  @override
+  String get profileGuestName => 'Guest User';
+
+  @override
+  String get profileGuestDesc => 'Local offline session';
+
+  @override
+  String get profileLinkAccount => 'Link Account';
+
+  @override
+  String get profileLinkAccountDesc =>
+      'Connect with Google, Telegram, or GitHub';
+
+  @override
+  String get profileAccountSection => 'Account';
+
+  @override
+  String get profileSecuritySection => 'Security & Sessions';
+
+  @override
+  String get profileActiveSessions => 'Active Devices';
+
+  @override
+  String get profileCurrentDevice => 'This Device';
+
+  @override
+  String get profileDeleteAccount => 'Clear Profile & Data';
+
+  @override
+  String get profileDeleteConfirm =>
+      'Are you sure? All local data and cached sessions will be removed.';
 }

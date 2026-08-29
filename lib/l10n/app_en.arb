@@ -141,5 +141,26 @@
         "type": "String"
       }
     }
-  }
+  },
+  "permissionOnboardingTitle": "Stay Updated & Secure",
+  "permissionOnboardingBody": "Enable notifications to receive instant updates about new features, version releases, and important security alerts.",
+  "permissionOnboardingAction": "Enable Notifications",
+  "permissionOnboardingDismiss": "Maybe Later",
+  "permissionUpdatesBenefitTitle": "OTA Updates",
+  "permissionUpdatesBenefitDesc": "Instant alerts for new versions & features",
+  "permissionSecurityBenefitTitle": "Security & Protection",
+  "permissionSecurityBenefitDesc": "Critical security events & session alerts",
+  "permissionGrantedSnackbar": "Notifications enabled successfully",
+  "permissionDeniedSnackbar": "Notifications disabled. You can enable them anytime in Settings.",
+  "profileTitle": "Profile",
+  "profileGuestName": "Guest User",
+  "profileGuestDesc": "Local offline session",
+  "profileLinkAccount": "Link Account",
+  "profileLinkAccountDesc": "Connect with Google, Telegram, or GitHub",
+  "profileAccountSection": "Account",
+  "profileSecuritySection": "Security & Sessions",
+  "profileActiveSessions": "Active Devices",
+  "profileCurrentDevice": "This Device",
+  "profileDeleteAccount": "Clear Profile & Data",
+  "profileDeleteConfirm": "Are you sure? All local data and cached sessions will be removed."
 }

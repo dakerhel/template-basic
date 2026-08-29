@@ -208,8 +208,75 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
-  String get clearCacheAction => 'Temizle';
+  String get cacheCleared => 'Temizlendi';
 
   @override
-  String get cacheCleared => 'Temizlendi';
+  String get permissionOnboardingTitle => 'Haberdar Kalın';
+
+  @override
+  String get permissionOnboardingBody =>
+      'Güncellemeler ve güvenlik uyarıları hakkında anında bilgi almak için bildirimleri etkinleştirin.';
+
+  @override
+  String get permissionOnboardingAction => 'Bildirimleri Etkinleştir';
+
+  @override
+  String get permissionOnboardingDismiss => 'Daha Sonra';
+
+  @override
+  String get permissionUpdatesBenefitTitle => 'OTA Güncellemeleri';
+
+  @override
+  String get permissionUpdatesBenefitDesc =>
+      'Yeni sürümler ve özellikler için anında uyarılar';
+
+  @override
+  String get permissionSecurityBenefitTitle => 'Güvenlik ve Koruma';
+
+  @override
+  String get permissionSecurityBenefitDesc =>
+      'Kritik güvenlik olayları ve oturum uyarıları';
+
+  @override
+  String get permissionGrantedSnackbar =>
+      'Bildirimler başarıyla etkinleştirildi';
+
+  @override
+  String get permissionDeniedSnackbar =>
+      'Bildirimler devre dışı. Ayarlar bölümünden istediğiniz zaman etkinleştirebilirsiniz.';
+
+  @override
+  String get profileTitle => 'Profil';
+
+  @override
+  String get profileGuestName => 'Misafir Kullanıcı';
+
+  @override
+  String get profileGuestDesc => 'Yerel çevrimdışı oturum';
+
+  @override
+  String get profileLinkAccount => 'Hesap Bağla';
+
+  @override
+  String get profileLinkAccountDesc =>
+      'Google, Telegram veya GitHub ile bağlanın';
+
+  @override
+  String get profileAccountSection => 'Hesap';
+
+  @override
+  String get profileSecuritySection => 'Güvenlik ve Oturumlar';
+
+  @override
+  String get profileActiveSessions => 'Aktif Cihazlar';
+
+  @override
+  String get profileCurrentDevice => 'Bu Cihaz';
+
+  @override
+  String get profileDeleteAccount => 'Profili ve Verileri Temizle';
+
+  @override
+  String get profileDeleteConfirm =>
+      'Emin misiniz? Tüm yerel veriler silinecektir.';
 }
