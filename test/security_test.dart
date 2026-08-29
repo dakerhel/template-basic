@@ -40,15 +40,15 @@ void main() {
       },
     );
 
-    test('Cryptographic double-hash formula produces consistent hashes', () {
+    test('Cryptographic key stretching produces consistent, resistant hashes', () {
       String hashPin(String pin, String salt) {
-        final firstPass = sha256
-            .convert(utf8.encode('$salt:$pin:$salt'))
+        List<int> current = utf8.encode('$salt:$pin:$salt');
+        for (int i = 0; i < 10000; i++) {
+          current = sha256.convert(current).bytes;
+        }
+        return sha256
+            .convert(utf8.encode('$pin:${base64UrlEncode(current)}:$salt'))
             .toString();
-        final secondPass = sha256
-            .convert(utf8.encode('$pin:$firstPass:$salt'))
-            .toString();
-        return secondPass;
       }
 
       final hash1 = hashPin('1234', 'salt_123');

@@ -39,6 +39,9 @@ class SecurityRepositoryImpl implements SecurityRepository {
 
   @override
   Future<bool> verifyPin(String pin) async {
+    final lockout = await getLockoutInfo();
+    if (lockout.isLockedOut) return false;
+
     final prefs = await SharedPreferences.getInstance();
     final savedHash = prefs.getString(_pinHashKey);
     final salt = prefs.getString(_pinSaltKey);
@@ -218,14 +221,15 @@ class SecurityRepositoryImpl implements SecurityRepository {
   }
 
   String _hashPin(String pin, String salt) {
-    // 2-этапный криптографический хэш с солью
-    final firstPass = sha256
-        .convert(utf8.encode('$salt:$pin:$salt'))
+    // 10 000 раундов криптографического солевого хэширования (Key Stretching)
+    // для защиты 4-значного PIN-кода от быстрого офлайн-перебора
+    List<int> current = utf8.encode('$salt:$pin:$salt');
+    for (int i = 0; i < 10000; i++) {
+      current = sha256.convert(current).bytes;
+    }
+    return sha256
+        .convert(utf8.encode('$pin:${base64UrlEncode(current)}:$salt'))
         .toString();
-    final secondPass = sha256
-        .convert(utf8.encode('$pin:$firstPass:$salt'))
-        .toString();
-    return secondPass;
   }
 
   /// Constant-time string comparison для защиты от атак по времени (Timing Attacks)

@@ -53,6 +53,7 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
   String _firstPin = '';
   String _currentPin = '';
   String? _errorMessage;
+  bool _isProcessing = false;
 
   late final AnimationController _shakeController;
   late final Animation<double> _shakeAnimation;
@@ -84,7 +85,8 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
   }
 
   void _onDigit(String digit) {
-    if (_currentPin.length >= 4) return;
+    final lockout = ref.read(securityControllerProvider).lockout;
+    if (_isProcessing || lockout.isLockedOut || _currentPin.length >= 4) return;
     HapticFeedback.selectionClick();
     setState(() {
       _currentPin += digit;
@@ -97,7 +99,8 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
   }
 
   void _onBackspace() {
-    if (_currentPin.isEmpty) return;
+    final lockout = ref.read(securityControllerProvider).lockout;
+    if (_isProcessing || lockout.isLockedOut || _currentPin.isEmpty) return;
     HapticFeedback.selectionClick();
     setState(() {
       _currentPin = _currentPin.substring(0, _currentPin.length - 1);
@@ -111,64 +114,79 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
         ? PinSheetMode.change
         : widget.mode;
 
-    if (_step == 0) {
-      // Проверка текущего PIN-кода для смены или подтверждения отключения
-      final isValid = await ref
-          .read(securityRepositoryProvider)
-          .verifyPin(_currentPin);
-      if (isValid) {
-        HapticFeedback.lightImpact();
-        if (!mounted) return;
-        if (effectiveMode == PinSheetMode.verify) {
-          Navigator.of(context).pop(true);
+    setState(() => _isProcessing = true);
+
+    try {
+      if (_step == 0) {
+        // Проверка текущего PIN-кода для смены или подтверждения отключения
+        final isValid = await ref
+            .read(securityRepositoryProvider)
+            .verifyPin(_currentPin);
+        if (isValid) {
+          HapticFeedback.lightImpact();
+          if (!mounted) return;
+          if (effectiveMode == PinSheetMode.verify) {
+            Navigator.of(context).pop(true);
+          } else {
+            // Переход к установке нового PIN-кода
+            setState(() {
+              _currentPin = '';
+              _errorMessage = null;
+              _step = 1;
+            });
+          }
         } else {
-          // Переход к установке нового PIN-кода
+          final updatedLockout = await ref
+              .read(securityRepositoryProvider)
+              .recordFailedAttempt();
+          HapticFeedback.vibrate();
+          await _shakeController.forward(from: 0.0);
+          if (!mounted) return;
           setState(() {
+            _errorMessage = isRu
+                ? (updatedLockout.isLockedOut
+                    ? 'Ввод заблокирован на ${updatedLockout.remainingSeconds} сек.'
+                    : 'Неверный текущий PIN-код (осталось: ${updatedLockout.attemptsUntilNextLockout})')
+                : (updatedLockout.isLockedOut
+                    ? 'Locked out for ${updatedLockout.remainingSeconds}s'
+                    : 'Incorrect current PIN (${updatedLockout.attemptsUntilNextLockout} attempts left)');
             _currentPin = '';
-            _errorMessage = null;
+          });
+        }
+      } else if (_step == 1) {
+        // Переход ко второму шагу подтверждения нового PIN-кода
+        await Future<void>.delayed(const Duration(milliseconds: 150));
+        if (!mounted) return;
+        setState(() {
+          _firstPin = _currentPin;
+          _currentPin = '';
+          _errorMessage = null;
+          _step = 2;
+        });
+      } else {
+        // Проверка совпадения нового PIN-кода
+        if (_currentPin == _firstPin) {
+          await ref.read(securityControllerProvider.notifier).setPin(_currentPin);
+          if (mounted) {
+            Navigator.of(context).pop(true);
+          }
+        } else {
+          HapticFeedback.vibrate();
+          await _shakeController.forward(from: 0.0);
+          if (!mounted) return;
+          setState(() {
+            _errorMessage = isRu
+                ? 'PIN-коды не совпадают. Попробуйте снова'
+                : 'PINs do not match. Please try again';
+            _currentPin = '';
+            _firstPin = '';
             _step = 1;
           });
         }
-      } else {
-        HapticFeedback.vibrate();
-        await _shakeController.forward(from: 0.0);
-        if (!mounted) return;
-        setState(() {
-          _errorMessage = isRu
-              ? 'Неверный текущий PIN-код'
-              : 'Incorrect current PIN';
-          _currentPin = '';
-        });
       }
-    } else if (_step == 1) {
-      // Переход ко второму шагу подтверждения нового PIN-кода
-      await Future<void>.delayed(const Duration(milliseconds: 150));
-      if (!mounted) return;
-      setState(() {
-        _firstPin = _currentPin;
-        _currentPin = '';
-        _errorMessage = null;
-        _step = 2;
-      });
-    } else {
-      // Проверка совпадения нового PIN-кода
-      if (_currentPin == _firstPin) {
-        await ref.read(securityControllerProvider.notifier).setPin(_currentPin);
-        if (mounted) {
-          Navigator.of(context).pop(true);
-        }
-      } else {
-        HapticFeedback.vibrate();
-        await _shakeController.forward(from: 0.0);
-        if (!mounted) return;
-        setState(() {
-          _errorMessage = isRu
-              ? 'PIN-коды не совпадают. Попробуйте снова'
-              : 'PINs do not match. Please try again';
-          _currentPin = '';
-          _firstPin = '';
-          _step = 1;
-        });
+    } finally {
+      if (mounted) {
+        setState(() => _isProcessing = false);
       }
     }
   }
@@ -181,6 +199,9 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
     final effectiveMode = widget.isChanging
         ? PinSheetMode.change
         : widget.mode;
+    final securityState = ref.watch(securityControllerProvider);
+    final lockout = securityState.lockout;
+    final isDialpadEnabled = !lockout.isLockedOut && !_isProcessing;
 
     final String title;
     final IconData icon;
@@ -318,7 +339,15 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
               const SizedBox(height: 28),
 
               // Клавиатура
-              _DialpadGrid(onDigit: _onDigit, onBackspace: _onBackspace),
+              AnimatedOpacity(
+                duration: const Duration(milliseconds: 200),
+                opacity: isDialpadEnabled ? 1.0 : 0.35,
+                child: _DialpadGrid(
+                  isEnabled: isDialpadEnabled,
+                  onDigit: _onDigit,
+                  onBackspace: _onBackspace,
+                ),
+              ),
             ],
           ),
         ),
@@ -328,10 +357,15 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
 }
 
 class _DialpadGrid extends StatelessWidget {
-  const _DialpadGrid({required this.onDigit, required this.onBackspace});
+  const _DialpadGrid({
+    required this.onDigit,
+    required this.onBackspace,
+    this.isEnabled = true,
+  });
 
   final ValueChanged<String> onDigit;
   final VoidCallback onBackspace;
+  final bool isEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -351,7 +385,7 @@ class _DialpadGrid extends StatelessWidget {
             Material(
               color: Colors.transparent,
               child: InkWell(
-                onTap: onBackspace,
+                onTap: isEnabled ? onBackspace : null,
                 borderRadius: BorderRadius.circular(16),
                 child: const SizedBox(
                   width: 64,
@@ -386,7 +420,7 @@ class _DialpadGrid extends StatelessWidget {
         return Material(
           color: Colors.transparent,
           child: InkWell(
-            onTap: onTap,
+            onTap: isEnabled ? onTap : null,
             borderRadius: BorderRadius.circular(16),
             child: Container(
               width: 64,

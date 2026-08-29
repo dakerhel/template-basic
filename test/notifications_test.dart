@@ -126,6 +126,18 @@ void main() {
       );
       expect(
         deepLinkHandler.canHandle(
+          const NotificationPayload(type: 'custom', deepLink: '/profile'),
+        ),
+        isTrue,
+      );
+      expect(
+        deepLinkHandler.canHandle(
+          const NotificationPayload(type: 'custom', deepLink: '/unauthorized/route'),
+        ),
+        isFalse,
+      );
+      expect(
+        deepLinkHandler.canHandle(
           const NotificationPayload(type: 'custom', deepLink: null),
         ),
         isFalse,
