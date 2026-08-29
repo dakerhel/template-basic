@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../core/device/providers/device_providers.dart';
 import '../../../core/theme/tokens/tokens.dart';
 import '../../../core/theme/widgets/app_glass.dart';
 import '../../../l10n/generated/app_localizations.dart';
@@ -27,6 +28,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   void initState() {
     super.initState();
     _loadProfileData();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.invalidate(networkStatusProvider);
+    });
   }
 
   Future<void> _loadProfileData() async {
@@ -189,6 +193,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final displayName = _userName.isEmpty ? l10n.profileGuestName : _userName;
+    final networkAsync = ref.watch(networkStatusProvider);
+    final isOnline = networkAsync.value?.isOnline ?? false;
 
     return Scaffold(
       appBar: AppBar(
@@ -452,21 +458,60 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   subtitle: Text(
                     '${l10n.profileCurrentDevice} (${Platform.operatingSystem})',
                   ),
-                  trailing: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 2,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.green.withValues(alpha: 0.15),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Text(
-                      'ONLINE',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.green,
+                  trailing: InkWell(
+                    borderRadius: BorderRadius.circular(10),
+                    onTap: () {
+                      ref.invalidate(networkStatusProvider);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            isOnline
+                                ? 'Сеть активна (Online)'
+                                : 'Нет подключения к интернету (Offline)',
+                          ),
+                          duration: const Duration(seconds: 1),
+                          behavior: SnackBarBehavior.floating,
+                        ),
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 3,
+                      ),
+                      decoration: BoxDecoration(
+                        color: isOnline
+                            ? Colors.green.withValues(alpha: 0.15)
+                            : colorScheme.error.withValues(alpha: 0.15),
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: isOnline
+                              ? Colors.green.withValues(alpha: 0.3)
+                              : colorScheme.error.withValues(alpha: 0.3),
+                          width: 1,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                            width: 6,
+                            height: 6,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: isOnline ? Colors.green : colorScheme.error,
+                            ),
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            isOnline ? 'ONLINE' : 'OFFLINE',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              color: isOnline ? Colors.green : colorScheme.error,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),

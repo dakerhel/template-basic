@@ -5,19 +5,41 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/widgets/app_glass.dart';
+import '../../data/security_repository_impl.dart';
 import '../controllers/security_controller.dart';
 
-class PinSetupSheet extends ConsumerStatefulWidget {
-  const PinSetupSheet({super.key, this.isChanging = false});
+enum PinSheetMode {
+  /// Первичное создание PIN-кода
+  create,
 
+  /// Изменение PIN-кода (требует ввода текущего PIN)
+  change,
+
+  /// Подтверждение текущего PIN-кода (например, для отключения защиты)
+  verify,
+}
+
+class PinSetupSheet extends ConsumerStatefulWidget {
+  const PinSetupSheet({
+    super.key,
+    this.mode = PinSheetMode.create,
+    this.isChanging = false,
+  });
+
+  final PinSheetMode mode;
   final bool isChanging;
 
-  static Future<bool?> show(BuildContext context, {bool isChanging = false}) {
+  static Future<bool?> show(
+    BuildContext context, {
+    PinSheetMode mode = PinSheetMode.create,
+    bool isChanging = false,
+  }) {
+    final effectiveMode = isChanging ? PinSheetMode.change : mode;
     return showModalBottomSheet<bool>(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (_) => PinSetupSheet(isChanging: isChanging),
+      builder: (_) => PinSetupSheet(mode: effectiveMode),
     );
   }
 
@@ -27,7 +49,7 @@ class PinSetupSheet extends ConsumerStatefulWidget {
 
 class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
     with SingleTickerProviderStateMixin {
-  int _step = 1; // 1 = enter pin, 2 = confirm pin
+  int _step = 1; // 0 = enter current pin (change/verify), 1 = enter new pin, 2 = confirm new pin
   String _firstPin = '';
   String _currentPin = '';
   String? _errorMessage;
@@ -38,6 +60,14 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
   @override
   void initState() {
     super.initState();
+    final effectiveMode = widget.isChanging
+        ? PinSheetMode.change
+        : widget.mode;
+    _step = (effectiveMode == PinSheetMode.change ||
+            effectiveMode == PinSheetMode.verify)
+        ? 0
+        : 1;
+
     _shakeController = AnimationController(
       duration: const Duration(milliseconds: 400),
       vsync: this,
@@ -77,18 +107,51 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
 
   Future<void> _handleComplete() async {
     final isRu = Localizations.localeOf(context).languageCode == 'ru';
+    final effectiveMode = widget.isChanging
+        ? PinSheetMode.change
+        : widget.mode;
 
-    if (_step == 1) {
-      // Переход ко второму шагу подтверждения
+    if (_step == 0) {
+      // Проверка текущего PIN-кода для смены или подтверждения отключения
+      final isValid = await ref
+          .read(securityRepositoryProvider)
+          .verifyPin(_currentPin);
+      if (isValid) {
+        HapticFeedback.lightImpact();
+        if (!mounted) return;
+        if (effectiveMode == PinSheetMode.verify) {
+          Navigator.of(context).pop(true);
+        } else {
+          // Переход к установке нового PIN-кода
+          setState(() {
+            _currentPin = '';
+            _errorMessage = null;
+            _step = 1;
+          });
+        }
+      } else {
+        HapticFeedback.vibrate();
+        await _shakeController.forward(from: 0.0);
+        if (!mounted) return;
+        setState(() {
+          _errorMessage = isRu
+              ? 'Неверный текущий PIN-код'
+              : 'Incorrect current PIN';
+          _currentPin = '';
+        });
+      }
+    } else if (_step == 1) {
+      // Переход ко второму шагу подтверждения нового PIN-кода
       await Future<void>.delayed(const Duration(milliseconds: 150));
       if (!mounted) return;
       setState(() {
         _firstPin = _currentPin;
         _currentPin = '';
+        _errorMessage = null;
         _step = 2;
       });
     } else {
-      // Проверка совпадения
+      // Проверка совпадения нового PIN-кода
       if (_currentPin == _firstPin) {
         await ref.read(securityControllerProvider.notifier).setPin(_currentPin);
         if (mounted) {
@@ -114,20 +177,46 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-
     final isRu = Localizations.localeOf(context).languageCode == 'ru';
+    final effectiveMode = widget.isChanging
+        ? PinSheetMode.change
+        : widget.mode;
 
-    final title = _step == 1
-        ? (widget.isChanging
-            ? (isRu ? 'Новый PIN-код' : 'New PIN Code')
-            : (isRu ? 'Создайте PIN-код' : 'Create PIN Code'))
-        : (isRu ? 'Подтвердите PIN-код' : 'Confirm PIN Code');
+    final String title;
+    final IconData icon;
+    final String defaultSubtitle;
 
-    final subtitle =
-        _errorMessage ??
-        (_step == 1
-            ? (isRu ? 'Введите 4 цифры для защиты приложения' : 'Enter 4 digits to protect the app')
-            : (isRu ? 'Повторите введенный ранее PIN-код' : 'Repeat the PIN code you just entered'));
+    if (_step == 0) {
+      icon = effectiveMode == PinSheetMode.verify
+          ? Icons.shield_outlined
+          : Icons.lock_open_outlined;
+      title = effectiveMode == PinSheetMode.verify
+          ? (isRu ? 'Подтверждение PIN-кода' : 'Confirm Current PIN')
+          : (isRu ? 'Текущий PIN-код' : 'Current PIN Code');
+      defaultSubtitle = effectiveMode == PinSheetMode.verify
+          ? (isRu
+              ? 'Введите текущий PIN-код для подтверждения'
+              : 'Enter current PIN to confirm')
+          : (isRu
+              ? 'Введите текущий PIN-код для подтверждения личности'
+              : 'Enter current PIN to confirm your identity');
+    } else if (_step == 1) {
+      icon = Icons.pin_outlined;
+      title = effectiveMode == PinSheetMode.change
+          ? (isRu ? 'Новый PIN-код' : 'New PIN Code')
+          : (isRu ? 'Создайте PIN-код' : 'Create PIN Code');
+      defaultSubtitle = isRu
+          ? 'Введите 4 цифры для защиты приложения'
+          : 'Enter 4 digits to protect the app';
+    } else {
+      icon = Icons.lock_clock_outlined;
+      title = isRu ? 'Подтвердите PIN-код' : 'Confirm PIN Code';
+      defaultSubtitle = isRu
+          ? 'Повторите введенный ранее PIN-код'
+          : 'Repeat the PIN code you just entered';
+    }
+
+    final subtitle = _errorMessage ?? defaultSubtitle;
 
     return Container(
       decoration: BoxDecoration(
@@ -164,7 +253,7 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
                 borderRadius: 20,
                 padding: const EdgeInsets.all(16),
                 child: Icon(
-                  _step == 1 ? Icons.pin_outlined : Icons.lock_clock_outlined,
+                  icon,
                   size: 32,
                   color: colorScheme.primary,
                 ),

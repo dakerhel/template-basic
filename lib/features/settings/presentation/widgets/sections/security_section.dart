@@ -87,7 +87,24 @@ class SecuritySection extends ConsumerWidget {
                   : 'Set a new 4-digit password',
             ),
             trailing: const Icon(Icons.chevron_right),
-            onTap: () => PinSetupSheet.show(context, isChanging: true),
+            onTap: () async {
+              final result = await PinSetupSheet.show(
+                context,
+                mode: PinSheetMode.change,
+              );
+              if (result == true && context.mounted) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      isRu
+                          ? 'PIN-код успешно изменен'
+                          : 'PIN code successfully changed',
+                    ),
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+              }
+            },
           ),
 
           // Заблокировать сейчас
@@ -115,8 +132,8 @@ class SecuritySection extends ConsumerWidget {
           title: Text(isRu ? 'Отключить защиту?' : 'Disable PIN Protection?'),
           content: Text(
             isRu
-                ? 'PIN-код и вход по биометрии будут отключены.'
-                : 'PIN code and biometric unlock will be disabled.',
+                ? 'Для отключения защиты потребуется ввести текущий PIN-код.'
+                : 'Entering your current PIN is required to disable protection.',
           ),
           actions: [
             TextButton(
@@ -124,11 +141,31 @@ class SecuritySection extends ConsumerWidget {
               child: Text(isRu ? 'Отмена' : 'Cancel'),
             ),
             FilledButton(
-              onPressed: () {
+              onPressed: () async {
                 Navigator.of(dialogContext).pop();
-                ref.read(securityControllerProvider.notifier).removePin();
+                final verified = await PinSetupSheet.show(
+                  context,
+                  mode: PinSheetMode.verify,
+                );
+                if (verified == true) {
+                  await ref
+                      .read(securityControllerProvider.notifier)
+                      .removePin();
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          isRu
+                              ? 'Защита PIN-кодом отключена'
+                              : 'PIN protection disabled',
+                        ),
+                        behavior: SnackBarBehavior.floating,
+                      ),
+                    );
+                  }
+                }
               },
-              child: Text(isRu ? 'Отключить' : 'Disable'),
+              child: Text(isRu ? 'Продолжить' : 'Continue'),
             ),
           ],
         );
