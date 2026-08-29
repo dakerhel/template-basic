@@ -168,19 +168,18 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove('profile_custom_name');
       await prefs.remove('profile_custom_email');
-      if (mounted) {
-        setState(() {
-          _userName = '';
-          _userEmail = 'guest@local.device';
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Text('Профиль успешно сброшен'),
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(borderRadius: AppRadius.button),
-          ),
-        );
-      }
+      if (!mounted) return;
+      setState(() {
+        _userName = '';
+        _userEmail = 'guest@local.device';
+      });
+      ScaffoldMessenger.of(this.context).showSnackBar(
+        SnackBar(
+          content: const Text('Профиль успешно сброшен'),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(borderRadius: AppRadius.button),
+        ),
+      );
     }
   }
 

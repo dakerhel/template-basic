@@ -30,20 +30,19 @@ final class PermissionOnboardingState {
   }
 }
 
-class PermissionOnboardingNotifier
-    extends StateNotifier<PermissionOnboardingState> {
-  PermissionOnboardingNotifier()
-    : super(
-        const PermissionOnboardingState(
-          hasSeenOnboarding: false,
-          areNotificationsEnabled: false,
-          isLoading: true,
-        ),
-      ) {
-    _init();
-  }
-
+final class PermissionOnboardingNotifier
+    extends Notifier<PermissionOnboardingState> {
   static const String _prefKey = 'has_seen_notification_onboarding';
+
+  @override
+  PermissionOnboardingState build() {
+    _init();
+    return const PermissionOnboardingState(
+      hasSeenOnboarding: false,
+      areNotificationsEnabled: false,
+      isLoading: true,
+    );
+  }
 
   Future<void> _init() async {
     try {
@@ -115,9 +114,7 @@ class PermissionOnboardingNotifier
 }
 
 final permissionOnboardingProvider =
-    StateNotifierProvider<
+    NotifierProvider<
       PermissionOnboardingNotifier,
       PermissionOnboardingState
-    >((ref) {
-      return PermissionOnboardingNotifier();
-    });
+    >(PermissionOnboardingNotifier.new);
