@@ -81,5 +81,16 @@
   "permissionSecurityBenefitTitle": "सुरक्षा और संरक्षण",
   "permissionSecurityBenefitDesc": "महत्वपूर्ण सुरक्षा घटनाएं और सत्र अलर्ट",
   "permissionGrantedSnackbar": "सूचनाएं सफलतापूर्वक सक्षम की गईं",
-  "permissionDeniedSnackbar": "सूचनाएं अक्षम हैं। आप इन्हें कभी भी सेटिंग्स में चालू कर सकते हैं।"
+  "permissionDeniedSnackbar": "सूचनाएं अक्षम हैं। आप इन्हें कभी भी सेटिंग्स में चालू कर सकते हैं।",
+  "profileTitle": "प्रोफ़ाइल",
+  "profileGuestName": "अतिथि उपयोगकर्ता",
+  "profileGuestDesc": "स्थानीय ऑफ़लाइन सत्र",
+  "profileLinkAccount": "खाता लिंक करें",
+  "profileLinkAccountDesc": "Google, Telegram या GitHub के माध्यम से साइन इन करें",
+  "profileAccountSection": "खाता",
+  "profileSecuritySection": "सुरक्षा और सत्र",
+  "profileActiveSessions": "सक्रिय डिवाइस",
+  "profileCurrentDevice": "यह डिवाइस",
+  "profileDeleteAccount": "प्रोफ़ाइल और डेटा साफ़ करें",
+  "profileDeleteConfirm": "क्या आप सुनिश्चित हैं? सारा स्थानीय डेटा हटा दिया जाएगा।"
 }

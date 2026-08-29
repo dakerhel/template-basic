@@ -81,5 +81,16 @@
   "permissionSecurityBenefitTitle": "الأمان والحماية",
   "permissionSecurityBenefitDesc": "تنبيهات أحداث الأمان الهامة والجلسات",
   "permissionGrantedSnackbar": "تم تمكين الإشعارات بنجاح",
-  "permissionDeniedSnackbar": "الإشعارات معطلة. يمكنك تفعيلها من الإعدادات."
+  "permissionDeniedSnackbar": "الإشعارات معطلة. يمكنك تفعيلها من الإعدادات.",
+  "profileTitle": "الملف الشخصي",
+  "profileGuestName": "مستخدم ضيف",
+  "profileGuestDesc": "جلسة محلية بدون اتصال بالإنترنت",
+  "profileLinkAccount": "ربط الحساب",
+  "profileLinkAccountDesc": "تسجيل الدخول عبر Google أو Telegram أو GitHub",
+  "profileAccountSection": "الحساب",
+  "profileSecuritySection": "الأمان والجلسات",
+  "profileActiveSessions": "الأجهزة النشطة",
+  "profileCurrentDevice": "هذا الجهاز",
+  "profileDeleteAccount": "مسح الملف الشخصي والبيانات",
+  "profileDeleteConfirm": "هل أنت متأكد؟ سيتم حذف جميع البيانات المحلية."
 }

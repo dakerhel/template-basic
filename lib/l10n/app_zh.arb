@@ -81,5 +81,16 @@
   "permissionSecurityBenefitTitle": "安全与防护",
   "permissionSecurityBenefitDesc": "关键安全事件与会话提醒",
   "permissionGrantedSnackbar": "通知已成功开启",
-  "permissionDeniedSnackbar": "通知已关闭。您可随时在“设置”中开启。"
+  "permissionDeniedSnackbar": "通知已关闭。您可随时在“设置”中开启。",
+  "profileTitle": "个人资料",
+  "profileGuestName": "访客用户",
+  "profileGuestDesc": "本地离线会话",
+  "profileLinkAccount": "绑定账号",
+  "profileLinkAccountDesc": "通过 Google、Telegram 或 GitHub 登录",
+  "profileAccountSection": "账号设置",
+  "profileSecuritySection": "安全与会话",
+  "profileActiveSessions": "活跃设备",
+  "profileCurrentDevice": "当前设备",
+  "profileDeleteAccount": "清除资料与数据",
+  "profileDeleteConfirm": "确定要清除吗？所有本地数据将被删除。"
 }

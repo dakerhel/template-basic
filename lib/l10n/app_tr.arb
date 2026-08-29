@@ -81,5 +81,16 @@
   "permissionSecurityBenefitTitle": "Güvenlik ve Koruma",
   "permissionSecurityBenefitDesc": "Kritik güvenlik olayları ve oturum uyarıları",
   "permissionGrantedSnackbar": "Bildirimler başarıyla etkinleştirildi",
-  "permissionDeniedSnackbar": "Bildirimler devre dışı. Ayarlar bölümünden istediğiniz zaman etkinleştirebilirsiniz."
+  "permissionDeniedSnackbar": "Bildirimler devre dışı. Ayarlar bölümünden istediğiniz zaman etkinleştirebilirsiniz.",
+  "profileTitle": "Profil",
+  "profileGuestName": "Misafir Kullanıcı",
+  "profileGuestDesc": "Yerel çevrimdışı oturum",
+  "profileLinkAccount": "Hesap Bağla",
+  "profileLinkAccountDesc": "Google, Telegram veya GitHub ile bağlanın",
+  "profileAccountSection": "Hesap",
+  "profileSecuritySection": "Güvenlik ve Oturumlar",
+  "profileActiveSessions": "Aktif Cihazlar",
+  "profileCurrentDevice": "Bu Cihaz",
+  "profileDeleteAccount": "Profili ve Verileri Temizle",
+  "profileDeleteConfirm": "Emin misiniz? Tüm yerel veriler silinecektir."
 }

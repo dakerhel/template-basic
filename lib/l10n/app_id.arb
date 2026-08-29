@@ -81,5 +81,16 @@
   "permissionSecurityBenefitTitle": "Keamanan & Perlindungan",
   "permissionSecurityBenefitDesc": "Peringatan peristiwa keamanan kritis & sesi",
   "permissionGrantedSnackbar": "Notifikasi berhasil diaktifkan",
-  "permissionDeniedSnackbar": "Notifikasi dinonaktifkan. Anda dapat mengaktifkannya di Pengaturan kapan saja."
+  "permissionDeniedSnackbar": "Notifikasi dinonaktifkan. Anda dapat mengaktifkannya di Pengaturan kapan saja.",
+  "profileTitle": "Profil",
+  "profileGuestName": "Pengguna Tamu",
+  "profileGuestDesc": "Sesi offline lokal",
+  "profileLinkAccount": "Tautkan Akun",
+  "profileLinkAccountDesc": "Masuk dengan Google, Telegram, atau GitHub",
+  "profileAccountSection": "Akun",
+  "profileSecuritySection": "Keamanan & Sesi",
+  "profileActiveSessions": "Perangkat Aktif",
+  "profileCurrentDevice": "Perangkat Ini",
+  "profileDeleteAccount": "Hapus Profil & Data",
+  "profileDeleteConfirm": "Apakah Anda yakin? Semua data lokal akan dihapus."
 }

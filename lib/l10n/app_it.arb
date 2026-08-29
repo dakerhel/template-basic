@@ -81,5 +81,16 @@
   "permissionSecurityBenefitTitle": "Sicurezza e protezione",
   "permissionSecurityBenefitDesc": "Eventi critici di sicurezza e avvisi di sessione",
   "permissionGrantedSnackbar": "Notifiche attivate con successo",
-  "permissionDeniedSnackbar": "Notifiche disattivate. Puoi attivarle nelle Impostazioni."
+  "permissionDeniedSnackbar": "Notifiche disattivate. Puoi attivarle nelle Impostazioni.",
+  "profileTitle": "Profilo",
+  "profileGuestName": "Utente Ospite",
+  "profileGuestDesc": "Sessione offline locale",
+  "profileLinkAccount": "Collega account",
+  "profileLinkAccountDesc": "Accedi con Google, Telegram o GitHub",
+  "profileAccountSection": "Account",
+  "profileSecuritySection": "Sicurezza e sessioni",
+  "profileActiveSessions": "Dispositivi attivi",
+  "profileCurrentDevice": "Questo dispositivo",
+  "profileDeleteAccount": "Cancella profilo e dati",
+  "profileDeleteConfirm": "Sei sicuro? Tutti i dati locali verranno rimossi."
 }

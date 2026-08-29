@@ -81,5 +81,16 @@
   "permissionSecurityBenefitTitle": "Segurança e proteção",
   "permissionSecurityBenefitDesc": "Eventos críticos de segurança e alertas de sessão",
   "permissionGrantedSnackbar": "Notifiche ativadas com sucesso",
-  "permissionDeniedSnackbar": "Notificações desativadas. Você pode ativá-las nas Configurações."
+  "permissionDeniedSnackbar": "Notificações desativadas. Você pode ativá-las nas Configurações.",
+  "profileTitle": "Perfil",
+  "profileGuestName": "Usuário Convidado",
+  "profileGuestDesc": "Sessão local offline",
+  "profileLinkAccount": "Vincular conta",
+  "profileLinkAccountDesc": "Conecte com Google, Telegram ou GitHub",
+  "profileAccountSection": "Conta",
+  "profileSecuritySection": "Segurança e sessões",
+  "profileActiveSessions": "Dispositivos ativos",
+  "profileCurrentDevice": "Este dispositivo",
+  "profileDeleteAccount": "Limpar perfil e dados",
+  "profileDeleteConfirm": "Tem certeza? Todos os dados locais serão excluídos."
 }

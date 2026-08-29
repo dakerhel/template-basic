@@ -81,5 +81,16 @@
   "permissionSecurityBenefitTitle": "セキュリティ保護",
   "permissionSecurityBenefitDesc": "重大なセキュリティイベントとセッション通知",
   "permissionGrantedSnackbar": "通知が有効になりました",
-  "permissionDeniedSnackbar": "通知は無効です。設定からいつでも有効にできます。"
+  "permissionDeniedSnackbar": "通知は無効です。設定からいつでも有効にできます。",
+  "profileTitle": "プロフィール",
+  "profileGuestName": "ゲストユーザー",
+  "profileGuestDesc": "ローカルオフラインセッション",
+  "profileLinkAccount": "アカウント連携",
+  "profileLinkAccountDesc": "Google、Telegram、GitHubでログイン",
+  "profileAccountSection": "アカウント",
+  "profileSecuritySection": "セキュリティとセッション",
+  "profileActiveSessions": "アクティブなデバイス",
+  "profileCurrentDevice": "このデバイス",
+  "profileDeleteAccount": "プロフィールとデータを削除",
+  "profileDeleteConfirm": "よろしいですか？すべてのローカルデータが削除されます。"
 }

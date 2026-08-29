@@ -20,7 +20,8 @@ class ProfileScreen extends ConsumerStatefulWidget {
 class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   String _userName = '';
   String _userEmail = 'guest@local.device';
-  final String _userId = 'usr_guest_${Platform.operatingSystem.substring(0, 3)}77';
+  final String _userId =
+      'usr_guest_${Platform.operatingSystem.substring(0, 3)}77';
 
   @override
   void initState() {
@@ -30,15 +31,19 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
   Future<void> _loadProfileData() async {
     final prefs = await SharedPreferences.getInstance();
+    if (!mounted) return;
     setState(() {
       _userName = prefs.getString('profile_custom_name') ?? '';
-      _userEmail = prefs.getString('profile_custom_email') ?? 'guest@local.device';
+      _userEmail =
+          prefs.getString('profile_custom_email') ?? 'guest@local.device';
     });
   }
 
   Future<void> _editName(BuildContext context) async {
     final l10n = AppLocalizations.of(context)!;
-    final controller = TextEditingController(text: _userName.isEmpty ? l10n.profileGuestName : _userName);
+    final controller = TextEditingController(
+      text: _userName.isEmpty ? l10n.profileGuestName : _userName,
+    );
 
     final newName = await showDialog<String>(
       context: context,
@@ -58,7 +63,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             child: const Text('Отмена'),
           ),
           FilledButton(
-            onPressed: () => Navigator.of(dialogContext).pop(controller.text.trim()),
+            onPressed: () =>
+                Navigator.of(dialogContext).pop(controller.text.trim()),
             child: const Text('Сохранить'),
           ),
         ],
@@ -68,7 +74,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     if (newName != null && newName.isNotEmpty) {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('profile_custom_name', newName);
-      setState(() => _userName = newName);
+      if (mounted) {
+        setState(() => _userName = newName);
+      }
     }
   }
 
@@ -97,11 +105,17 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 ),
               ),
               const SizedBox(height: 20),
-              Icon(Icons.cloud_sync_outlined, size: 48, color: colorScheme.primary),
+              Icon(
+                Icons.cloud_sync_outlined,
+                size: 48,
+                color: colorScheme.primary,
+              ),
               const SizedBox(height: 14),
               Text(
                 'Подключение $provider',
-                style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(height: 8),
               Text(
@@ -154,11 +168,11 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove('profile_custom_name');
       await prefs.remove('profile_custom_email');
-      setState(() {
-        _userName = '';
-        _userEmail = 'guest@local.device';
-      });
-      if (context.mounted) {
+      if (mounted) {
+        setState(() {
+          _userName = '';
+          _userEmail = 'guest@local.device';
+        });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: const Text('Профиль успешно сброшен'),
@@ -242,7 +256,11 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                             ),
                           ],
                         ),
-                        child: Icon(Icons.edit_rounded, size: 14, color: colorScheme.primary),
+                        child: Icon(
+                          Icons.edit_rounded,
+                          size: 14,
+                          color: colorScheme.primary,
+                        ),
                       ),
                     ),
                   ],
@@ -279,15 +297,24 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   alignment: WrapAlignment.center,
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
-                        color: colorScheme.primaryContainer.withValues(alpha: 0.6),
+                        color: colorScheme.primaryContainer.withValues(
+                          alpha: 0.6,
+                        ),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.offline_bolt_outlined, size: 13, color: colorScheme.primary),
+                          Icon(
+                            Icons.offline_bolt_outlined,
+                            size: 13,
+                            color: colorScheme.primary,
+                          ),
                           const SizedBox(width: 4),
                           Text(
                             l10n.profileGuestDesc,
@@ -300,9 +327,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       ),
                     ),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
-                        color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.6),
+                        color: colorScheme.surfaceContainerHighest.withValues(
+                          alpha: 0.6,
+                        ),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Row(
@@ -350,7 +382,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               children: [
                 Text(
                   l10n.profileLinkAccount,
-                  style: theme.textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 4),
                 Text(
@@ -416,9 +450,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   contentPadding: EdgeInsets.zero,
                   leading: const Icon(Icons.devices_rounded),
                   title: Text(l10n.profileActiveSessions),
-                  subtitle: Text('${l10n.profileCurrentDevice} (${Platform.operatingSystem})'),
+                  subtitle: Text(
+                    '${l10n.profileCurrentDevice} (${Platform.operatingSystem})',
+                  ),
                   trailing: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.green.withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(10),
@@ -453,14 +492,22 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
             borderRadius: 18,
             padding: const EdgeInsets.all(12),
             child: ListTile(
-              leading: Icon(Icons.delete_outline_rounded, color: colorScheme.error),
+              leading: Icon(
+                Icons.delete_outline_rounded,
+                color: colorScheme.error,
+              ),
               title: Text(
                 l10n.profileDeleteAccount,
-                style: TextStyle(color: colorScheme.error, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                  color: colorScheme.error,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               subtitle: Text(
                 'Сбросить имя, локальные сессии и кэш',
-                style: theme.textTheme.bodySmall?.copyWith(color: colorScheme.onSurfaceVariant),
+                style: theme.textTheme.bodySmall?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                ),
               ),
               onTap: () => _clearProfile(context),
             ),

@@ -81,5 +81,16 @@
   "permissionSecurityBenefitTitle": "Sicherheit & Schutz",
   "permissionSecurityBenefitDesc": "Kritische Sicherheitsereignisse & Sitzungswarnungen",
   "permissionGrantedSnackbar": "Benachrichtigungen erfolgreich aktiviert",
-  "permissionDeniedSnackbar": "Benachrichtigungen deaktiviert. Sie können sie jederzeit in den Einstellungen aktivieren."
+  "permissionDeniedSnackbar": "Benachrichtigungen deaktiviert. Sie können sie jederzeit in den Einstellungen aktivieren.",
+  "profileTitle": "Profil",
+  "profileGuestName": "Gastbenutzer",
+  "profileGuestDesc": "Lokale Offline-Sitzung",
+  "profileLinkAccount": "Konto verknüpfen",
+  "profileLinkAccountDesc": "Mit Google, Telegram oder GitHub anmelden",
+  "profileAccountSection": "Konto",
+  "profileSecuritySection": "Sicherheit & Sitzungen",
+  "profileActiveSessions": "Aktive Geräte",
+  "profileCurrentDevice": "Dieses Gerät",
+  "profileDeleteAccount": "Profil & Daten löschen",
+  "profileDeleteConfirm": "Sind Sie sicher? Alle lokalen Daten werden gelöscht."
 }
