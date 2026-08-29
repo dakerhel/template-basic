@@ -207,6 +207,9 @@ class AppLocalizationsHi extends AppLocalizations {
   }
 
   @override
+  String get clearCacheAction => 'साफ़ करें';
+
+  @override
   String get cacheCleared => 'साफ़ हो गया';
 
   @override

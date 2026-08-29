@@ -202,6 +202,9 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
+  String get clearCacheAction => '清除';
+
+  @override
   String get cacheCleared => '已清除';
 
   @override

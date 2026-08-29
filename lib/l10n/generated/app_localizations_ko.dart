@@ -203,6 +203,9 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
+  String get clearCacheAction => '지우기';
+
+  @override
   String get cacheCleared => '지워졌습니다';
 
   @override

@@ -208,6 +208,9 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get clearCacheAction => 'Effacer';
+
+  @override
   String get cacheCleared => 'Effacé';
 
   @override

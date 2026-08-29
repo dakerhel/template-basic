@@ -208,6 +208,9 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
+  String get clearCacheAction => 'Löschen';
+
+  @override
   String get cacheCleared => 'Gelöscht';
 
   @override

@@ -208,6 +208,9 @@ class AppLocalizationsId extends AppLocalizations {
   }
 
   @override
+  String get clearCacheAction => 'Hapus';
+
+  @override
   String get cacheCleared => 'Dihapus';
 
   @override

@@ -207,6 +207,9 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get clearCacheAction => 'مسح';
+
+  @override
   String get cacheCleared => 'تم المسح';
 
   @override

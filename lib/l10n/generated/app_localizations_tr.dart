@@ -208,6 +208,9 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
+  String get clearCacheAction => 'Temizle';
+
+  @override
   String get cacheCleared => 'Temizlendi';
 
   @override

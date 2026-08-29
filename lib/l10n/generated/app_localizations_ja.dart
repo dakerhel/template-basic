@@ -203,6 +203,9 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String get clearCacheAction => 'クリア';
+
+  @override
   String get cacheCleared => '消去しました';
 
   @override

@@ -208,6 +208,9 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
+  String get clearCacheAction => 'Limpar';
+
+  @override
   String get cacheCleared => 'Limpo';
 
   @override

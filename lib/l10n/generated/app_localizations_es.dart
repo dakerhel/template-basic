@@ -208,6 +208,9 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String get clearCacheAction => 'Borrar';
+
+  @override
   String get cacheCleared => 'Borrado';
 
   @override
