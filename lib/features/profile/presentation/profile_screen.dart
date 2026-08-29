@@ -398,7 +398,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   children: [
                     Expanded(
                       child: _OAuthButton(
-                        icon: Icons.g_mobiledata_rounded,
+                        icon: Icons.g_mobiledata,
                         label: 'Google',
                         onTap: () => _showOAuthSheet(context, 'Google'),
                       ),
@@ -406,7 +406,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: _OAuthButton(
-                        icon: Icons.send_rounded,
+                        icon: Icons.send,
                         label: 'Telegram',
                         onTap: () => _showOAuthSheet(context, 'Telegram'),
                       ),
@@ -418,7 +418,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   children: [
                     Expanded(
                       child: _OAuthButton(
-                        icon: Icons.code_rounded,
+                        icon: Icons.code,
                         label: 'GitHub',
                         onTap: () => _showOAuthSheet(context, 'GitHub'),
                       ),
@@ -426,7 +426,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: _OAuthButton(
-                        icon: Icons.apple_rounded,
+                        icon: Icons.apple,
                         label: 'Apple',
                         onTap: () => _showOAuthSheet(context, 'Apple'),
                       ),
