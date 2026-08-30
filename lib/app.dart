@@ -9,6 +9,7 @@ import 'core/theme/app_theme.dart';
 import 'core/theme/color_palette_provider.dart';
 import 'core/theme/font_provider.dart';
 import 'core/theme/theme_mode_provider.dart';
+import 'core/theme/widgets/app_ambient_background.dart';
 import 'features/security/presentation/controllers/security_controller.dart';
 import 'features/security/presentation/screens/lock_screen.dart';
 import 'features/security/presentation/screens/privacy_shield_screen.dart';
@@ -47,17 +48,24 @@ class MyApp extends ConsumerWidget {
         final scaledChild = MediaQuery(
           data: MediaQuery.of(context)
               .copyWith(textScaler: TextScaler.linear(font.scale)),
-          child: child ?? const SizedBox.shrink(),
+          child: AppAmbientBackground(
+            child: child ?? const SizedBox.shrink(),
+          ),
         );
 
-        return Stack(
-          children: [
-            scaledChild,
-            if (securityState.isLocked && securityState.isInitialized)
-              const Positioned.fill(child: LockScreen()),
-            if (securityState.isPrivacyShieldActive)
-              const Positioned.fill(child: PrivacyShieldScreen()),
-          ],
+        return AnimatedTheme(
+          data: Theme.of(context),
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeInOut,
+          child: Stack(
+            children: [
+              scaledChild,
+              if (securityState.isLocked && securityState.isInitialized)
+                const Positioned.fill(child: LockScreen()),
+              if (securityState.isPrivacyShieldActive)
+                const Positioned.fill(child: PrivacyShieldScreen()),
+            ],
+          ),
         );
       },
     );
