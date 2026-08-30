@@ -27,6 +27,8 @@ class SecurityService {
 
   // Actions
   void lock() => _controller.lockManually();
+  Future<bool> verifyCurrentPin(String pin) =>
+      _controller.verifyCurrentPin(pin);
   Future<bool> unlockWithPin(String pin) => _controller.verifyAndUnlock(pin);
   Future<bool> unlockWithBiometrics({
     String reason = 'Подтвердите личность для входа',

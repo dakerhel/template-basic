@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/theme/widgets/app_glass.dart';
-import '../../data/security_repository_impl.dart';
 import '../controllers/security_controller.dart';
 
 enum PinSheetMode {
@@ -84,6 +83,12 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
     super.dispose();
   }
 
+  String _formatLockoutTimer(int totalSeconds) {
+    final minutes = (totalSeconds ~/ 60).toString().padLeft(2, '0');
+    final seconds = (totalSeconds % 60).toString().padLeft(2, '0');
+    return '$minutes:$seconds';
+  }
+
   void _onDigit(String digit) {
     final lockout = ref.read(securityControllerProvider).lockout;
     if (_isProcessing || lockout.isLockedOut || _currentPin.length >= 4) return;
@@ -120,8 +125,8 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
       if (_step == 0) {
         // Проверка текущего PIN-кода для смены или подтверждения отключения
         final isValid = await ref
-            .read(securityRepositoryProvider)
-            .verifyPin(_currentPin);
+            .read(securityControllerProvider.notifier)
+            .verifyCurrentPin(_currentPin);
         if (isValid) {
           HapticFeedback.lightImpact();
           if (!mounted) return;
@@ -136,20 +141,16 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
             });
           }
         } else {
-          final updatedLockout = await ref
-              .read(securityRepositoryProvider)
-              .recordFailedAttempt();
           HapticFeedback.vibrate();
           await _shakeController.forward(from: 0.0);
           if (!mounted) return;
+          final currentLockout = ref.read(securityControllerProvider).lockout;
           setState(() {
-            _errorMessage = isRu
-                ? (updatedLockout.isLockedOut
-                    ? 'Ввод заблокирован на ${updatedLockout.remainingSeconds} сек.'
-                    : 'Неверный текущий PIN-код (осталось: ${updatedLockout.attemptsUntilNextLockout})')
-                : (updatedLockout.isLockedOut
-                    ? 'Locked out for ${updatedLockout.remainingSeconds}s'
-                    : 'Incorrect current PIN (${updatedLockout.attemptsUntilNextLockout} attempts left)');
+            _errorMessage = currentLockout.isLockedOut
+                ? null
+                : (isRu
+                    ? 'Неверный текущий PIN-код (осталось попыток: ${currentLockout.attemptsUntilNextLockout})'
+                    : 'Incorrect current PIN (${currentLockout.attemptsUntilNextLockout} attempts left)');
             _currentPin = '';
           });
         }
@@ -237,7 +238,21 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
           : 'Repeat the PIN code you just entered';
     }
 
-    final subtitle = _errorMessage ?? defaultSubtitle;
+    final String subtitle;
+    final Color subtitleColor;
+
+    if (lockout.isLockedOut) {
+      subtitle = isRu
+          ? 'Ввод заблокирован. Попробуйте снова через ${_formatLockoutTimer(lockout.remainingSeconds)}'
+          : 'Entry locked. Try again in ${_formatLockoutTimer(lockout.remainingSeconds)}';
+      subtitleColor = colorScheme.error;
+    } else if (_errorMessage != null) {
+      subtitle = _errorMessage!;
+      subtitleColor = colorScheme.error;
+    } else {
+      subtitle = defaultSubtitle;
+      subtitleColor = colorScheme.onSurfaceVariant;
+    }
 
     return Container(
       decoration: BoxDecoration(
@@ -276,14 +291,18 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
                 child: Icon(
                   icon,
                   size: 32,
-                  color: colorScheme.primary,
+                  color: lockout.isLockedOut
+                      ? colorScheme.error
+                      : colorScheme.primary,
                 ),
               ),
               const SizedBox(height: 16),
 
               // Заголовок
               Text(
-                title,
+                lockout.isLockedOut
+                    ? (isRu ? 'Ввод заблокирован' : 'Entry Locked')
+                    : title,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: colorScheme.onSurface,
@@ -293,9 +312,10 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
               Text(
                 subtitle,
                 style: theme.textTheme.bodyMedium?.copyWith(
-                  color: _errorMessage != null
-                      ? colorScheme.error
-                      : colorScheme.onSurfaceVariant,
+                  color: subtitleColor,
+                  fontWeight: lockout.isLockedOut || _errorMessage != null
+                      ? FontWeight.w600
+                      : FontWeight.normal,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -323,11 +343,15 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: isFilled
-                            ? colorScheme.primary
+                            ? (lockout.isLockedOut
+                                ? colorScheme.error
+                                : colorScheme.primary)
                             : colorScheme.surfaceContainerHighest,
                         border: Border.all(
                           color: isFilled
-                              ? colorScheme.primary
+                              ? (lockout.isLockedOut
+                                  ? colorScheme.error
+                                  : colorScheme.primary)
                               : colorScheme.outline.withValues(alpha: 0.3),
                           width: 2,
                         ),

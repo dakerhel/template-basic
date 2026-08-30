@@ -88,11 +88,18 @@ class SecurityController extends Notifier<SecurityState>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (!this.state.settings.isPinEnabled) return;
 
-    if (state == AppLifecycleState.inactive ||
-        state == AppLifecycleState.paused) {
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.hidden) {
       _pausedAt ??= DateTime.now();
 
       // Активируем Privacy Shield для диспетчера задач
+      if (this.state.settings.isHideContentEnabled &&
+          !this.state.isPrivacyShieldActive) {
+        this.state = this.state.copyWith(isPrivacyShieldActive: true);
+      }
+    } else if (state == AppLifecycleState.inactive) {
+      // При inactive (шторка уведомлений, системный диалог) включаем Privacy Shield если нужно,
+      // но не фиксируем _pausedAt, чтобы транзитные диалоги/шторки не вызывали ложную автоблокировку
       if (this.state.settings.isHideContentEnabled &&
           !this.state.isPrivacyShieldActive) {
         this.state = this.state.copyWith(isPrivacyShieldActive: true);
@@ -138,12 +145,47 @@ class SecurityController extends Notifier<SecurityState>
     });
   }
 
-  Future<bool> verifyAndUnlock(String pin) async {
-    if (state.lockout.isLockedOut) return false;
+  Future<bool> verifyCurrentPin(String pin) async {
+    final lockout = await _repository.getLockoutInfo();
+    if (lockout.isLockedOut) {
+      if (state.lockout.remainingSeconds != lockout.remainingSeconds) {
+        state = state.copyWith(lockout: lockout);
+      }
+      return false;
+    }
 
     final isValid = await _repository.verifyPin(pin);
     if (isValid) {
       _countdownTimer?.cancel();
+      await _repository.resetLockout();
+      state = state.copyWith(
+        lockout: const LockoutInfo(),
+      );
+      return true;
+    } else {
+      final updatedLockout = await _repository.recordFailedAttempt();
+      state = state.copyWith(lockout: updatedLockout);
+
+      if (updatedLockout.isLockedOut) {
+        _startLockoutCountdown();
+      }
+      return false;
+    }
+  }
+
+  Future<bool> verifyAndUnlock(String pin) async {
+    final lockout = await _repository.getLockoutInfo();
+    if (lockout.isLockedOut) {
+      if (state.lockout.remainingSeconds != lockout.remainingSeconds) {
+        state = state.copyWith(lockout: lockout);
+      }
+      return false;
+    }
+
+    final isValid = await _repository.verifyPin(pin);
+    if (isValid) {
+      _countdownTimer?.cancel();
+      await _repository.resetLockout();
       state = state.copyWith(
         isLocked: false,
         isPrivacyShieldActive: false,
