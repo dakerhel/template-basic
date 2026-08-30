@@ -180,8 +180,8 @@ class UnifiedThemeSheet extends ConsumerWidget {
                     ? '配色方案'
                     : 'Color Schemes',
                 style: theme.textTheme.titleSmall?.copyWith(
-                  color: colorScheme.primary,
-                  fontWeight: FontWeight.w600,
+                  color: colorScheme.onSurface,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 10),

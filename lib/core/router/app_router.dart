@@ -15,11 +15,8 @@ final appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/',
   routes: [
-    // Главная StatefulShellRoute оболочка с табами и сохранением состояния
-    StatefulShellRoute.indexedStack(
-      builder: (context, state, navigationShell) {
-        return AppScaffoldShell(navigationShell: navigationShell);
-      },
+    // Главная StatefulShellRoute оболочка с интерактивным PageView и сохранением состояния
+    StatefulShellRoute(
       branches: [
         // Вкладка 0: Главная
         StatefulShellBranch(
@@ -60,6 +57,23 @@ final appRouter = GoRouter(
           ],
         ),
       ],
+      navigatorContainerBuilder: (
+        BuildContext context,
+        StatefulNavigationShell navigationShell,
+        List<Widget> children,
+      ) {
+        return AppScaffoldShell(
+          navigationShell: navigationShell,
+          children: children,
+        );
+      },
+      builder: (
+        BuildContext context,
+        GoRouterState state,
+        StatefulNavigationShell navigationShell,
+      ) {
+        return navigationShell;
+      },
     ),
 
     // Полноэкранные маршруты поверх оболочки (с кнопкой назад)

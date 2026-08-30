@@ -8,38 +8,80 @@ import '../../theme/utils/app_haptics.dart';
 import 'app_floating_nav_bar.dart';
 
 /// Оболочка маршрутизатора (Shell) для StatefulShellRoute с парящей панелью навигации,
-/// сохранением состояния вкладок, направленными слайд-анимациями и свайпами.
+/// интерактивным 1:1 PageView-свайпом между экранами и сохранением состояния.
 class AppScaffoldShell extends ConsumerStatefulWidget {
   const AppScaffoldShell({
     super.key,
     required this.navigationShell,
+    this.children,
   });
 
   final StatefulNavigationShell navigationShell;
+  final List<Widget>? children;
 
   @override
   ConsumerState<AppScaffoldShell> createState() => _AppScaffoldShellState();
 }
 
 class _AppScaffoldShellState extends ConsumerState<AppScaffoldShell> {
-  int _previousIndex = 0;
+  late final PageController _pageController;
+  bool _isAnimatingPage = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(
+      initialPage: widget.navigationShell.currentIndex,
+    );
+  }
 
   @override
   void didUpdateWidget(covariant AppScaffoldShell oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.navigationShell.currentIndex !=
-        widget.navigationShell.currentIndex) {
-      _previousIndex = oldWidget.navigationShell.currentIndex;
+    final targetPage = widget.navigationShell.currentIndex;
+    if (_pageController.hasClients &&
+        !_isAnimatingPage &&
+        _pageController.page?.round() != targetPage) {
+      _isAnimatingPage = true;
+      _pageController
+          .animateToPage(
+            targetPage,
+            duration: const Duration(milliseconds: 320),
+            curve: Curves.easeOutCubic,
+          )
+          .then((_) {
+            if (mounted) {
+              _isAnimatingPage = false;
+            }
+          });
     }
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   void _onTabSelected(int index) {
     if (index == widget.navigationShell.currentIndex) {
       widget.navigationShell.goBranch(index, initialLocation: true);
     } else {
-      setState(() {
-        _previousIndex = widget.navigationShell.currentIndex;
-      });
+      AppHaptics.selection();
+      if (_pageController.hasClients) {
+        _isAnimatingPage = true;
+        _pageController
+            .animateToPage(
+              index,
+              duration: const Duration(milliseconds: 320),
+              curve: Curves.easeOutCubic,
+            )
+            .then((_) {
+              if (mounted) {
+                _isAnimatingPage = false;
+              }
+            });
+      }
       widget.navigationShell.goBranch(index);
     }
   }
@@ -74,7 +116,25 @@ class _AppScaffoldShellState extends ConsumerState<AppScaffoldShell> {
     ];
 
     final currentIndex = widget.navigationShell.currentIndex;
-    final isForward = currentIndex >= _previousIndex;
+
+    Widget bodyContent;
+    if (widget.children != null && widget.children!.isNotEmpty) {
+      bodyContent = PageView(
+        controller: _pageController,
+        physics: const BouncingScrollPhysics(
+          parent: AlwaysScrollableScrollPhysics(),
+        ),
+        onPageChanged: (index) {
+          if (index != widget.navigationShell.currentIndex) {
+            AppHaptics.selection();
+            widget.navigationShell.goBranch(index);
+          }
+        },
+        children: widget.children!,
+      );
+    } else {
+      bodyContent = widget.navigationShell;
+    }
 
     return PopScope(
       canPop: currentIndex == 0,
@@ -86,57 +146,7 @@ class _AppScaffoldShellState extends ConsumerState<AppScaffoldShell> {
       child: Scaffold(
         extendBody: true,
         backgroundColor: Colors.transparent,
-        body: GestureDetector(
-          behavior: HitTestBehavior.translucent,
-          onHorizontalDragEnd: (details) {
-            final velocity = details.primaryVelocity ?? 0;
-            // Свайп влево -> следующая вкладка
-            if (velocity < -240 && currentIndex < navItems.length - 1) {
-              AppHaptics.selection();
-              _onTabSelected(currentIndex + 1);
-            }
-            // Свайп вправо -> предыдущая вкладка
-            else if (velocity > 240 && currentIndex > 0) {
-              AppHaptics.selection();
-              _onTabSelected(currentIndex - 1);
-            }
-          },
-          child: AnimatedSwitcher(
-            duration: const Duration(milliseconds: 260),
-            switchInCurve: Curves.easeOutCubic,
-            switchOutCurve: Curves.easeInCubic,
-            layoutBuilder: (currentChild, previousChildren) {
-              return Stack(
-                children: [
-                  ...previousChildren,
-                  if (currentChild != null) currentChild,
-                ],
-              );
-            },
-            transitionBuilder: (child, animation) {
-              final offsetTween = Tween<Offset>(
-                begin: isForward
-                    ? const Offset(0.06, 0)
-                    : const Offset(-0.06, 0),
-                end: Offset.zero,
-              );
-              return FadeTransition(
-                opacity: CurvedAnimation(
-                  parent: animation,
-                  curve: const Interval(0.0, 1.0, curve: Curves.easeOut),
-                ),
-                child: SlideTransition(
-                  position: offsetTween.animate(animation),
-                  child: child,
-                ),
-              );
-            },
-            child: KeyedSubtree(
-              key: ValueKey<int>(currentIndex),
-              child: widget.navigationShell,
-            ),
-          ),
-        ),
+        body: bodyContent,
         bottomNavigationBar: AppFloatingNavBar(
           currentIndex: currentIndex,
           items: navItems,

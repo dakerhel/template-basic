@@ -31,18 +31,20 @@ class AppBadge extends StatelessWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
+    final isDark = theme.brightness == Brightness.dark;
+
     final (Color accentColor, Color textColor) = switch (variant) {
       AppBadgeVariant.primary => (
           colorScheme.primary,
           colorScheme.primary,
         ),
       AppBadgeVariant.success => (
-          const Color(0xFF10B981),
-          const Color(0xFF10B981),
+          isDark ? const Color(0xFF34D399) : const Color(0xFF047857),
+          isDark ? const Color(0xFF34D399) : const Color(0xFF047857),
         ),
       AppBadgeVariant.warning => (
-          const Color(0xFFF59E0B),
-          const Color(0xFFF59E0B),
+          isDark ? const Color(0xFFFBBF24) : const Color(0xFFB45309),
+          isDark ? const Color(0xFFFBBF24) : const Color(0xFFB45309),
         ),
       AppBadgeVariant.error => (
           colorScheme.error,

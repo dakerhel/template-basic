@@ -360,6 +360,29 @@ enum AppColorPalette {
     }
   }
 
+  Color get _lightPrimary {
+    switch (this) {
+      case AppColorPalette.monochrome:
+        return const Color(0xFF0F172A);
+      case AppColorPalette.fuchsiaPine:
+        return const Color(0xFF064E3B);
+      case AppColorPalette.indigoGold:
+        return const Color(0xFF1E1B4B);
+      case AppColorPalette.acidViolet:
+        return const Color(0xFF3B0764);
+      case AppColorPalette.warmAmber:
+        return const Color(0xFF991B1B);
+      case AppColorPalette.rubyGold:
+        return const Color(0xFF7F1D1D);
+      case AppColorPalette.pistachioMilk:
+        return const Color(0xFF1E3A10);
+      case AppColorPalette.cyberCyan:
+        return const Color(0xFF0E7490);
+      case AppColorPalette.toxicOled:
+        return const Color(0xFF14532D);
+    }
+  }
+
   ColorScheme toColorScheme({
     required Brightness brightness,
     bool isOled = false,
@@ -409,52 +432,43 @@ enum AppColorPalette {
 
     if (isDark) {
       final surfaceColor = isOled ? Colors.black : _darkSurface;
-      final cardColor = isOled ? const Color(0xFF121212) : _darkCard;
-      final onPrimary = accentColor.computeLuminance() > 0.5
+      final cardColor = isOled ? const Color(0xFF141418) : _darkCard;
+      final onPrimary = accentColor.computeLuminance() > 0.45
           ? Colors.black
           : Colors.white;
 
       return ColorScheme.dark(
         primary: accentColor,
         onPrimary: onPrimary,
-        primaryContainer: accentColor.withValues(alpha: 0.25),
-        onPrimaryContainer: accentColor,
+        primaryContainer: accentColor.withValues(alpha: 0.22),
+        onPrimaryContainer: isOled ? Colors.white : const Color(0xFFF1F5F9),
         secondary: accentColor.withValues(alpha: 0.85),
         onSecondary: onPrimary,
         surface: surfaceColor,
-        onSurface: isOled ? Colors.white : const Color(0xFFE6E6E6),
+        onSurface: isOled ? Colors.white : const Color(0xFFE2E8F0),
         surfaceContainerHighest: cardColor,
-        onSurfaceVariant: const Color(0xFFB0B0B0),
-        outline: accentColor.withValues(alpha: 0.35),
-        outlineVariant: const Color(0xFF333333),
+        onSurfaceVariant: const Color(0xFF94A3B8),
+        outline: Colors.white.withValues(alpha: 0.24),
+        outlineVariant: Colors.white.withValues(alpha: 0.12),
       );
     } else {
+      final lightPrim = _lightPrimary;
       final surfaceColor = _lightSurface;
       final cardColor = _lightCard;
-      final onPrimary = accentColor.computeLuminance() > 0.5
-          ? Colors.black
-          : Colors.white;
-
-      final isAccentBright = accentColor.computeLuminance() > 0.45;
-      final onPrimaryContainer = isAccentBright
-          ? const Color(0xFF101010)
-          : accentColor;
 
       return ColorScheme.light(
-        primary: accentColor,
-        onPrimary: onPrimary,
-        primaryContainer: isAccentBright
-            ? accentColor.withValues(alpha: 0.22)
-            : accentColor.withValues(alpha: 0.12),
-        onPrimaryContainer: onPrimaryContainer,
-        secondary: accentColor.withValues(alpha: 0.8),
-        onSecondary: onPrimary,
+        primary: lightPrim,
+        onPrimary: Colors.white,
+        primaryContainer: lightPrim.withValues(alpha: 0.10),
+        onPrimaryContainer: lightPrim,
+        secondary: accentColor,
+        onSecondary: accentColor.computeLuminance() > 0.45 ? Colors.black : Colors.white,
         surface: surfaceColor,
-        onSurface: const Color(0xFF1C1B1F),
+        onSurface: const Color(0xFF0F172A),
         surfaceContainerHighest: cardColor,
-        onSurfaceVariant: const Color(0xFF49454F),
-        outline: accentColor.withValues(alpha: 0.3),
-        outlineVariant: const Color(0xFFCAC4D0),
+        onSurfaceVariant: const Color(0xFF475569),
+        outline: lightPrim.withValues(alpha: 0.22),
+        outlineVariant: const Color(0xFFCBD5E1),
       );
     }
   }

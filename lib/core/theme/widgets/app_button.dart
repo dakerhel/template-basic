@@ -75,14 +75,18 @@ class AppButton extends StatelessWidget {
 
       case AppButtonVariant.tonal:
         backgroundColor = isEnabled
-            ? colorScheme.primaryContainer.withValues(alpha: isDark ? 0.45 : 0.8)
-            : colorScheme.surfaceContainerHighest.withValues(alpha: 0.3);
+            ? (isDark
+                ? colorScheme.surfaceContainerHighest.withValues(alpha: 0.85)
+                : colorScheme.primaryContainer.withValues(alpha: 0.70))
+            : colorScheme.surfaceContainerHighest.withValues(alpha: 0.30);
         foregroundColor = isEnabled
-            ? colorScheme.onPrimaryContainer
+            ? (isDark ? colorScheme.onSurface : colorScheme.onPrimaryContainer)
             : colorScheme.onSurface.withValues(alpha: 0.38);
         border = Border.all(
           color: isEnabled
-              ? colorScheme.primary.withValues(alpha: 0.15)
+              ? (isDark
+                  ? Colors.white.withValues(alpha: 0.15)
+                  : colorScheme.primary.withValues(alpha: 0.18))
               : Colors.transparent,
         );
         break;
@@ -90,12 +94,14 @@ class AppButton extends StatelessWidget {
       case AppButtonVariant.outlined:
         backgroundColor = Colors.transparent;
         foregroundColor = isEnabled
-            ? colorScheme.primary
+            ? (isDark ? colorScheme.onSurface : colorScheme.primary)
             : colorScheme.onSurface.withValues(alpha: 0.38);
         border = Border.all(
           color: isEnabled
-              ? colorScheme.primary.withValues(alpha: 0.4)
-              : colorScheme.outline.withValues(alpha: 0.2),
+              ? (isDark
+                  ? Colors.white.withValues(alpha: 0.30)
+                  : colorScheme.primary.withValues(alpha: 0.45))
+              : colorScheme.outline.withValues(alpha: 0.20),
           width: 1.2,
         );
         break;
@@ -103,7 +109,7 @@ class AppButton extends StatelessWidget {
       case AppButtonVariant.ghost:
         backgroundColor = Colors.transparent;
         foregroundColor = isEnabled
-            ? colorScheme.primary
+            ? (isDark ? colorScheme.onSurface : colorScheme.primary)
             : colorScheme.onSurface.withValues(alpha: 0.38);
         break;
 

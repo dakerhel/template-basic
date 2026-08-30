@@ -7,17 +7,16 @@ import '../liquid_glass_provider.dart';
 import 'app_pressable.dart';
 
 /// Высококлассный компонент в стиле Apple Liquid Glass / Frosted Glass (iOS / visionOS).
-/// Обеспечивает настоящее оптическое размытие фона, тонкие градиентные блики (specular highlight),
-/// адаптивный полупрозрачный оттенок под активную цветовую палитру приложения
-/// и упругий пружинящий тактильный отклик при нажатии.
+/// Обеспечивает настоящее оптическое размытие фона, чёткие контуры, тонкие градиентные блики (specular highlight),
+/// адаптивный полупрозрачный оттенок и упругий пружинящий тактильный отклик при нажатии.
 class AppGlassCard extends ConsumerWidget {
   const AppGlassCard({
     super.key,
     required this.child,
     this.borderRadius = 20.0,
     this.blur = 20.0,
-    this.tintOpacity = 0.65,
-    this.borderOpacity = 0.22,
+    this.tintOpacity = 0.80,
+    this.borderOpacity = 0.20,
     this.padding,
     this.margin,
     this.onTap,
@@ -50,14 +49,11 @@ class AppGlassCard extends ConsumerWidget {
     if (isGlassEnabled == true) {
       final glassColor = isDark
           ? colorScheme.surfaceContainerHighest.withValues(alpha: tintOpacity * 0.85)
-          : colorScheme.surface.withValues(alpha: tintOpacity * 0.90);
+          : Colors.white.withValues(alpha: 0.85);
 
-      final topBorderColor = isDark
+      final borderColor = isDark
           ? Colors.white.withValues(alpha: borderOpacity)
-          : Colors.white.withValues(alpha: borderOpacity * 1.5);
-      final bottomBorderColor = isDark
-          ? colorScheme.primary.withValues(alpha: borderOpacity * 0.4)
-          : colorScheme.primary.withValues(alpha: borderOpacity * 0.2);
+          : Colors.black.withValues(alpha: 0.08);
 
       cardBody = ClipRRect(
         borderRadius: BorderRadius.circular(borderRadius),
@@ -68,20 +64,12 @@ class AppGlassCard extends ConsumerWidget {
             decoration: BoxDecoration(
               color: glassColor,
               borderRadius: BorderRadius.circular(borderRadius),
-              border: Border.all(color: topBorderColor, width: 1.0),
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  topBorderColor.withValues(alpha: 0.12),
-                  bottomBorderColor.withValues(alpha: 0.04),
-                ],
-              ),
+              border: Border.all(color: borderColor, width: 1.0),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: isDark ? 0.25 : 0.06),
-                  blurRadius: 18,
-                  offset: const Offset(0, 6),
+                  color: Colors.black.withValues(alpha: isDark ? 0.35 : 0.06),
+                  blurRadius: isDark ? 20 : 16,
+                  offset: const Offset(0, 4),
                 ),
               ],
             ),
@@ -93,16 +81,20 @@ class AppGlassCard extends ConsumerWidget {
       cardBody = Container(
         padding: padding,
         decoration: BoxDecoration(
-          color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.7),
+          color: isDark
+              ? colorScheme.surfaceContainerHighest.withValues(alpha: 0.75)
+              : Colors.white,
           borderRadius: BorderRadius.circular(borderRadius),
           border: Border.all(
-            color: colorScheme.outline.withValues(alpha: 0.15),
+            color: isDark
+                ? Colors.white.withValues(alpha: 0.15)
+                : Colors.black.withValues(alpha: 0.08),
             width: 1.0,
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: isDark ? 0.15 : 0.04),
-              blurRadius: 12,
+              color: Colors.black.withValues(alpha: isDark ? 0.20 : 0.05),
+              blurRadius: 14,
               offset: const Offset(0, 4),
             ),
           ],

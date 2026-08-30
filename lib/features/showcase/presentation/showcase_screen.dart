@@ -477,7 +477,7 @@ class _ShowcaseSection extends StatelessWidget {
             title,
             style: theme.textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.bold,
-              color: colorScheme.primary,
+              color: colorScheme.onSurface,
             ),
           ),
           const SizedBox(height: 2),
