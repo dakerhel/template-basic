@@ -1,13 +1,13 @@
 {
-  "version": "1.0.44",
-  "versionCode": 45,
+  "version": "1.0.45",
+  "versionCode": 46,
   "minSupported": "1.0.13",
   "coreVersion": "1.5.0",
-  "notes": "Release v1.0.44",
+  "notes": "Release v1.0.45",
   "sha256": {
-    "android": "f8f183328023be073b84b5c7c075a99eb83c149e0497aab0e7df418f5f92f0ca"
+    "android": "1de89d9ba564b68d3ad99ac2dbb6f8e5be1c195a796a75dfcf046008e3fb79a8"
   },
   "files": {
-    "android": "https://github.com/dakerhel/template-basic/releases/download/v1.0.44/my_app-1.0.44.apk"
+    "android": "https://github.com/dakerhel/template-basic/releases/download/v1.0.45/my_app-1.0.45.apk"
   }
 }
