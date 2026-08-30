@@ -116,10 +116,16 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
       appBar: AppBar(
         title: Text(l10n.appTitle),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.account_circle_outlined),
-            tooltip: l10n.profileTitle,
-            onPressed: () => context.push('/profile'),
+          Hero(
+            tag: 'profile_avatar_hero',
+            child: Material(
+              color: Colors.transparent,
+              child: IconButton(
+                icon: const Icon(Icons.account_circle_outlined),
+                tooltip: l10n.profileTitle,
+                onPressed: () => context.push('/profile'),
+              ),
+            ),
           ),
           IconButton(
             icon: const Icon(Icons.settings),

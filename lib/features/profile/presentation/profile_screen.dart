@@ -219,31 +219,38 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 Stack(
                   alignment: Alignment.bottomRight,
                   children: [
-                    Container(
-                      width: 84,
-                      height: 84,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        gradient: LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                          colors: [
-                            colorScheme.primaryContainer,
-                            colorScheme.primary.withValues(alpha: 0.8),
-                          ],
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: colorScheme.primary.withValues(alpha: 0.25),
-                            blurRadius: 16,
-                            offset: const Offset(0, 4),
+                    Hero(
+                      tag: 'profile_avatar_hero',
+                      child: Material(
+                        color: Colors.transparent,
+                        child: Container(
+                          width: 84,
+                          height: 84,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                colorScheme.primaryContainer,
+                                colorScheme.primary.withValues(alpha: 0.8),
+                              ],
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color:
+                                    colorScheme.primary.withValues(alpha: 0.25),
+                                blurRadius: 16,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      child: Icon(
-                        Icons.person_rounded,
-                        size: 46,
-                        color: colorScheme.onPrimaryContainer,
+                          child: Icon(
+                            Icons.person_rounded,
+                            size: 46,
+                            color: colorScheme.onPrimaryContainer,
+                          ),
+                        ),
                       ),
                     ),
                     InkWell(
