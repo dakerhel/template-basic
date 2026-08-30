@@ -281,4 +281,10 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get profileDeleteConfirm =>
       'Вы уверены? Все локальные данные и кэш сессий будут удалены.';
+
+  @override
+  String get navHome => 'Главная';
+
+  @override
+  String get navShowcase => 'Витрина';
 }

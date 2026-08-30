@@ -5,6 +5,11 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/notifications/notifications.dart';
+import '../../../core/theme/utils/app_haptics.dart';
+import '../../../core/theme/widgets/app_button.dart';
+import '../../../core/theme/widgets/app_glass.dart';
+import '../../../core/theme/widgets/app_staggered_item.dart';
+import '../../../core/theme/widgets/app_toast.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../update/data/background_update_task.dart';
 import '../../update/presentation/update_controller.dart';
@@ -99,15 +104,16 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     final counter = ref.watch(counterProvider);
+
     ref.listen<UpdateState>(updateControllerProvider, (previous, next) {
       if (next is UpdateAvailable) {
         _maybeShowForceDialog(next);
       } else if (next is UpdateIdle ||
           next is UpdateUpToDate ||
           next is UpdateError) {
-        // Сбрасываем флаг только в терминальных состояниях
-        // UpdateDownloading не сбрасывает флаг — пользователь уже подтвердил обновление
         _forceDialogVisible = false;
       }
     });
@@ -127,29 +133,123 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
             ),
           ),
-          IconButton(
-            icon: const Icon(Icons.settings),
-            tooltip: l10n.settingsTitle,
-            onPressed: () => context.push('/settings'),
-          ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              l10n.homeGreeting,
-              style: Theme.of(context).textTheme.headlineSmall,
+      body: ListView(
+        padding: const EdgeInsets.fromLTRB(16, 12, 16, 100),
+        children: [
+          // Hero приветствие
+          AppStaggeredItem(
+            index: 0,
+            child: AppGlassCard(
+              borderRadius: 24,
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: colorScheme.primaryContainer.withValues(
+                            alpha: 0.7,
+                          ),
+                        ),
+                        child: Icon(
+                          Icons.rocket_launch_rounded,
+                          color: colorScheme.primary,
+                          size: 24,
+                        ),
+                      ),
+                      const SizedBox(width: 14),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              l10n.homeGreeting,
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              'Material 3 • Liquid Glass • Stateful Navigation',
+                              style: theme.textTheme.bodySmall?.copyWith(
+                                color: colorScheme.onSurfaceVariant,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(height: 24),
-            Text('$counter', style: Theme.of(context).textTheme.displayMedium),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => ref.read(counterProvider.notifier).increment(),
-        child: const Icon(Icons.add),
+          ),
+
+          const SizedBox(height: 16),
+
+          // Интерактивный счетчик состояния
+          AppStaggeredItem(
+            index: 1,
+            child: AppGlassCard(
+              borderRadius: 24,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+              child: Column(
+                children: [
+                  Text(
+                    'Реактивное состояние Riverpod',
+                    style: theme.textTheme.labelMedium?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 250),
+                    transitionBuilder: (child, animation) {
+                      return ScaleTransition(scale: animation, child: child);
+                    },
+                    child: Text(
+                      '$counter',
+                      key: ValueKey<int>(counter),
+                      style: theme.textTheme.displayMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: colorScheme.primary,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AppButton(
+                        label: 'Увеличить',
+                        variant: AppButtonVariant.filled,
+                        leadingIcon: const Icon(Icons.add_rounded),
+                        onPressed: () {
+                          AppHaptics.light();
+                          ref.read(counterProvider.notifier).increment();
+                        },
+                      ),
+                      const SizedBox(width: 10),
+                      AppButton(
+                        label: 'Шоукейс UI Kit',
+                        variant: AppButtonVariant.tonal,
+                        trailingIcon: const Icon(Icons.arrow_forward_rounded),
+                        onPressed: () => context.go('/showcase'),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

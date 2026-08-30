@@ -271,4 +271,10 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get profileDeleteConfirm => '确定要清除吗？所有本地数据将被删除。';
+
+  @override
+  String get navHome => '首页';
+
+  @override
+  String get navShowcase => '组件库';
 }

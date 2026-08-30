@@ -282,4 +282,10 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get profileDeleteConfirm =>
       'Emin misiniz? Tüm yerel veriler silinecektir.';
+
+  @override
+  String get navHome => 'Ana Sayfa';
+
+  @override
+  String get navShowcase => 'Vitrin';
 }

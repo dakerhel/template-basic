@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:my_app/core/theme/widgets/app_toast.dart';
 import 'package:my_app/features/settings/presentation/controllers/storage_refresh_controller.dart';
 import 'package:my_app/features/settings/presentation/widgets/common/settings_group_header.dart';
 import 'package:my_app/features/update/data/storage_usage.dart';
@@ -41,8 +42,10 @@ class StorageSection extends ConsumerWidget {
   Future<void> _clearArtifacts(BuildContext context, WidgetRef ref) async {
     await clearUpdateArtifacts();
     if (!context.mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(AppLocalizations.of(context)!.cacheCleared)),
+    AppToast.success(
+      context,
+      AppLocalizations.of(context)!.cacheCleared,
+      title: AppLocalizations.of(context)!.storageGroup,
     );
     ref.read(storageRefreshProvider.notifier).bump();
   }

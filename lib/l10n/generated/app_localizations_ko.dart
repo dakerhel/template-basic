@@ -273,4 +273,10 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get profileDeleteConfirm =>
       '정말 삭제하시겠습니까? 모든 로컬 데이터가 삭제됩니다.';
+
+  @override
+  String get navHome => '홈';
+
+  @override
+  String get navShowcase => '쇼케이스';
 }

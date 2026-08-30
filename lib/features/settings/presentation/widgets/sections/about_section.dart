@@ -7,7 +7,8 @@ import '../../../../../core/config.dart';
 import '../../../../../core/device/providers/device_providers.dart';
 import '../../../../../core/device/presentation/sheets/system_diagnostics_sheet.dart';
 import '../../../../../core/theme/tokens/tokens.dart';
-import '../../../../../core/theme/widgets/app_glass.dart';
+import 'package:my_app/core/theme/widgets/app_glass.dart';
+import 'package:my_app/core/theme/widgets/app_toast.dart';
 import '../../../../../l10n/generated/app_localizations.dart';
 import '../common/settings_group_header.dart';
 import '../common/settings_link_tile.dart';
@@ -192,10 +193,9 @@ class AboutSection extends ConsumerWidget {
     final uri = Uri.parse(url);
     final opened = await launchUrl(uri, mode: LaunchMode.externalApplication);
     if (!opened && context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.failedToOpen(url)),
-        ),
+      AppToast.error(
+        context,
+        AppLocalizations.of(context)!.failedToOpen(url),
       );
     }
   }

@@ -281,5 +281,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get profileDeleteConfirm =>
-      '¿Estás seguro? Se eliminarán todos los datos locales.';
+      '¿Está seguro? Se eliminarán todos los datos locales y las sesiones en caché.';
+
+  @override
+  String get navHome => 'Inicio';
+
+  @override
+  String get navShowcase => 'Galería';
 }

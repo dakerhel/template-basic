@@ -92,5 +92,7 @@
   "profileActiveSessions": "Appareils actifs",
   "profileCurrentDevice": "Cet appareil",
   "profileDeleteAccount": "Effacer profil et données",
-  "profileDeleteConfirm": "Êtes-vous sûr ? Toutes les données locales seront supprimées."
+  "profileDeleteConfirm": "Êtes-vous sûr ? Toutes les données locales seront supprimées.",
+  "navHome": "Accueil",
+  "navShowcase": "Vitrine"
 }

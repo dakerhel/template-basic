@@ -281,4 +281,10 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get profileDeleteConfirm =>
       'Tem certeza? Todos os dados locais serão excluídos.';
+
+  @override
+  String get navHome => 'Início';
+
+  @override
+  String get navShowcase => 'Mostruário';
 }

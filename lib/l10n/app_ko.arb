@@ -92,5 +92,7 @@
   "profileActiveSessions": "활성 기기",
   "profileCurrentDevice": "이 기기",
   "profileDeleteAccount": "프로필 및 데이터 지우기",
-  "profileDeleteConfirm": "정말 삭제하시겠습니까? 모든 로컬 데이터가 삭제됩니다."
+  "profileDeleteConfirm": "정말 삭제하시겠습니까? 모든 로컬 데이터가 삭제됩니다.",
+  "navHome": "홈",
+  "navShowcase": "쇼케이스"
 }

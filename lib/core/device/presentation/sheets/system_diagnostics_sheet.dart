@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../theme/widgets/app_toast.dart';
+
 import '../../../theme/tokens/tokens.dart';
 import '../../../theme/widgets/app_glass.dart';
 import '../../extensions/device_context_ext.dart';
@@ -232,15 +234,12 @@ class SystemDiagnosticsSheet extends ConsumerWidget {
                     );
                     Clipboard.setData(ClipboardData(text: report));
                     Navigator.of(context).pop();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          isRu
-                              ? 'Отчёт диагностики скопирован в буфер обмена!'
-                              : 'Diagnostics report copied to clipboard!',
-                        ),
-                        behavior: SnackBarBehavior.floating,
-                      ),
+                    AppToast.success(
+                      context,
+                      isRu
+                          ? 'Отчёт диагностики скопирован в буфер обмена!'
+                          : 'Diagnostics report copied to clipboard!',
+                      title: isRu ? 'Диагностика' : 'Diagnostics',
                     );
                   },
                 ),

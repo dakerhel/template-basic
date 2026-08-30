@@ -274,4 +274,10 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get profileDeleteConfirm =>
       'よろしいですか？すべてのローカルデータが削除されます。';
+
+  @override
+  String get navHome => 'ホーム';
+
+  @override
+  String get navShowcase => 'ショーケース';
 }

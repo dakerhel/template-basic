@@ -281,4 +281,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get profileDeleteConfirm =>
       'Are you sure? All local data and cached sessions will be removed.';
+
+  @override
+  String get navHome => 'Home';
+
+  @override
+  String get navShowcase => 'Showcase';
 }

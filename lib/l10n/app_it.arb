@@ -92,5 +92,7 @@
   "profileActiveSessions": "Dispositivi attivi",
   "profileCurrentDevice": "Questo dispositivo",
   "profileDeleteAccount": "Cancella profilo e dati",
-  "profileDeleteConfirm": "Sei sicuro? Tutti i dati locali verranno rimossi."
+  "profileDeleteConfirm": "Sei sicuro? Tutti i dati locali verranno rimossi.",
+  "navHome": "Home",
+  "navShowcase": "Vetrina"
 }

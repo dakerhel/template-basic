@@ -92,5 +92,7 @@
   "profileActiveSessions": "Dispositivos ativos",
   "profileCurrentDevice": "Este dispositivo",
   "profileDeleteAccount": "Limpar perfil e dados",
-  "profileDeleteConfirm": "Tem certeza? Todos os dados locais serão excluídos."
+  "profileDeleteConfirm": "Tem certeza? Todos os dados locais serão excluídos.",
+  "navHome": "Início",
+  "navShowcase": "Mostruário"
 }

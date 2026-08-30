@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:my_app/core/theme/widgets/app_toast.dart';
 import 'package:my_app/core/utils/native_intent_launcher.dart';
 import 'package:my_app/features/settings/presentation/widgets/common/settings_group_header.dart';
 import 'package:my_app/features/settings/presentation/widgets/common/settings_interval_card.dart';
@@ -142,10 +143,9 @@ class UpdatesSection extends ConsumerWidget {
   }
 
   void _showSettingsError(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(AppLocalizations.of(context)!.failedToOpen('Settings')),
-      ),
+    AppToast.error(
+      context,
+      AppLocalizations.of(context)!.failedToOpen('Settings'),
     );
   }
 }

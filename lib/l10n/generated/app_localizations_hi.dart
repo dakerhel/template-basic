@@ -280,4 +280,10 @@ class AppLocalizationsHi extends AppLocalizations {
   @override
   String get profileDeleteConfirm =>
       'क्या आप सुनिश्चित हैं? सारा स्थानीय डेटा हटा दिया जाएगा।';
+
+  @override
+  String get navHome => 'होम';
+
+  @override
+  String get navShowcase => 'शोकेस';
 }

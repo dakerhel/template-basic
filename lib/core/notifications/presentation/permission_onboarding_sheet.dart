@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/theme/widgets/app_toast.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../theme/tokens/tokens.dart';
 import '../../theme/widgets/app_glass.dart';
@@ -134,19 +135,19 @@ class PermissionOnboardingSheet extends ConsumerWidget {
 
                       if (context.mounted) {
                         Navigator.of(context).pop(granted);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              granted
-                                  ? l10n.permissionGrantedSnackbar
-                                  : l10n.permissionDeniedSnackbar,
-                            ),
-                            behavior: SnackBarBehavior.floating,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: AppRadius.button,
-                            ),
-                          ),
-                        );
+                        if (granted) {
+                          AppToast.success(
+                            context,
+                            l10n.permissionGrantedSnackbar,
+                            title: l10n.notificationsGroup,
+                          );
+                        } else {
+                          AppToast.info(
+                            context,
+                            l10n.permissionDeniedSnackbar,
+                            title: l10n.notificationsGroup,
+                          );
+                        }
                       }
                     },
               style: FilledButton.styleFrom(

@@ -281,4 +281,10 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get profileDeleteConfirm =>
       'Apakah Anda yakin? Semua data lokal akan dihapus.';
+
+  @override
+  String get navHome => 'Beranda';
+
+  @override
+  String get navShowcase => 'Etalase';
 }

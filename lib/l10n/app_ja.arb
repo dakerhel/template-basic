@@ -92,5 +92,7 @@
   "profileActiveSessions": "アクティブなデバイス",
   "profileCurrentDevice": "このデバイス",
   "profileDeleteAccount": "プロフィールとデータを削除",
-  "profileDeleteConfirm": "よろしいですか？すべてのローカルデータが削除されます。"
+  "profileDeleteConfirm": "よろしいですか？すべてのローカルデータが削除されます。",
+  "navHome": "ホーム",
+  "navShowcase": "ショーケース"
 }

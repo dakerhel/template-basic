@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:my_app/core/theme/widgets/app_toast.dart';
+
 import '../../../../../core/theme/widgets/app_glass.dart';
 import '../../../../security/domain/models/security_settings.dart';
 import '../../../../security/presentation/controllers/security_controller.dart';
@@ -93,15 +95,12 @@ class SecuritySection extends ConsumerWidget {
                 mode: PinSheetMode.change,
               );
               if (result == true && context.mounted) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      isRu
-                          ? 'PIN-код успешно изменен'
-                          : 'PIN code successfully changed',
-                    ),
-                    behavior: SnackBarBehavior.floating,
-                  ),
+                AppToast.success(
+                  context,
+                  isRu
+                      ? 'PIN-код успешно изменен'
+                      : 'PIN code successfully changed',
+                  title: isRu ? 'Безопасность' : 'Security',
                 );
               }
             },
@@ -152,15 +151,12 @@ class SecuritySection extends ConsumerWidget {
                       .read(securityControllerProvider.notifier)
                       .removePin();
                   if (context.mounted) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          isRu
-                              ? 'Защита PIN-кодом отключена'
-                              : 'PIN protection disabled',
-                        ),
-                        behavior: SnackBarBehavior.floating,
-                      ),
+                    AppToast.info(
+                      context,
+                      isRu
+                          ? 'Защита PIN-кодом отключена'
+                          : 'PIN protection disabled',
+                      title: isRu ? 'Безопасность' : 'Security',
                     );
                   }
                 }

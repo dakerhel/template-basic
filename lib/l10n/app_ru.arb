@@ -92,5 +92,7 @@
   "profileActiveSessions": "Активные устройства",
   "profileCurrentDevice": "Текущее устройство",
   "profileDeleteAccount": "Очистить профиль и данные",
-  "profileDeleteConfirm": "Вы уверены? Все локальные данные и кэш сессий будут удалены."
+  "profileDeleteConfirm": "Вы уверены? Все локальные данные и кэш сессий будут удалены.",
+  "navHome": "Главная",
+  "navShowcase": "Витрина"
 }

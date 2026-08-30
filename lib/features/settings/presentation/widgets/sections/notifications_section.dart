@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:my_app/core/theme/widgets/app_toast.dart';
+
 import '../../../../../core/notifications/notifications.dart';
 import '../../../../../core/theme/tokens/tokens.dart';
 import '../../../../../core/theme/widgets/app_glass.dart';
@@ -117,15 +119,12 @@ class NotificationsSection extends ConsumerWidget {
                       );
 
                       if (context.mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              isRu
-                                  ? 'Тестовое уведомление отправлено! Нажмите на него в шторке.'
-                                  : 'Test notification sent! Tap it in the system tray.',
-                            ),
-                            behavior: SnackBarBehavior.floating,
-                          ),
+                        AppToast.success(
+                          context,
+                          isRu
+                              ? 'Тестовое уведомление отправлено! Нажмите на него в шторке.'
+                              : 'Test notification sent! Tap it in the system tray.',
+                          title: isRu ? 'Уведомление' : 'Notification',
                         );
                       }
                     },
@@ -158,10 +157,9 @@ class NotificationsSection extends ConsumerWidget {
   Future<void> _openNotifications(BuildContext context) async {
     final success = await NativeIntentLauncher.openNotificationSettings();
     if (!success && context.mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context)!.failedToOpen('Settings')),
-        ),
+      AppToast.error(
+        context,
+        AppLocalizations.of(context)!.failedToOpen('Settings'),
       );
     }
   }

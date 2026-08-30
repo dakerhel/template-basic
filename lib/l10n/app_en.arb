@@ -162,5 +162,7 @@
   "profileActiveSessions": "Active Devices",
   "profileCurrentDevice": "This Device",
   "profileDeleteAccount": "Clear Profile & Data",
-  "profileDeleteConfirm": "Are you sure? All local data and cached sessions will be removed."
+  "profileDeleteConfirm": "Are you sure? All local data and cached sessions will be removed.",
+  "navHome": "Home",
+  "navShowcase": "Showcase"
 }

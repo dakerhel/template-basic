@@ -92,5 +92,7 @@
   "profileActiveSessions": "Aktif Cihazlar",
   "profileCurrentDevice": "Bu Cihaz",
   "profileDeleteAccount": "Profili ve Verileri Temizle",
-  "profileDeleteConfirm": "Emin misiniz? Tüm yerel veriler silinecektir."
+  "profileDeleteConfirm": "Emin misiniz? Tüm yerel veriler silinecektir.",
+  "navHome": "Ana Sayfa",
+  "navShowcase": "Vitrin"
 }

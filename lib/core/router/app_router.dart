@@ -1,29 +1,70 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/profile/presentation/profile_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
+import '../../features/showcase/presentation/showcase_screen.dart';
 import 'page_transitions.dart';
+import 'widgets/app_scaffold_shell.dart';
+
+final GlobalKey<NavigatorState> _rootNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'root');
 
 final appRouter = GoRouter(
+  navigatorKey: _rootNavigatorKey,
   initialLocation: '/',
-  errorBuilder: (context, state) => const HomeScreen(),
   routes: [
-    GoRoute(
-      path: '/',
-      pageBuilder: (context, state) => buildAppSlideFadeTransition(
-        key: state.pageKey,
-        child: const HomeScreen(),
-      ),
+    // Главная StatefulShellRoute оболочка с табами и сохранением состояния
+    StatefulShellRoute.indexedStack(
+      builder: (context, state, navigationShell) {
+        return AppScaffoldShell(navigationShell: navigationShell);
+      },
+      branches: [
+        // Вкладка 0: Главная
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/',
+              pageBuilder: (context, state) => buildAppSlideFadeTransition(
+                key: state.pageKey,
+                child: const HomeScreen(),
+              ),
+            ),
+          ],
+        ),
+
+        // Вкладка 1: Витрина компонентов UI Kit
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/showcase',
+              pageBuilder: (context, state) => buildAppSlideFadeTransition(
+                key: state.pageKey,
+                child: const ShowcaseScreen(),
+              ),
+            ),
+          ],
+        ),
+
+        // Вкладка 2: Настройки
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: '/settings',
+              pageBuilder: (context, state) => buildAppSlideFadeTransition(
+                key: state.pageKey,
+                child: const SettingsScreen(),
+              ),
+            ),
+          ],
+        ),
+      ],
     ),
+
+    // Полноэкранные маршруты поверх оболочки (с кнопкой назад)
     GoRoute(
-      path: '/settings',
-      pageBuilder: (context, state) => buildAppSlideFadeTransition(
-        key: state.pageKey,
-        child: const SettingsScreen(),
-      ),
-    ),
-    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
       path: '/profile',
       pageBuilder: (context, state) => buildAppSlideFadeTransition(
         key: state.pageKey,
@@ -32,4 +73,3 @@ final appRouter = GoRouter(
     ),
   ],
 );
-

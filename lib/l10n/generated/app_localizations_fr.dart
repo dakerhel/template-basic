@@ -282,4 +282,10 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get profileDeleteConfirm =>
       'Êtes-vous sûr ? Toutes les données locales seront supprimées.';
+
+  @override
+  String get navHome => 'Accueil';
+
+  @override
+  String get navShowcase => 'Vitrine';
 }

@@ -92,5 +92,7 @@
   "profileActiveSessions": "सक्रिय डिवाइस",
   "profileCurrentDevice": "यह डिवाइस",
   "profileDeleteAccount": "प्रोफ़ाइल और डेटा साफ़ करें",
-  "profileDeleteConfirm": "क्या आप सुनिश्चित हैं? सारा स्थानीय डेटा हटा दिया जाएगा।"
+  "profileDeleteConfirm": "क्या आप सुनिश्चित हैं? सारा स्थानीय डेटा हटा दिया जाएगा।",
+  "navHome": "होम",
+  "navShowcase": "शोकेस"
 }

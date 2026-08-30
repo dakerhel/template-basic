@@ -92,5 +92,7 @@
   "profileActiveSessions": "活跃设备",
   "profileCurrentDevice": "当前设备",
   "profileDeleteAccount": "清除资料与数据",
-  "profileDeleteConfirm": "确定要清除吗？所有本地数据将被删除。"
+  "profileDeleteConfirm": "确定要清除吗？所有本地数据将被删除。",
+  "navHome": "首页",
+  "navShowcase": "组件库"
 }

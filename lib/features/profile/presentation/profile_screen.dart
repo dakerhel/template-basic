@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../core/device/providers/device_providers.dart';
 import '../../../core/theme/tokens/tokens.dart';
 import '../../../core/theme/widgets/app_glass.dart';
+import '../../../core/theme/widgets/app_toast.dart';
 import '../../../l10n/generated/app_localizations.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
@@ -177,13 +178,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         _userName = '';
         _userEmail = 'guest@local.device';
       });
-      ScaffoldMessenger.of(this.context).showSnackBar(
-        SnackBar(
-          content: const Text('Профиль успешно сброшен'),
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: AppRadius.button),
-        ),
-      );
+      AppToast.success(this.context, 'Профиль успешно сброшен', title: 'Сброшено');
     }
   }
 
@@ -363,12 +358,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           InkWell(
                             onTap: () {
                               Clipboard.setData(ClipboardData(text: _userId));
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('ID скопирован в буфер'),
-                                  behavior: SnackBarBehavior.floating,
-                                  duration: Duration(seconds: 1),
-                                ),
+                              AppToast.success(
+                                context,
+                                'ID скопирован в буфер обмена',
+                                title: 'Скопировано',
                               );
                             },
                             child: const Icon(Icons.copy_rounded, size: 12),
@@ -469,17 +462,19 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     borderRadius: BorderRadius.circular(10),
                     onTap: () {
                       ref.invalidate(networkStatusProvider);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            isOnline
-                                ? 'Сеть активна (Online)'
-                                : 'Нет подключения к интернету (Offline)',
-                          ),
-                          duration: const Duration(seconds: 1),
-                          behavior: SnackBarBehavior.floating,
-                        ),
-                      );
+                      if (isOnline) {
+                        AppToast.success(
+                          context,
+                          'Сеть активна (Online)',
+                          title: 'Подключение',
+                        );
+                      } else {
+                        AppToast.warning(
+                          context,
+                          'Нет подключения к интернету (Offline)',
+                          title: 'Автономный режим',
+                        );
+                      }
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(

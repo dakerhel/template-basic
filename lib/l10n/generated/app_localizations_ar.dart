@@ -280,4 +280,10 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get profileDeleteConfirm =>
       'هل أنت متأكد؟ سيتم حذف جميع البيانات المحلية.';
+
+  @override
+  String get navHome => 'الرئيسية';
+
+  @override
+  String get navShowcase => 'المعرض';
 }

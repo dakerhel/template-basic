@@ -92,5 +92,7 @@
   "profileActiveSessions": "Aktive Geräte",
   "profileCurrentDevice": "Dieses Gerät",
   "profileDeleteAccount": "Profil & Daten löschen",
-  "profileDeleteConfirm": "Sind Sie sicher? Alle lokalen Daten werden gelöscht."
+  "profileDeleteConfirm": "Sind Sie sicher? Alle lokalen Daten werden gelöscht.",
+  "navHome": "Startseite",
+  "navShowcase": "Showcase"
 }

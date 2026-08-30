@@ -92,5 +92,7 @@
   "profileActiveSessions": "Perangkat Aktif",
   "profileCurrentDevice": "Perangkat Ini",
   "profileDeleteAccount": "Hapus Profil & Data",
-  "profileDeleteConfirm": "Apakah Anda yakin? Semua data lokal akan dihapus."
+  "profileDeleteConfirm": "Apakah Anda yakin? Semua data lokal akan dihapus.",
+  "navHome": "Beranda",
+  "navShowcase": "Etalase"
 }

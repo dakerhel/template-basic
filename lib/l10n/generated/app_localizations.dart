@@ -532,6 +532,12 @@ abstract class AppLocalizations {
 
   /// No description provided for @profileDeleteConfirm.
   String get profileDeleteConfirm;
+
+  /// Label for Home navigation tab
+  String get navHome;
+
+  /// Label for Showcase navigation tab
+  String get navShowcase;
 }
 
 class _AppLocalizationsDelegate
