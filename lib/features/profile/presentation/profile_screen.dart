@@ -199,7 +199,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           IconButton(
             icon: const Icon(Icons.settings_outlined),
             tooltip: l10n.settingsTitle,
-            onPressed: () => context.push('/settings'),
+            onPressed: () => context.go('/settings'),
           ),
         ],
       ),
@@ -526,7 +526,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   title: const Text('Безопасность и PIN-код'),
                   subtitle: const Text('Настройки защиты входа и биометрии'),
                   trailing: const Icon(Icons.chevron_right_rounded),
-                  onTap: () => context.push('/settings'),
+                  onTap: () => context.go('/settings'),
                 ),
               ],
             ),

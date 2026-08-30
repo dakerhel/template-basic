@@ -15,9 +15,9 @@ class AppGlassCard extends ConsumerWidget {
     super.key,
     required this.child,
     this.borderRadius = 20.0,
-    this.blur = 18.0,
+    this.blur = 20.0,
     this.tintOpacity = 0.65,
-    this.borderOpacity = 0.25,
+    this.borderOpacity = 0.22,
     this.padding,
     this.margin,
     this.onTap,
@@ -49,8 +49,8 @@ class AppGlassCard extends ConsumerWidget {
 
     if (isGlassEnabled == true) {
       final glassColor = isDark
-          ? colorScheme.surfaceContainerHighest.withValues(alpha: tintOpacity)
-          : colorScheme.surface.withValues(alpha: tintOpacity);
+          ? colorScheme.surfaceContainerHighest.withValues(alpha: tintOpacity * 0.85)
+          : colorScheme.surface.withValues(alpha: tintOpacity * 0.90);
 
       final topBorderColor = isDark
           ? Colors.white.withValues(alpha: borderOpacity)
@@ -73,10 +73,17 @@ class AppGlassCard extends ConsumerWidget {
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  topBorderColor.withValues(alpha: 0.15),
-                  bottomBorderColor.withValues(alpha: 0.05),
+                  topBorderColor.withValues(alpha: 0.12),
+                  bottomBorderColor.withValues(alpha: 0.04),
                 ],
               ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: isDark ? 0.25 : 0.06),
+                  blurRadius: 18,
+                  offset: const Offset(0, 6),
+                ),
+              ],
             ),
             child: child,
           ),
@@ -92,6 +99,13 @@ class AppGlassCard extends ConsumerWidget {
             color: colorScheme.outline.withValues(alpha: 0.15),
             width: 1.0,
           ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: isDark ? 0.15 : 0.04),
+              blurRadius: 12,
+              offset: const Offset(0, 4),
+            ),
+          ],
         ),
         child: child,
       );
@@ -100,24 +114,18 @@ class AppGlassCard extends ConsumerWidget {
     final bool isInteractive = onTap != null || onLongPress != null;
 
     if (isInteractive) {
-      cardBody = Material(
-        color: Colors.transparent,
-        borderRadius: BorderRadius.circular(borderRadius),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(borderRadius),
-          onTap: onTap,
-          onLongPress: onLongPress,
-          splashColor: colorScheme.primary.withValues(alpha: 0.12),
-          highlightColor: colorScheme.primary.withValues(alpha: 0.06),
-          child: cardBody,
-        ),
-      );
-
       if (enablePressAnimation) {
         cardBody = AppPressable(
           onTap: onTap,
           onLongPress: onLongPress,
           pressedScale: 0.98,
+          child: cardBody,
+        );
+      } else {
+        cardBody = GestureDetector(
+          onTap: onTap,
+          onLongPress: onLongPress,
+          behavior: HitTestBehavior.opaque,
           child: cardBody,
         );
       }

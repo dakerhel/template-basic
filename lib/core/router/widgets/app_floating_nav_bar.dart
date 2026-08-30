@@ -23,7 +23,7 @@ class AppNavItem {
 }
 
 /// Парящий Liquid Glass Floating Navigation Bar в стиле современного Pill Dock (iOS / visionOS / OneUI).
-/// Активная вкладка превращается в яркую капсулу с иконкой и текстом, а неактивные — в лаконичные полупрозрачные иконки.
+/// Активная вкладка плавно и непрерывно расширяется в яркую капсулу с иконкой и текстом, а неактивные — в лаконичные иконки.
 class AppFloatingNavBar extends StatelessWidget {
   const AppFloatingNavBar({
     super.key,
@@ -43,7 +43,7 @@ class AppFloatingNavBar extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     final backgroundColor = isDark
-        ? const Color(0xFF13151B).withValues(alpha: 0.78)
+        ? const Color(0xFF13151B).withValues(alpha: 0.80)
         : Colors.white.withValues(alpha: 0.88);
 
     final borderColor = isDark
@@ -57,8 +57,8 @@ class AppFloatingNavBar extends StatelessWidget {
       bottom: true,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-        child: Center(
-          heightFactor: 1.0,
+        child: Align(
+          alignment: Alignment.bottomCenter,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(36),
             child: BackdropFilter(
@@ -77,7 +77,7 @@ class AppFloatingNavBar extends StatelessWidget {
                     ),
                     BoxShadow(
                       color: colorScheme.primary.withValues(
-                        alpha: isDark ? 0.10 : 0.04,
+                        alpha: isDark ? 0.12 : 0.05,
                       ),
                       blurRadius: 18,
                       offset: const Offset(0, 2),
@@ -169,10 +169,15 @@ class _PillTabItem extends StatelessWidget {
             Stack(
               clipBehavior: Clip.none,
               children: [
-                Icon(
-                  isSelected ? item.selectedIcon : item.icon,
-                  size: 20,
-                  color: isSelected ? activeTextColor : inactiveIconColor,
+                AnimatedScale(
+                  scale: isSelected ? 1.05 : 1.0,
+                  duration: const Duration(milliseconds: 240),
+                  curve: Curves.easeOutBack,
+                  child: Icon(
+                    isSelected ? item.selectedIcon : item.icon,
+                    size: 20,
+                    color: isSelected ? activeTextColor : inactiveIconColor,
+                  ),
                 ),
                 if (item.hasBadge && !isSelected)
                   Positioned(
@@ -195,18 +200,29 @@ class _PillTabItem extends StatelessWidget {
                   ),
               ],
             ),
-            if (isSelected) ...[
-              const SizedBox(width: 8),
-              Text(
-                item.label,
-                style: TextStyle(
-                  color: activeTextColor,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 13.5,
-                  letterSpacing: 0.2,
-                ),
+            ClipRect(
+              child: AnimatedSize(
+                duration: const Duration(milliseconds: 260),
+                curve: Curves.easeOutCubic,
+                alignment: Alignment.centerLeft,
+                child: isSelected
+                    ? Padding(
+                        padding: const EdgeInsets.only(left: 8),
+                        child: Text(
+                          item.label,
+                          style: TextStyle(
+                            color: activeTextColor,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 13.5,
+                            letterSpacing: 0.2,
+                          ),
+                          maxLines: 1,
+                          softWrap: false,
+                        ),
+                      )
+                    : const SizedBox.shrink(),
               ),
-            ],
+            ),
           ],
         ),
       ),

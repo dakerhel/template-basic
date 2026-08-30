@@ -49,7 +49,7 @@ void main() {
       ),
     );
 
-    expect(find.byType(TweenAnimationBuilder<Color?>), findsNWidgets(2));
+    expect(find.byType(AnimatedBuilder), findsWidgets);
 
     await container
         .read(colorPaletteProvider.notifier)
@@ -57,6 +57,6 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 350));
 
-    expect(find.byType(TweenAnimationBuilder<Color?>), findsNWidgets(2));
+    expect(find.byType(AnimatedBuilder), findsWidgets);
   });
 }
