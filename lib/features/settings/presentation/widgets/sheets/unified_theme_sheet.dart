@@ -15,6 +15,7 @@ class UnifiedThemeSheet extends ConsumerWidget {
   static Future<void> show(BuildContext context, WidgetRef ref) async {
     await showModalBottomSheet<void>(
       context: context,
+      useRootNavigator: true,
       isScrollControlled: true,
       showDragHandle: false,
       backgroundColor: Colors.transparent,

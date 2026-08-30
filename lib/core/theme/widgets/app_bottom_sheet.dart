@@ -35,6 +35,7 @@ class AppBottomSheet extends StatelessWidget {
   }) {
     return showModalBottomSheet<T>(
       context: context,
+      useRootNavigator: true,
       isDismissible: isDismissible,
       isScrollControlled: isScrollControlled,
       backgroundColor: Colors.transparent,

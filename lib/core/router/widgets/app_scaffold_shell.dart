@@ -4,10 +4,11 @@ import 'package:go_router/go_router.dart';
 
 import '../../../features/update/presentation/update_controller.dart';
 import '../../../l10n/generated/app_localizations.dart';
+import '../../theme/utils/app_haptics.dart';
 import 'app_floating_nav_bar.dart';
 
 /// Оболочка маршрутизатора (Shell) для StatefulShellRoute с парящей панелью навигации,
-/// сохранением состояния вкладок и обработкой жеста «Назад» на Android.
+/// сохранением состояния вкладок, обработкой жеста «Назад» на Android и горизонтальным свайпом.
 class AppScaffoldShell extends ConsumerWidget {
   const AppScaffoldShell({
     super.key,
@@ -54,7 +55,23 @@ class AppScaffoldShell extends ConsumerWidget {
       },
       child: Scaffold(
         extendBody: true,
-        body: navigationShell,
+        body: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onHorizontalDragEnd: (details) {
+            final velocity = details.primaryVelocity ?? 0;
+            // Свайп влево -> следующая вкладка
+            if (velocity < -220 && navigationShell.currentIndex < navItems.length - 1) {
+              AppHaptics.selection();
+              navigationShell.goBranch(navigationShell.currentIndex + 1);
+            }
+            // Свайп вправо -> предыдущая вкладка
+            else if (velocity > 220 && navigationShell.currentIndex > 0) {
+              AppHaptics.selection();
+              navigationShell.goBranch(navigationShell.currentIndex - 1);
+            }
+          },
+          child: navigationShell,
+        ),
         bottomNavigationBar: AppFloatingNavBar(
           currentIndex: navigationShell.currentIndex,
           items: navItems,

@@ -36,6 +36,7 @@ class PinSetupSheet extends ConsumerStatefulWidget {
     final effectiveMode = isChanging ? PinSheetMode.change : mode;
     return showModalBottomSheet<bool>(
       context: context,
+      useRootNavigator: true,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (_) => PinSetupSheet(mode: effectiveMode),

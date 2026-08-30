@@ -16,6 +16,7 @@ class PermissionOnboardingSheet extends ConsumerWidget {
   static Future<bool?> show(BuildContext context) {
     return showModalBottomSheet<bool>(
       context: context,
+      useRootNavigator: true,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (context) => const PermissionOnboardingSheet(),

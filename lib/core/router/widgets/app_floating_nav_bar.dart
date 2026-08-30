@@ -22,8 +22,8 @@ class AppNavItem {
   final String? badgeText;
 }
 
-/// Парящий Liquid Glass Floating Navigation Bar с оптическим размытием,
-/// скользящим пружинным индикатором (Sliding Pill) и тактильным откликом.
+/// Парящий Liquid Glass Floating Navigation Bar в стиле современного Pill Dock (iOS / visionOS / OneUI).
+/// Активная вкладка превращается в яркую капсулу с иконкой и текстом, а неактивные — в лаконичные полупрозрачные иконки.
 class AppFloatingNavBar extends StatelessWidget {
   const AppFloatingNavBar({
     super.key,
@@ -41,122 +41,70 @@ class AppFloatingNavBar extends StatelessWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final isDark = theme.brightness == Brightness.dark;
-    final mediaQuery = MediaQuery.of(context);
-    final screenWidth = mediaQuery.size.width;
-    final isTablet = screenWidth >= 640;
 
     final backgroundColor = isDark
-        ? const Color(0xFF181A1F).withValues(alpha: 0.82)
+        ? const Color(0xFF13151B).withValues(alpha: 0.78)
         : Colors.white.withValues(alpha: 0.88);
 
     final borderColor = isDark
-        ? Colors.white.withValues(alpha: 0.16)
-        : Colors.black.withValues(alpha: 0.09);
+        ? Colors.white.withValues(alpha: 0.18)
+        : Colors.black.withValues(alpha: 0.08);
 
     return SafeArea(
       top: false,
-      left: !isTablet,
-      right: !isTablet,
+      left: true,
+      right: true,
       bottom: true,
       child: Padding(
-        padding: EdgeInsets.fromLTRB(
-          isTablet ? (screenWidth - 480) / 2 : 20,
-          0,
-          isTablet ? (screenWidth - 480) / 2 : 20,
-          10,
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(28),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 24, sigmaY: 24),
-            child: Container(
-              height: 64,
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-              decoration: BoxDecoration(
-                color: backgroundColor,
-                borderRadius: BorderRadius.circular(28),
-                border: Border.all(color: borderColor, width: 1.2),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: isDark ? 0.45 : 0.12),
-                    blurRadius: 28,
-                    offset: const Offset(0, 8),
-                  ),
-                  BoxShadow(
-                    color: colorScheme.primary.withValues(
-                      alpha: isDark ? 0.08 : 0.04,
+        padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+        child: Center(
+          heightFactor: 1.0,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(36),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 28, sigmaY: 28),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+                decoration: BoxDecoration(
+                  color: backgroundColor,
+                  borderRadius: BorderRadius.circular(36),
+                  border: Border.all(color: borderColor, width: 1.2),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: isDark ? 0.45 : 0.12),
+                      blurRadius: 28,
+                      offset: const Offset(0, 8),
                     ),
-                    blurRadius: 16,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  final tabWidth = constraints.maxWidth / items.length;
-                  return Stack(
-                    children: [
-                      // Скользящий световой индикатор выбранной вкладки (Sliding Pill)
-                      AnimatedPositioned(
-                        duration: const Duration(milliseconds: 320),
-                        curve: Curves.easeOutBack,
-                        left: currentIndex * tabWidth,
-                        top: 0,
-                        bottom: 0,
-                        width: tabWidth,
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 4),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                colorScheme.primary.withValues(
-                                  alpha: isDark ? 0.28 : 0.16,
-                                ),
-                                colorScheme.primary.withValues(
-                                  alpha: isDark ? 0.15 : 0.08,
-                                ),
-                              ],
-                            ),
-                            borderRadius: BorderRadius.circular(22),
-                            border: Border.all(
-                              color: colorScheme.primary.withValues(
-                                alpha: isDark ? 0.35 : 0.25,
-                              ),
-                              width: 1,
-                            ),
-                          ),
-                        ),
+                    BoxShadow(
+                      color: colorScheme.primary.withValues(
+                        alpha: isDark ? 0.10 : 0.04,
                       ),
-                      // Список элементов навигации
-                      Row(
-                        children: List.generate(items.length, (index) {
-                          final item = items[index];
-                          final isSelected = index == currentIndex;
+                      blurRadius: 18,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: List.generate(items.length, (index) {
+                    final item = items[index];
+                    final isSelected = index == currentIndex;
 
-                          return Expanded(
-                            child: AppPressable(
-                              onTap: () {
-                                if (!isSelected) {
-                                  AppHaptics.selection();
-                                  onTap(index);
-                                }
-                              },
-                              pressedScale: 0.92,
-                              child: _NavItemContent(
-                                item: item,
-                                isSelected: isSelected,
-                                colorScheme: colorScheme,
-                                isDark: isDark,
-                              ),
-                            ),
-                          );
-                        }),
-                      ),
-                    ],
-                  );
-                },
+                    return _PillTabItem(
+                      key: ValueKey(index),
+                      item: item,
+                      isSelected: isSelected,
+                      colorScheme: colorScheme,
+                      isDark: isDark,
+                      onTap: () {
+                        if (!isSelected) {
+                          AppHaptics.selection();
+                          onTap(index);
+                        }
+                      },
+                    );
+                  }),
+                ),
               ),
             ),
           ),
@@ -166,81 +114,101 @@ class AppFloatingNavBar extends StatelessWidget {
   }
 }
 
-class _NavItemContent extends StatelessWidget {
-  const _NavItemContent({
+class _PillTabItem extends StatelessWidget {
+  const _PillTabItem({
+    super.key,
     required this.item,
     required this.isSelected,
     required this.colorScheme,
     required this.isDark,
+    required this.onTap,
   });
 
   final AppNavItem item;
   final bool isSelected;
   final ColorScheme colorScheme;
   final bool isDark;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    final activeColor = colorScheme.primary;
-    final inactiveColor = colorScheme.onSurfaceVariant.withValues(alpha: 0.7);
+    final activeTextColor = colorScheme.onPrimary;
+    final inactiveIconColor = isDark
+        ? Colors.white.withValues(alpha: 0.55)
+        : colorScheme.onSurfaceVariant.withValues(alpha: 0.70);
 
-    return Container(
-      color: Colors.transparent,
-      alignment: Alignment.center,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Stack(
-            clipBehavior: Clip.none,
-            children: [
-              AnimatedScale(
-                scale: isSelected ? 1.08 : 1.0,
-                duration: const Duration(milliseconds: 250),
-                curve: Curves.easeOutBack,
-                child: Icon(
+    return AppPressable(
+      onTap: onTap,
+      pressedScale: 0.92,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 280),
+        curve: Curves.easeOutCubic,
+        padding: EdgeInsets.symmetric(
+          horizontal: isSelected ? 18 : 14,
+          vertical: 9,
+        ),
+        decoration: BoxDecoration(
+          color: isSelected ? colorScheme.primary : Colors.transparent,
+          borderRadius: BorderRadius.circular(26),
+          boxShadow: isSelected
+              ? [
+                  BoxShadow(
+                    color: colorScheme.primary.withValues(
+                      alpha: isDark ? 0.42 : 0.30,
+                    ),
+                    blurRadius: 14,
+                    offset: const Offset(0, 3),
+                  ),
+                ]
+              : null,
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Icon(
                   isSelected ? item.selectedIcon : item.icon,
-                  size: 22,
-                  color: isSelected ? activeColor : inactiveColor,
+                  size: 20,
+                  color: isSelected ? activeTextColor : inactiveIconColor,
                 ),
-              ),
-              if (item.hasBadge)
-                Positioned(
-                  top: -2,
-                  right: -4,
-                  child: Container(
-                    width: 8,
-                    height: 8,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: colorScheme.error,
-                      boxShadow: [
-                        BoxShadow(
-                          color: colorScheme.error.withValues(alpha: 0.5),
-                          blurRadius: 4,
-                        ),
-                      ],
+                if (item.hasBadge && !isSelected)
+                  Positioned(
+                    top: -2,
+                    right: -3,
+                    child: Container(
+                      width: 7,
+                      height: 7,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: colorScheme.error,
+                        boxShadow: [
+                          BoxShadow(
+                            color: colorScheme.error.withValues(alpha: 0.6),
+                            blurRadius: 4,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
+              ],
+            ),
+            if (isSelected) ...[
+              const SizedBox(width: 8),
+              Text(
+                item.label,
+                style: TextStyle(
+                  color: activeTextColor,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13.5,
+                  letterSpacing: 0.2,
                 ),
+              ),
             ],
-          ),
-          const SizedBox(height: 3),
-          AnimatedDefaultTextStyle(
-            duration: const Duration(milliseconds: 200),
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-              color: isSelected ? activeColor : inactiveColor,
-              letterSpacing: 0.2,
-            ),
-            child: Text(
-              item.label,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

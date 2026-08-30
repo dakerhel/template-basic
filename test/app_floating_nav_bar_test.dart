@@ -45,14 +45,17 @@ void main() {
       ),
     );
 
+    // Active tab shows text
     expect(find.text('Home'), findsOneWidget);
-    expect(find.text('Showcase'), findsOneWidget);
-    expect(find.text('Settings'), findsOneWidget);
+    // Inactive tabs show icons
+    expect(find.byIcon(Icons.widgets_outlined), findsOneWidget);
+    expect(find.byIcon(Icons.settings_outlined), findsOneWidget);
 
-    // Tap Showcase tab
-    await tester.tap(find.text('Showcase'));
+    // Tap Showcase tab icon
+    await tester.tap(find.byIcon(Icons.widgets_outlined));
     await tester.pumpAndSettle();
 
     expect(selectedIndex, 1);
+    expect(find.text('Showcase'), findsOneWidget);
   });
 }

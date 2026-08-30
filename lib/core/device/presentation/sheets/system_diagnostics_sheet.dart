@@ -20,6 +20,7 @@ class SystemDiagnosticsSheet extends ConsumerWidget {
   static Future<void> show(BuildContext context) async {
     await showModalBottomSheet<void>(
       context: context,
+      useRootNavigator: true,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       elevation: 0,

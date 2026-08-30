@@ -18,6 +18,7 @@ class LanguagePickerSheet extends StatelessWidget {
 
     await showModalBottomSheet<void>(
       context: context,
+      useRootNavigator: true,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       elevation: 0,

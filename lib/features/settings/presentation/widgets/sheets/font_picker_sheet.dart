@@ -12,6 +12,7 @@ class FontPickerSheet extends StatelessWidget {
 
     await showModalBottomSheet<void>(
       context: context,
+      useRootNavigator: true,
       builder: (sheetContext) {
         var scaleIndex = ref.read(fontProvider).scaleIndex;
         return StatefulBuilder(
