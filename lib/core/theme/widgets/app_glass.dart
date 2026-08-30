@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../liquid_glass_provider.dart';
+import 'app_pressable.dart';
 
 /// Высококлассный компонент в стиле Apple Liquid Glass / Frosted Glass (iOS / visionOS).
-/// Обеспечивает настоящее оптическое размытие фона, тонкие градиентные блики (specular highlight)
-/// и адаптивный полупрозрачный оттенок под активную цветовую палитру приложения.
-/// При отключении Liquid Glass плавно переключается на чистый Material 3 Solid стиль.
+/// Обеспечивает настоящее оптическое размытие фона, тонкие градиентные блики (specular highlight),
+/// адаптивный полупрозрачный оттенок под активную цветовую палитру приложения
+/// и упругий пружинящий тактильный отклик при нажатии.
 class AppGlassCard extends ConsumerWidget {
   const AppGlassCard({
     super.key,
@@ -20,6 +21,8 @@ class AppGlassCard extends ConsumerWidget {
     this.padding,
     this.margin,
     this.onTap,
+    this.onLongPress,
+    this.enablePressAnimation = true,
     this.forceGlass,
   });
 
@@ -31,6 +34,8 @@ class AppGlassCard extends ConsumerWidget {
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
   final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
+  final bool enablePressAnimation;
   final bool? forceGlass;
 
   @override
@@ -40,7 +45,7 @@ class AppGlassCard extends ConsumerWidget {
     final isDark = theme.brightness == Brightness.dark;
     final colorScheme = theme.colorScheme;
 
-    Widget content;
+    Widget cardBody;
 
     if (isGlassEnabled == true) {
       final glassColor = isDark
@@ -54,7 +59,7 @@ class AppGlassCard extends ConsumerWidget {
           ? colorScheme.primary.withValues(alpha: borderOpacity * 0.4)
           : colorScheme.primary.withValues(alpha: borderOpacity * 0.2);
 
-      content = ClipRRect(
+      cardBody = ClipRRect(
         borderRadius: BorderRadius.circular(borderRadius),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
@@ -78,7 +83,7 @@ class AppGlassCard extends ConsumerWidget {
         ),
       );
     } else {
-      content = Container(
+      cardBody = Container(
         padding: padding,
         decoration: BoxDecoration(
           color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.7),
@@ -92,22 +97,36 @@ class AppGlassCard extends ConsumerWidget {
       );
     }
 
-    if (onTap != null) {
-      content = Material(
+    final bool isInteractive = onTap != null || onLongPress != null;
+
+    if (isInteractive) {
+      cardBody = Material(
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(borderRadius),
         child: InkWell(
           borderRadius: BorderRadius.circular(borderRadius),
           onTap: onTap,
-          child: content,
+          onLongPress: onLongPress,
+          splashColor: colorScheme.primary.withValues(alpha: 0.12),
+          highlightColor: colorScheme.primary.withValues(alpha: 0.06),
+          child: cardBody,
         ),
       );
+
+      if (enablePressAnimation) {
+        cardBody = AppPressable(
+          onTap: onTap,
+          onLongPress: onLongPress,
+          pressedScale: 0.98,
+          child: cardBody,
+        );
+      }
     }
 
     if (margin != null) {
-      content = Padding(padding: margin!, child: content);
+      cardBody = Padding(padding: margin!, child: cardBody);
     }
 
-    return content;
+    return cardBody;
   }
 }
