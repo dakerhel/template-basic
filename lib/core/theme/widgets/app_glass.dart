@@ -48,12 +48,23 @@ class AppGlassCard extends ConsumerWidget {
 
     if (isGlassEnabled == true) {
       final glassColor = isDark
-          ? colorScheme.surfaceContainerHighest.withValues(alpha: tintOpacity * 0.85)
-          : Colors.white.withValues(alpha: 0.85);
+          ? colorScheme.surfaceContainerHighest.withValues(
+              alpha: tintOpacity * 0.85,
+            )
+          : (tintOpacity > 0.6
+              ? Color.alphaBlend(
+                  colorScheme.primary.withValues(alpha: 0.08),
+                  Colors.white.withValues(alpha: 0.88),
+                )
+              : Colors.white.withValues(alpha: 0.75));
 
       final borderColor = isDark
-          ? Colors.white.withValues(alpha: borderOpacity)
-          : Colors.black.withValues(alpha: 0.08);
+          ? (borderOpacity > 0.5
+              ? colorScheme.primary.withValues(alpha: borderOpacity * 0.8)
+              : Colors.white.withValues(alpha: borderOpacity))
+          : (borderOpacity > 0.5
+              ? colorScheme.primary.withValues(alpha: borderOpacity * 0.55)
+              : Colors.black.withValues(alpha: 0.07));
 
       cardBody = ClipRRect(
         borderRadius: BorderRadius.circular(borderRadius),
@@ -64,13 +75,24 @@ class AppGlassCard extends ConsumerWidget {
             decoration: BoxDecoration(
               color: glassColor,
               borderRadius: BorderRadius.circular(borderRadius),
-              border: Border.all(color: borderColor, width: 1.0),
+              border: Border.all(
+                color: borderColor,
+                width: borderOpacity > 0.5 ? 1.5 : 1.0,
+              ),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withValues(alpha: isDark ? 0.35 : 0.06),
                   blurRadius: isDark ? 20 : 16,
                   offset: const Offset(0, 4),
                 ),
+                if (borderOpacity > 0.5)
+                  BoxShadow(
+                    color: colorScheme.primary.withValues(
+                      alpha: isDark ? 0.20 : 0.10,
+                    ),
+                    blurRadius: 12,
+                    offset: const Offset(0, 2),
+                  ),
               ],
             ),
             child: child,
@@ -78,18 +100,36 @@ class AppGlassCard extends ConsumerWidget {
         ),
       );
     } else {
+      final solidBg = isDark
+          ? (tintOpacity > 0.6
+              ? Color.alphaBlend(
+                  colorScheme.primary.withValues(alpha: 0.18),
+                  colorScheme.surfaceContainerHighest,
+                )
+              : colorScheme.surfaceContainerHighest.withValues(alpha: 0.75))
+          : (tintOpacity > 0.6
+              ? Color.alphaBlend(
+                  colorScheme.primary.withValues(alpha: 0.08),
+                  Colors.white,
+                )
+              : Colors.white);
+
+      final solidBorder = isDark
+          ? (borderOpacity > 0.5
+              ? colorScheme.primary.withValues(alpha: borderOpacity * 0.8)
+              : Colors.white.withValues(alpha: 0.15))
+          : (borderOpacity > 0.5
+              ? colorScheme.primary.withValues(alpha: borderOpacity * 0.5)
+              : Colors.black.withValues(alpha: 0.08));
+
       cardBody = Container(
         padding: padding,
         decoration: BoxDecoration(
-          color: isDark
-              ? colorScheme.surfaceContainerHighest.withValues(alpha: 0.75)
-              : Colors.white,
+          color: solidBg,
           borderRadius: BorderRadius.circular(borderRadius),
           border: Border.all(
-            color: isDark
-                ? Colors.white.withValues(alpha: 0.15)
-                : Colors.black.withValues(alpha: 0.08),
-            width: 1.0,
+            color: solidBorder,
+            width: borderOpacity > 0.5 ? 1.5 : 1.0,
           ),
           boxShadow: [
             BoxShadow(
@@ -97,6 +137,14 @@ class AppGlassCard extends ConsumerWidget {
               blurRadius: 14,
               offset: const Offset(0, 4),
             ),
+            if (borderOpacity > 0.5)
+              BoxShadow(
+                color: colorScheme.primary.withValues(
+                  alpha: isDark ? 0.20 : 0.08,
+                ),
+                blurRadius: 10,
+                offset: const Offset(0, 2),
+              ),
           ],
         ),
         child: child,

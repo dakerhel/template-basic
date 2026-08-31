@@ -9,7 +9,6 @@ import '../../../core/theme/utils/app_haptics.dart';
 import '../../../core/theme/widgets/app_button.dart';
 import '../../../core/theme/widgets/app_glass.dart';
 import '../../../core/theme/widgets/app_staggered_item.dart';
-import '../../../core/theme/widgets/app_toast.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../update/data/background_update_task.dart';
 import '../../update/presentation/update_controller.dart';

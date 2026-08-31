@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import '../tokens/tokens.dart';
 import 'app_button.dart';
 
 /// Унифицированная модальная шторка дизайн-системы с эффектом Liquid Glass,
@@ -56,8 +55,8 @@ class AppBottomSheet extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context);
 
     final backgroundColor = isDark
-        ? const Color(0xFF1B1D22).withValues(alpha: 0.9)
-        : Colors.white.withValues(alpha: 0.94);
+        ? colorScheme.surface.withValues(alpha: 0.86)
+        : Colors.white.withValues(alpha: 0.88);
 
     return Container(
       padding: EdgeInsets.fromLTRB(
@@ -76,15 +75,22 @@ class AppBottomSheet extends StatelessWidget {
               borderRadius: BorderRadius.circular(28),
               border: Border.all(
                 color: isDark
-                    ? Colors.white.withValues(alpha: 0.15)
+                    ? Colors.white.withValues(alpha: 0.18)
                     : Colors.black.withValues(alpha: 0.08),
-                width: 1,
+                width: 1.2,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: isDark ? 0.4 : 0.15),
+                  color: Colors.black.withValues(alpha: isDark ? 0.45 : 0.12),
                   blurRadius: 32,
                   offset: const Offset(0, -4),
+                ),
+                BoxShadow(
+                  color: colorScheme.primary.withValues(
+                    alpha: isDark ? 0.10 : 0.04,
+                  ),
+                  blurRadius: 20,
+                  offset: const Offset(0, -2),
                 ),
               ],
             ),

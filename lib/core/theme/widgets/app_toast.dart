@@ -3,7 +3,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import '../tokens/tokens.dart';
 import '../utils/app_haptics.dart';
 
 enum AppToastType {
@@ -118,6 +117,7 @@ class _ToastWidgetState extends State<_ToastWidget>
   late final Animation<double> _fadeAnimation;
   late final Animation<Offset> _slideAnimation;
   late final Animation<double> _scaleAnimation;
+  Timer? _autoDismissTimer;
 
   @override
   void initState() {
@@ -155,7 +155,7 @@ class _ToastWidgetState extends State<_ToastWidget>
     _controller.forward();
 
     // Запускаем обратную анимацию перед удалением
-    Future.delayed(widget.duration, () {
+    _autoDismissTimer = Timer(widget.duration, () {
       if (mounted) {
         _controller.reverse().then((_) {
           if (mounted) widget.onDismissed();
@@ -166,11 +166,15 @@ class _ToastWidgetState extends State<_ToastWidget>
 
   @override
   void dispose() {
+    _autoDismissTimer?.cancel();
+    _autoDismissTimer = null;
     _controller.dispose();
     super.dispose();
   }
 
   void _dismissWithAnimation() {
+    _autoDismissTimer?.cancel();
+    _autoDismissTimer = null;
     _controller.reverse().then((_) {
       if (mounted) widget.onDismissed();
     });
@@ -203,13 +207,9 @@ class _ToastWidgetState extends State<_ToastWidget>
         ),
     };
 
-    final backgroundColor = isDark
-        ? const Color(0xFF1E2024).withValues(alpha: 0.85)
-        : Colors.white.withValues(alpha: 0.92);
-
-    final borderColor = isDark
-        ? Colors.white.withValues(alpha: 0.14)
-        : Colors.black.withValues(alpha: 0.08);
+    final glassColor = isDark
+        ? const Color(0xFF141720).withValues(alpha: 0.78)
+        : Colors.white.withValues(alpha: 0.84);
 
     return Positioned(
       top: mediaQuery.padding.top + 10,
@@ -235,91 +235,146 @@ class _ToastWidgetState extends State<_ToastWidget>
                   child: Center(
                     child: ConstrainedBox(
                       constraints: const BoxConstraints(maxWidth: 480),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 14,
-                              vertical: 12,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(22),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(
+                                alpha: isDark ? 0.45 : 0.12,
+                              ),
+                              blurRadius: 28,
+                              offset: const Offset(0, 10),
                             ),
-                            decoration: BoxDecoration(
-                              color: backgroundColor,
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: borderColor, width: 1),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withValues(
-                                    alpha: isDark ? 0.4 : 0.12,
-                                  ),
-                                  blurRadius: 24,
-                                  offset: const Offset(0, 8),
-                                ),
-                                BoxShadow(
-                                  color: accentColor.withValues(alpha: 0.12),
-                                  blurRadius: 16,
-                                  offset: const Offset(0, 2),
-                                ),
-                              ],
+                            BoxShadow(
+                              color: accentColor.withValues(
+                                alpha: isDark ? 0.25 : 0.16,
+                              ),
+                              blurRadius: 20,
+                              offset: const Offset(0, 3),
                             ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Container(
-                                  width: 36,
-                                  height: 36,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: accentColor.withValues(alpha: 0.14),
-                                  ),
-                                  child: Icon(
-                                    iconData,
-                                    color: accentColor,
-                                    size: 20,
-                                  ),
+                          ],
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(22),
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 24, sigmaY: 24),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: glassColor,
+                                borderRadius: BorderRadius.circular(22),
+                                border: Border.all(
+                                  color: isDark
+                                      ? Colors.white.withValues(alpha: 0.22)
+                                      : Colors.black.withValues(alpha: 0.08),
+                                  width: 1.2,
                                 ),
-                                const SizedBox(width: 12),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      if (widget.title != null) ...[
-                                        Text(
-                                          widget.title!,
-                                          style: theme.textTheme.labelMedium
-                                              ?.copyWith(
-                                            fontWeight: FontWeight.bold,
-                                            color: isDark
-                                                ? Colors.white
-                                                : const Color(0xFF1F2937),
-                                          ),
+                              ),
+                              child: Stack(
+                                children: [
+                                  // Верхний спекулярный глянцевый блик Liquid Glass
+                                  Positioned(
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    height: 24,
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.vertical(
+                                          top: Radius.circular(21),
                                         ),
-                                        const SizedBox(height: 2),
-                                      ],
-                                      Text(
-                                        widget.message,
-                                        style:
-                                            theme.textTheme.bodySmall?.copyWith(
-                                          color: isDark
-                                              ? Colors.white.withValues(alpha: 0.9)
-                                              : const Color(0xFF374151),
-                                          fontWeight: FontWeight.w500,
+                                        gradient: LinearGradient(
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                          colors: [
+                                            Colors.white.withValues(
+                                              alpha: isDark ? 0.16 : 0.45,
+                                            ),
+                                            Colors.white.withValues(alpha: 0.0),
+                                          ],
                                         ),
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(width: 8),
-                                Icon(
-                                  Icons.close_rounded,
-                                  size: 16,
-                                  color: theme.colorScheme.onSurfaceVariant
-                                      .withValues(alpha: 0.5),
-                                ),
-                              ],
+                                  // Основной контент
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 14,
+                                      vertical: 12,
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Container(
+                                          width: 38,
+                                          height: 38,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: accentColor.withValues(
+                                              alpha: isDark ? 0.20 : 0.14,
+                                            ),
+                                            border: Border.all(
+                                              color: accentColor.withValues(
+                                                alpha: isDark ? 0.35 : 0.25,
+                                              ),
+                                              width: 1,
+                                            ),
+                                          ),
+                                          child: Icon(
+                                            iconData,
+                                            color: accentColor,
+                                            size: 20,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 12),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              if (widget.title != null) ...[
+                                                Text(
+                                                  widget.title!,
+                                                  style: theme.textTheme.labelMedium
+                                                      ?.copyWith(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: isDark
+                                                        ? Colors.white
+                                                        : const Color(0xFF0F172A),
+                                                  ),
+                                                ),
+                                                const SizedBox(height: 2),
+                                              ],
+                                              Text(
+                                                widget.message,
+                                                style: theme.textTheme.bodySmall
+                                                    ?.copyWith(
+                                                  color: isDark
+                                                      ? Colors.white.withValues(
+                                                          alpha: 0.92,
+                                                        )
+                                                      : const Color(0xFF334155),
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Icon(
+                                          Icons.close_rounded,
+                                          size: 16,
+                                          color: isDark
+                                              ? Colors.white.withValues(alpha: 0.45)
+                                              : colorScheme.onSurfaceVariant
+                                                  .withValues(alpha: 0.6),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),

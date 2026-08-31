@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../tokens/tokens.dart';
 import 'app_button.dart';
 
 /// Современное поле текстового ввода дизайн-системы с поддержкой тем,
@@ -116,8 +115,8 @@ class _AppTextFieldState extends State<AppTextField> {
         iconSize: 20,
         icon: Icon(
           _obscureText
-              ? Icons.visibility_outlined
-              : Icons.visibility_off_outlined,
+              ? Icons.visibility_off_outlined
+              : Icons.visibility_outlined,
           color: colorScheme.onSurfaceVariant,
         ),
         onPressed: () => setState(() => _obscureText = !_obscureText),

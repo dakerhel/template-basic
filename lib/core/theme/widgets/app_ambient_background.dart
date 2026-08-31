@@ -55,9 +55,11 @@ class _AppAmbientBackgroundState extends ConsumerState<AppAmbientBackground>
         ? 0.06
         : (isDark ? 0.16 : 0.08);
 
-    final primaryColor = (isDark ? palette.accentColor : palette.baseColor)
+    final primaryColor = (isDark
+            ? palette.accentColor
+            : palette.getSafeAccentColor(theme.brightness))
         .withValues(alpha: primaryOpacity);
-    final secondaryColor = (isDark ? palette.baseColor : palette.accentColor)
+    final secondaryColor = (isDark ? palette.baseColor : colorScheme.primary)
         .withValues(alpha: secondaryOpacity);
 
     // Базовый градиент фона

@@ -363,24 +363,55 @@ enum AppColorPalette {
   Color get _lightPrimary {
     switch (this) {
       case AppColorPalette.monochrome:
+        return const Color(0xFF1E293B);
+      case AppColorPalette.fuchsiaPine:
+        return const Color(0xFF047857);
+      case AppColorPalette.indigoGold:
+        return const Color(0xFF4338CA);
+      case AppColorPalette.acidViolet:
+        return const Color(0xFF7C3AED);
+      case AppColorPalette.warmAmber:
+        return const Color(0xFFD97706);
+      case AppColorPalette.rubyGold:
+        return const Color(0xFFDC2626);
+      case AppColorPalette.pistachioMilk:
+        return const Color(0xFF4D7C0F);
+      case AppColorPalette.cyberCyan:
+        return const Color(0xFF0284C7);
+      case AppColorPalette.toxicOled:
+        return const Color(0xFF16A34A);
+    }
+  }
+
+  Color get _safeLightAccent {
+    switch (this) {
+      case AppColorPalette.monochrome:
         return const Color(0xFF0F172A);
       case AppColorPalette.fuchsiaPine:
-        return const Color(0xFF064E3B);
+        return const Color(0xFFC026D3);
       case AppColorPalette.indigoGold:
-        return const Color(0xFF1E1B4B);
+        return const Color(0xFFD97706);
       case AppColorPalette.acidViolet:
-        return const Color(0xFF3B0764);
+        return const Color(0xFF16A34A);
       case AppColorPalette.warmAmber:
-        return const Color(0xFF991B1B);
+        return const Color(0xFFDC2626);
       case AppColorPalette.rubyGold:
-        return const Color(0xFF7F1D1D);
+        return const Color(0xFFD97706);
       case AppColorPalette.pistachioMilk:
-        return const Color(0xFF1E3A10);
+        return const Color(0xFF65A30D);
       case AppColorPalette.cyberCyan:
-        return const Color(0xFF0E7490);
+        return const Color(0xFF0891B2);
       case AppColorPalette.toxicOled:
-        return const Color(0xFF14532D);
+        return const Color(0xFF15803D);
     }
+  }
+
+  /// Безопасный контрастный цвет акцента для иконок и индикаторов
+  Color getSafeAccentColor(Brightness brightness) {
+    if (brightness == Brightness.dark) {
+      return accentColor;
+    }
+    return _safeLightAccent;
   }
 
   ColorScheme toColorScheme({
@@ -412,11 +443,11 @@ enum AppColorPalette {
           outlineVariant: const Color(0xFF334155),
         );
       } else {
-        const accent = Color(0xFF0F172A);
+        const accent = Color(0xFF1E293B);
         return const ColorScheme.light(
           primary: accent,
           onPrimary: Colors.white,
-          primaryContainer: Color(0xFFE2E8F0),
+          primaryContainer: Color(0xFFF1F5F9),
           onPrimaryContainer: Color(0xFF0F172A),
           secondary: Color(0xFF475569),
           onSecondary: Colors.white,
@@ -455,19 +486,20 @@ enum AppColorPalette {
       final lightPrim = _lightPrimary;
       final surfaceColor = _lightSurface;
       final cardColor = _lightCard;
+      final safeAccent = _safeLightAccent;
 
       return ColorScheme.light(
         primary: lightPrim,
         onPrimary: Colors.white,
-        primaryContainer: lightPrim.withValues(alpha: 0.10),
+        primaryContainer: cardColor,
         onPrimaryContainer: lightPrim,
-        secondary: accentColor,
-        onSecondary: accentColor.computeLuminance() > 0.45 ? Colors.black : Colors.white,
+        secondary: safeAccent,
+        onSecondary: Colors.white,
         surface: surfaceColor,
         onSurface: const Color(0xFF0F172A),
         surfaceContainerHighest: cardColor,
         onSurfaceVariant: const Color(0xFF475569),
-        outline: lightPrim.withValues(alpha: 0.22),
+        outline: lightPrim.withValues(alpha: 0.28),
         outlineVariant: const Color(0xFFCBD5E1),
       );
     }
@@ -524,21 +556,21 @@ enum AppColorPalette {
       case AppColorPalette.monochrome:
         return const Color(0xFFF8FAFC);
       case AppColorPalette.fuchsiaPine:
-        return const Color(0xFFF3FAF6);
+        return const Color(0xFFF0FDF4);
       case AppColorPalette.indigoGold:
-        return const Color(0xFFF4F4FD);
+        return const Color(0xFFF8FAFC);
       case AppColorPalette.acidViolet:
-        return const Color(0xFFFAF4FF);
+        return const Color(0xFFFAF5FF);
       case AppColorPalette.warmAmber:
-        return const Color(0xFFFFFDF5);
+        return const Color(0xFFFFFBEB);
       case AppColorPalette.rubyGold:
-        return const Color(0xFFFFF5F5);
+        return const Color(0xFFFEF2F2);
       case AppColorPalette.pistachioMilk:
-        return const Color(0xFFF6FAF2);
+        return const Color(0xFFF7FEE7);
       case AppColorPalette.cyberCyan:
         return const Color(0xFFF0F9FF);
       case AppColorPalette.toxicOled:
-        return const Color(0xFFF5FAF5);
+        return const Color(0xFFF0FDF4);
     }
   }
 
@@ -547,21 +579,21 @@ enum AppColorPalette {
       case AppColorPalette.monochrome:
         return const Color(0xFFEDF2F7);
       case AppColorPalette.fuchsiaPine:
-        return const Color(0xFFE2F3EB);
+        return const Color(0xFFE2F5EA);
       case AppColorPalette.indigoGold:
-        return const Color(0xFFE6E6FA);
+        return const Color(0xFFEEF2FF);
       case AppColorPalette.acidViolet:
-        return const Color(0xFFF0E4FF);
+        return const Color(0xFFF3E8FF);
       case AppColorPalette.warmAmber:
-        return const Color(0xFFFFF3D1);
+        return const Color(0xFFFEF3C7);
       case AppColorPalette.rubyGold:
-        return const Color(0xFFFFE0E2);
+        return const Color(0xFFFEE2E2);
       case AppColorPalette.pistachioMilk:
-        return const Color(0xFFE7F3DF);
+        return const Color(0xFFECFCCB);
       case AppColorPalette.cyberCyan:
-        return const Color(0xFFDCF0FA);
+        return const Color(0xFFE0F2FE);
       case AppColorPalette.toxicOled:
-        return const Color(0xFFE6F5E6);
+        return const Color(0xFFDCFCE7);
     }
   }
 }

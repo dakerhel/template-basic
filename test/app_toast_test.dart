@@ -38,6 +38,7 @@ void main() {
     // Call hide
     AppToast.hide();
     await tester.pump();
+    await tester.pump(const Duration(milliseconds: 50));
 
     expect(find.text('Saved successfully'), findsNothing);
   });

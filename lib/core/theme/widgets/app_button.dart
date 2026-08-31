@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../tokens/tokens.dart';
-import '../utils/app_haptics.dart';
 import 'app_pressable.dart';
 
 enum AppButtonVariant {
@@ -77,7 +75,7 @@ class AppButton extends StatelessWidget {
         backgroundColor = isEnabled
             ? (isDark
                 ? colorScheme.surfaceContainerHighest.withValues(alpha: 0.85)
-                : colorScheme.primaryContainer.withValues(alpha: 0.70))
+                : colorScheme.primaryContainer)
             : colorScheme.surfaceContainerHighest.withValues(alpha: 0.30);
         foregroundColor = isEnabled
             ? (isDark ? colorScheme.onSurface : colorScheme.onPrimaryContainer)
@@ -86,7 +84,7 @@ class AppButton extends StatelessWidget {
           color: isEnabled
               ? (isDark
                   ? Colors.white.withValues(alpha: 0.15)
-                  : colorScheme.primary.withValues(alpha: 0.18))
+                  : colorScheme.primary.withValues(alpha: 0.16))
               : Colors.transparent,
         );
         break;
@@ -187,8 +185,10 @@ class AppButton extends StatelessWidget {
               ]
             : null,
       ),
-      alignment: Alignment.center,
-      child: content,
+      child: Center(
+        widthFactor: isFullWidth ? null : 1.0,
+        child: content,
+      ),
     );
 
     if (isFullWidth) {

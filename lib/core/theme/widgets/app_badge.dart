@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../tokens/tokens.dart';
 import 'app_pressable.dart';
 
 enum AppBadgeVariant {
@@ -133,17 +132,19 @@ class AppChip extends StatelessWidget {
     final isDark = theme.brightness == Brightness.dark;
 
     final backgroundColor = isSelected
-        ? colorScheme.primaryContainer.withValues(alpha: 0.9)
+        ? (isDark
+            ? colorScheme.primary.withValues(alpha: 0.22)
+            : colorScheme.primaryContainer)
         : (isDark
             ? colorScheme.surfaceContainerHighest.withValues(alpha: 0.5)
             : colorScheme.surfaceContainerHighest.withValues(alpha: 0.7));
 
     final textColor = isSelected
-        ? colorScheme.onPrimaryContainer
+        ? (isDark ? colorScheme.primary : colorScheme.onPrimaryContainer)
         : colorScheme.onSurfaceVariant;
 
     final borderColor = isSelected
-        ? colorScheme.primary.withValues(alpha: 0.4)
+        ? colorScheme.primary.withValues(alpha: 0.45)
         : colorScheme.outline.withValues(alpha: 0.15);
 
     Widget chipContent = Container(

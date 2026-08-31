@@ -7,6 +7,11 @@ void main() {
   testWidgets('ShowcaseScreen renders sections and interactive components', (
     tester,
   ) async {
+    tester.view.physicalSize = const Size(1080, 2400);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
     await tester.pumpWidget(
       const ProviderScope(
         child: MaterialApp(

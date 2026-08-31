@@ -199,11 +199,13 @@ class UnifiedThemeSheet extends ConsumerWidget {
                   itemBuilder: (context, index) {
                     final palette = AppColorPalette.values[index];
                     final isSelected = palette == currentPalette;
+                    final safeAccent =
+                        palette.getSafeAccentColor(theme.brightness);
 
                     return AppGlassCard(
                       borderRadius: 16,
-                      tintOpacity: isSelected ? 0.9 : 0.4,
-                      borderOpacity: isSelected ? 0.8 : 0.2,
+                      tintOpacity: isSelected ? 0.95 : 0.35,
+                      borderOpacity: isSelected ? 0.85 : 0.2,
                       onTap: () {
                         HapticFeedback.selectionClick();
                         ref
@@ -220,8 +222,14 @@ class UnifiedThemeSheet extends ConsumerWidget {
                           _PaletteSwatch(
                             baseColor: currentMode == AppThemeMode.oled
                                 ? Colors.black
-                                : palette.baseColor,
-                            accentColor: palette.accentColor,
+                                : (colorScheme.brightness == Brightness.light &&
+                                        palette == AppColorPalette.monochrome
+                                    ? const Color(0xFF1E293B)
+                                    : palette.baseColor),
+                            accentColor: colorScheme.brightness ==
+                                    Brightness.light
+                                ? safeAccent
+                                : palette.accentColor,
                             isSelected: isSelected,
                           ),
                           const SizedBox(width: 14),
@@ -234,7 +242,7 @@ class UnifiedThemeSheet extends ConsumerWidget {
                                   palette.icon,
                                   size: 18,
                                   color: isSelected
-                                      ? palette.accentColor
+                                      ? safeAccent
                                       : colorScheme.onSurfaceVariant,
                                 ),
                                 const SizedBox(width: 8),
@@ -248,9 +256,9 @@ class UnifiedThemeSheet extends ConsumerWidget {
                                               : FontWeight.w500,
                                           color: isSelected
                                               ? (colorScheme.brightness ==
-                                                        Brightness.dark
-                                                    ? Colors.white
-                                                    : Colors.black)
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : colorScheme.primary)
                                               : colorScheme.onSurface,
                                         ),
                                     maxLines: 1,
@@ -265,7 +273,7 @@ class UnifiedThemeSheet extends ConsumerWidget {
                           if (isSelected)
                             Icon(
                               Icons.check_circle_rounded,
-                              color: palette.accentColor,
+                              color: safeAccent,
                               size: 22,
                             ),
                         ],
@@ -451,18 +459,24 @@ class _PaletteSwatch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       width: 44,
       height: 44,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(
-          color: isSelected ? accentColor : Colors.white.withValues(alpha: 0.3),
+          color: isSelected
+              ? accentColor
+              : (isDark
+                  ? Colors.white.withValues(alpha: 0.3)
+                  : Colors.black.withValues(alpha: 0.14)),
           width: isSelected ? 2.5 : 1.5,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.2),
+            color: Colors.black.withValues(alpha: isDark ? 0.25 : 0.08),
             blurRadius: 6,
             offset: const Offset(0, 2),
           ),

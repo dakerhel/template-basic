@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import '../../theme/tokens/tokens.dart';
 import '../../theme/utils/app_haptics.dart';
 import '../../theme/widgets/app_pressable.dart';
 
