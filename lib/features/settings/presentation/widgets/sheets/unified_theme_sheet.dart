@@ -217,19 +217,19 @@ class UnifiedThemeSheet extends ConsumerWidget {
                       ),
                       child: Row(
                         children: [
-                          // Двухцветный свотч палитры
-                          _PaletteSwatch(
-                            baseColor: currentMode == AppThemeMode.oled
-                                ? Colors.black
-                                : (colorScheme.brightness == Brightness.light &&
-                                        palette == AppColorPalette.monochrome
-                                    ? const Color(0xFF1E293B)
-                                    : palette.baseColor),
-                            accentColor: colorScheme.brightness ==
-                                    Brightness.light
-                                ? safeAccent
-                                : palette.accentColor,
-                            isSelected: isSelected,
+                          // Превью палитры: два элегантных перекрывающихся чипа с истинными цветами темы
+                          Builder(
+                            builder: (context) {
+                              final (c1, c2) = palette.getSwatchColors(
+                                theme.brightness,
+                                isOled: currentMode == AppThemeMode.oled,
+                              );
+                              return _PaletteSwatch(
+                                primaryColor: c1,
+                                accentColor: c2,
+                                isSelected: isSelected,
+                              );
+                            },
                           ),
                           const SizedBox(width: 14),
 
@@ -447,48 +447,86 @@ class _ThemeTabItem extends StatelessWidget {
 
 class _PaletteSwatch extends StatelessWidget {
   const _PaletteSwatch({
-    required this.baseColor,
+    required this.primaryColor,
     required this.accentColor,
     required this.isSelected,
   });
 
-  final Color baseColor;
+  final Color primaryColor;
   final Color accentColor;
   final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    final cardBg = isDark
+        ? (isSelected
+            ? Color.alphaBlend(
+                theme.colorScheme.primary.withValues(alpha: 0.12),
+                theme.colorScheme.surfaceContainerHighest,
+              )
+            : theme.colorScheme.surfaceContainerHighest)
+        : Colors.white;
 
-    return Container(
-      width: 44,
-      height: 44,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(
-          color: isSelected
-              ? accentColor
-              : (isDark
-                  ? Colors.white.withValues(alpha: 0.3)
-                  : Colors.black.withValues(alpha: 0.14)),
-          width: isSelected ? 2.5 : 1.5,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: isDark ? 0.25 : 0.08),
-            blurRadius: 6,
-            offset: const Offset(0, 2),
+    return SizedBox(
+      width: 38,
+      height: 24,
+      child: Stack(
+        alignment: Alignment.centerLeft,
+        children: [
+          // 1. Первый круг (Основной тон палитры)
+          Positioned(
+            left: 0,
+            child: Container(
+              width: 22,
+              height: 22,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: primaryColor,
+                border: Border.all(
+                  color: isDark
+                      ? Colors.white.withValues(alpha: 0.20)
+                      : Colors.black.withValues(alpha: 0.10),
+                  width: 1.0,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: isDark ? 0.20 : 0.04),
+                    blurRadius: 2,
+                    offset: const Offset(0, 1),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          // 2. Второй круг (Акцентный тон) с аккуратным вырезом-контуром
+          Positioned(
+            left: 14,
+            child: Container(
+              width: 22,
+              height: 22,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: accentColor,
+                border: Border.all(
+                  color: cardBg,
+                  width: 2.0,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: isDark ? 0.30 : 0.08),
+                    blurRadius: 3,
+                    offset: const Offset(0, 1),
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
-      ),
-      child: ClipOval(
-        child: Row(
-          children: [
-            Expanded(child: Container(color: baseColor)),
-            Expanded(child: Container(color: accentColor)),
-          ],
-        ),
       ),
     );
   }
 }
+
