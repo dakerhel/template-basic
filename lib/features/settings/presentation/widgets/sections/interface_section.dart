@@ -32,8 +32,8 @@ class InterfaceSection extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
           child: AppGlassCard(
-            borderRadius: 18,
-            padding: const EdgeInsets.symmetric(vertical: 4),
+            borderRadius: 12,
+            padding: const EdgeInsets.symmetric(vertical: 2),
             child: Column(
               children: [
                 ListTile(

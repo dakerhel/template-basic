@@ -21,10 +21,10 @@ abstract final class AppRadius {
   static final BorderRadius rFull = BorderRadius.circular(full);
 
   // Semantic components radius
-  static final BorderRadius card = rLg;
-  static final BorderRadius button = rMd;
+  static final BorderRadius card = rMd; // 12.0
+  static final BorderRadius button = rSm; // 8.0
   static final BorderRadius sheet = const BorderRadius.vertical(
-    top: Radius.circular(xxl),
+    top: Radius.circular(16.0),
   );
-  static final BorderRadius pill = rFull;
+  static final BorderRadius pill = rSm; // 8.0
 }

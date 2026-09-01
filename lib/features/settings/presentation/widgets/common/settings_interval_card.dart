@@ -46,7 +46,7 @@ class SettingsIntervalCard extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       child: AppGlassCard(
-        borderRadius: 16,
+        borderRadius: 12,
         padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,7 +89,7 @@ class _IntervalChip extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(8),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           curve: Curves.easeInOut,
@@ -98,11 +98,11 @@ class _IntervalChip extends StatelessWidget {
             color: isSelected
                 ? colorScheme.primary
                 : colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(8),
             border: Border.all(
               color: isSelected
                   ? colorScheme.primary
-                  : colorScheme.outline.withValues(alpha: 0.15),
+                  : colorScheme.outline.withValues(alpha: 0.2),
               width: isSelected ? 1.5 : 1.0,
             ),
             boxShadow: isSelected

@@ -83,8 +83,8 @@ class SecuritySection extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
             child: AppGlassCard(
-              borderRadius: 16,
-              padding: const EdgeInsets.symmetric(vertical: 4),
+              borderRadius: 12,
+              padding: const EdgeInsets.symmetric(vertical: 2),
               child: Column(
                 children: [
                   ListTile(

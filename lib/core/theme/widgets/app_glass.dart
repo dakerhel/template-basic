@@ -6,15 +6,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../liquid_glass_provider.dart';
 import 'app_pressable.dart';
 
-/// Высококлассный компонент в стиле Apple Liquid Glass / Frosted Glass (iOS / visionOS).
-/// Обеспечивает настоящее оптическое размытие фона, чёткие контуры, тонкие градиентные блики (specular highlight),
-/// адаптивный полупрозрачный оттенок и упругий пружинящий тактильный отклик при нажатии.
+/// Высококлассный карточный компонент с поддержкой двух независимых режимов:
+/// 1. Standalone Solid Mode: чистый, эталонный карточный дизайн (Apple / Linear / Material 3)
+///    с белоснежными/глубокими непрозрачными поверхностями, четкими микро-бордерами и мягкими тенями.
+/// 2. Liquid Frosted Glass Mode: кристальное матовое стекло с оптическим размытием и световыми бликами.
 class AppGlassCard extends ConsumerWidget {
   const AppGlassCard({
     super.key,
     required this.child,
-    this.borderRadius = 20.0,
-    this.blur = 20.0,
+    this.borderRadius = 12.0,
+    this.blur = 16.0,
     this.tintOpacity = 0.80,
     this.borderOpacity = 0.20,
     this.padding,
@@ -47,24 +48,20 @@ class AppGlassCard extends ConsumerWidget {
     Widget cardBody;
 
     if (isGlassEnabled == true) {
+      // --- РЕЖИМ LIQUID FROSTED GLASS ---
       final glassColor = isDark
           ? colorScheme.surfaceContainerHighest.withValues(
-              alpha: tintOpacity * 0.85,
+              alpha: 0.52,
             )
-          : (tintOpacity > 0.6
-              ? Color.alphaBlend(
-                  colorScheme.primary.withValues(alpha: 0.08),
-                  Colors.white.withValues(alpha: 0.88),
-                )
-              : Colors.white.withValues(alpha: 0.75));
+          : Colors.white.withValues(alpha: 0.72);
 
       final borderColor = isDark
           ? (borderOpacity > 0.5
               ? colorScheme.primary.withValues(alpha: borderOpacity * 0.8)
-              : Colors.white.withValues(alpha: borderOpacity))
+              : Colors.white.withValues(alpha: 0.12))
           : (borderOpacity > 0.5
-              ? colorScheme.primary.withValues(alpha: borderOpacity * 0.55)
-              : Colors.black.withValues(alpha: 0.07));
+              ? colorScheme.primary.withValues(alpha: borderOpacity * 0.6)
+              : Colors.black.withValues(alpha: 0.06));
 
       cardBody = ClipRRect(
         borderRadius: BorderRadius.circular(borderRadius),
@@ -81,17 +78,17 @@ class AppGlassCard extends ConsumerWidget {
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: isDark ? 0.35 : 0.06),
-                  blurRadius: isDark ? 20 : 16,
-                  offset: const Offset(0, 4),
+                  color: Colors.black.withValues(alpha: isDark ? 0.25 : 0.04),
+                  blurRadius: isDark ? 16 : 10,
+                  offset: const Offset(0, 2),
                 ),
                 if (borderOpacity > 0.5)
                   BoxShadow(
                     color: colorScheme.primary.withValues(
-                      alpha: isDark ? 0.20 : 0.10,
+                      alpha: isDark ? 0.18 : 0.08,
                     ),
-                    blurRadius: 12,
-                    offset: const Offset(0, 2),
+                    blurRadius: 10,
+                    offset: const Offset(0, 1),
                   ),
               ],
             ),
@@ -103,27 +100,28 @@ class AppGlassCard extends ConsumerWidget {
         ),
       );
     } else {
+      // --- РЕЖИМ STANDALONE SOLID (Apple / Linear / M3) ---
       final solidBg = isDark
-          ? (tintOpacity > 0.6
+          ? (borderOpacity > 0.5
               ? Color.alphaBlend(
-                  colorScheme.primary.withValues(alpha: 0.18),
+                  colorScheme.primary.withValues(alpha: 0.12),
                   colorScheme.surfaceContainerHighest,
                 )
-              : colorScheme.surfaceContainerHighest.withValues(alpha: 0.75))
-          : (tintOpacity > 0.6
+              : colorScheme.surfaceContainerHighest)
+          : (borderOpacity > 0.5
               ? Color.alphaBlend(
-                  colorScheme.primary.withValues(alpha: 0.08),
+                  colorScheme.primary.withValues(alpha: 0.04),
                   Colors.white,
                 )
               : Colors.white);
 
       final solidBorder = isDark
           ? (borderOpacity > 0.5
-              ? colorScheme.primary.withValues(alpha: borderOpacity * 0.8)
-              : Colors.white.withValues(alpha: 0.15))
+              ? colorScheme.primary.withValues(alpha: 0.60)
+              : Colors.white.withValues(alpha: 0.08))
           : (borderOpacity > 0.5
-              ? colorScheme.primary.withValues(alpha: borderOpacity * 0.5)
-              : Colors.black.withValues(alpha: 0.08));
+              ? colorScheme.primary.withValues(alpha: 0.50)
+              : const Color(0xFFE2E8F0));
 
       cardBody = Container(
         padding: padding,
@@ -136,17 +134,22 @@ class AppGlassCard extends ConsumerWidget {
           ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: isDark ? 0.20 : 0.05),
-              blurRadius: 14,
-              offset: const Offset(0, 4),
+              color: Colors.black.withValues(alpha: isDark ? 0.20 : 0.03),
+              blurRadius: 4,
+              offset: const Offset(0, 1),
+            ),
+            BoxShadow(
+              color: Colors.black.withValues(alpha: isDark ? 0.15 : 0.02),
+              blurRadius: 8,
+              offset: const Offset(0, 3),
             ),
             if (borderOpacity > 0.5)
               BoxShadow(
                 color: colorScheme.primary.withValues(
-                  alpha: isDark ? 0.20 : 0.08,
+                  alpha: isDark ? 0.16 : 0.06,
                 ),
-                blurRadius: 10,
-                offset: const Offset(0, 2),
+                blurRadius: 8,
+                offset: const Offset(0, 1),
               ),
           ],
         ),
@@ -164,7 +167,7 @@ class AppGlassCard extends ConsumerWidget {
         cardBody = AppPressable(
           onTap: onTap,
           onLongPress: onLongPress,
-          pressedScale: 0.98,
+          pressedScale: 0.985,
           child: cardBody,
         );
       } else {

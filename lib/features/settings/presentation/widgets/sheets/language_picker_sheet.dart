@@ -73,7 +73,7 @@ class LanguagePickerSheet extends ConsumerWidget {
 
               // Системный язык
               AppGlassCard(
-                borderRadius: 14,
+                borderRadius: 10,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
                   vertical: 10,
@@ -123,7 +123,7 @@ class LanguagePickerSheet extends ConsumerWidget {
                     final isSelected = current?.languageCode == language.code;
 
                     return AppGlassCard(
-                      borderRadius: 14,
+                      borderRadius: 10,
                       tintOpacity: isSelected ? 0.9 : 0.35,
                       borderOpacity: isSelected ? 0.8 : 0.15,
                       padding: const EdgeInsets.symmetric(

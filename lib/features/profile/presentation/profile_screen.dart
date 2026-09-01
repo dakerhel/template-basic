@@ -208,7 +208,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         children: [
           // Главная карточка профиля (Hero Card)
           AppGlassCard(
-            borderRadius: 24,
+            borderRadius: 14,
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
@@ -313,7 +313,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         color: colorScheme.primaryContainer.withValues(
                           alpha: 0.6,
                         ),
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(6),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -343,7 +343,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         color: colorScheme.surfaceContainerHighest.withValues(
                           alpha: 0.6,
                         ),
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(6),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -382,7 +382,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           // Секция 1: Привязка аккаунтов (OAuth)
           _SectionHeader(title: l10n.profileAccountSection),
           AppGlassCard(
-            borderRadius: 18,
+            borderRadius: 12,
             padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -449,8 +449,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           // Секция 2: Безопасность и сессии
           _SectionHeader(title: l10n.profileSecuritySection),
           AppGlassCard(
-            borderRadius: 18,
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            borderRadius: 12,
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
             child: Column(
               children: [
                 ListTile(
@@ -461,7 +461,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     '${l10n.profileCurrentDevice} (${Platform.operatingSystem})',
                   ),
                   trailing: InkWell(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(6),
                     onTap: () {
                       ref.invalidate(networkStatusProvider);
                       if (isOnline) {
@@ -487,7 +487,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         color: isOnline
                             ? Colors.green.withValues(alpha: 0.15)
                             : colorScheme.error.withValues(alpha: 0.15),
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(6),
                         border: Border.all(
                           color: isOnline
                               ? Colors.green.withValues(alpha: 0.3)
@@ -537,7 +537,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
 
           // Секция 3: Очистка профиля
           AppGlassCard(
-            borderRadius: 18,
+            borderRadius: 12,
             padding: const EdgeInsets.all(12),
             child: ListTile(
               leading: Icon(

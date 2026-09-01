@@ -201,97 +201,167 @@ void main() {
   }
 
   testWidgets('Generate comprehensive screen audit screenshots', (tester) async {
-    // 1. Home - Dark (Indigo Gold)
+    // 1. Home - Dark Glass (Indigo Gold)
     await captureScreen(
       tester: tester,
       child: const HomeScreen(),
       filename: 'screen_01_home_dark.png',
       palette: AppColorPalette.indigoGold,
       brightness: Brightness.dark,
+      isGlass: true,
     );
 
-    // 2. Home - Light (Indigo Gold)
+    // 2. Home - Light Glass (Indigo Gold)
     await captureScreen(
       tester: tester,
       child: const HomeScreen(),
       filename: 'screen_02_home_light.png',
       palette: AppColorPalette.indigoGold,
       brightness: Brightness.light,
+      isGlass: true,
     );
 
-    // 3. Showcase - Dark (Cyber Cyan)
+    // 3. Home - Light Solid (Indigo Gold)
+    await captureScreen(
+      tester: tester,
+      child: const HomeScreen(),
+      filename: 'screen_03_home_light_solid.png',
+      palette: AppColorPalette.indigoGold,
+      brightness: Brightness.light,
+      isGlass: false,
+    );
+
+    // 4. Showcase - Dark Glass (Cyber Cyan)
     await captureScreen(
       tester: tester,
       child: const ShowcaseScreen(),
-      filename: 'screen_03_showcase_dark.png',
+      filename: 'screen_04_showcase_dark.png',
       palette: AppColorPalette.cyberCyan,
       brightness: Brightness.dark,
+      isGlass: true,
     );
 
-    // 4. Showcase - Light (Fuchsia Pine)
+    // 5. Showcase - Light Glass (Fuchsia Pine)
     await captureScreen(
       tester: tester,
       child: const ShowcaseScreen(),
-      filename: 'screen_04_showcase_light.png',
+      filename: 'screen_05_showcase_light.png',
       palette: AppColorPalette.fuchsiaPine,
       brightness: Brightness.light,
+      isGlass: true,
     );
 
-    // 5. Profile - Dark
+    // 6. Showcase - Light Solid (Fuchsia Pine)
+    await captureScreen(
+      tester: tester,
+      child: const ShowcaseScreen(),
+      filename: 'screen_06_showcase_light_solid.png',
+      palette: AppColorPalette.fuchsiaPine,
+      brightness: Brightness.light,
+      isGlass: false,
+    );
+
+    // 7. Profile - Dark Glass (Acid Violet)
     await captureScreen(
       tester: tester,
       child: const ProfileScreen(),
-      filename: 'screen_05_profile_dark.png',
+      filename: 'screen_07_profile_dark.png',
       palette: AppColorPalette.acidViolet,
       brightness: Brightness.dark,
+      isGlass: true,
     );
 
-    // 6. Profile - Light
+    // 8. Profile - Light Glass (Acid Violet)
     await captureScreen(
       tester: tester,
       child: const ProfileScreen(),
-      filename: 'screen_06_profile_light.png',
+      filename: 'screen_08_profile_light.png',
       palette: AppColorPalette.acidViolet,
       brightness: Brightness.light,
+      isGlass: true,
     );
 
-    // 7. Settings - Dark
+    // 9. Profile - Light Solid (Acid Violet)
+    await captureScreen(
+      tester: tester,
+      child: const ProfileScreen(),
+      filename: 'screen_09_profile_light_solid.png',
+      palette: AppColorPalette.acidViolet,
+      brightness: Brightness.light,
+      isGlass: false,
+    );
+
+    // 10. Settings - Dark Glass (Indigo Gold)
     await captureScreen(
       tester: tester,
       child: const SettingsScreen(),
-      filename: 'screen_07_settings_dark.png',
+      filename: 'screen_10_settings_dark.png',
       palette: AppColorPalette.indigoGold,
       brightness: Brightness.dark,
+      isGlass: true,
     );
 
-    // 8. Settings - Light
+    // 11. Settings - Light Glass (Warm Amber)
     await captureScreen(
       tester: tester,
       child: const SettingsScreen(),
-      filename: 'screen_08_settings_light.png',
+      filename: 'screen_11_settings_light.png',
       palette: AppColorPalette.warmAmber,
       brightness: Brightness.light,
+      isGlass: true,
     );
 
-    // 9. Lock Screen - Dark
+    // 12. Settings - Light Solid (Warm Amber)
+    await captureScreen(
+      tester: tester,
+      child: const SettingsScreen(),
+      filename: 'screen_12_settings_light_solid.png',
+      palette: AppColorPalette.warmAmber,
+      brightness: Brightness.light,
+      isGlass: false,
+    );
+
+    // 13. Settings - Light Glass (Fuchsia Pine)
+    await captureScreen(
+      tester: tester,
+      child: const SettingsScreen(),
+      filename: 'screen_13_settings_fuchsiapine_light.png',
+      palette: AppColorPalette.fuchsiaPine,
+      brightness: Brightness.light,
+      isGlass: true,
+    );
+
+    // 14. Settings - Light Glass (Indigo Gold)
+    await captureScreen(
+      tester: tester,
+      child: const SettingsScreen(),
+      filename: 'screen_14_settings_indigogold_light.png',
+      palette: AppColorPalette.indigoGold,
+      brightness: Brightness.light,
+      isGlass: true,
+    );
+
+    // 15. Lock Screen - Dark
     await captureScreen(
       tester: tester,
       child: const LockScreen(),
-      filename: 'screen_09_lock_screen_dark.png',
+      filename: 'screen_15_lock_screen_dark.png',
       palette: AppColorPalette.indigoGold,
       brightness: Brightness.dark,
+      isGlass: true,
     );
 
-    // 10. Privacy Shield
+    // 16. Privacy Shield
     await captureScreen(
       tester: tester,
       child: const PrivacyShieldScreen(),
-      filename: 'screen_10_privacy_shield.png',
+      filename: 'screen_16_privacy_shield.png',
       palette: AppColorPalette.indigoGold,
       brightness: Brightness.dark,
+      isGlass: true,
     );
 
-    // 11. Theme Sheet - Dark
+    // 17. Theme Sheet - Dark
     await captureScreen(
       tester: tester,
       child: const Scaffold(
@@ -301,12 +371,13 @@ void main() {
           child: UnifiedThemeSheet(),
         ),
       ),
-      filename: 'screen_11_theme_sheet_dark.png',
+      filename: 'screen_17_theme_sheet_dark.png',
       palette: AppColorPalette.indigoGold,
       brightness: Brightness.dark,
+      isGlass: true,
     );
 
-    // 12. Theme Sheet - Light
+    // 18. Theme Sheet - Light
     await captureScreen(
       tester: tester,
       child: const Scaffold(
@@ -316,12 +387,13 @@ void main() {
           child: UnifiedThemeSheet(),
         ),
       ),
-      filename: 'screen_12_theme_sheet_light.png',
-      palette: AppColorPalette.fuchsiaPine,
+      filename: 'screen_18_theme_sheet_light.png',
+      palette: AppColorPalette.warmAmber,
       brightness: Brightness.light,
+      isGlass: true,
     );
 
-    // 13. Language Sheet - Dark
+    // 19. Language Sheet - Dark
     await captureScreen(
       tester: tester,
       child: const Scaffold(
@@ -331,12 +403,13 @@ void main() {
           child: LanguagePickerSheet(),
         ),
       ),
-      filename: 'screen_13_language_sheet_dark.png',
+      filename: 'screen_19_language_sheet_dark.png',
       palette: AppColorPalette.indigoGold,
       brightness: Brightness.dark,
+      isGlass: true,
     );
 
-    // 14. Font Sheet - Dark
+    // 20. Font Sheet - Dark
     await captureScreen(
       tester: tester,
       child: const Scaffold(
@@ -346,12 +419,13 @@ void main() {
           child: FontPickerSheet(),
         ),
       ),
-      filename: 'screen_14_font_sheet_dark.png',
+      filename: 'screen_20_font_sheet_dark.png',
       palette: AppColorPalette.indigoGold,
       brightness: Brightness.dark,
+      isGlass: true,
     );
 
-    // 15. Diagnostics Sheet - Dark
+    // 21. Diagnostics Sheet - Dark
     await captureScreen(
       tester: tester,
       child: const Scaffold(
@@ -361,12 +435,13 @@ void main() {
           child: SystemDiagnosticsSheet(),
         ),
       ),
-      filename: 'screen_15_diagnostics_sheet_dark.png',
+      filename: 'screen_21_diagnostics_sheet_dark.png',
       palette: AppColorPalette.cyberCyan,
       brightness: Brightness.dark,
+      isGlass: true,
     );
 
-    // 16. Permission Sheet - Dark
+    // 22. Permission Sheet - Dark
     await captureScreen(
       tester: tester,
       child: const Scaffold(
@@ -376,12 +451,13 @@ void main() {
           child: PermissionOnboardingSheet(),
         ),
       ),
-      filename: 'screen_16_permission_sheet_dark.png',
+      filename: 'screen_22_permission_sheet_dark.png',
       palette: AppColorPalette.fuchsiaPine,
       brightness: Brightness.dark,
+      isGlass: true,
     );
 
-    // 17. Pin Setup Sheet - Dark
+    // 23. Pin Setup Sheet - Dark
     await captureScreen(
       tester: tester,
       child: const Scaffold(
@@ -391,9 +467,10 @@ void main() {
           child: PinSetupSheet(mode: PinSheetMode.create),
         ),
       ),
-      filename: 'screen_17_pin_setup_sheet_dark.png',
+      filename: 'screen_23_pin_setup_sheet_dark.png',
       palette: AppColorPalette.indigoGold,
       brightness: Brightness.dark,
+      isGlass: true,
     );
   });
 }

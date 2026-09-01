@@ -466,7 +466,7 @@ class _ShowcaseSection extends StatelessWidget {
     final colorScheme = theme.colorScheme;
 
     return AppGlassCard(
-      borderRadius: 20,
+      borderRadius: 12,
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

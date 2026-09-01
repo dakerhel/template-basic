@@ -45,40 +45,22 @@ class _AppAmbientBackgroundState extends ConsumerState<AppAmbientBackground>
     final isDark = theme.brightness == Brightness.dark;
     final isOled = themeMode.isOled;
 
-    // В OLED режиме делаем свечение более тонкими акцентами для идеального контраста
+    // В OLED режиме и светлом режиме делаем свечение ультра-тонким для идеального контраста
     final double primaryOpacity = isOled
         ? 0.08
-        : (isDark ? 0.20 : 0.10);
+        : (isDark ? 0.18 : 0.04);
     final double secondaryOpacity = isOled
         ? 0.05
-        : (isDark ? 0.15 : 0.08);
+        : (isDark ? 0.12 : 0.03);
 
     final primaryColor = colorScheme.primary.withValues(alpha: primaryOpacity);
     final secondaryColor = colorScheme.secondary.withValues(alpha: secondaryOpacity);
 
-    // Базовый градиент фона, органично построенный на поверхности текущей палитры
+    // Базовый цвет фона: кристально чистый нейтральный в светлой теме
     final BoxDecoration backgroundDeco = isOled
         ? const BoxDecoration(color: Color(0xFF000000))
         : BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: isDark
-                  ? [
-                      colorScheme.surface,
-                      Color.alphaBlend(
-                        Colors.black.withValues(alpha: 0.40),
-                        colorScheme.surface,
-                      ),
-                    ]
-                  : [
-                      colorScheme.surface,
-                      Color.alphaBlend(
-                        colorScheme.primary.withValues(alpha: 0.05),
-                        colorScheme.surface,
-                      ),
-                    ],
-            ),
+            color: colorScheme.surface,
           );
 
     return Stack(

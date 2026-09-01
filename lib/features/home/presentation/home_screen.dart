@@ -141,8 +141,8 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
           AppStaggeredItem(
             index: 0,
             child: AppGlassCard(
-              borderRadius: 24,
-              padding: const EdgeInsets.all(20),
+              borderRadius: 14,
+              padding: const EdgeInsets.all(18),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -159,7 +159,7 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
                         child: Icon(
                           Icons.rocket_launch_rounded,
                           color: colorScheme.primary,
-                          size: 24,
+                          size: 22,
                         ),
                       ),
                       const SizedBox(width: 14),
@@ -190,14 +190,14 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
           ),
 
-          const SizedBox(height: 16),
+          const SizedBox(height: 14),
 
           // Интерактивный счетчик состояния
           AppStaggeredItem(
             index: 1,
             child: AppGlassCard(
-              borderRadius: 24,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
+              borderRadius: 14,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 22),
               child: Column(
                 children: [
                   Text(

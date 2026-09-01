@@ -28,7 +28,7 @@ class UpdatesSection extends ConsumerWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
           child: AppGlassCard(
-            borderRadius: 16,
+            borderRadius: 12,
             child: ListTile(
               leading: const Icon(Icons.system_update_rounded),
               title: Text(l10n.checkForUpdate),

@@ -75,7 +75,7 @@ class FontPickerSheet extends ConsumerWidget {
 
               // Card: Font scale slider
               AppGlassCard(
-                borderRadius: 16,
+                borderRadius: 12,
                 padding: const EdgeInsets.fromLTRB(16, 14, 16, 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,7 +96,7 @@ class FontPickerSheet extends ConsumerWidget {
                           ),
                           decoration: BoxDecoration(
                             color: colorScheme.primaryContainer,
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(6),
                           ),
                           child: Text(
                             '${fontState.scaleIndex} / 5',
@@ -119,15 +119,14 @@ class FontPickerSheet extends ConsumerWidget {
                         Expanded(
                           child: Slider(
                             value: fontState.scaleIndex.toDouble(),
-                            min: 1,
-                            max: 5,
+                            min: 1.0,
+                            max: 5.0,
                             divisions: 4,
-                            label: '${fontState.scaleIndex}',
-                            onChanged: (value) {
+                            onChanged: (val) {
                               HapticFeedback.selectionClick();
                               ref
                                   .read(fontProvider.notifier)
-                                  .setScaleIndex(value.round());
+                                  .setScaleIndex(val.round());
                             },
                           ),
                         ),
@@ -146,7 +145,9 @@ class FontPickerSheet extends ConsumerWidget {
 
               // Font Family section title
               Text(
-                'Шрифт интерфейса',
+                Localizations.localeOf(context).languageCode == 'ru'
+                    ? 'Шрифт интерфейса'
+                    : 'Font Family',
                 style: theme.textTheme.labelMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: colorScheme.onSurfaceVariant,
@@ -155,63 +156,76 @@ class FontPickerSheet extends ConsumerWidget {
               const SizedBox(height: 8),
 
               // Font family options
-              Column(
-                children: [
-                  for (final family in FontFamily.values) ...[
-                    Builder(
-                      builder: (context) {
-                        final isSelected = fontState.family == family;
-                        return AppGlassCard(
-                          borderRadius: 14,
-                          tintOpacity: isSelected ? 0.9 : 0.35,
-                          borderOpacity: isSelected ? 0.8 : 0.15,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 12,
-                          ),
-                          onTap: () {
-                            HapticFeedback.selectionClick();
-                            ref.read(fontProvider.notifier).setFamily(family);
-                            Navigator.of(context).pop();
-                          },
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.font_download_outlined,
-                                size: 20,
+              for (final family in FontFamily.values) ...[
+                Builder(
+                  builder: (context) {
+                    final isSelected = fontState.family == family;
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 6),
+                      child: AppGlassCard(
+                        borderRadius: 10,
+                        tintOpacity: isSelected ? 0.9 : 0.4,
+                        borderOpacity: isSelected ? 0.8 : 0.15,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                        onTap: () {
+                          HapticFeedback.selectionClick();
+                          ref.read(fontProvider.notifier).setFamily(family);
+                          Navigator.of(context).pop();
+                        },
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 32,
+                              height: 32,
+                              decoration: BoxDecoration(
                                 color: isSelected
-                                    ? colorScheme.primary
-                                    : colorScheme.onSurfaceVariant,
+                                    ? colorScheme.primary.withValues(alpha: 0.15)
+                                    : colorScheme.surfaceContainerHighest
+                                        .withValues(alpha: 0.5),
+                                borderRadius: BorderRadius.circular(6),
                               ),
-                              const SizedBox(width: 12),
-                              Expanded(
-                                child: Text(
-                                  getFontName(context, family),
-                                  style: theme.textTheme.titleMedium?.copyWith(
-                                    fontWeight: isSelected
-                                        ? FontWeight.bold
-                                        : FontWeight.w500,
-                                    color: isSelected
-                                        ? colorScheme.primary
-                                        : colorScheme.onSurface,
-                                  ),
+                              alignment: Alignment.center,
+                              child: Text(
+                                'A',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: isSelected
+                                      ? colorScheme.primary
+                                      : colorScheme.onSurfaceVariant,
                                 ),
                               ),
-                              if (isSelected)
-                                Icon(
-                                  Icons.check_circle_rounded,
-                                  color: colorScheme.primary,
-                                  size: 20,
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Text(
+                                getFontName(context, family),
+                                style: theme.textTheme.titleMedium?.copyWith(
+                                  fontWeight: isSelected
+                                      ? FontWeight.bold
+                                      : FontWeight.w500,
+                                  color: isSelected
+                                      ? colorScheme.primary
+                                      : colorScheme.onSurface,
                                 ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 6),
-                  ],
-                ],
-              ),
+                              ),
+                            ),
+                            if (isSelected)
+                              Icon(
+                                Icons.check_circle_rounded,
+                                color: colorScheme.primary,
+                                size: 20,
+                              ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
             ],
           ),
         ),
