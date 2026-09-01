@@ -2,8 +2,10 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../color_palette_provider.dart';
 import '../liquid_glass_provider.dart';
 import '../theme_mode_provider.dart';
+import '../tokens/app_palettes.dart';
 
 /// Атмосферный живой фоновый компонент с мягкими световыми сферами (Ambient Aurora Glow),
 /// которые плавно покачиваются, создавая живую глубину для эффекта Liquid Glass.
@@ -40,26 +42,31 @@ class _AppAmbientBackgroundState extends ConsumerState<AppAmbientBackground>
   Widget build(BuildContext context) {
     final themeMode = ref.watch(themeModeProvider);
     final isGlass = ref.watch(liquidGlassProvider);
+    final palette = ref.watch(colorPaletteProvider);
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
     final isDark = theme.brightness == Brightness.dark;
     final isOled = themeMode.isOled;
 
-    // В OLED режиме и светлом режиме делаем свечение ультра-тонким для идеального контраста
-    final double primaryOpacity = isOled
-        ? 0.08
-        : (isDark ? 0.20 : 0.12);
-    final double secondaryOpacity = isOled
-        ? 0.05
-        : (isDark ? 0.14 : 0.08);
+    // В светлом режиме сферы используют яркие светящиеся цвета акцента и базы
+    final primaryColor = isOled
+        ? palette.accentColor.withValues(alpha: 0.08)
+        : (isDark
+            ? palette.accentColor.withValues(alpha: 0.20)
+            : palette.accentColor.withValues(alpha: 0.15));
 
-    final primaryColor = colorScheme.primary.withValues(alpha: primaryOpacity);
-    final secondaryColor = colorScheme.secondary.withValues(alpha: secondaryOpacity);
+    final secondarySource = palette.toColorScheme(brightness: Brightness.dark).secondary;
+    final secondaryColor = isOled
+        ? secondarySource.withValues(alpha: 0.05)
+        : (isDark
+            ? secondarySource.withValues(alpha: 0.14)
+            : secondarySource.withValues(alpha: 0.12));
 
-    // Базовый цвет фона берется из активной палитры (colorScheme.surface)
+    // Базовый холст фона
     final BoxDecoration backgroundDeco = isOled
         ? const BoxDecoration(color: Color(0xFF000000))
-        : BoxDecoration(color: colorScheme.surface);
+        : isDark
+            ? BoxDecoration(color: theme.colorScheme.surface)
+            : const BoxDecoration(color: Color(0xFFF8FAFC)); // Чистый фарфоровый холст
 
     return Stack(
       fit: StackFit.expand,
@@ -128,7 +135,7 @@ class _AppAmbientBackgroundState extends ConsumerState<AppAmbientBackground>
                         shape: BoxShape.circle,
                         gradient: RadialGradient(
                           colors: [
-                            primaryColor.withValues(alpha: primaryOpacity * 0.7),
+                            primaryColor.withValues(alpha: primaryColor.a * 0.7),
                             Colors.transparent,
                           ],
                         ),

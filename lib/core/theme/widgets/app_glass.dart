@@ -65,28 +65,31 @@ class AppGlassCard extends ConsumerWidget {
       // ─── РЕЖИМ LIQUID FROSTED GLASS (Светлая и Тёмная темы) ─────────────────
       final glassColor = isDark
           ? colorScheme.surfaceContainerHighest.withValues(alpha: 0.50)
-          : Color.alphaBlend(
-              colorScheme.surfaceContainerHighest.withValues(alpha: 0.70),
-              Colors.white.withValues(alpha: 0.78),
-            );
+          : Colors.white.withValues(alpha: 0.72);
 
       final borderColor = isDark
           ? (isHighlighted
               ? colorScheme.primary.withValues(alpha: 0.60)
               : Colors.white.withValues(alpha: 0.12))
           : (isHighlighted
-              ? colorScheme.primary.withValues(alpha: 0.50)
-              : Colors.white.withValues(alpha: 0.65));
+              ? colorScheme.primary.withValues(alpha: 0.60)
+              : Colors.white.withValues(alpha: 0.90));
 
       final List<BoxShadow> shadows = [
         BoxShadow(
-          color: Colors.black.withValues(alpha: isDark ? 0.22 : 0.05),
-          blurRadius: isDark ? 16 : 14,
-          offset: const Offset(0, 2),
+          color: const Color(0xFF0F172A).withValues(alpha: isDark ? 0.22 : 0.05),
+          blurRadius: isDark ? 16 : 18,
+          offset: const Offset(0, 3),
         ),
+        if (!isDark)
+          BoxShadow(
+            color: const Color(0xFF0F172A).withValues(alpha: 0.02),
+            blurRadius: 4,
+            offset: const Offset(0, 1),
+          ),
         if (isHighlighted)
           BoxShadow(
-            color: colorScheme.primary.withValues(alpha: isDark ? 0.18 : 0.10),
+            color: colorScheme.primary.withValues(alpha: isDark ? 0.18 : 0.12),
             blurRadius: 10,
             offset: const Offset(0, 1),
           ),
@@ -162,13 +165,13 @@ class AppGlassCard extends ConsumerWidget {
       final solidBg = isHighlighted
           ? Color.alphaBlend(
               colorScheme.primary.withValues(alpha: 0.06),
-              colorScheme.surfaceContainerHighest,
+              Colors.white,
             )
-          : colorScheme.surfaceContainerHighest;
+          : Colors.white;
 
       final solidBorder = isHighlighted
           ? colorScheme.primary.withValues(alpha: 0.45)
-          : colorScheme.outline.withValues(alpha: 0.20);
+          : const Color(0xFFE2E8F0);
 
       cardBody = Container(
         padding: padding,
@@ -178,12 +181,12 @@ class AppGlassCard extends ConsumerWidget {
           border: Border.all(color: solidBorder, width: isHighlighted ? 1.5 : 1.0),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.04),
-              blurRadius: 4,
+              color: const Color(0xFF0F172A).withValues(alpha: 0.04),
+              blurRadius: 3,
               offset: const Offset(0, 1),
             ),
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.04),
+              color: const Color(0xFF0F172A).withValues(alpha: 0.05),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -201,6 +204,7 @@ class AppGlassCard extends ConsumerWidget {
         ),
       );
     }
+
 
 
     final bool isInteractive = onTap != null || onLongPress != null;
