@@ -368,6 +368,23 @@ enum AppColorPalette {
     return _lightPrimary;
   }
 
+  /// Возвращает пару ключевых цветов (primary, accent) для красивого и точного превью темы в UI
+  (Color, Color) getSwatchColors(Brightness brightness, {bool isOled = false}) {
+    if (brightness == Brightness.dark) {
+      if (this == AppColorPalette.monochrome) {
+        return (const Color(0xFF1E1E24), Colors.white);
+      }
+      final base = isOled ? Colors.black : _darkCard;
+      return (base, accentColor);
+    } else {
+      // В светлой теме показываем реальный Primary и характерный Accent/Secondary палитры
+      if (this == AppColorPalette.monochrome) {
+        return (const Color(0xFF0F172A), const Color(0xFF94A3B8));
+      }
+      return (_lightPrimary, _lightSecondary);
+    }
+  }
+
   ColorScheme toColorScheme({
     required Brightness brightness,
     bool isOled = false,
