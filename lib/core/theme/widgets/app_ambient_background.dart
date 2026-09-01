@@ -48,22 +48,18 @@ class _AppAmbientBackgroundState extends ConsumerState<AppAmbientBackground>
     // В OLED режиме и светлом режиме делаем свечение ультра-тонким для идеального контраста
     final double primaryOpacity = isOled
         ? 0.08
-        : (isDark ? 0.18 : 0.04);
+        : (isDark ? 0.20 : 0.12);
     final double secondaryOpacity = isOled
         ? 0.05
-        : (isDark ? 0.12 : 0.03);
+        : (isDark ? 0.14 : 0.08);
 
     final primaryColor = colorScheme.primary.withValues(alpha: primaryOpacity);
     final secondaryColor = colorScheme.secondary.withValues(alpha: secondaryOpacity);
 
-    // Базовый цвет фона
-    // Светлая тема: строго нейтральный Slate 100 — никаких градиентов/тонов
-    // Тёмная тема: colorScheme.surface с атмосферным оттенком
+    // Базовый цвет фона берется из активной палитры (colorScheme.surface)
     final BoxDecoration backgroundDeco = isOled
         ? const BoxDecoration(color: Color(0xFF000000))
-        : isDark
-            ? BoxDecoration(color: colorScheme.surface)
-            : const BoxDecoration(color: Color(0xFFF1F5F9)); // Slate 100
+        : BoxDecoration(color: colorScheme.surface);
 
     return Stack(
       fit: StackFit.expand,
@@ -71,9 +67,8 @@ class _AppAmbientBackgroundState extends ConsumerState<AppAmbientBackground>
         // Базовый цвет / градиент фона
         DecoratedBox(decoration: backgroundDeco),
 
-        // Анимированные сферы Авроры (только тёмная / OLED тема!)
-        // В светлой теме сферы не дают визуального эффекта и создают «грязный» тон.
-        if (isGlass && isDark)
+        // Анимированные сферы Авроры (когда Liquid Glass включен)
+        if (isGlass)
           AnimatedBuilder(
             animation: _controller,
             builder: (context, _) {

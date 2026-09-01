@@ -559,12 +559,49 @@ enum AppColorPalette {
   // --- Светлые цвета поверхностей и акцентов ---
 
   Color get _lightSurface {
-    // Slate 100 (#F1F5F9) — видимый нейтральный холст, карточки (#FFF) явно выделяются
-    return const Color(0xFFF1F5F9);
+    switch (this) {
+      case AppColorPalette.monochrome:
+        return const Color(0xFFF8FAFC);
+      case AppColorPalette.fuchsiaPine:
+        return const Color(0xFFF0FDF4); // Нежная мятно-хвойная атмосфера
+      case AppColorPalette.indigoGold:
+        return const Color(0xFFF8FAFC); // Лавандово-индиговый утренний свет
+      case AppColorPalette.acidViolet:
+        return const Color(0xFFFAF5FF); // Нежный фиолетовый
+      case AppColorPalette.warmAmber:
+        return const Color(0xFFFFFBEB); // Тёплый янтарно-медовый крем
+      case AppColorPalette.rubyGold:
+        return const Color(0xFFFEF2F2); // Нежный рубиновый розе
+      case AppColorPalette.pistachioMilk:
+        return const Color(0xFFF7FEE7); // Фисташковое молоко
+      case AppColorPalette.cyberCyan:
+        return const Color(0xFFF0F9FF); // Ледяной лазурный циан
+      case AppColorPalette.toxicOled:
+        return const Color(0xFFF0FDF4); // Свежий терминальный
+    }
   }
 
   Color get _lightCard {
-    return const Color(0xFFFFFFFF);
+    switch (this) {
+      case AppColorPalette.monochrome:
+        return const Color(0xFFEDF2F7);
+      case AppColorPalette.fuchsiaPine:
+        return const Color(0xFFE2F5EA);
+      case AppColorPalette.indigoGold:
+        return const Color(0xFFEEF2FF);
+      case AppColorPalette.acidViolet:
+        return const Color(0xFFF3E8FF);
+      case AppColorPalette.warmAmber:
+        return const Color(0xFFFEF3C7);
+      case AppColorPalette.rubyGold:
+        return const Color(0xFFFEE2E2);
+      case AppColorPalette.pistachioMilk:
+        return const Color(0xFFECFCCB);
+      case AppColorPalette.cyberCyan:
+        return const Color(0xFFE0F2FE);
+      case AppColorPalette.toxicOled:
+        return const Color(0xFFDCFCE7);
+    }
   }
 
   Color get _lightPrimary {

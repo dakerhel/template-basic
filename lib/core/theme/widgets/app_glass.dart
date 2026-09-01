@@ -61,24 +61,32 @@ class AppGlassCard extends ConsumerWidget {
 
     Widget cardBody;
 
-    if (isGlassEnabled && isDark) {
-      // ─── РЕЖИМ LIQUID FROSTED GLASS (только тёмная тема) ───────────────────
-      final glassColor =
-          colorScheme.surfaceContainerHighest.withValues(alpha: 0.50);
+    if (isGlassEnabled) {
+      // ─── РЕЖИМ LIQUID FROSTED GLASS (Светлая и Тёмная темы) ─────────────────
+      final glassColor = isDark
+          ? colorScheme.surfaceContainerHighest.withValues(alpha: 0.50)
+          : Color.alphaBlend(
+              colorScheme.surfaceContainerHighest.withValues(alpha: 0.70),
+              Colors.white.withValues(alpha: 0.78),
+            );
 
-      final borderColor = isHighlighted
-          ? colorScheme.primary.withValues(alpha: 0.60)
-          : Colors.white.withValues(alpha: 0.10);
+      final borderColor = isDark
+          ? (isHighlighted
+              ? colorScheme.primary.withValues(alpha: 0.60)
+              : Colors.white.withValues(alpha: 0.12))
+          : (isHighlighted
+              ? colorScheme.primary.withValues(alpha: 0.50)
+              : Colors.white.withValues(alpha: 0.65));
 
       final List<BoxShadow> shadows = [
         BoxShadow(
-          color: Colors.black.withValues(alpha: 0.22),
-          blurRadius: 16,
+          color: Colors.black.withValues(alpha: isDark ? 0.22 : 0.05),
+          blurRadius: isDark ? 16 : 14,
           offset: const Offset(0, 2),
         ),
         if (isHighlighted)
           BoxShadow(
-            color: colorScheme.primary.withValues(alpha: 0.18),
+            color: colorScheme.primary.withValues(alpha: isDark ? 0.18 : 0.10),
             blurRadius: 10,
             offset: const Offset(0, 1),
           ),
@@ -150,38 +158,40 @@ class AppGlassCard extends ConsumerWidget {
         ),
       );
     } else {
-      // ─── СВЕТЛАЯ ТЕМА, SOLID (BackdropFilter не работает на белом фоне) ────
-      // Одинаковый результат при Glass ON и Glass OFF — всегда чистый белый.
+      // ─── СВЕТЛАЯ ТЕМА, SOLID ────────────────────────────────────────────────
+      final solidBg = isHighlighted
+          ? Color.alphaBlend(
+              colorScheme.primary.withValues(alpha: 0.06),
+              colorScheme.surfaceContainerHighest,
+            )
+          : colorScheme.surfaceContainerHighest;
+
       final solidBorder = isHighlighted
           ? colorScheme.primary.withValues(alpha: 0.45)
-          : const Color(0xFFE2E8F0); // Slate 200 — нейтральный
+          : colorScheme.outline.withValues(alpha: 0.20);
 
       cardBody = Container(
         padding: padding,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: solidBg,
           borderRadius: BorderRadius.circular(borderRadius),
-          border: Border.all(
-            color: solidBorder,
-            width: isHighlighted ? 1.5 : 1.0,
-          ),
+          border: Border.all(color: solidBorder, width: isHighlighted ? 1.5 : 1.0),
           boxShadow: [
-            // Два ультра-мягких слоя — Apple/Linear стиль
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.04),
-              blurRadius: 2,
+              blurRadius: 4,
               offset: const Offset(0, 1),
             ),
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.05),
-              blurRadius: 6,
-              offset: const Offset(0, 3),
+              color: Colors.black.withValues(alpha: 0.04),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
             ),
             if (isHighlighted)
               BoxShadow(
-                color: colorScheme.primary.withValues(alpha: 0.08),
-                blurRadius: 8,
-                offset: const Offset(0, 2),
+                color: colorScheme.primary.withValues(alpha: 0.10),
+                blurRadius: 6,
+                offset: const Offset(0, 1),
               ),
           ],
         ),
@@ -191,6 +201,7 @@ class AppGlassCard extends ConsumerWidget {
         ),
       );
     }
+
 
     final bool isInteractive = onTap != null || onLongPress != null;
 

@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -217,19 +219,13 @@ class UnifiedThemeSheet extends ConsumerWidget {
                       ),
                       child: Row(
                         children: [
-                          // Превью палитры: два элегантных перекрывающихся чипа с истинными цветами темы
-                          Builder(
-                            builder: (context) {
-                              final (c1, c2) = palette.getSwatchColors(
-                                theme.brightness,
-                                isOled: currentMode == AppThemeMode.oled,
-                              );
-                              return _PaletteSwatch(
-                                primaryColor: c1,
-                                accentColor: c2,
-                                isSelected: isSelected,
-                              );
-                            },
+                          // Фирменный двухцветный круг палитры (константа бренда: база + акцент)
+                          _PaletteSwatch(
+                            baseColor: currentMode == AppThemeMode.oled
+                                ? Colors.black
+                                : palette.baseColor,
+                            accentColor: palette.accentColor,
+                            isSelected: isSelected,
                           ),
                           const SizedBox(width: 14),
 
@@ -447,12 +443,12 @@ class _ThemeTabItem extends StatelessWidget {
 
 class _PaletteSwatch extends StatelessWidget {
   const _PaletteSwatch({
-    required this.primaryColor,
+    required this.baseColor,
     required this.accentColor,
     required this.isSelected,
   });
 
-  final Color primaryColor;
+  final Color baseColor;
   final Color accentColor;
   final bool isSelected;
 
@@ -460,73 +456,92 @@ class _PaletteSwatch extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    final cardBg = isDark
-        ? (isSelected
-            ? Color.alphaBlend(
-                theme.colorScheme.primary.withValues(alpha: 0.12),
-                theme.colorScheme.surfaceContainerHighest,
-              )
-            : theme.colorScheme.surfaceContainerHighest)
-        : Colors.white;
 
-    return SizedBox(
-      width: 38,
-      height: 24,
-      child: Stack(
-        alignment: Alignment.centerLeft,
-        children: [
-          // 1. Первый круг (Основной тон палитры)
-          Positioned(
-            left: 0,
-            child: Container(
-              width: 22,
-              height: 22,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: primaryColor,
-                border: Border.all(
-                  color: isDark
-                      ? Colors.white.withValues(alpha: 0.20)
-                      : Colors.black.withValues(alpha: 0.10),
-                  width: 1.0,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: isDark ? 0.20 : 0.04),
-                    blurRadius: 2,
-                    offset: const Offset(0, 1),
-                  ),
-                ],
-              ),
-            ),
-          ),
+    final borderColor = isSelected
+        ? accentColor
+        : (isDark
+            ? Colors.white.withValues(alpha: 0.28)
+            : Colors.black.withValues(alpha: 0.12));
 
-          // 2. Второй круг (Акцентный тон) с аккуратным вырезом-контуром
-          Positioned(
-            left: 14,
-            child: Container(
-              width: 22,
-              height: 22,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: accentColor,
-                border: Border.all(
-                  color: cardBg,
-                  width: 2.0,
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: isDark ? 0.30 : 0.08),
-                    blurRadius: 3,
-                    offset: const Offset(0, 1),
-                  ),
-                ],
-              ),
-            ),
+    return Container(
+      width: 40,
+      height: 40,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: isDark ? 0.25 : 0.06),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
           ),
+          if (isSelected)
+            BoxShadow(
+              color: accentColor.withValues(alpha: isDark ? 0.35 : 0.20),
+              blurRadius: 8,
+              offset: const Offset(0, 1),
+            ),
         ],
+      ),
+      child: CustomPaint(
+        painter: _SplitCirclePainter(
+          leftColor: baseColor,
+          rightColor: accentColor,
+          borderColor: borderColor,
+          borderWidth: isSelected ? 2.2 : 1.2,
+        ),
       ),
     );
   }
 }
+
+class _SplitCirclePainter extends CustomPainter {
+  final Color leftColor;
+  final Color rightColor;
+  final Color borderColor;
+  final double borderWidth;
+
+  _SplitCirclePainter({
+    required this.leftColor,
+    required this.rightColor,
+    required this.borderColor,
+    required this.borderWidth,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = (size.width / 2) - (borderWidth / 2);
+    final rect = Rect.fromCircle(center: center, radius: radius);
+
+    // Левая половина (180 градусов)
+    final leftPaint = Paint()
+      ..color = leftColor
+      ..style = PaintingStyle.fill
+      ..isAntiAlias = true;
+    canvas.drawArc(rect, math.pi / 2, math.pi, true, leftPaint);
+
+    // Правая половина (180 градусов)
+    final rightPaint = Paint()
+      ..color = rightColor
+      ..style = PaintingStyle.fill
+      ..isAntiAlias = true;
+    canvas.drawArc(rect, -math.pi / 2, math.pi, true, rightPaint);
+
+    // Векторный контурный ободок
+    final borderPaint = Paint()
+      ..color = borderColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = borderWidth
+      ..isAntiAlias = true;
+    canvas.drawCircle(center, radius, borderPaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant _SplitCirclePainter oldDelegate) =>
+      oldDelegate.leftColor != leftColor ||
+      oldDelegate.rightColor != rightColor ||
+      oldDelegate.borderColor != borderColor ||
+      oldDelegate.borderWidth != borderWidth;
+}
+
 
