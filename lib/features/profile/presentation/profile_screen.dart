@@ -97,7 +97,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       builder: (context) => Container(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
         child: AppGlassCard(
-          borderRadius: 24,
+          borderRadius: 12,
           padding: const EdgeInsets.all(20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -223,27 +223,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           width: 84,
                           height: 84,
                           decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                colorScheme.primaryContainer,
-                                colorScheme.primary.withValues(alpha: 0.8),
-                              ],
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color:
-                                    colorScheme.primary.withValues(alpha: 0.25),
-                                blurRadius: 16,
-                                offset: const Offset(0, 4),
-                              ),
-                            ],
+                            // Квадратный аватар — антислоп стандарт (Apple/Linear)
+                            // Никаких цветовых градиентов, никаких цветных теней
+                            color: colorScheme.primaryContainer,
+                            borderRadius: BorderRadius.circular(10),
                           ),
                           child: Icon(
                             Icons.person_rounded,
-                            size: 46,
+                            size: 44,
                             color: colorScheme.onPrimaryContainer,
                           ),
                         ),

@@ -542,26 +542,8 @@ enum AppColorPalette {
   // --- Светлые цвета поверхностей и акцентов ---
 
   Color get _lightSurface {
-    switch (this) {
-      case AppColorPalette.monochrome:
-        return const Color(0xFFF8FAFC);
-      case AppColorPalette.fuchsiaPine:
-        return const Color(0xFFF8FAFC);
-      case AppColorPalette.indigoGold:
-        return const Color(0xFFF8FAFC);
-      case AppColorPalette.acidViolet:
-        return const Color(0xFFF8FAFC);
-      case AppColorPalette.warmAmber:
-        return const Color(0xFFFAFAF9); // Нейтральный чистый светлый холст
-      case AppColorPalette.rubyGold:
-        return const Color(0xFFF8FAFC);
-      case AppColorPalette.pistachioMilk:
-        return const Color(0xFFF8FAFC);
-      case AppColorPalette.cyberCyan:
-        return const Color(0xFFF8FAFC);
-      case AppColorPalette.toxicOled:
-        return const Color(0xFFF8FAFC);
-    }
+    // Slate 100 (#F1F5F9) — видимый нейтральный холст, карточки (#FFF) явно выделяются
+    return const Color(0xFFF1F5F9);
   }
 
   Color get _lightCard {
@@ -571,23 +553,23 @@ enum AppColorPalette {
   Color get _lightPrimary {
     switch (this) {
       case AppColorPalette.monochrome:
-        return const Color(0xFF0F172A);
+        return const Color(0xFF0F172A); // Почти чёрный Slate
       case AppColorPalette.fuchsiaPine:
-        return const Color(0xFF047857); // Благородная хвойная зелень
+        return const Color(0xFF047857); // Emerald 700 — хвойная зелень
       case AppColorPalette.indigoGold:
-        return const Color(0xFF4338CA); // Глубокий королевский Индиго
+        return const Color(0xFF4338CA); // Indigo 700 — королевский индиго
       case AppColorPalette.acidViolet:
-        return const Color(0xFF6D28D9); // Чистый королевский Фиолетовый
+        return const Color(0xFF6D28D9); // Violet 700 — королевский фиолетовый
       case AppColorPalette.warmAmber:
-        return const Color(0xFFD97706); // Благородный тёплый янтарь / мёд
+        return const Color(0xFFB45309); // Amber 700 — глубокий янтарь/мёд (читаем!)
       case AppColorPalette.rubyGold:
-        return const Color(0xFFBE123C); // Глубокий Рубин
+        return const Color(0xFF9F1239); // Rose 900 — глубокий рубин
       case AppColorPalette.pistachioMilk:
-        return const Color(0xFF15803D); // Свежий фисташковый шалфей
+        return const Color(0xFF166534); // Green 800 — насыщенный фисташковый
       case AppColorPalette.cyberCyan:
-        return const Color(0xFF0284C7); // Насыщенный циан / лазурь
+        return const Color(0xFF0369A1); // Sky 700 — глубокий циан/лазурь
       case AppColorPalette.toxicOled:
-        return const Color(0xFF15803D); // Насыщенный зеленый терминал
+        return const Color(0xFF166534); // Green 800 — терминальный зелёный
     }
   }
 

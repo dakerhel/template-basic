@@ -43,7 +43,7 @@ class UnifiedThemeSheet extends ConsumerWidget {
     return Container(
       decoration: BoxDecoration(
         color: colorScheme.surface,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.25),
@@ -97,7 +97,7 @@ class UnifiedThemeSheet extends ConsumerWidget {
 
               // Отдельная плашка управления эффектом Liquid Glass
               AppGlassCard(
-                borderRadius: 16,
+                borderRadius: 12,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
                   vertical: 10,
@@ -203,9 +203,8 @@ class UnifiedThemeSheet extends ConsumerWidget {
                         palette.getSafeAccentColor(theme.brightness);
 
                     return AppGlassCard(
-                      borderRadius: 16,
-                      tintOpacity: isSelected ? 0.95 : 0.35,
-                      borderOpacity: isSelected ? 0.85 : 0.2,
+                      borderRadius: 10,
+                      isHighlighted: isSelected,
                       onTap: () {
                         HapticFeedback.selectionClick();
                         ref
@@ -350,7 +349,7 @@ class _NativeThemeModeBar extends StatelessWidget {
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainerHighest.withValues(alpha: 0.6),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(10),
         border: Border.all(color: colorScheme.outline.withValues(alpha: 0.15)),
       ),
       child: Row(
@@ -402,7 +401,7 @@ class _ThemeTabItem extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 2),
           decoration: BoxDecoration(
             color: isSelected ? colorScheme.primary : Colors.transparent,
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(8),
             boxShadow: isSelected
                 ? [
                     BoxShadow(

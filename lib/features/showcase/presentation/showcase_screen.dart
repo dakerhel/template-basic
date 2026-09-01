@@ -224,16 +224,12 @@ class _ShowcaseScreenState extends State<ShowcaseScreen> {
             child: _ShowcaseSection(
               title: 'Плавающие тосты (AppToast HUD)',
               subtitle: 'Всплывающие уведомления с размытием фона и жестом смахивания',
-              child: GridView.count(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                crossAxisCount: 2,
-                mainAxisSpacing: 8,
-                crossAxisSpacing: 8,
-                childAspectRatio: 2.7,
+              child: Wrap(
+                spacing: 8,
+                runSpacing: 8,
                 children: [
                   AppButton(
-                    label: 'Success Toast',
+                    label: 'Success',
                     size: AppButtonSize.small,
                     variant: AppButtonVariant.tonal,
                     leadingIcon: const Icon(
@@ -247,7 +243,7 @@ class _ShowcaseScreenState extends State<ShowcaseScreen> {
                     ),
                   ),
                   AppButton(
-                    label: 'Error Toast',
+                    label: 'Error',
                     size: AppButtonSize.small,
                     variant: AppButtonVariant.tonal,
                     leadingIcon: Icon(
@@ -261,7 +257,7 @@ class _ShowcaseScreenState extends State<ShowcaseScreen> {
                     ),
                   ),
                   AppButton(
-                    label: 'Warning Toast',
+                    label: 'Warning',
                     size: AppButtonSize.small,
                     variant: AppButtonVariant.tonal,
                     leadingIcon: const Icon(
@@ -275,7 +271,7 @@ class _ShowcaseScreenState extends State<ShowcaseScreen> {
                     ),
                   ),
                   AppButton(
-                    label: 'Info Toast',
+                    label: 'Info',
                     size: AppButtonSize.small,
                     variant: AppButtonVariant.tonal,
                     leadingIcon: Icon(
@@ -284,7 +280,7 @@ class _ShowcaseScreenState extends State<ShowcaseScreen> {
                     ),
                     onPressed: () => AppToast.info(
                       context,
-                      'Доступна новая версия обновления v1.0.44',
+                      'Доступна новая версия обновления',
                       title: 'Обновление',
                     ),
                   ),
@@ -292,6 +288,7 @@ class _ShowcaseScreenState extends State<ShowcaseScreen> {
               ),
             ),
           ),
+
           const SizedBox(height: 16),
 
           // 4. Секция Модальных окон и шторок

@@ -124,8 +124,7 @@ class LanguagePickerSheet extends ConsumerWidget {
 
                     return AppGlassCard(
                       borderRadius: 10,
-                      tintOpacity: isSelected ? 0.9 : 0.35,
-                      borderOpacity: isSelected ? 0.8 : 0.15,
+                      isHighlighted: isSelected,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 16,
                         vertical: 10,

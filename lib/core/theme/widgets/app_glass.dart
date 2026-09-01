@@ -7,36 +7,50 @@ import '../liquid_glass_provider.dart';
 import 'app_pressable.dart';
 
 /// Высококлассный карточный компонент с поддержкой двух независимых режимов:
-/// 1. Standalone Solid Mode: чистый, эталонный карточный дизайн (Apple / Linear / Material 3)
-///    с белоснежными/глубокими непрозрачными поверхностями, четкими микро-бордерами и мягкими тенями.
-/// 2. Liquid Frosted Glass Mode: кристальное матовое стекло с оптическим размытием и световыми бликами.
+///
+/// 1. **Solid Mode** (по умолчанию): чистый непрозрачный дизайн (Apple / Linear / M3).
+///    Светлая тема: #FFFFFF карточка, 1px border #E2E8F0, ультра-мягкая тень.
+///    Тёмная тема:  surfaceContainerHighest, 1px border white.08.
+///
+/// 2. **Liquid Frosted Glass Mode** (только тёмная тема!):
+///    BackdropFilter(sigma: 18) + alpha(0.50). В светлой теме Glass == Solid
+///    (BackdropFilter на белом фоне визуально бессмысленен).
+///
+/// Параметр [isHighlighted] заменяет старую "магию" borderOpacity > 0.5:
+/// true → акцентный бордер primary + лёгкая тень primary.
 class AppGlassCard extends ConsumerWidget {
   const AppGlassCard({
     super.key,
     required this.child,
     this.borderRadius = 12.0,
-    this.blur = 16.0,
-    this.tintOpacity = 0.80,
-    this.borderOpacity = 0.20,
+    this.blur = 18.0,
     this.padding,
     this.margin,
     this.onTap,
     this.onLongPress,
     this.enablePressAnimation = true,
     this.forceGlass,
+    this.isHighlighted = false,
+    // Deprecated — kept for binary compatibility, ignored internally.
+    @Deprecated('Use isHighlighted instead') double tintOpacity = 0.80,
+    @Deprecated('Use isHighlighted instead') double borderOpacity = 0.20,
   });
 
   final Widget child;
   final double borderRadius;
   final double blur;
-  final double tintOpacity;
-  final double borderOpacity;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
   final VoidCallback? onTap;
   final VoidCallback? onLongPress;
   final bool enablePressAnimation;
+
+  /// Если не null — переопределяет глобальный liquidGlassProvider.
   final bool? forceGlass;
+
+  /// true → акцентный бордер цвета primary и слабая primary-тень.
+  /// Используется для выбранных/активных карточек в списках.
+  final bool isHighlighted;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -47,21 +61,28 @@ class AppGlassCard extends ConsumerWidget {
 
     Widget cardBody;
 
-    if (isGlassEnabled == true) {
-      // --- РЕЖИМ LIQUID FROSTED GLASS ---
-      final glassColor = isDark
-          ? colorScheme.surfaceContainerHighest.withValues(
-              alpha: 0.52,
-            )
-          : Colors.white.withValues(alpha: 0.72);
+    if (isGlassEnabled && isDark) {
+      // ─── РЕЖИМ LIQUID FROSTED GLASS (только тёмная тема) ───────────────────
+      final glassColor =
+          colorScheme.surfaceContainerHighest.withValues(alpha: 0.50);
 
-      final borderColor = isDark
-          ? (borderOpacity > 0.5
-              ? colorScheme.primary.withValues(alpha: borderOpacity * 0.8)
-              : Colors.white.withValues(alpha: 0.12))
-          : (borderOpacity > 0.5
-              ? colorScheme.primary.withValues(alpha: borderOpacity * 0.6)
-              : Colors.black.withValues(alpha: 0.06));
+      final borderColor = isHighlighted
+          ? colorScheme.primary.withValues(alpha: 0.60)
+          : Colors.white.withValues(alpha: 0.10);
+
+      final List<BoxShadow> shadows = [
+        BoxShadow(
+          color: Colors.black.withValues(alpha: 0.22),
+          blurRadius: 16,
+          offset: const Offset(0, 2),
+        ),
+        if (isHighlighted)
+          BoxShadow(
+            color: colorScheme.primary.withValues(alpha: 0.18),
+            blurRadius: 10,
+            offset: const Offset(0, 1),
+          ),
+      ];
 
       cardBody = ClipRRect(
         borderRadius: BorderRadius.circular(borderRadius),
@@ -74,23 +95,9 @@ class AppGlassCard extends ConsumerWidget {
               borderRadius: BorderRadius.circular(borderRadius),
               border: Border.all(
                 color: borderColor,
-                width: borderOpacity > 0.5 ? 1.5 : 1.0,
+                width: isHighlighted ? 1.5 : 1.0,
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: isDark ? 0.25 : 0.04),
-                  blurRadius: isDark ? 16 : 10,
-                  offset: const Offset(0, 2),
-                ),
-                if (borderOpacity > 0.5)
-                  BoxShadow(
-                    color: colorScheme.primary.withValues(
-                      alpha: isDark ? 0.18 : 0.08,
-                    ),
-                    blurRadius: 10,
-                    offset: const Offset(0, 1),
-                  ),
-              ],
+              boxShadow: shadows,
             ),
             child: Material(
               type: MaterialType.transparency,
@@ -99,57 +106,82 @@ class AppGlassCard extends ConsumerWidget {
           ),
         ),
       );
-    } else {
-      // --- РЕЖИМ STANDALONE SOLID (Apple / Linear / M3) ---
-      final solidBg = isDark
-          ? (borderOpacity > 0.5
-              ? Color.alphaBlend(
-                  colorScheme.primary.withValues(alpha: 0.12),
-                  colorScheme.surfaceContainerHighest,
-                )
-              : colorScheme.surfaceContainerHighest)
-          : (borderOpacity > 0.5
-              ? Color.alphaBlend(
-                  colorScheme.primary.withValues(alpha: 0.04),
-                  Colors.white,
-                )
-              : Colors.white);
+    } else if (isDark) {
+      // ─── ТЁМНАЯ ТЕМА, SOLID ─────────────────────────────────────────────────
+      final solidBg = isHighlighted
+          ? Color.alphaBlend(
+              colorScheme.primary.withValues(alpha: 0.10),
+              colorScheme.surfaceContainerHighest,
+            )
+          : colorScheme.surfaceContainerHighest;
 
-      final solidBorder = isDark
-          ? (borderOpacity > 0.5
-              ? colorScheme.primary.withValues(alpha: 0.60)
-              : Colors.white.withValues(alpha: 0.08))
-          : (borderOpacity > 0.5
-              ? colorScheme.primary.withValues(alpha: 0.50)
-              : const Color(0xFFE2E8F0));
+      final solidBorder = isHighlighted
+          ? colorScheme.primary.withValues(alpha: 0.55)
+          : Colors.white.withValues(alpha: 0.08);
 
       cardBody = Container(
         padding: padding,
         decoration: BoxDecoration(
           color: solidBg,
           borderRadius: BorderRadius.circular(borderRadius),
-          border: Border.all(
-            color: solidBorder,
-            width: borderOpacity > 0.5 ? 1.5 : 1.0,
-          ),
+          border: Border.all(color: solidBorder, width: isHighlighted ? 1.5 : 1.0),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: isDark ? 0.20 : 0.03),
+              color: Colors.black.withValues(alpha: 0.20),
               blurRadius: 4,
               offset: const Offset(0, 1),
             ),
             BoxShadow(
-              color: Colors.black.withValues(alpha: isDark ? 0.15 : 0.02),
+              color: Colors.black.withValues(alpha: 0.14),
               blurRadius: 8,
               offset: const Offset(0, 3),
             ),
-            if (borderOpacity > 0.5)
+            if (isHighlighted)
               BoxShadow(
-                color: colorScheme.primary.withValues(
-                  alpha: isDark ? 0.16 : 0.06,
-                ),
+                color: colorScheme.primary.withValues(alpha: 0.16),
                 blurRadius: 8,
                 offset: const Offset(0, 1),
+              ),
+          ],
+        ),
+        child: Material(
+          type: MaterialType.transparency,
+          child: child,
+        ),
+      );
+    } else {
+      // ─── СВЕТЛАЯ ТЕМА, SOLID (BackdropFilter не работает на белом фоне) ────
+      // Одинаковый результат при Glass ON и Glass OFF — всегда чистый белый.
+      final solidBorder = isHighlighted
+          ? colorScheme.primary.withValues(alpha: 0.45)
+          : const Color(0xFFE2E8F0); // Slate 200 — нейтральный
+
+      cardBody = Container(
+        padding: padding,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(borderRadius),
+          border: Border.all(
+            color: solidBorder,
+            width: isHighlighted ? 1.5 : 1.0,
+          ),
+          boxShadow: [
+            // Два ультра-мягких слоя — Apple/Linear стиль
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.04),
+              blurRadius: 2,
+              offset: const Offset(0, 1),
+            ),
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 6,
+              offset: const Offset(0, 3),
+            ),
+            if (isHighlighted)
+              BoxShadow(
+                color: colorScheme.primary.withValues(alpha: 0.08),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
               ),
           ],
         ),

@@ -164,8 +164,7 @@ class FontPickerSheet extends ConsumerWidget {
                       padding: const EdgeInsets.only(bottom: 6),
                       child: AppGlassCard(
                         borderRadius: 10,
-                        tintOpacity: isSelected ? 0.9 : 0.4,
-                        borderOpacity: isSelected ? 0.8 : 0.15,
+                        isHighlighted: isSelected,
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,
                           vertical: 12,

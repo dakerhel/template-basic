@@ -75,7 +75,7 @@ class AppButton extends StatelessWidget {
         backgroundColor = isEnabled
             ? (isDark
                 ? colorScheme.primary.withValues(alpha: 0.18)
-                : colorScheme.primaryContainer)
+                : colorScheme.primaryContainer.withValues(alpha: 0.85))
             : colorScheme.surfaceContainerHighest.withValues(alpha: 0.30);
         foregroundColor = isEnabled
             ? (isDark ? colorScheme.primary : colorScheme.onPrimaryContainer)
@@ -84,7 +84,7 @@ class AppButton extends StatelessWidget {
           color: isEnabled
               ? (isDark
                   ? colorScheme.primary.withValues(alpha: 0.35)
-                  : colorScheme.primary.withValues(alpha: 0.25))
+                  : colorScheme.primary.withValues(alpha: 0.20))
               : Colors.transparent,
         );
         break;
@@ -121,7 +121,7 @@ class AppButton extends StatelessWidget {
         break;
     }
 
-    final double effectiveRadius = borderRadius ?? 14.0;
+    final double effectiveRadius = borderRadius ?? 8.0;
     final EdgeInsetsGeometry effectivePadding = padding ??
         EdgeInsets.symmetric(
           horizontal: size == AppButtonSize.small ? 14 : 20,
@@ -179,15 +179,7 @@ class AppButton extends StatelessWidget {
         color: backgroundColor,
         borderRadius: BorderRadius.circular(effectiveRadius),
         border: border,
-        boxShadow: variant == AppButtonVariant.filled && isEnabled
-            ? [
-                BoxShadow(
-                  color: colorScheme.primary.withValues(alpha: 0.25),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
-                ),
-              ]
-            : null,
+        boxShadow: null,
       ),
       child: Center(
         widthFactor: isFullWidth ? null : 1.0,
