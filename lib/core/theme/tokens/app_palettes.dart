@@ -607,23 +607,23 @@ enum AppColorPalette {
   Color get _lightPrimary {
     switch (this) {
       case AppColorPalette.monochrome:
-        return const Color(0xFF0F172A); // Почти чёрный Slate
+        return const Color(0xFF0F172A); // Почти чёрный Slate 900
       case AppColorPalette.fuchsiaPine:
-        return const Color(0xFF047857); // Emerald 700 — хвойная зелень
+        return const Color(0xFFBE185D); // Fuchsia 700 — насыщенная королевская фуксия!
       case AppColorPalette.indigoGold:
-        return const Color(0xFF4338CA); // Indigo 700 — королевский индиго
+        return const Color(0xFFB45309); // Amber/Gold 700 — тёплое благородное золото!
       case AppColorPalette.acidViolet:
-        return const Color(0xFF6D28D9); // Violet 700 — королевский фиолетовый
+        return const Color(0xFF4D7C0F); // Lime 700 — энергичный кислотный неон!
       case AppColorPalette.warmAmber:
-        return const Color(0xFFB45309); // Amber 700 — глубокий янтарь/мёд (читаем!)
+        return const Color(0xFFB45309); // Amber 700 — глубокий янтарный мёд!
       case AppColorPalette.rubyGold:
-        return const Color(0xFF9F1239); // Rose 900 — глубокий рубин
+        return const Color(0xFFBE123C); // Rose/Ruby 700 — глубокий сочный рубин!
       case AppColorPalette.pistachioMilk:
-        return const Color(0xFF166534); // Green 800 — насыщенный фисташковый
+        return const Color(0xFF3F6212); // Lime/Matcha 800 — нежная фисташковая матча!
       case AppColorPalette.cyberCyan:
-        return const Color(0xFF0369A1); // Sky 700 — глубокий циан/лазурь
+        return const Color(0xFF0284C7); // Sky/Cyan 600 — океанический электро-циан!
       case AppColorPalette.toxicOled:
-        return const Color(0xFF166534); // Green 800 — терминальный зелёный
+        return const Color(0xFF15803D); // Green 700 — терминальный матричный зелёный!
     }
   }
 
@@ -632,21 +632,21 @@ enum AppColorPalette {
       case AppColorPalette.monochrome:
         return const Color(0xFFF1F5F9);
       case AppColorPalette.fuchsiaPine:
-        return const Color(0xFFD1FAE5);
+        return const Color(0xFFFCE7F3); // Fuchsia 100
       case AppColorPalette.indigoGold:
-        return const Color(0xFFE0E7FF);
+        return const Color(0xFFFEF3C7); // Amber 100
       case AppColorPalette.acidViolet:
-        return const Color(0xFFEDE9FE);
+        return const Color(0xFFECFCCB); // Lime 100
       case AppColorPalette.warmAmber:
-        return const Color(0xFFFEF3C7);
+        return const Color(0xFFFEF3C7); // Amber 100
       case AppColorPalette.rubyGold:
-        return const Color(0xFFFFE4E6);
+        return const Color(0xFFFFE4E6); // Rose 100
       case AppColorPalette.pistachioMilk:
-        return const Color(0xFFDCFCE7);
+        return const Color(0xFFECFCCB); // Lime/Pistachio 100
       case AppColorPalette.cyberCyan:
-        return const Color(0xFFE0F2FE);
+        return const Color(0xFFE0F2FE); // Sky 100
       case AppColorPalette.toxicOled:
-        return const Color(0xFFDCFCE7);
+        return const Color(0xFFDCFCE7); // Green 100
     }
   }
 
@@ -655,21 +655,21 @@ enum AppColorPalette {
       case AppColorPalette.monochrome:
         return const Color(0xFF0F172A);
       case AppColorPalette.fuchsiaPine:
-        return const Color(0xFF064E3B);
+        return const Color(0xFF831843); // Fuchsia 900
       case AppColorPalette.indigoGold:
-        return const Color(0xFF312E81);
+        return const Color(0xFF78350F); // Amber 900
       case AppColorPalette.acidViolet:
-        return const Color(0xFF4C1D95);
+        return const Color(0xFF365314); // Lime 900
       case AppColorPalette.warmAmber:
-        return const Color(0xFF78350F);
+        return const Color(0xFF78350F); // Amber 900
       case AppColorPalette.rubyGold:
-        return const Color(0xFF881337);
+        return const Color(0xFF881337); // Rose 900
       case AppColorPalette.pistachioMilk:
-        return const Color(0xFF14532D);
+        return const Color(0xFF1A2E05); // Lime 950
       case AppColorPalette.cyberCyan:
-        return const Color(0xFF075985);
+        return const Color(0xFF075985); // Sky 900
       case AppColorPalette.toxicOled:
-        return const Color(0xFF14532D);
+        return const Color(0xFF14532D); // Green 900
     }
   }
 
@@ -678,21 +678,22 @@ enum AppColorPalette {
       case AppColorPalette.monochrome:
         return const Color(0xFF475569);
       case AppColorPalette.fuchsiaPine:
-        return const Color(0xFFBE185D); // Ягодная фуксия как акцент
+        return const Color(0xFF047857); // Хвойный зеленый
       case AppColorPalette.indigoGold:
-        return const Color(0xFFD97706); // Золотой акцент
+        return const Color(0xFF4338CA); // Индиго
       case AppColorPalette.acidViolet:
-        return const Color(0xFF059669); // Изумрудный акцент
+        return const Color(0xFF6D28D9); // Фиолетовый
       case AppColorPalette.warmAmber:
-        return const Color(0xFFB45309); // Тёплая охра / терракота
+        return const Color(0xFFDC2626); // Тёплый красный огонь
       case AppColorPalette.rubyGold:
         return const Color(0xFFD97706); // Золото
       case AppColorPalette.pistachioMilk:
-        return const Color(0xFF0D9488); // Морской шалфей
+        return const Color(0xFF65A30D); // Фисташковый лайм
       case AppColorPalette.cyberCyan:
         return const Color(0xFF0EA5E9); // Небесный циан
       case AppColorPalette.toxicOled:
-        return const Color(0xFF059669); // Изумруд
+        return const Color(0xFF22C55E); // Зелёный
     }
   }
+
 }
