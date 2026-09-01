@@ -6,6 +6,7 @@ import 'package:my_app/core/theme/color_palette_provider.dart';
 import 'package:my_app/core/theme/font_provider.dart';
 import 'package:my_app/core/theme/liquid_glass_provider.dart';
 import 'package:my_app/core/theme/theme_mode_provider.dart';
+import 'package:my_app/core/theme/widgets/app_glass.dart';
 import 'package:my_app/features/settings/presentation/widgets/common/settings_group_header.dart';
 import 'package:my_app/features/settings/presentation/widgets/sheets/font_picker_sheet.dart';
 import 'package:my_app/features/settings/presentation/widgets/sheets/language_picker_sheet.dart';
@@ -22,34 +23,51 @@ class InterfaceSection extends ConsumerWidget {
     final themeMode = ref.watch(themeModeProvider);
     final font = ref.watch(fontProvider);
     final palette = ref.watch(colorPaletteProvider);
-
     final isLiquidGlass = ref.watch(liquidGlassProvider);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SettingsGroupHeader(title: l10n.interfaceGroup),
-        ListTile(
-          leading: const Icon(Icons.language),
-          title: Text(l10n.settingsLanguage),
-          subtitle: Text(LanguagePickerSheet.getLanguageName(context, locale)),
-          onTap: () => LanguagePickerSheet.show(context, ref),
-        ),
-        ListTile(
-          leading: const Icon(Icons.palette_outlined),
-          title: Text(l10n.settingsTheme),
-          subtitle: Text(
-            '${themeMode.localizedName(locale, l10n)} · ${palette.localizedName(locale)}${isLiquidGlass ? ' · Glass' : ''}',
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          child: AppGlassCard(
+            borderRadius: 18,
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: Column(
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.language_rounded),
+                  title: Text(l10n.settingsLanguage),
+                  subtitle: Text(
+                    LanguagePickerSheet.getLanguageName(context, locale),
+                  ),
+                  trailing: const Icon(Icons.chevron_right_rounded),
+                  onTap: () => LanguagePickerSheet.show(context, ref),
+                ),
+                const Divider(height: 1, indent: 56, endIndent: 16),
+                ListTile(
+                  leading: const Icon(Icons.palette_outlined),
+                  title: Text(l10n.settingsTheme),
+                  subtitle: Text(
+                    '${themeMode.localizedName(locale, l10n)} · ${palette.localizedName(locale)}${isLiquidGlass ? ' · Glass' : ''}',
+                  ),
+                  trailing: const Icon(Icons.chevron_right_rounded),
+                  onTap: () => UnifiedThemeSheet.show(context, ref),
+                ),
+                const Divider(height: 1, indent: 56, endIndent: 16),
+                ListTile(
+                  leading: const Icon(Icons.text_fields_rounded),
+                  title: Text(l10n.settingsFont),
+                  subtitle: Text(
+                    '${l10n.fontScale}: ${font.scaleIndex} · ${FontPickerSheet.getFontName(context, font.family)}',
+                  ),
+                  trailing: const Icon(Icons.chevron_right_rounded),
+                  onTap: () => FontPickerSheet.show(context, ref),
+                ),
+              ],
+            ),
           ),
-          onTap: () => UnifiedThemeSheet.show(context, ref),
-        ),
-        ListTile(
-          leading: const Icon(Icons.text_fields),
-          title: Text(l10n.settingsFont),
-          subtitle: Text(
-            '${l10n.fontScale}: ${font.scaleIndex} · ${FontPickerSheet.getFontName(context, font.family)}',
-          ),
-          onTap: () => FontPickerSheet.show(context, ref),
         ),
       ],
     );

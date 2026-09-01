@@ -74,17 +74,17 @@ class AppButton extends StatelessWidget {
       case AppButtonVariant.tonal:
         backgroundColor = isEnabled
             ? (isDark
-                ? colorScheme.surfaceContainerHighest.withValues(alpha: 0.85)
+                ? colorScheme.primary.withValues(alpha: 0.18)
                 : colorScheme.primaryContainer)
             : colorScheme.surfaceContainerHighest.withValues(alpha: 0.30);
         foregroundColor = isEnabled
-            ? (isDark ? colorScheme.onSurface : colorScheme.onPrimaryContainer)
+            ? (isDark ? colorScheme.primary : colorScheme.onPrimaryContainer)
             : colorScheme.onSurface.withValues(alpha: 0.38);
         border = Border.all(
           color: isEnabled
               ? (isDark
-                  ? Colors.white.withValues(alpha: 0.15)
-                  : colorScheme.primary.withValues(alpha: 0.16))
+                  ? colorScheme.primary.withValues(alpha: 0.35)
+                  : colorScheme.primary.withValues(alpha: 0.25))
               : Colors.transparent,
         );
         break;
@@ -92,12 +92,12 @@ class AppButton extends StatelessWidget {
       case AppButtonVariant.outlined:
         backgroundColor = Colors.transparent;
         foregroundColor = isEnabled
-            ? (isDark ? colorScheme.onSurface : colorScheme.primary)
+            ? colorScheme.primary
             : colorScheme.onSurface.withValues(alpha: 0.38);
         border = Border.all(
           color: isEnabled
               ? (isDark
-                  ? Colors.white.withValues(alpha: 0.30)
+                  ? colorScheme.primary.withValues(alpha: 0.45)
                   : colorScheme.primary.withValues(alpha: 0.45))
               : colorScheme.outline.withValues(alpha: 0.20),
           width: 1.2,
@@ -107,7 +107,7 @@ class AppButton extends StatelessWidget {
       case AppButtonVariant.ghost:
         backgroundColor = Colors.transparent;
         foregroundColor = isEnabled
-            ? (isDark ? colorScheme.onSurface : colorScheme.primary)
+            ? colorScheme.primary
             : colorScheme.onSurface.withValues(alpha: 0.38);
         break;
 
@@ -149,13 +149,17 @@ class AppButton extends StatelessWidget {
           ),
           const SizedBox(width: 8),
         ],
-        Text(
-          label,
-          style: theme.textTheme.labelLarge?.copyWith(
-            fontSize: size.fontSize,
-            fontWeight: FontWeight.w600,
-            color: foregroundColor,
-            letterSpacing: 0.2,
+        Flexible(
+          child: Text(
+            label,
+            style: theme.textTheme.labelLarge?.copyWith(
+              fontSize: size.fontSize,
+              fontWeight: FontWeight.w600,
+              color: foregroundColor,
+              letterSpacing: 0.2,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
         if (!isLoading && trailingIcon != null) ...[
@@ -250,15 +254,20 @@ class AppIconButton extends StatelessWidget {
         break;
       case AppButtonVariant.tonal:
         backgroundColor = isDark
-            ? colorScheme.surfaceContainerHighest.withValues(alpha: 0.6)
-            : colorScheme.surfaceContainerHighest.withValues(alpha: 0.8);
-        foregroundColor = colorScheme.onSurface;
+            ? colorScheme.primary.withValues(alpha: 0.18)
+            : colorScheme.primaryContainer;
+        foregroundColor = isDark
+            ? colorScheme.primary
+            : colorScheme.onPrimaryContainer;
+        border = Border.all(
+          color: colorScheme.primary.withValues(alpha: isDark ? 0.35 : 0.25),
+        );
         break;
       case AppButtonVariant.outlined:
         backgroundColor = Colors.transparent;
-        foregroundColor = colorScheme.onSurface;
+        foregroundColor = colorScheme.primary;
         border = Border.all(
-          color: colorScheme.outline.withValues(alpha: 0.25),
+          color: colorScheme.primary.withValues(alpha: 0.35),
         );
         break;
       case AppButtonVariant.ghost:

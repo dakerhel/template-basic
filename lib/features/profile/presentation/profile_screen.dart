@@ -352,7 +352,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                             _userId,
                             style: theme.textTheme.labelSmall?.copyWith(
                               color: colorScheme.onSurfaceVariant,
-                              fontFamily: 'monospace',
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 0.4,
                             ),
                           ),
                           const SizedBox(width: 4),

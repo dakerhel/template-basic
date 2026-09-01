@@ -95,7 +95,10 @@ class AppGlassCard extends ConsumerWidget {
                   ),
               ],
             ),
-            child: child,
+            child: Material(
+              type: MaterialType.transparency,
+              child: child,
+            ),
           ),
         ),
       );
@@ -147,7 +150,10 @@ class AppGlassCard extends ConsumerWidget {
               ),
           ],
         ),
-        child: child,
+        child: Material(
+          type: MaterialType.transparency,
+          child: child,
+        ),
       );
     }
 

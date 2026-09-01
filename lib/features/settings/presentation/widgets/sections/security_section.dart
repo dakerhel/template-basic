@@ -79,44 +79,55 @@ class SecuritySection extends ConsumerWidget {
                 .setHideContentEnabled(value),
           ),
 
-          // Смена PIN-кода
-          ListTile(
-            leading: const Icon(Icons.password_rounded),
-            title: Text(isRu ? 'Изменить PIN-код' : 'Change PIN Code'),
-            subtitle: Text(
-              isRu
-                  ? 'Установить новый 4-значный пароль'
-                  : 'Set a new 4-digit password',
+          // Действия с PIN-кодом
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+            child: AppGlassCard(
+              borderRadius: 16,
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Column(
+                children: [
+                  ListTile(
+                    leading: const Icon(Icons.password_rounded),
+                    title: Text(isRu ? 'Изменить PIN-код' : 'Change PIN Code'),
+                    subtitle: Text(
+                      isRu
+                          ? 'Установить новый 4-значный пароль'
+                          : 'Set a new 4-digit password',
+                    ),
+                    trailing: const Icon(Icons.chevron_right_rounded),
+                    onTap: () async {
+                      final result = await PinSetupSheet.show(
+                        context,
+                        mode: PinSheetMode.change,
+                      );
+                      if (result == true && context.mounted) {
+                        AppToast.success(
+                          context,
+                          isRu
+                              ? 'PIN-код успешно изменен'
+                              : 'PIN code successfully changed',
+                          title: isRu ? 'Безопасность' : 'Security',
+                        );
+                      }
+                    },
+                  ),
+                  const Divider(height: 1, indent: 56, endIndent: 16),
+                  ListTile(
+                    leading: const Icon(Icons.lock_clock_outlined),
+                    title: Text(isRu ? 'Заблокировать сейчас' : 'Lock App Now'),
+                    subtitle: Text(
+                      isRu
+                          ? 'Мгновенно перейти на экран блокировки'
+                          : 'Immediately switch to lock screen',
+                    ),
+                    trailing: const Icon(Icons.chevron_right_rounded),
+                    onTap: () =>
+                        ref.read(securityControllerProvider.notifier).lockManually(),
+                  ),
+                ],
+              ),
             ),
-            trailing: const Icon(Icons.chevron_right),
-            onTap: () async {
-              final result = await PinSetupSheet.show(
-                context,
-                mode: PinSheetMode.change,
-              );
-              if (result == true && context.mounted) {
-                AppToast.success(
-                  context,
-                  isRu
-                      ? 'PIN-код успешно изменен'
-                      : 'PIN code successfully changed',
-                  title: isRu ? 'Безопасность' : 'Security',
-                );
-              }
-            },
-          ),
-
-          // Заблокировать сейчас
-          ListTile(
-            leading: const Icon(Icons.lock_clock_outlined),
-            title: Text(isRu ? 'Заблокировать сейчас' : 'Lock App Now'),
-            subtitle: Text(
-              isRu
-                  ? 'Мгновенно перейти на экран блокировки'
-                  : 'Immediately switch to lock screen',
-            ),
-            onTap: () =>
-                ref.read(securityControllerProvider.notifier).lockManually(),
           ),
         ],
       ],

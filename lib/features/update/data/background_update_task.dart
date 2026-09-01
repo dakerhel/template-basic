@@ -24,23 +24,27 @@ void callbackDispatcher() {
 
 class UpdateBackgroundScheduler {
   static Future<void> sync() async {
-    final prefs = await SharedPreferences.getInstance();
-    final enabled = prefs.getBool('background_check') ?? true;
-    if (!enabled) {
-      await Workmanager().cancelByUniqueName(_updateCheckUniqueName);
-      return;
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final enabled = prefs.getBool('background_check') ?? true;
+      if (!enabled) {
+        await Workmanager().cancelByUniqueName(_updateCheckUniqueName);
+        return;
+      }
+      final intervalMinutes =
+          prefs.getInt('check_interval_minutes') ?? defaultCheckIntervalMinutes;
+      final frequency = Duration(minutes: intervalMinutes.clamp(15, 43200));
+      await Workmanager().registerPeriodicTask(
+        _updateCheckUniqueName,
+        updateCheckTaskName,
+        frequency: frequency,
+        initialDelay: frequency,
+        constraints: Constraints(networkType: NetworkType.connected),
+        existingWorkPolicy: ExistingPeriodicWorkPolicy.replace,
+      );
+    } catch (_) {
+      // Игнорируем на неподдерживаемых платформах (Windows desktop / Unit tests)
     }
-    final intervalMinutes =
-        prefs.getInt('check_interval_minutes') ?? defaultCheckIntervalMinutes;
-    final frequency = Duration(minutes: intervalMinutes.clamp(15, 43200));
-    await Workmanager().registerPeriodicTask(
-      _updateCheckUniqueName,
-      updateCheckTaskName,
-      frequency: frequency,
-      initialDelay: frequency,
-      constraints: Constraints(networkType: NetworkType.connected),
-      existingWorkPolicy: ExistingPeriodicWorkPolicy.replace,
-    );
   }
 }
 

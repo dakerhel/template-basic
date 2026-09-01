@@ -223,8 +223,10 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  Wrap(
+                    alignment: WrapAlignment.center,
+                    spacing: 10,
+                    runSpacing: 10,
                     children: [
                       AppButton(
                         label: 'Увеличить',
@@ -235,7 +237,6 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
                           ref.read(counterProvider.notifier).increment();
                         },
                       ),
-                      const SizedBox(width: 10),
                       AppButton(
                         label: 'Шоукейс UI Kit',
                         variant: AppButtonVariant.tonal,

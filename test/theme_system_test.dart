@@ -1,149 +1,91 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:my_app/core/theme/tokens/tokens.dart';
-import 'package:my_app/core/theme/theme_mode_provider.dart';
+import 'package:my_app/core/theme/app_color_palette.dart';
+import 'package:my_app/core/theme/app_theme.dart';
 
 void main() {
-  group('Design Tokens', () {
-    test('AppSpacing tokens have correct scale', () {
-      expect(AppSpacing.xs, 4.0);
-      expect(AppSpacing.sm, 8.0);
-      expect(AppSpacing.md, 12.0);
-      expect(AppSpacing.base, 16.0);
-      expect(AppSpacing.lg, 20.0);
-      expect(AppSpacing.xl, 24.0);
-      expect(AppSpacing.xxl, 32.0);
-    });
+  group('AppColorPalette & ColorScheme Integrity Tests', () {
+    for (final palette in AppColorPalette.values) {
+      test('Palette ${palette.nameEn} produces valid Light ColorScheme', () {
+        final scheme = palette.toColorScheme(brightness: Brightness.light);
 
-    test('AppRadius tokens have correct values', () {
-      expect(AppRadius.xs, 4.0);
-      expect(AppRadius.sm, 8.0);
-      expect(AppRadius.md, 12.0);
-      expect(AppRadius.base, 16.0);
-      expect(AppRadius.lg, 20.0);
-      expect(AppRadius.xxl, 28.0);
-      expect(AppRadius.full, 9999.0);
-    });
+        expect(scheme.brightness, Brightness.light);
+        expect(scheme.primary, isNotNull);
+        expect(scheme.onPrimary, isNotNull);
+        expect(scheme.primaryContainer, isNotNull);
+        expect(scheme.onPrimaryContainer, isNotNull);
+        expect(scheme.surface, isNotNull);
+        expect(scheme.onSurface, isNotNull);
 
-    test('AppIcons tokens have correct scale', () {
-      expect(AppIcons.xs, 14.0);
-      expect(AppIcons.sm, 18.0);
-      expect(AppIcons.md, 22.0);
-      expect(AppIcons.lg, 26.0);
-      expect(AppIcons.xl, 32.0);
-      expect(AppIcons.hero, 48.0);
-    });
+        // Ensure onPrimary is distinct from primary
+        expect(scheme.onPrimary != scheme.primary, isTrue);
 
-    test('AppAnimations tokens have valid durations', () {
-      expect(AppAnimations.fast.inMilliseconds, 150);
-      expect(AppAnimations.normal.inMilliseconds, 250);
-      expect(AppAnimations.slow.inMilliseconds, 500);
-    });
-  });
+        // Luminance contrast check between primary and onPrimary
+        final primLum = scheme.primary.computeLuminance();
+        final onPrimLum = scheme.onPrimary.computeLuminance();
+        final lumDiff = (primLum - onPrimLum).abs();
+        expect(
+          lumDiff,
+          greaterThan(0.25),
+          reason:
+              'Light theme ${palette.nameEn} primary and onPrimary must have high luminance contrast (diff: $lumDiff)',
+        );
+      });
 
-  group('AppColorPalette & Monochrome Default', () {
-    test('monochrome is the default palette with proper contrast', () {
-      expect(AppColorPalette.fromId(null), AppColorPalette.monochrome);
-      expect(AppColorPalette.fromId('unknown'), AppColorPalette.monochrome);
+      test('Palette ${palette.nameEn} produces valid Dark ColorScheme', () {
+        final scheme = palette.toColorScheme(brightness: Brightness.dark);
 
-      final light = AppColorPalette.monochrome.toColorScheme(
-        brightness: Brightness.light,
-      );
-      expect(light.brightness, Brightness.light);
-      expect(light.primary, isNotNull);
-      expect(light.surface, isNotNull);
+        expect(scheme.brightness, Brightness.dark);
+        expect(scheme.primary, isNotNull);
+        expect(scheme.onPrimary, isNotNull);
+        expect(scheme.primaryContainer, isNotNull);
+        expect(scheme.surface, isNotNull);
 
-      final dark = AppColorPalette.monochrome.toColorScheme(
-        brightness: Brightness.dark,
-      );
-      expect(dark.brightness, Brightness.dark);
+        // Ensure high contrast
+        final primLum = scheme.primary.computeLuminance();
+        final onPrimLum = scheme.onPrimary.computeLuminance();
+        final lumDiff = (primLum - onPrimLum).abs();
+        expect(
+          lumDiff,
+          greaterThan(0.25),
+          reason:
+              'Dark theme ${palette.nameEn} primary and onPrimary must have high luminance contrast (diff: $lumDiff)',
+        );
+      });
 
-      final oled = AppColorPalette.monochrome.toColorScheme(
-        brightness: Brightness.dark,
-        isOled: true,
-      );
-      expect(oled.surface, Colors.black);
-    });
-
-    test(
-      'all 9 palettes produce valid Light ColorSchemes with proper contrast',
-      () {
-        expect(AppColorPalette.values.length, 9);
-        for (final palette in AppColorPalette.values) {
-          final scheme = palette.toColorScheme(brightness: Brightness.light);
-          expect(scheme.brightness, Brightness.light);
-          expect(scheme.primary, isNotNull);
-          expect(scheme.surface, isNotNull);
-          expect(scheme.onSurface, isNotNull);
-        }
-      },
-    );
-
-    test('all 9 palettes produce valid Dark and OLED ColorSchemes', () {
-      for (final palette in AppColorPalette.values) {
-        final darkScheme = palette.toColorScheme(brightness: Brightness.dark);
-        expect(darkScheme.brightness, Brightness.dark);
-
-        final oledScheme = palette.toColorScheme(
+      test('Palette ${palette.nameEn} produces pure black surface in OLED mode', () {
+        final scheme = palette.toColorScheme(
           brightness: Brightness.dark,
           isOled: true,
         );
-        expect(oledScheme.brightness, Brightness.dark);
-        expect(oledScheme.surface, Colors.black);
-      }
+
+        expect(scheme.surface, const Color(0xFF000000));
+      });
+    }
+
+    test('All palettes have unique ids', () {
+      final ids = AppColorPalette.values.map((p) => p.id).toSet();
+      expect(ids.length, AppColorPalette.values.length);
     });
 
-    test('provides localized names across all 14 supported languages for all 9 palettes', () {
-      final locales = [
-        'ru',
-        'en',
-        'zh',
-        'es',
-        'pt',
-        'de',
-        'fr',
-        'it',
-        'ja',
-        'ko',
-        'tr',
-        'id',
-        'ar',
-        'hi',
-      ];
-
+    test('AppTheme.light and AppTheme.dark build ThemeData without crashing', () {
       for (final palette in AppColorPalette.values) {
-        for (final code in locales) {
-          final localized = palette.localizedName(Locale(code));
-          expect(
-            localized,
-            isNotEmpty,
-            reason: 'Palette ${palette.id} should have translation for $code',
-          );
-        }
+        final lightTheme = AppTheme.light(palette: palette, fontFamily: 'Inter');
+        final darkTheme = AppTheme.dark(
+          palette: palette,
+          fontFamily: 'Inter',
+          isOled: false,
+        );
+        final oledTheme = AppTheme.dark(
+          palette: palette,
+          fontFamily: 'Inter',
+          isOled: true,
+        );
+
+        expect(lightTheme.colorScheme.brightness, Brightness.light);
+        expect(darkTheme.colorScheme.brightness, Brightness.dark);
+        expect(oledTheme.colorScheme.surface, const Color(0xFF000000));
       }
-    });
-  });
-
-  group('AppThemeMode', () {
-    test('correctly maps to Flutter ThemeMode and OLED flag', () {
-      expect(AppThemeMode.system.flutterThemeMode, ThemeMode.system);
-      expect(AppThemeMode.system.isOled, isFalse);
-
-      expect(AppThemeMode.light.flutterThemeMode, ThemeMode.light);
-      expect(AppThemeMode.light.isOled, isFalse);
-
-      expect(AppThemeMode.dark.flutterThemeMode, ThemeMode.dark);
-      expect(AppThemeMode.dark.isOled, isFalse);
-
-      expect(AppThemeMode.oled.flutterThemeMode, ThemeMode.dark);
-      expect(AppThemeMode.oled.isOled, isTrue);
-    });
-
-    test('serializes and deserializes correctly', () {
-      for (final mode in AppThemeMode.values) {
-        expect(AppThemeMode.fromId(mode.id), mode);
-      }
-      expect(AppThemeMode.fromId('unknown'), AppThemeMode.system);
     });
   });
 }

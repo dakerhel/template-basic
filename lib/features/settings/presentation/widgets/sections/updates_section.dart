@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:my_app/core/theme/widgets/app_glass.dart';
 import 'package:my_app/core/theme/widgets/app_toast.dart';
 import 'package:my_app/core/utils/native_intent_launcher.dart';
 import 'package:my_app/features/settings/presentation/widgets/common/settings_group_header.dart';
@@ -24,15 +25,28 @@ class UpdatesSection extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SettingsGroupHeader(title: l10n.updatesGroup),
-        ListTile(
-          leading: const Icon(Icons.system_update),
-          title: Text(l10n.checkForUpdate),
-          subtitle: _subtitle(context, updateState),
-          onTap: updateState is UpdateChecking
-              ? null
-              : () => ref
-                    .read(updateControllerProvider.notifier)
-                    .checkForUpdate(),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          child: AppGlassCard(
+            borderRadius: 16,
+            child: ListTile(
+              leading: const Icon(Icons.system_update_rounded),
+              title: Text(l10n.checkForUpdate),
+              subtitle: _subtitle(context, updateState),
+              trailing: updateState is UpdateChecking
+                  ? const SizedBox(
+                      width: 18,
+                      height: 18,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : const Icon(Icons.refresh_rounded),
+              onTap: updateState is UpdateChecking
+                  ? null
+                  : () => ref
+                        .read(updateControllerProvider.notifier)
+                        .checkForUpdate(),
+            ),
+          ),
         ),
         if (updateState is UpdateAvailable) ...[
           Padding(

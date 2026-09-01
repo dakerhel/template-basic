@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../theme/widgets/app_button.dart';
 import '../../../theme/widgets/app_toast.dart';
 
 import '../../../theme/tokens/tokens.dart';
@@ -124,9 +125,8 @@ class SystemDiagnosticsSheet extends ConsumerWidget {
                           ),
                         ],
                       ),
-                      loading: () =>
-                          const Center(child: CircularProgressIndicator()),
-                      error: (e, _) => Text('Error: $e'),
+                      loading: () => const SizedBox.shrink(),
+                      error: (e, _) => const SizedBox.shrink(),
                     ),
                     const SizedBox(height: 10),
 
@@ -194,8 +194,8 @@ class SystemDiagnosticsSheet extends ConsumerWidget {
                         _DiagItem(
                           isRu ? 'Статус сети' : 'Network Status',
                           networkAsync.value?.isOnline == true
-                              ? 'Online 🟢'
-                              : 'Offline 🔴',
+                              ? (isRu ? 'Online (Подключено)' : 'Online')
+                              : (isRu ? 'Offline (Автономно)' : 'Offline'),
                         ),
                         _DiagItem(
                           isRu ? 'Спец. возможности' : 'Accessibility',
@@ -215,35 +215,31 @@ class SystemDiagnosticsSheet extends ConsumerWidget {
               const SizedBox(height: 16),
 
               // Copy full report button
-              SizedBox(
-                width: double.infinity,
-                child: FilledButton.icon(
-                  icon: const Icon(Icons.copy_all_rounded, size: 20),
-                  label: Text(
+              AppButton(
+                label: isRu
+                    ? 'Скопировать отчёт для поддержки'
+                    : 'Copy Diagnostics Report',
+                leadingIcon: const Icon(Icons.copy_all_rounded, size: 20),
+                isFullWidth: true,
+                onPressed: () {
+                  HapticFeedback.mediumImpact();
+                  final report = _generateReport(
+                    device: deviceAsync.value,
+                    app: appAsync.value,
+                    screen: screen,
+                    access: access,
+                    network: networkAsync.value,
+                  );
+                  Clipboard.setData(ClipboardData(text: report));
+                  Navigator.of(context).pop();
+                  AppToast.success(
+                    context,
                     isRu
-                        ? 'Скопировать отчёт для поддержки'
-                        : 'Copy Diagnostics Report',
-                  ),
-                  onPressed: () {
-                    HapticFeedback.mediumImpact();
-                    final report = _generateReport(
-                      device: deviceAsync.value,
-                      app: appAsync.value,
-                      screen: screen,
-                      access: access,
-                      network: networkAsync.value,
-                    );
-                    Clipboard.setData(ClipboardData(text: report));
-                    Navigator.of(context).pop();
-                    AppToast.success(
-                      context,
-                      isRu
-                          ? 'Отчёт диагностики скопирован в буфер обмена!'
-                          : 'Diagnostics report copied to clipboard!',
-                      title: isRu ? 'Диагностика' : 'Diagnostics',
-                    );
-                  },
-                ),
+                        ? 'Отчёт диагностики скопирован в буфер обмена!'
+                        : 'Diagnostics report copied to clipboard!',
+                    title: isRu ? 'Диагностика' : 'Diagnostics',
+                  );
+                },
               ),
             ],
           ),

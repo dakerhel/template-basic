@@ -2,7 +2,6 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../color_palette_provider.dart';
 import '../liquid_glass_provider.dart';
 import '../theme_mode_provider.dart';
 
@@ -39,7 +38,6 @@ class _AppAmbientBackgroundState extends ConsumerState<AppAmbientBackground>
 
   @override
   Widget build(BuildContext context) {
-    final palette = ref.watch(colorPaletteProvider);
     final themeMode = ref.watch(themeModeProvider);
     final isGlass = ref.watch(liquidGlassProvider);
     final theme = Theme.of(context);
@@ -49,20 +47,16 @@ class _AppAmbientBackgroundState extends ConsumerState<AppAmbientBackground>
 
     // В OLED режиме делаем свечение более тонкими акцентами для идеального контраста
     final double primaryOpacity = isOled
-        ? 0.09
-        : (isDark ? 0.22 : 0.12);
+        ? 0.08
+        : (isDark ? 0.20 : 0.10);
     final double secondaryOpacity = isOled
-        ? 0.06
-        : (isDark ? 0.16 : 0.08);
+        ? 0.05
+        : (isDark ? 0.15 : 0.08);
 
-    final primaryColor = (isDark
-            ? palette.accentColor
-            : palette.getSafeAccentColor(theme.brightness))
-        .withValues(alpha: primaryOpacity);
-    final secondaryColor = (isDark ? palette.baseColor : colorScheme.primary)
-        .withValues(alpha: secondaryOpacity);
+    final primaryColor = colorScheme.primary.withValues(alpha: primaryOpacity);
+    final secondaryColor = colorScheme.secondary.withValues(alpha: secondaryOpacity);
 
-    // Базовый градиент фона
+    // Базовый градиент фона, органично построенный на поверхности текущей палитры
     final BoxDecoration backgroundDeco = isOled
         ? const BoxDecoration(color: Color(0xFF000000))
         : BoxDecoration(
@@ -71,12 +65,18 @@ class _AppAmbientBackgroundState extends ConsumerState<AppAmbientBackground>
               end: Alignment.bottomRight,
               colors: isDark
                   ? [
-                      const Color(0xFF101218),
-                      const Color(0xFF0B0D12),
+                      colorScheme.surface,
+                      Color.alphaBlend(
+                        Colors.black.withValues(alpha: 0.40),
+                        colorScheme.surface,
+                      ),
                     ]
                   : [
-                      const Color(0xFFF9FAFD),
-                      const Color(0xFFEEF2F8),
+                      colorScheme.surface,
+                      Color.alphaBlend(
+                        colorScheme.primary.withValues(alpha: 0.05),
+                        colorScheme.surface,
+                      ),
                     ],
             ),
           );
