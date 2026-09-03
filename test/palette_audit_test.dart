@@ -81,9 +81,10 @@ class _MockSecurityRepository implements SecurityRepository {
 
 void main() {
   const outputDir =
-      r'C:\Users\pavel\.gemini\antigravity-ide\brain\dd9c6c12-b268-4821-beb7-635a4d49607e';
+      r'C:\Users\pavel\.gemini\antigravity-ide\brain\14337031-28ec-457d-bc19-f3019527f1fc\screenshots';
 
   setUpAll(() async {
+    Directory(outputDir).createSync(recursive: true);
     TestWidgetsFlutterBinding.ensureInitialized();
 
     PackageInfo.setMockInitialValues(

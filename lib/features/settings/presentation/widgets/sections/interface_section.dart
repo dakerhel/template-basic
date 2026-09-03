@@ -60,7 +60,7 @@ class InterfaceSection extends ConsumerWidget {
                   leading: const Icon(Icons.text_fields_rounded),
                   title: Text(l10n.settingsFont),
                   subtitle: Text(
-                    '${l10n.fontScale}: ${font.scaleIndex} · ${FontPickerSheet.getFontName(context, font.family)}',
+                    '${l10n.fontScale}: ${(font.scale * 100).round()}% · ${FontPickerSheet.getFontName(context, font.family)}',
                   ),
                   trailing: const Icon(Icons.chevron_right_rounded),
                   onTap: () => FontPickerSheet.show(context, ref),
