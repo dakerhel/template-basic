@@ -9,4 +9,5 @@ final class CounterNotifier extends Notifier<int> {
   int build() => 0;
 
   void increment() => state = state + 1;
+  void reset() => state = 0;
 }

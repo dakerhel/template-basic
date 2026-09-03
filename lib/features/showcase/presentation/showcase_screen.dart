@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/utils/app_haptics.dart';
-import '../../../core/theme/widgets/app_badge.dart';
-import '../../../core/theme/widgets/app_bottom_sheet.dart';
-import '../../../core/theme/widgets/app_button.dart';
-import '../../../core/theme/widgets/app_glass.dart';
-import '../../../core/theme/widgets/app_staggered_item.dart';
-import '../../../core/theme/widgets/app_text_field.dart';
-import '../../../core/theme/widgets/app_toast.dart';
+import '../../../core/theme/widgets/widgets.dart';
 import '../../../l10n/generated/app_localizations.dart';
 
 /// Интерактивная витрина компонентов дизайн-системы и UI Kit шаблона
@@ -21,6 +15,8 @@ class ShowcaseScreen extends StatefulWidget {
 class _ShowcaseScreenState extends State<ShowcaseScreen> {
   bool _isLoadingDemo = false;
   int _selectedChipIndex = 0;
+  int _selectedSegment = 0;
+  double _progressValue = 0.65;
   final _demoSearchController = TextEditingController();
   final _demoTextController = TextEditingController();
   final _demoPasswordController = TextEditingController(text: 'secret123');
@@ -435,6 +431,118 @@ class _ShowcaseScreenState extends State<ShowcaseScreen> {
                       AppHaptics.error();
                       AppToast.error(context, 'Haptic: Error Pattern');
                     },
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          // 7. Секция Сегментированных переключателей (AppSegmentedControl)
+          AppStaggeredItem(
+            index: 6,
+            child: _ShowcaseSection(
+              title: 'Сегментированные контролы (AppSegmentedControl)',
+              subtitle: 'Скользящий Liquid Glass индикатор с поддержкой иконок',
+              child: Column(
+                children: [
+                  AppSegmentedControl<int>(
+                    selectedValue: _selectedSegment,
+                    onValueChanged: (val) => setState(() => _selectedSegment = val),
+                    items: const [
+                      AppSegmentItem(value: 0, label: 'День', icon: Icon(Icons.wb_sunny_outlined)),
+                      AppSegmentItem(value: 1, label: 'Неделя', icon: Icon(Icons.calendar_view_week_outlined)),
+                      AppSegmentItem(value: 2, label: 'Месяц', icon: Icon(Icons.calendar_month_outlined)),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          // 8. Секция Прогресс-баров и Индикаторов (AppProgressBar)
+          AppStaggeredItem(
+            index: 7,
+            child: _ShowcaseSection(
+              title: 'Индикаторы прогресса (AppProgressBar)',
+              subtitle: 'Неоновые градиенты со свечением и круговые спиннеры',
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Загрузка (${(_progressValue * 100).round()}%)',
+                        style: theme.textTheme.labelMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const AppCircularProgress(size: 20, strokeWidth: 2.5),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  AppProgressBar(value: _progressValue),
+                  const SizedBox(height: 14),
+                  Row(
+                    children: [
+                      const Text('0%', style: TextStyle(fontSize: 12)),
+                      Expanded(
+                        child: SliderTheme(
+                          data: SliderTheme.of(context).copyWith(
+                            activeTrackColor: colorScheme.primary,
+                            thumbColor: colorScheme.primary,
+                          ),
+                          child: Slider(
+                            value: _progressValue,
+                            onChanged: (val) => setState(() => _progressValue = val),
+                          ),
+                        ),
+                      ),
+                      const Text('100%', style: TextStyle(fontSize: 12)),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          // 9. Секция Аватаров и статусов (AppAvatar)
+          AppStaggeredItem(
+            index: 8,
+            child: _ShowcaseSection(
+              title: 'Аватары и присутствие (AppAvatar)',
+              subtitle: '4 размера, статусная точка, инициалы и градиентный контур',
+              child: Wrap(
+                spacing: 14,
+                runSpacing: 14,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  AppAvatar(
+                    size: AppAvatarSize.small,
+                    status: AppAvatarStatus.online,
+                    initials: 'АС',
+                    onTap: () => AppToast.info(context, 'Аватар Small (Online)'),
+                  ),
+                  AppAvatar(
+                    size: AppAvatarSize.medium,
+                    status: AppAvatarStatus.busy,
+                    initials: 'МК',
+                    onTap: () => AppToast.info(context, 'Аватар Medium (Busy)'),
+                  ),
+                  AppAvatar(
+                    size: AppAvatarSize.large,
+                    status: AppAvatarStatus.away,
+                    initials: 'TG',
+                    onTap: () => AppToast.info(context, 'Аватар Large (Away)'),
+                  ),
+                  AppAvatar(
+                    size: AppAvatarSize.xlarge,
+                    status: AppAvatarStatus.online,
+                    initials: 'AG',
+                    onTap: () => AppToast.info(context, 'Аватар XLarge (Online)'),
                   ),
                 ],
               ),
