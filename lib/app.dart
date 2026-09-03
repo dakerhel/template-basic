@@ -53,16 +53,28 @@ class MyApp extends ConsumerWidget {
           ),
         );
 
+        final isLocked = securityState.isLocked && securityState.isInitialized;
+        final isShieldActive = securityState.isPrivacyShieldActive;
+        final isObscured = isLocked || isShieldActive;
+
+        final isolatedChild = ExcludeSemantics(
+          excluding: isObscured,
+          child: FocusScope(
+            canRequestFocus: !isObscured,
+            child: scaledChild,
+          ),
+        );
+
         return AnimatedTheme(
           data: Theme.of(context),
           duration: const Duration(milliseconds: 250),
           curve: Curves.easeInOut,
           child: Stack(
             children: [
-              scaledChild,
-              if (securityState.isLocked && securityState.isInitialized)
+              isolatedChild,
+              if (isLocked)
                 const Positioned.fill(child: LockScreen()),
-              if (securityState.isPrivacyShieldActive)
+              if (isShieldActive)
                 const Positioned.fill(child: PrivacyShieldScreen()),
             ],
           ),

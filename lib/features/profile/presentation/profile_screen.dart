@@ -50,37 +50,43 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       text: _userName.isEmpty ? l10n.profileGuestName : _userName,
     );
 
-    final newName = await showDialog<String>(
-      context: context,
-      builder: (dialogContext) => AlertDialog(
-        title: Text(l10n.profileTitle),
-        content: TextField(
-          controller: controller,
-          autofocus: true,
-          decoration: const InputDecoration(
-            labelText: 'Имя профиля / Name',
-            border: OutlineInputBorder(),
+    String? newName;
+    try {
+      newName = await showDialog<String>(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          title: Text(l10n.profileTitle),
+          content: TextField(
+            controller: controller,
+            autofocus: true,
+            decoration: const InputDecoration(
+              labelText: 'Имя профиля / Name',
+              border: OutlineInputBorder(),
+            ),
           ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(),
+              child: const Text('Отмена'),
+            ),
+            FilledButton(
+              onPressed: () =>
+                  Navigator.of(dialogContext).pop(controller.text.trim()),
+              child: const Text('Сохранить'),
+            ),
+          ],
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(dialogContext).pop(),
-            child: const Text('Отмена'),
-          ),
-          FilledButton(
-            onPressed: () =>
-                Navigator.of(dialogContext).pop(controller.text.trim()),
-            child: const Text('Сохранить'),
-          ),
-        ],
-      ),
-    );
+      );
+    } finally {
+      controller.dispose();
+    }
 
     if (newName != null && newName.isNotEmpty) {
+      final validName = newName;
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('profile_custom_name', newName);
+      await prefs.setString('profile_custom_name', validName);
       if (mounted) {
-        setState(() => _userName = newName);
+        setState(() => _userName = validName);
       }
     }
   }
@@ -179,7 +185,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         _userName = '';
         _userEmail = 'guest@local.device';
       });
-      AppToast.success(this.context, 'Профиль успешно сброшен', title: 'Сброшено');
+      if (mounted && context.mounted) {
+        AppToast.success(context, 'Профиль успешно сброшен', title: 'Сброшено');
+      }
     }
   }
 

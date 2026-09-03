@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:my_app/features/update/domain/entities/app_update.dart';
 
@@ -74,6 +77,18 @@ void main() {
       expect(forced.minSupported, '1.0.0');
       expect(forced.notes, update.notes);
       expect(update.required, isFalse);
+    });
+  });
+
+  group('Streaming checksum verification', () {
+    test('computes sha256 via stream without full file buffer in memory', () async {
+      final data = utf8.encode('test-package-payload-content');
+      final expectedSha = sha256.convert(data).toString();
+
+      final stream = Stream.value(data);
+      final digest = await sha256.bind(stream).first;
+
+      expect(digest.toString(), equals(expectedSha));
     });
   });
 }

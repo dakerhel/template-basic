@@ -150,9 +150,14 @@ class _LockScreenState extends ConsumerState<LockScreen>
 
     final isDialpadEnabled = !lockout.isLockedOut && !_isVerifying;
 
-    return Scaffold(
-      backgroundColor: colorScheme.surface,
-      body: SafeArea(
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        // Блокируем pop подлежащего Navigator при заблокированном приложении
+      },
+      child: Scaffold(
+        backgroundColor: colorScheme.surface,
+        body: SafeArea(
         child: Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 380),
@@ -282,6 +287,7 @@ class _LockScreenState extends ConsumerState<LockScreen>
           ),
         ),
       ),
+    ),
     );
   }
 }

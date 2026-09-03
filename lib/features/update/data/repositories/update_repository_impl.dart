@@ -97,15 +97,23 @@ final class UpdateRepositoryImpl implements UpdateRepository {
   }
 
   Future<void> _verifyChecksum(File file, String? expectedSha256) async {
-    if (expectedSha256 == null || expectedSha256.isEmpty) return;
+    if (expectedSha256 == null || expectedSha256.trim().isEmpty) {
+      try {
+        await file.delete();
+      } on FileSystemException {
+        // best effort cleanup
+      }
+      throw const UpdateFailure(
+        'Отсутствует обязательная контрольная сумма SHA-256 в манифесте обновления',
+      );
+    }
     if (!await file.exists()) {
       throw const UpdateFailure(
         'Файл для проверки контрольной суммы не найден',
       );
     }
-    // Читаем асинхронно чтобы не блокировать UI-поток (APK 50-150 МБ)
-    final bytes = await file.readAsBytes();
-    final digest = sha256.convert(bytes);
+    // Потоковое вычисление SHA-256 без загрузки всего файла (50-150 МБ) в RAM (защита от OOM)
+    final digest = await sha256.bind(file.openRead()).first;
     final actual = digest.toString().toLowerCase();
     final expected = expectedSha256.toLowerCase().replaceAll(' ', '');
 

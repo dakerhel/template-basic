@@ -228,6 +228,31 @@ void main() {
       // Should lock on resume from background when autoLock is immediately
       expect(container.read(securityControllerProvider).isLocked, isTrue);
     });
+
+    test('trivial and sequential PINs are rejected as weak', () {
+      bool isTrivialPin(String pin) {
+        if (pin.length != 4) return false;
+        if (pin[0] == pin[1] && pin[1] == pin[2] && pin[2] == pin[3]) {
+          return true;
+        }
+        const trivialList = {
+          '0123', '1234', '2345', '3456', '4567', '5678', '6789',
+          '9876', '8765', '7654', '6543', '5432', '4321', '3210',
+        };
+        return trivialList.contains(pin);
+      }
+
+      expect(isTrivialPin('0000'), isTrue);
+      expect(isTrivialPin('1111'), isTrue);
+      expect(isTrivialPin('9999'), isTrue);
+      expect(isTrivialPin('1234'), isTrue);
+      expect(isTrivialPin('4321'), isTrue);
+      expect(isTrivialPin('0123'), isTrue);
+
+      expect(isTrivialPin('4829'), isFalse);
+      expect(isTrivialPin('7193'), isFalse);
+      expect(isTrivialPin('1357'), isFalse);
+    });
   });
 }
 

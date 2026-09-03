@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../color_palette_provider.dart';
 import '../liquid_glass_provider.dart';
 import '../theme_mode_provider.dart';
-import '../tokens/app_palettes.dart';
 
 /// Атмосферный живой фоновый компонент с мягкими световыми сферами (Ambient Aurora Glow),
 /// которые плавно покачиваются, создавая живую глубину для эффекта Liquid Glass.

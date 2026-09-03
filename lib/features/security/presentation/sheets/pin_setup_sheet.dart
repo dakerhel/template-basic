@@ -84,6 +84,30 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
     super.dispose();
   }
 
+  static bool _isTrivialPin(String pin) {
+    if (pin.length != 4) return false;
+    if (pin[0] == pin[1] && pin[1] == pin[2] && pin[2] == pin[3]) {
+      return true;
+    }
+    const trivialList = {
+      '0123',
+      '1234',
+      '2345',
+      '3456',
+      '4567',
+      '5678',
+      '6789',
+      '9876',
+      '8765',
+      '7654',
+      '6543',
+      '5432',
+      '4321',
+      '3210',
+    };
+    return trivialList.contains(pin);
+  }
+
   String _formatLockoutTimer(int totalSeconds) {
     final minutes = (totalSeconds ~/ 60).toString().padLeft(2, '0');
     final seconds = (totalSeconds % 60).toString().padLeft(2, '0');
@@ -156,6 +180,20 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
           });
         }
       } else if (_step == 1) {
+        // Проверка на тривиальный PIN-код (одинаковые или идущие подряд цифры)
+        if (_isTrivialPin(_currentPin)) {
+          HapticFeedback.vibrate();
+          await _shakeController.forward(from: 0.0);
+          if (!mounted) return;
+          setState(() {
+            _errorMessage = isRu
+                ? 'PIN-код слишком простой. Не используйте одинаковые или идущие подряд цифры'
+                : 'PIN is too weak. Avoid repeated or sequential digits';
+            _currentPin = '';
+          });
+          return;
+        }
+
         // Переход ко второму шагу подтверждения нового PIN-кода
         await Future<void>.delayed(const Duration(milliseconds: 150));
         if (!mounted) return;

@@ -51,9 +51,24 @@ class SecuritySection extends ConsumerWidget {
                   ? 'Быстрый вход с помощью датчика устройства'
                   : 'Quick unlock using device biometric sensor',
               value: security.settings.isBiometricsEnabled,
-              onChanged: (value) => ref
-                  .read(securityControllerProvider.notifier)
-                  .setBiometricsEnabled(value),
+              onChanged: (value) async {
+                if (value) {
+                  // Для включения биометрии требуется подтверждение мастер-PIN
+                  final verified = await PinSetupSheet.show(
+                    context,
+                    mode: PinSheetMode.verify,
+                  );
+                  if (verified == true) {
+                    await ref
+                        .read(securityControllerProvider.notifier)
+                        .setBiometricsEnabled(true);
+                  }
+                } else {
+                  await ref
+                      .read(securityControllerProvider.notifier)
+                      .setBiometricsEnabled(false);
+                }
+              },
             ),
 
           // Автоблокировка

@@ -20,7 +20,7 @@ abstract final class DeviceInfoService {
     final offsetHours = now.timeZoneOffset.inHours;
     final offsetSign = offsetHours >= 0 ? '+' : '';
     final timeZoneOffset = 'UTC$offsetSign$offsetHours';
-    final locale = Platform.localeName;
+    final locale = kIsWeb ? 'en_US' : Platform.localeName;
 
     try {
       if (kIsWeb) {
