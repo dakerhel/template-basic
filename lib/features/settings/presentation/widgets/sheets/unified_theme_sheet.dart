@@ -252,7 +252,7 @@ class UnifiedThemeSheet extends ConsumerWidget {
                                               ? (colorScheme.brightness ==
                                                       Brightness.dark
                                                   ? Colors.white
-                                                  : colorScheme.primary)
+                                                  : const Color(0xFF0F172A))
                                               : colorScheme.onSurface,
                                         ),
                                     maxLines: 1,

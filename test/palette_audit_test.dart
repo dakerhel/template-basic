@@ -21,6 +21,7 @@ import 'package:my_app/features/security/domain/models/security_settings.dart';
 import 'package:my_app/features/security/domain/repositories/security_repository.dart';
 import 'package:my_app/features/security/presentation/controllers/security_controller.dart';
 import 'package:my_app/features/settings/presentation/settings_screen.dart';
+import 'package:my_app/features/settings/presentation/widgets/sheets/unified_theme_sheet.dart';
 import 'package:my_app/features/showcase/presentation/showcase_screen.dart';
 import 'package:my_app/l10n/generated/app_localizations.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -268,6 +269,14 @@ void main() {
         themeMode: AppThemeMode.dark,
       );
 
+      await captureScreen(
+        tester: tester,
+        child: const UnifiedThemeSheet(),
+        filename: 'dark_${palette.name}_sheet.png',
+        palette: palette,
+        themeMode: AppThemeMode.dark,
+      );
+
       // --- LIGHT MODE (ТЕКУЩАЯ СВЕТЛАЯ) ---
       await captureScreen(
         tester: tester,
@@ -289,6 +298,14 @@ void main() {
         tester: tester,
         child: const SettingsScreen(),
         filename: 'light_${palette.name}_settings.png',
+        palette: palette,
+        themeMode: AppThemeMode.light,
+      );
+
+      await captureScreen(
+        tester: tester,
+        child: const UnifiedThemeSheet(),
+        filename: 'light_${palette.name}_sheet.png',
         palette: palette,
         themeMode: AppThemeMode.light,
       );
