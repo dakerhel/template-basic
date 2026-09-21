@@ -75,16 +75,16 @@ class AppButton extends StatelessWidget {
         backgroundColor = isEnabled
             ? (isDark
                 ? colorScheme.primary.withValues(alpha: 0.18)
-                : colorScheme.primaryContainer.withValues(alpha: 0.85))
+                : colorScheme.secondaryContainer.withValues(alpha: 0.85))
             : colorScheme.surfaceContainerHighest.withValues(alpha: 0.30);
         foregroundColor = isEnabled
-            ? (isDark ? colorScheme.primary : colorScheme.onPrimaryContainer)
+            ? (isDark ? colorScheme.primary : colorScheme.onSecondaryContainer)
             : colorScheme.onSurface.withValues(alpha: 0.38);
         border = Border.all(
           color: isEnabled
               ? (isDark
                   ? colorScheme.primary.withValues(alpha: 0.35)
-                  : colorScheme.primary.withValues(alpha: 0.20))
+                  : colorScheme.secondary.withValues(alpha: 0.20))
               : Colors.transparent,
         );
         break;
@@ -107,7 +107,7 @@ class AppButton extends StatelessWidget {
       case AppButtonVariant.ghost:
         backgroundColor = Colors.transparent;
         foregroundColor = isEnabled
-            ? colorScheme.primary
+            ? (isDark ? colorScheme.primary : colorScheme.secondary)
             : colorScheme.onSurface.withValues(alpha: 0.38);
         break;
 

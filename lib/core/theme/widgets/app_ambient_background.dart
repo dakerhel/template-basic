@@ -51,7 +51,7 @@ class _AppAmbientBackgroundState extends ConsumerState<AppAmbientBackground>
         ? palette.accentColor.withValues(alpha: 0.08)
         : (isDark
             ? palette.accentColor.withValues(alpha: 0.20)
-            : palette.accentColor.withValues(alpha: 0.15));
+            : palette.accentColor.withValues(alpha: 0.22));
 
     final effectiveBrightness = isDark ? Brightness.dark : Brightness.light;
     final secondarySource = palette.toColorScheme(brightness: effectiveBrightness).secondary;
@@ -59,7 +59,7 @@ class _AppAmbientBackgroundState extends ConsumerState<AppAmbientBackground>
         ? secondarySource.withValues(alpha: 0.05)
         : (isDark
             ? secondarySource.withValues(alpha: 0.14)
-            : secondarySource.withValues(alpha: 0.12));
+            : secondarySource.withValues(alpha: 0.20));
 
     // Базовый холст фона
     final BoxDecoration backgroundDeco = isOled

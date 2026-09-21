@@ -495,8 +495,11 @@ enum AppColorPalette {
       );
     } else {
       final surfaceColor = _lightSurface;
-      const cardColor = Colors.white;
+      final cardColor = _lightCard;
       final secColor = _lightSecondaryColor;
+      final onSurf = _lightOnSurface;
+      final onSurfVariant = _lightOnSurfaceVariant;
+      final outlineVar = _lightOutlineVariant;
 
       // Динамический расчет контрастного цвета текста на акценте ровно как в тёмной теме
       final onPrimary = accentColor.computeLuminance() > 0.45
@@ -515,11 +518,11 @@ enum AppColorPalette {
         secondaryContainer: secColor.withValues(alpha: 0.14),
         onSecondaryContainer: secColor,
         surface: surfaceColor,
-        onSurface: const Color(0xFF0F172A),
+        onSurface: onSurf,
         surfaceContainerHighest: cardColor,
-        onSurfaceVariant: const Color(0xFF64748B),
-        outline: accentColor.withValues(alpha: 0.25),
-        outlineVariant: secColor.withValues(alpha: 0.12),
+        onSurfaceVariant: onSurfVariant,
+        outline: accentColor.withValues(alpha: 0.35),
+        outlineVariant: outlineVar,
       );
     }
   }
@@ -623,23 +626,115 @@ enum AppColorPalette {
   Color get _lightSurface {
     switch (this) {
       case AppColorPalette.monochrome:
-        return const Color(0xFFF8FAFC);
+        return const Color(0xFFF1F5F9);
       case AppColorPalette.fuchsiaPine:
-        return const Color(0xFFF0FDF4); // Нежная мятно-хвойная атмосфера
+        return const Color(0xFFE2F4E9); // Нежный хвойный мятно-зеленый холст
       case AppColorPalette.indigoGold:
-        return const Color(0xFFF0F0FF); // Лёгкий лавандовый оттенок индиго
+        return const Color(0xFFE8ECFD); // Нежный лавандовый холст индиго
       case AppColorPalette.acidViolet:
-        return const Color(0xFFFAF5FF); // Нежный фиолетовый
+        return const Color(0xFFF1E8FB); // Нежный фиолетовый неоновый холст
       case AppColorPalette.warmAmber:
-        return const Color(0xFFFFFBEB); // Тёплый янтарно-медовый крем
+        return const Color(0xFFFEF3C7); // Тёплый янтарно-медовый холст
       case AppColorPalette.rubyGold:
-        return const Color(0xFFFEF2F2); // Нежный рубиновый розе
+        return const Color(0xFFFFE4E6); // Нежный рубиновый розе холст
       case AppColorPalette.pistachioMilk:
-        return const Color(0xFFF7FEE7); // Фисташковое молоко
+        return const Color(0xFFEAF5E5); // Фисташковое молоко холст
       case AppColorPalette.cyberCyan:
-        return const Color(0xFFF0F9FF); // Ледяной лазурный циан
+        return const Color(0xFFE0F2FE); // Ледяной лазурный кибер-циан холст
       case AppColorPalette.toxicOled:
-        return const Color(0xFFF0FDF4); // Свежий терминальный
+        return const Color(0xFFE6F7ED); // Свежий терминальный холст
+    }
+  }
+
+  Color get _lightCard {
+    switch (this) {
+      case AppColorPalette.monochrome:
+        return const Color(0xFFFFFFFF);
+      case AppColorPalette.fuchsiaPine:
+        return const Color(0xFFF2FAF5); // Деликатная хвойно-белая карточка
+      case AppColorPalette.indigoGold:
+        return const Color(0xFFF4F6FE); // Деликатная индиго-белая карточка
+      case AppColorPalette.acidViolet:
+        return const Color(0xFFF8F4FD); // Деликатная фиолетово-белая карточка
+      case AppColorPalette.warmAmber:
+        return const Color(0xFFFFFBEB); // Тёплая кремовая карточка
+      case AppColorPalette.rubyGold:
+        return const Color(0xFFFFF1F2); // Деликатная рубиново-кремовая карточка
+      case AppColorPalette.pistachioMilk:
+        return const Color(0xFFF4FAF1); // Деликатная фисташково-молочная карточка
+      case AppColorPalette.cyberCyan:
+        return const Color(0xFFF0F9FF); // Деликатная ледяная циан-белая карточка
+      case AppColorPalette.toxicOled:
+        return const Color(0xFFF2FAF5); // Деликатная терминально-белая карточка
+    }
+  }
+
+  Color get _lightOnSurface {
+    switch (this) {
+      case AppColorPalette.monochrome:
+        return const Color(0xFF0F172A);
+      case AppColorPalette.fuchsiaPine:
+        return const Color(0xFF052E1D); // Глубокий лесной хвойный
+      case AppColorPalette.indigoGold:
+        return const Color(0xFF1E1B4B); // Глубокий ночной индиго
+      case AppColorPalette.acidViolet:
+        return const Color(0xFF2E1065); // Глубокий темный фиолет
+      case AppColorPalette.warmAmber:
+        return const Color(0xFF451A03); // Глубокий янтарный темный
+      case AppColorPalette.rubyGold:
+        return const Color(0xFF4C0519); // Глубокий винно-рубиновый темный
+      case AppColorPalette.pistachioMilk:
+        return const Color(0xFF14532D); // Глубокий лесной матча темный
+      case AppColorPalette.cyberCyan:
+        return const Color(0xFF082F49); // Глубокий кибер-синий темный
+      case AppColorPalette.toxicOled:
+        return const Color(0xFF052E16); // Глубокий терминальный темный
+    }
+  }
+
+  Color get _lightOnSurfaceVariant {
+    switch (this) {
+      case AppColorPalette.monochrome:
+        return const Color(0xFF64748B);
+      case AppColorPalette.fuchsiaPine:
+        return const Color(0xFF166534);
+      case AppColorPalette.indigoGold:
+        return const Color(0xFF4338CA);
+      case AppColorPalette.acidViolet:
+        return const Color(0xFF6B21A8);
+      case AppColorPalette.warmAmber:
+        return const Color(0xFF78350F);
+      case AppColorPalette.rubyGold:
+        return const Color(0xFF881337);
+      case AppColorPalette.pistachioMilk:
+        return const Color(0xFF2D6A4F);
+      case AppColorPalette.cyberCyan:
+        return const Color(0xFF0C4A6E);
+      case AppColorPalette.toxicOled:
+        return const Color(0xFF166534);
+    }
+  }
+
+  Color get _lightOutlineVariant {
+    switch (this) {
+      case AppColorPalette.monochrome:
+        return const Color(0xFFE2E8F0);
+      case AppColorPalette.fuchsiaPine:
+        return const Color(0xFFA7D8BA); // Тонкая хвойная граница
+      case AppColorPalette.indigoGold:
+        return const Color(0xFFC7D2FE); // Тонкая индиго граница
+      case AppColorPalette.acidViolet:
+        return const Color(0xFFDDD0F5); // Тонкая фиолетовая граница
+      case AppColorPalette.warmAmber:
+        return const Color(0xFFFDE68A); // Тонкая янтарная граница
+      case AppColorPalette.rubyGold:
+        return const Color(0xFFFECDD3); // Тонкая рубиновая граница
+      case AppColorPalette.pistachioMilk:
+        return const Color(0xFFCBE6B8); // Тонкая фисташковая граница
+      case AppColorPalette.cyberCyan:
+        return const Color(0xFFBAE6FD); // Тонкая циан граница
+      case AppColorPalette.toxicOled:
+        return const Color(0xFFA7E3BC); // Тонкая терминальная граница
     }
   }
 }
