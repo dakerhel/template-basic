@@ -64,17 +64,15 @@ class AppGlassCard extends ConsumerWidget {
 
     if (isGlassEnabled) {
       // ─── РЕЖИМ LIQUID FROSTED GLASS (Светлая и Тёмная темы) ─────────────────
-      final glassColor = isDark
-          ? colorScheme.surfaceContainerHighest.withValues(alpha: 0.50)
-          : Colors.white.withValues(alpha: 0.55);
+      final glassColor = colorScheme.surfaceContainerHighest.withValues(
+        alpha: isDark ? 0.50 : 0.65,
+      );
 
-      final borderColor = isDark
-          ? (isHighlighted
-              ? colorScheme.primary.withValues(alpha: 0.60)
-              : Colors.white.withValues(alpha: 0.12))
-          : (isHighlighted
-              ? colorScheme.primary.withValues(alpha: 0.60)
-              : colorScheme.primary.withValues(alpha: 0.12));
+      final borderColor = isHighlighted
+          ? colorScheme.primary.withValues(alpha: 0.60)
+          : (isDark
+              ? Colors.white.withValues(alpha: 0.12)
+              : colorScheme.outlineVariant);
 
       final List<BoxShadow> shadows = [
         BoxShadow(
@@ -166,13 +164,13 @@ class AppGlassCard extends ConsumerWidget {
       final solidBg = isHighlighted
           ? Color.alphaBlend(
               colorScheme.primary.withValues(alpha: 0.06),
-              Colors.white,
+              colorScheme.surfaceContainerHighest,
             )
-          : Colors.white;
+          : colorScheme.surfaceContainerHighest;
 
       final solidBorder = isHighlighted
           ? colorScheme.primary.withValues(alpha: 0.45)
-          : const Color(0xFFE2E8F0);
+          : colorScheme.outlineVariant;
 
       cardBody = Container(
         padding: padding,

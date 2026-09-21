@@ -41,13 +41,13 @@ class AppFloatingNavBar extends StatelessWidget {
     final colorScheme = theme.colorScheme;
     final isDark = theme.brightness == Brightness.dark;
 
-    final backgroundColor = isDark
-        ? const Color(0xFF13151B).withValues(alpha: 0.80)
-        : Colors.white.withValues(alpha: 0.88);
+    final backgroundColor = colorScheme.surfaceContainerHighest.withValues(
+      alpha: isDark ? 0.80 : 0.88,
+    );
 
     final borderColor = isDark
         ? Colors.white.withValues(alpha: 0.18)
-        : Colors.black.withValues(alpha: 0.08);
+        : colorScheme.outlineVariant;
 
     return SafeArea(
       top: false,

@@ -318,6 +318,7 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
                         icon: Icons.palette_rounded,
                         label: 'Шторка тем',
                         subtitle: '9 палитр и режимы',
+                        color: colorScheme.primary,
                         onTap: () => UnifiedThemeSheet.show(context, ref),
                       ),
                     ),
@@ -327,6 +328,7 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
                         icon: Icons.widgets_rounded,
                         label: 'Витрина UI',
                         subtitle: 'Все компоненты',
+                        color: colorScheme.secondary,
                         onTap: () => context.go('/showcase'),
                       ),
                     ),
@@ -340,6 +342,7 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
                         icon: Icons.lock_outline_rounded,
                         label: 'Тест защиты',
                         subtitle: 'Блокировка экрана',
+                        color: colorScheme.secondary,
                         onTap: () {
                           AppHaptics.light();
                           ref.read(securityControllerProvider.notifier).lockManually();
@@ -352,6 +355,7 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
                         icon: Icons.developer_mode_rounded,
                         label: 'Диагностика',
                         subtitle: 'DPR, память, ОС',
+                        color: colorScheme.primary,
                         onTap: () => SystemDiagnosticsSheet.show(context),
                       ),
                     ),
@@ -501,17 +505,20 @@ class _QuickActionCard extends StatelessWidget {
     required this.label,
     required this.subtitle,
     required this.onTap,
+    this.color,
   });
 
   final IconData icon;
   final String label;
   final String subtitle;
   final VoidCallback onTap;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final effectiveColor = color ?? colorScheme.primary;
 
     return AppGlassCard(
       borderRadius: 14,
@@ -526,10 +533,10 @@ class _QuickActionCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: colorScheme.primary.withValues(alpha: 0.12),
+              color: effectiveColor.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Icon(icon, size: 18, color: colorScheme.primary),
+            child: Icon(icon, size: 18, color: effectiveColor),
           ),
           const SizedBox(height: 10),
           Text(
