@@ -9,6 +9,10 @@ import 'features/update/data/background_update_task.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NotificationService.init();
-  await Workmanager().initialize(callbackDispatcher);
+  try {
+    await Workmanager().initialize(callbackDispatcher);
+  } catch (_) {
+    // Игнорируем на неподдерживаемых платформах и в тестах
+  }
   runApp(const ProviderScope(child: MyApp()));
 }

@@ -96,10 +96,8 @@ class AppFloatingNavBar extends StatelessWidget {
                       colorScheme: colorScheme,
                       isDark: isDark,
                       onTap: () {
-                        if (!isSelected) {
-                          AppHaptics.selection();
-                          onTap(index);
-                        }
+                        AppHaptics.selection();
+                        onTap(index);
                       },
                     );
                   }),

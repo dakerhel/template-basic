@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -101,18 +102,20 @@ class UpdatesSection extends ConsumerWidget {
               .read(updateSettingsProvider.notifier)
               .setBackgroundInstall(value),
         ),
-        SettingsLinkTile(
-          icon: Icons.install_mobile_outlined,
-          title: l10n.installPermissionTitle,
-          subtitle: l10n.installPermissionSubtitle,
-          onTap: () => _openInstallPermission(context),
-        ),
-        SettingsLinkTile(
-          icon: Icons.battery_saver_outlined,
-          title: l10n.backgroundWorkTitle,
-          subtitle: l10n.backgroundWorkSubtitle,
-          onTap: () => _openBatteryOptimization(context),
-        ),
+        if (defaultTargetPlatform == TargetPlatform.android) ...[
+          SettingsLinkTile(
+            icon: Icons.install_mobile_outlined,
+            title: l10n.installPermissionTitle,
+            subtitle: l10n.installPermissionSubtitle,
+            onTap: () => _openInstallPermission(context),
+          ),
+          SettingsLinkTile(
+            icon: Icons.battery_saver_outlined,
+            title: l10n.backgroundWorkTitle,
+            subtitle: l10n.backgroundWorkSubtitle,
+            onTap: () => _openBatteryOptimization(context),
+          ),
+        ],
       ],
     );
   }

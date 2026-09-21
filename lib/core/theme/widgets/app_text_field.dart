@@ -21,6 +21,7 @@ class AppTextField extends StatefulWidget {
     this.textInputAction,
     this.onChanged,
     this.onSubmitted,
+    this.onClear,
     this.validator,
     this.enabled = true,
     this.readOnly = false,
@@ -45,6 +46,7 @@ class AppTextField extends StatefulWidget {
   final TextInputAction? textInputAction;
   final ValueChanged<String>? onChanged;
   final ValueChanged<String>? onSubmitted;
+  final VoidCallback? onClear;
   final FormFieldValidator<String>? validator;
   final bool enabled;
   final bool readOnly;
@@ -132,6 +134,7 @@ class _AppTextFieldState extends State<AppTextField> {
         onPressed: () {
           _effectiveController.clear();
           widget.onChanged?.call('');
+          widget.onClear?.call();
         },
       );
     } else if (widget.suffixIcon != null) {
@@ -283,6 +286,7 @@ class AppSearchField extends StatelessWidget {
       clearable: true,
       onChanged: onChanged,
       onSubmitted: onSubmitted,
+      onClear: onClear,
       prefixIcon: Icon(
         Icons.search_rounded,
         color: colorScheme.primary,

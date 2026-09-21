@@ -5,7 +5,7 @@ import '../notification_handler.dart';
 class DeepLinkNotificationHandler implements NotificationHandler {
   const DeepLinkNotificationHandler();
 
-  static const _allowedRoutes = {'/', '/settings', '/profile'};
+  static const _allowedRoutes = {'/', '/settings', '/profile', '/showcase'};
 
   @override
   bool canHandle(NotificationPayload payload) {

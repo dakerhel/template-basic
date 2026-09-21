@@ -94,7 +94,7 @@ class AboutSection extends ConsumerWidget {
                               _VersionBadge(
                                 label: appInfo != null
                                     ? 'v${appInfo.version} (${appInfo.buildNumber})'
-                                    : 'v1.0.36',
+                                    : 'v1.0.57',
                                 icon: Icons.verified_outlined,
                                 isPrimary: true,
                               ),

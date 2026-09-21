@@ -43,7 +43,7 @@ final class FontController extends Notifier<AppFontSettings> {
     final scaleIndex = prefs.getInt(_scaleKey) ?? 3;
     final familyName = prefs.getString(_familyKey);
     final family = switch (familyName) {
-      'default' => FontFamily.defaultFont,
+      'default' || 'defaultFont' => FontFamily.defaultFont,
       'inter' => FontFamily.inter,
       _ => FontFamily.system,
     };

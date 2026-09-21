@@ -5,6 +5,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/device/presentation/sheets/system_diagnostics_sheet.dart';
+import '../../../core/device/providers/device_providers.dart';
 import '../../../core/locale/locale_provider.dart';
 import '../../../core/notifications/notifications.dart';
 import '../../../core/theme/color_palette_provider.dart';
@@ -123,6 +124,8 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
     final isGlass = ref.watch(liquidGlassProvider);
     final font = ref.watch(fontProvider);
     final locale = ref.watch(localeProvider);
+    final appInfo = ref.watch(appInfoProvider).value;
+    final versionLabel = appInfo != null ? 'v${appInfo.version}' : 'v1.0.57';
 
     ref.listen<UpdateState>(updateControllerProvider, (previous, next) {
       if (next is UpdateAvailable) {
@@ -200,7 +203,7 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
                     ),
                   ),
                   AppBadge(
-                    label: 'v1.0.57',
+                    label: versionLabel,
                     variant: AppBadgeVariant.primary,
                   ),
                 ],
