@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:my_app/features/showcase/presentation/showcase_screen.dart';
+import 'package:my_app/l10n/generated/app_localizations.dart';
 
 void main() {
   testWidgets('ShowcaseScreen renders sections and interactive components', (
@@ -15,6 +16,9 @@ void main() {
     await tester.pumpWidget(
       const ProviderScope(
         child: MaterialApp(
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          locale: Locale('ru'),
           home: ShowcaseScreen(),
         ),
       ),
@@ -24,7 +28,7 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 500));
 
-    expect(find.text('Витрина компонентов'), findsOneWidget);
+    expect(find.text('Витрина'), findsOneWidget);
     expect(find.text('Кнопки (AppButton & AppIconButton)'), findsOneWidget);
     expect(find.text('Поля ввода (AppTextField & Search)'), findsOneWidget);
     expect(find.text('Плавающие тосты (AppToast HUD)'), findsOneWidget);

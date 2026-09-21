@@ -140,28 +140,24 @@ class LanguagePickerSheet extends ConsumerWidget {
                         children: [
                           Container(
                             width: 38,
-                            height: 28,
+                            height: 38,
                             decoration: BoxDecoration(
                               color: isSelected
-                                  ? colorScheme.primary.withValues(alpha: 0.2)
+                                  ? colorScheme.primary.withValues(alpha: 0.15)
                                   : colorScheme.surfaceContainerHighest
                                       .withValues(alpha: 0.5),
-                              borderRadius: BorderRadius.circular(8),
+                              shape: BoxShape.circle,
                               border: Border.all(
                                 color: isSelected
                                     ? colorScheme.primary.withValues(alpha: 0.4)
-                                    : colorScheme.outline.withValues(alpha: 0.15),
+                                    : colorScheme.outlineVariant,
                               ),
                             ),
                             alignment: Alignment.center,
                             child: Text(
-                              language.code.toUpperCase(),
-                              style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold,
-                                color: isSelected
-                                    ? colorScheme.primary
-                                    : colorScheme.onSurfaceVariant,
+                              language.flagEmoji,
+                              style: const TextStyle(
+                                fontSize: 22,
                               ),
                             ),
                           ),

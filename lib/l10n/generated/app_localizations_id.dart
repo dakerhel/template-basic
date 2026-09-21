@@ -287,4 +287,294 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get navShowcase => 'Etalase';
+
+  @override
+  String get homeStarterTitle => 'Starter Sistem Desain';
+
+  @override
+  String get homeStarterSubtitle =>
+      'Flutter 3 • Riverpod • Liquid Glass UI Kit';
+
+  @override
+  String get homeActiveTokens => 'Token sistem aktif';
+
+  @override
+  String get homeConfigure => 'Konfigurasi';
+
+  @override
+  String get homeQuickActions => 'Aksi cepat';
+
+  @override
+  String get homeThemeSheet => 'Menu tema';
+
+  @override
+  String get homeThemeSheetSubtitle => '9 palet & mode';
+
+  @override
+  String get homeShowcase => 'Showcase UI';
+
+  @override
+  String get homeShowcaseSubtitle => 'Semua komponen';
+
+  @override
+  String get homeSecurityTest => 'Uji keamanan';
+
+  @override
+  String get homeSecurityTestSubtitle => 'Kunci layar';
+
+  @override
+  String get homeDiagnostics => 'Diagnostik';
+
+  @override
+  String get homeDiagnosticsSubtitle => 'DPR, memori, OS';
+
+  @override
+  String get homeRiverpodState => 'Status reaktif Riverpod';
+
+  @override
+  String get homeIncrement => 'Tambah';
+
+  @override
+  String get homeReset => 'Reset';
+
+  @override
+  String get liquidGlassEffect => 'Efek Liquid Glass';
+
+  @override
+  String get liquidGlassSubtitle => 'Buram optik & pantulan cahaya';
+
+  @override
+  String get colorSchemes => 'Skema Warna';
+
+  @override
+  String get securityGroup => 'Keamanan';
+
+  @override
+  String get securityPinTitle => 'Perlindungan PIN';
+
+  @override
+  String get securityPinSubtitle => 'Minta kode PIN saat membuka aplikasi';
+
+  @override
+  String get securityBiometricsTitle => 'Biometrik (Sidik Jari / Face ID)';
+
+  @override
+  String get securityBiometricsSubtitle =>
+      'Masuk cepat dengan sensor perangkat';
+
+  @override
+  String get securityPrivacyTitle => 'Sembunyikan di pengalih aplikasi';
+
+  @override
+  String get securityPrivacySubtitle =>
+      'Perlindungan privasi saat beralih aplikasi';
+
+  @override
+  String get securityChangePin => 'Ubah kode PIN';
+
+  @override
+  String get securityChangePinSubtitle => 'Atur kode 4 digit baru';
+
+  @override
+  String get securityAutoLock => 'Waktu kunci otomatis';
+
+  @override
+  String get securityLockNow => 'Kunci layar sekarang';
+
+  @override
+  String get securityPinChanged => 'Kode PIN berhasil diubah';
+
+  @override
+  String get securityTimeoutImmediately => 'Segera';
+
+  @override
+  String get securityTimeout1Min => '1 menit';
+
+  @override
+  String get securityTimeout5Min => '5 menit';
+
+  @override
+  String get securityTimeout15Min => '15 menit';
+
+  @override
+  String get lockScreenTitle => 'Masukkan kode PIN';
+
+  @override
+  String get lockScreenLockedTitle => 'Akses terkunci';
+
+  @override
+  String get lockScreenSubtitle => 'Untuk mengakses aplikasi';
+
+  @override
+  String get lockScreenBiometricsReason =>
+      'Konfirmasi identitas Anda untuk masuk';
+
+  @override
+  String lockScreenBiometricsDisabled(String remaining) {
+    return 'Biometrik dinonaktifkan setelah 3 kegagalan. Masukkan PIN (sisa: $remaining)';
+  }
+
+  @override
+  String lockScreenAttemptsLeft(String remaining) {
+    return 'PIN salah. Sisa percobaan: $remaining';
+  }
+
+  @override
+  String lockScreenTimer(String time) {
+    return 'Coba lagi dalam $time';
+  }
+
+  @override
+  String get pinSetupCreate => 'Buat kode PIN';
+
+  @override
+  String get pinSetupConfirm => 'Konfirmasi kode PIN';
+
+  @override
+  String get pinSetupEnterCurrent => 'Kode PIN saat ini';
+
+  @override
+  String get pinSetupEnterNew => 'Kode PIN baru';
+
+  @override
+  String get pinSetupPromptDigits =>
+      'Masukkan 4 digit untuk mengamankan aplikasi';
+
+  @override
+  String get pinSetupPromptConfirm => 'Masukkan kembali PIN untuk konfirmasi';
+
+  @override
+  String get pinSetupMismatch => 'Kode PIN tidak cocok. Coba lagi';
+
+  @override
+  String get pinSetupTooSimple =>
+      'PIN terlalu sederhana. Hindari angka identik atau berurutan';
+
+  @override
+  String get diagnosticsTitle => 'Diagnostik Sistem';
+
+  @override
+  String get diagnosticsCopy => 'Salin diagnostik';
+
+  @override
+  String get diagnosticsCopied => 'Diagnostik disalin ke papan klip';
+
+  @override
+  String get showcaseButtonsTitle => 'Tombol (AppButton & AppIconButton)';
+
+  @override
+  String get showcaseButtonsSubtitle =>
+      '5 varian, 3 ukuran, status memuat & animasi pegas';
+
+  @override
+  String get showcaseInputsTitle => 'Bidang Input (AppTextField & Search)';
+
+  @override
+  String get showcaseInputsSubtitle =>
+      'Hapus cepat, tombol sembunyikan kata sandi & pencarian';
+
+  @override
+  String get showcaseToastsTitle => 'Notifikasi Melayang (AppToast HUD)';
+
+  @override
+  String get showcaseToastsSubtitle =>
+      'Pemberitahuan popup dengan latar belakang buram & usap untuk menutup';
+
+  @override
+  String get showcaseSheetsTitle => 'Lembar Modal (AppBottomSheet)';
+
+  @override
+  String get showcaseSheetsSubtitle =>
+      'Lembar bawah terpadu dengan gerakan geser & Liquid Glass';
+
+  @override
+  String get showcaseBadgesTitle => 'Lencana & Tag (AppBadge & AppChip)';
+
+  @override
+  String get showcaseBadgesSubtitle =>
+      'Indikator status bersinar & filter interaktif';
+
+  @override
+  String get showcaseHapticsTitle => 'Mesin Umpan Balik Haptik (AppHaptics)';
+
+  @override
+  String get showcaseHapticsSubtitle =>
+      'Pola getaran perangkat semantik yang aman';
+
+  @override
+  String get showcaseSegmentsTitle =>
+      'Kontrol Tersegmentasi (AppSegmentedControl)';
+
+  @override
+  String get showcaseSegmentsSubtitle =>
+      'Indikator Liquid Glass geser dengan dukungan ikon';
+
+  @override
+  String get showcaseProgressTitle => 'Bilah Kemajuan (AppProgressBar)';
+
+  @override
+  String get showcaseProgressSubtitle =>
+      'Gradien neon bersinar & pemutar lingkaran';
+
+  @override
+  String get showcaseAvatarsTitle => 'Avatar & Kehadiran (AppAvatar)';
+
+  @override
+  String get showcaseAvatarsSubtitle =>
+      '4 ukuran, titik status, inisial & garis batas gradien';
+
+  @override
+  String get securityDisableTitle => 'Nonaktifkan Perlindungan PIN?';
+
+  @override
+  String get securityDisableDesc =>
+      'Memasukkan PIN saat ini diperlukan untuk menonaktifkan perlindungan.';
+
+  @override
+  String get securityDisabledToast => 'Perlindungan PIN dinonaktifkan';
+
+  @override
+  String get commonCancel => 'Batal';
+
+  @override
+  String get commonContinue => 'Lanjutkan';
+
+  @override
+  String get diagnosticsDeviceGroup => 'Perangkat & OS';
+
+  @override
+  String get diagnosticsAppGroup => 'Info Build Aplikasi';
+
+  @override
+  String get diagnosticsDisplayGroup => 'Layar & Tampilan';
+
+  @override
+  String get diagnosticsNetworkGroup => 'Jaringan & Aksesibilitas';
+
+  @override
+  String get notifRouterTestTitle => 'Uji Router Notifikasi';
+
+  @override
+  String get notifRouterTestDesc =>
+      'Kirim push uji dengan muatan untuk memverifikasi perutean';
+
+  @override
+  String get notifSendTestButton => 'Kirim Notifikasi Uji';
+
+  @override
+  String get notifTestNotificationTitle => '🔔 Notifikasi Uji';
+
+  @override
+  String get notifTestNotificationBody =>
+      'Ketuk untuk menguji penanganan muatan NotificationRouter';
+
+  @override
+  String get notifTestNotificationSent =>
+      'Notifikasi uji terkirim! Ketuk di panel notifikasi sistem.';
+
+  @override
+  String get notifPermissionOnboardingPreview => 'Pratinjau Onboarding Izin';
+
+  @override
+  String get notifSingleTitle => 'Notifikasi';
 }

@@ -21,7 +21,6 @@ class AboutSection extends ConsumerWidget {
     final l10n = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final isRu = Localizations.localeOf(context).languageCode == 'ru';
 
     final appAsync = ref.watch(appInfoProvider);
     final deviceAsync = ref.watch(deviceInfoProvider);
@@ -151,7 +150,7 @@ class AboutSection extends ConsumerWidget {
                     Row(
                       children: [
                         Text(
-                          isRu ? 'Диагностика' : 'Diagnostics',
+                          l10n.homeDiagnostics,
                           style: theme.textTheme.labelMedium?.copyWith(
                             color: colorScheme.primary,
                             fontWeight: FontWeight.bold,

@@ -20,7 +20,12 @@ void main() {
     await tester.drag(find.byType(ListView), const Offset(0, -300));
     await tester.pump(const Duration(milliseconds: 300));
 
-    await tester.tap(find.text('Увеличить'));
+    final incrementFinder = find.byWidgetPredicate(
+      (widget) =>
+          widget is Text &&
+          (widget.data == 'Увеличить' || widget.data == 'Increment'),
+    );
+    await tester.tap(incrementFinder);
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
 

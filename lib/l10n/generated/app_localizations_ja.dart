@@ -203,7 +203,7 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
-  String get clearCacheAction => 'クリア';
+  String get clearCacheAction => '消去';
 
   @override
   String get cacheCleared => '消去しました';
@@ -231,15 +231,13 @@ class AppLocalizationsJa extends AppLocalizations {
   String get permissionSecurityBenefitTitle => 'セキュリティ保護';
 
   @override
-  String get permissionSecurityBenefitDesc =>
-      '重大なセキュリティイベントとセッション通知';
+  String get permissionSecurityBenefitDesc => '重大なセキュリティイベントとセッション通知';
 
   @override
   String get permissionGrantedSnackbar => '通知が有効になりました';
 
   @override
-  String get permissionDeniedSnackbar =>
-      '通知は無効です。設定からいつでも有効にできます。';
+  String get permissionDeniedSnackbar => '通知は無効です。設定からいつでも有効にできます。';
 
   @override
   String get profileTitle => 'プロフィール';
@@ -272,12 +270,283 @@ class AppLocalizationsJa extends AppLocalizations {
   String get profileDeleteAccount => 'プロフィールとデータを削除';
 
   @override
-  String get profileDeleteConfirm =>
-      'よろしいですか？すべてのローカルデータが削除されます。';
+  String get profileDeleteConfirm => 'よろしいですか？すべてのローカルデータが削除されます。';
 
   @override
   String get navHome => 'ホーム';
 
   @override
   String get navShowcase => 'ショーケース';
+
+  @override
+  String get homeStarterTitle => 'デザインシステム スターター';
+
+  @override
+  String get homeStarterSubtitle =>
+      'Flutter 3 • Riverpod • Liquid Glass UI Kit';
+
+  @override
+  String get homeActiveTokens => 'アクティブなシステムトークン';
+
+  @override
+  String get homeConfigure => '設定';
+
+  @override
+  String get homeQuickActions => 'クイックアクション';
+
+  @override
+  String get homeThemeSheet => 'テーマシート';
+
+  @override
+  String get homeThemeSheetSubtitle => '9種類のパレットとモード';
+
+  @override
+  String get homeShowcase => 'UIショーケース';
+
+  @override
+  String get homeShowcaseSubtitle => '全コンポーネント一覧';
+
+  @override
+  String get homeSecurityTest => 'セキュリティテスト';
+
+  @override
+  String get homeSecurityTestSubtitle => '画面ロックテスト';
+
+  @override
+  String get homeDiagnostics => 'システム診断';
+
+  @override
+  String get homeDiagnosticsSubtitle => 'DPR、メモリ、OS情報';
+
+  @override
+  String get homeRiverpodState => 'Riverpod リアクティブ状態';
+
+  @override
+  String get homeIncrement => '増加';
+
+  @override
+  String get homeReset => 'リセット';
+
+  @override
+  String get liquidGlassEffect => 'Liquid Glass効果';
+
+  @override
+  String get liquidGlassSubtitle => '光学的なぼかしとスペキュラ反射';
+
+  @override
+  String get colorSchemes => 'カラーパレット';
+
+  @override
+  String get securityGroup => 'セキュリティ';
+
+  @override
+  String get securityPinTitle => 'PINコード保護';
+
+  @override
+  String get securityPinSubtitle => 'アプリ起動時にPINコードを要求';
+
+  @override
+  String get securityBiometricsTitle => '生体認証 (指紋 / Face ID)';
+
+  @override
+  String get securityBiometricsSubtitle => '端末センサーによる素早いログイン';
+
+  @override
+  String get securityPrivacyTitle => 'タスク一覧で内容を非表示';
+
+  @override
+  String get securityPrivacySubtitle => 'アプリ切り替え時の覗き見防止';
+
+  @override
+  String get securityChangePin => 'PINコード変更';
+
+  @override
+  String get securityChangePinSubtitle => '新しい4桁の暗証番号を設定';
+
+  @override
+  String get securityAutoLock => '自動ロック時間';
+
+  @override
+  String get securityLockNow => '今すぐ画面をロック';
+
+  @override
+  String get securityPinChanged => 'PINコードが正常に変更されました';
+
+  @override
+  String get securityTimeoutImmediately => '即時';
+
+  @override
+  String get securityTimeout1Min => '1分';
+
+  @override
+  String get securityTimeout5Min => '5分';
+
+  @override
+  String get securityTimeout15Min => '15分';
+
+  @override
+  String get lockScreenTitle => 'PINコードを入力';
+
+  @override
+  String get lockScreenLockedTitle => '入力がロックされています';
+
+  @override
+  String get lockScreenSubtitle => 'アプリにアクセスするために必要です';
+
+  @override
+  String get lockScreenBiometricsReason => '認証してアプリのロックを解除';
+
+  @override
+  String lockScreenBiometricsDisabled(String remaining) {
+    return '3回失敗したため生体認証が無効化されました。PINを入力してください（残り: $remaining回）';
+  }
+
+  @override
+  String lockScreenAttemptsLeft(String remaining) {
+    return 'PINコードが間違っています。残り試行回数: $remaining';
+  }
+
+  @override
+  String lockScreenTimer(String time) {
+    return '$time 後にもう一度お試しください';
+  }
+
+  @override
+  String get pinSetupCreate => 'PINコード作成';
+
+  @override
+  String get pinSetupConfirm => 'PINコード確認';
+
+  @override
+  String get pinSetupEnterCurrent => '現在のPINコード';
+
+  @override
+  String get pinSetupEnterNew => '新しいPINコード';
+
+  @override
+  String get pinSetupPromptDigits => 'アプリを保護する4桁の番号を入力してください';
+
+  @override
+  String get pinSetupPromptConfirm => '確認のためもう一度PINコードを入力してください';
+
+  @override
+  String get pinSetupMismatch => 'PINコードが一致しません。再試行してください';
+
+  @override
+  String get pinSetupTooSimple => 'PINが単純すぎます。同じ数字や連続する数字は避けてください';
+
+  @override
+  String get diagnosticsTitle => 'システム診断';
+
+  @override
+  String get diagnosticsCopy => '診断情報をコピー';
+
+  @override
+  String get diagnosticsCopied => '診断情報をクリップボードにコピーしました';
+
+  @override
+  String get showcaseButtonsTitle => 'ボタン (AppButton & AppIconButton)';
+
+  @override
+  String get showcaseButtonsSubtitle => '5つのバリアント、3サイズ、ロード状態とスプリング物理アニメーション';
+
+  @override
+  String get showcaseInputsTitle => '入力フィールド (AppTextField & Search)';
+
+  @override
+  String get showcaseInputsSubtitle => '素早いクリア、パスワード表示切り替え、スタイル付き検索';
+
+  @override
+  String get showcaseToastsTitle => 'フロート通知 (AppToast HUD)';
+
+  @override
+  String get showcaseToastsSubtitle => '背景ぼかし付きポップアップ、スワイプで閉じる機能';
+
+  @override
+  String get showcaseSheetsTitle => 'モーダルシート (AppBottomSheet)';
+
+  @override
+  String get showcaseSheetsSubtitle => 'スワイプ操作とLiquid Glassぼかしを備えた統合シート';
+
+  @override
+  String get showcaseBadgesTitle => 'バッジ & タグ (AppBadge & AppChip)';
+
+  @override
+  String get showcaseBadgesSubtitle => '発光ステータス表示とインタラクティブなフィルタ';
+
+  @override
+  String get showcaseHapticsTitle => '触覚フィードバックエンジン (AppHaptics)';
+
+  @override
+  String get showcaseHapticsSubtitle => '安全で意味論的なデバイス振動パターン';
+
+  @override
+  String get showcaseSegmentsTitle => 'セグメントコントロール (AppSegmentedControl)';
+
+  @override
+  String get showcaseSegmentsSubtitle => 'アイコン対応のスライド式Liquid Glassインジケーター';
+
+  @override
+  String get showcaseProgressTitle => 'プログレスバー (AppProgressBar)';
+
+  @override
+  String get showcaseProgressSubtitle => 'ネオングラデーション発光と円形スピナー';
+
+  @override
+  String get showcaseAvatarsTitle => 'アバター & プレゼンス (AppAvatar)';
+
+  @override
+  String get showcaseAvatarsSubtitle => '4サイズ、ステータスドット、イニシャル、グラデーション枠線';
+
+  @override
+  String get securityDisableTitle => 'PIN保護を無効にしますか？';
+
+  @override
+  String get securityDisableDesc => '保護を無効にするには、現在のPINを入力する必要があります。';
+
+  @override
+  String get securityDisabledToast => 'PIN保護が無効になりました';
+
+  @override
+  String get commonCancel => 'キャンセル';
+
+  @override
+  String get commonContinue => '続行';
+
+  @override
+  String get diagnosticsDeviceGroup => 'デバイスとOS';
+
+  @override
+  String get diagnosticsAppGroup => 'アプリビルド情報';
+
+  @override
+  String get diagnosticsDisplayGroup => '画面とディスプレイ';
+
+  @override
+  String get diagnosticsNetworkGroup => 'ネットワークとアクセシビリティ';
+
+  @override
+  String get notifRouterTestTitle => '通知ルーターテスト';
+
+  @override
+  String get notifRouterTestDesc => 'ルーティングディスパッチャを検証するためにペイロード付きテスト通知を送信';
+
+  @override
+  String get notifSendTestButton => 'テスト通知を送信';
+
+  @override
+  String get notifTestNotificationTitle => '🔔 テスト通知';
+
+  @override
+  String get notifTestNotificationBody =>
+      'タップして NotificationRouter のペイロード処理をテスト';
+
+  @override
+  String get notifTestNotificationSent => 'テスト通知を送信しました！通知バーからタップしてください。';
+
+  @override
+  String get notifPermissionOnboardingPreview => '権限オンボーディングをプレビュー';
+
+  @override
+  String get notifSingleTitle => '通知';
 }

@@ -287,4 +287,291 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get navShowcase => 'Showcase';
+
+  @override
+  String get homeStarterTitle => 'Design System Starter';
+
+  @override
+  String get homeStarterSubtitle =>
+      'Flutter 3 • Riverpod • Liquid Glass UI Kit';
+
+  @override
+  String get homeActiveTokens => 'Active system tokens';
+
+  @override
+  String get homeConfigure => 'Configure';
+
+  @override
+  String get homeQuickActions => 'Quick actions';
+
+  @override
+  String get homeThemeSheet => 'Theme sheet';
+
+  @override
+  String get homeThemeSheetSubtitle => '9 palettes & modes';
+
+  @override
+  String get homeShowcase => 'UI Showcase';
+
+  @override
+  String get homeShowcaseSubtitle => 'All components';
+
+  @override
+  String get homeSecurityTest => 'Security test';
+
+  @override
+  String get homeSecurityTestSubtitle => 'Screen lock';
+
+  @override
+  String get homeDiagnostics => 'Diagnostics';
+
+  @override
+  String get homeDiagnosticsSubtitle => 'DPR, memory, OS';
+
+  @override
+  String get homeRiverpodState => 'Riverpod reactive state';
+
+  @override
+  String get homeIncrement => 'Increment';
+
+  @override
+  String get homeReset => 'Reset';
+
+  @override
+  String get liquidGlassEffect => 'Liquid Glass Effect';
+
+  @override
+  String get liquidGlassSubtitle => 'Optical blur & specular reflections';
+
+  @override
+  String get colorSchemes => 'Color Schemes';
+
+  @override
+  String get securityGroup => 'Security';
+
+  @override
+  String get securityPinTitle => 'PIN code protection';
+
+  @override
+  String get securityPinSubtitle => 'Require PIN code on app launch';
+
+  @override
+  String get securityBiometricsTitle => 'Biometrics (Fingerprint / Face ID)';
+
+  @override
+  String get securityBiometricsSubtitle => 'Quick unlock with device sensor';
+
+  @override
+  String get securityPrivacyTitle => 'Hide in App Switcher';
+
+  @override
+  String get securityPrivacySubtitle => 'Privacy shield when switching apps';
+
+  @override
+  String get securityChangePin => 'Change PIN code';
+
+  @override
+  String get securityChangePinSubtitle => 'Set a new 4-digit code';
+
+  @override
+  String get securityAutoLock => 'Auto-lock timeout';
+
+  @override
+  String get securityLockNow => 'Lock screen now';
+
+  @override
+  String get securityPinChanged => 'PIN code changed successfully';
+
+  @override
+  String get securityTimeoutImmediately => 'Immediately';
+
+  @override
+  String get securityTimeout1Min => '1 minute';
+
+  @override
+  String get securityTimeout5Min => '5 minutes';
+
+  @override
+  String get securityTimeout15Min => '15 minutes';
+
+  @override
+  String get lockScreenTitle => 'Enter PIN code';
+
+  @override
+  String get lockScreenLockedTitle => 'Entry locked';
+
+  @override
+  String get lockScreenSubtitle => 'To access the application';
+
+  @override
+  String get lockScreenBiometricsReason => 'Authenticate to unlock the app';
+
+  @override
+  String lockScreenBiometricsDisabled(String remaining) {
+    return 'Biometrics disabled after 3 failed attempts. Enter PIN ($remaining left)';
+  }
+
+  @override
+  String lockScreenAttemptsLeft(String remaining) {
+    return 'Incorrect PIN. Remaining attempts: $remaining';
+  }
+
+  @override
+  String lockScreenTimer(String time) {
+    return 'Try again in $time';
+  }
+
+  @override
+  String get pinSetupCreate => 'Create PIN code';
+
+  @override
+  String get pinSetupConfirm => 'Confirm PIN code';
+
+  @override
+  String get pinSetupEnterCurrent => 'Current PIN code';
+
+  @override
+  String get pinSetupEnterNew => 'New PIN code';
+
+  @override
+  String get pinSetupPromptDigits => 'Enter 4 digits to secure the app';
+
+  @override
+  String get pinSetupPromptConfirm => 'Re-enter PIN code to confirm';
+
+  @override
+  String get pinSetupMismatch => 'PIN codes do not match. Try again';
+
+  @override
+  String get pinSetupTooSimple =>
+      'PIN is too simple. Avoid identical or sequential numbers';
+
+  @override
+  String get diagnosticsTitle => 'System Diagnostics';
+
+  @override
+  String get diagnosticsCopy => 'Copy diagnostics';
+
+  @override
+  String get diagnosticsCopied => 'Diagnostics copied to clipboard';
+
+  @override
+  String get showcaseButtonsTitle => 'Buttons (AppButton & AppIconButton)';
+
+  @override
+  String get showcaseButtonsSubtitle =>
+      '5 variants, 3 sizes, loading states & spring physics';
+
+  @override
+  String get showcaseInputsTitle => 'Input Fields (AppTextField & Search)';
+
+  @override
+  String get showcaseInputsSubtitle =>
+      'Quick clear, password toggle & styled search';
+
+  @override
+  String get showcaseToastsTitle => 'Floating HUD Toasts (AppToast)';
+
+  @override
+  String get showcaseToastsSubtitle =>
+      'Popup notifications with background blur & swipe dismiss';
+
+  @override
+  String get showcaseSheetsTitle => 'Modal Sheets (AppBottomSheet)';
+
+  @override
+  String get showcaseSheetsSubtitle =>
+      'Unified bottom sheets with swipe & Liquid Glass blur';
+
+  @override
+  String get showcaseBadgesTitle => 'Badges & Tags (AppBadge & AppChip)';
+
+  @override
+  String get showcaseBadgesSubtitle =>
+      'Status indicators with glow & interactive filters';
+
+  @override
+  String get showcaseHapticsTitle => 'Haptic Feedback Engine (AppHaptics)';
+
+  @override
+  String get showcaseHapticsSubtitle =>
+      'Safe semantic device vibration patterns';
+
+  @override
+  String get showcaseSegmentsTitle =>
+      'Segmented Controls (AppSegmentedControl)';
+
+  @override
+  String get showcaseSegmentsSubtitle =>
+      'Sliding Liquid Glass indicator with icon support';
+
+  @override
+  String get showcaseProgressTitle => 'Progress Indicators (AppProgressBar)';
+
+  @override
+  String get showcaseProgressSubtitle =>
+      'Neon gradients with glow & circular spinners';
+
+  @override
+  String get showcaseAvatarsTitle => 'Avatars & Presence (AppAvatar)';
+
+  @override
+  String get showcaseAvatarsSubtitle =>
+      '4 sizes, status indicator, initials & gradient outline';
+
+  @override
+  String get securityDisableTitle => 'Disable PIN Protection?';
+
+  @override
+  String get securityDisableDesc =>
+      'Entering your current PIN is required to disable protection.';
+
+  @override
+  String get securityDisabledToast => 'PIN protection disabled';
+
+  @override
+  String get commonCancel => 'Cancel';
+
+  @override
+  String get commonContinue => 'Continue';
+
+  @override
+  String get diagnosticsDeviceGroup => 'Device & OS';
+
+  @override
+  String get diagnosticsAppGroup => 'App Build Info';
+
+  @override
+  String get diagnosticsDisplayGroup => 'Screen & Display';
+
+  @override
+  String get diagnosticsNetworkGroup => 'Network & Accessibility';
+
+  @override
+  String get notifRouterTestTitle => 'Notification Router Test';
+
+  @override
+  String get notifRouterTestDesc =>
+      'Send test push with payload to verify routing dispatcher';
+
+  @override
+  String get notifSendTestButton => 'Send Test Notification';
+
+  @override
+  String get notifTestNotificationTitle => '🔔 Test Notification';
+
+  @override
+  String get notifTestNotificationBody =>
+      'Tap to test NotificationRouter payload handling';
+
+  @override
+  String get notifTestNotificationSent =>
+      'Test notification sent! Tap it in the system tray.';
+
+  @override
+  String get notifPermissionOnboardingPreview =>
+      'Preview Permission Onboarding';
+
+  @override
+  String get notifSingleTitle => 'Notification';
 }

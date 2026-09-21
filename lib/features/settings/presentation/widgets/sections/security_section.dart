@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:my_app/core/theme/widgets/app_toast.dart';
+import 'package:my_app/l10n/generated/app_localizations.dart';
 
 import '../../../../../core/theme/widgets/app_glass.dart';
 import '../../../../security/domain/models/security_settings.dart';
@@ -16,25 +17,23 @@ class SecuritySection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final security = ref.watch(securityControllerProvider);
-    final isRu = Localizations.localeOf(context).languageCode == 'ru';
+    final l10n = AppLocalizations.of(context)!;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SettingsGroupHeader(title: isRu ? 'Безопасность' : 'Security'),
+        SettingsGroupHeader(title: l10n.securityGroup),
 
         // Карточка включения PIN-кода
         SettingsToggleCard(
-          title: isRu ? 'Защита PIN-кодом' : 'PIN Code Protection',
-          subtitle: isRu
-              ? 'Запрашивать PIN-код при входе в приложение'
-              : 'Require PIN code to open the application',
+          title: l10n.securityPinTitle,
+          subtitle: l10n.securityPinSubtitle,
           value: security.settings.isPinEnabled,
           onChanged: (value) async {
             if (value) {
               await PinSetupSheet.show(context);
             } else {
-              _confirmRemovePin(context, ref, isRu);
+              _confirmRemovePin(context, ref, l10n);
             }
           },
         ),
@@ -44,12 +43,8 @@ class SecuritySection extends ConsumerWidget {
           // Биометрия
           if (security.canUseBiometrics)
             SettingsToggleCard(
-              title: isRu
-                  ? 'Биометрия (Отпечаток / Face ID)'
-                  : 'Biometrics (Fingerprint / Face ID)',
-              subtitle: isRu
-                  ? 'Быстрый вход с помощью датчика устройства'
-                  : 'Quick unlock using device biometric sensor',
+              title: l10n.securityBiometricsTitle,
+              subtitle: l10n.securityBiometricsSubtitle,
               value: security.settings.isBiometricsEnabled,
               onChanged: (value) async {
                 if (value) {
@@ -74,7 +69,7 @@ class SecuritySection extends ConsumerWidget {
           // Автоблокировка
           _AutoLockCard(
             currentDuration: security.settings.autoLockDuration,
-            isRu: isRu,
+            l10n: l10n,
             onChanged: (dur) => ref
                 .read(securityControllerProvider.notifier)
                 .setAutoLockDuration(dur),
@@ -82,12 +77,8 @@ class SecuritySection extends ConsumerWidget {
 
           // Скрытие контента в диспетчере задач (Privacy Shield)
           SettingsToggleCard(
-            title: isRu
-                ? 'Скрывать контент в списке задач'
-                : 'Hide in App Switcher',
-            subtitle: isRu
-                ? 'Защита от подглядывания при переключении между приложениями'
-                : 'Privacy shield overlay when switching apps',
+            title: l10n.securityPrivacyTitle,
+            subtitle: l10n.securityPrivacySubtitle,
             value: security.settings.isHideContentEnabled,
             onChanged: (value) => ref
                 .read(securityControllerProvider.notifier)
@@ -104,12 +95,8 @@ class SecuritySection extends ConsumerWidget {
                 children: [
                   ListTile(
                     leading: const Icon(Icons.password_rounded),
-                    title: Text(isRu ? 'Изменить PIN-код' : 'Change PIN Code'),
-                    subtitle: Text(
-                      isRu
-                          ? 'Установить новый 4-значный пароль'
-                          : 'Set a new 4-digit password',
-                    ),
+                    title: Text(l10n.securityChangePin),
+                    subtitle: Text(l10n.securityChangePinSubtitle),
                     trailing: const Icon(Icons.chevron_right_rounded),
                     onTap: () async {
                       final result = await PinSetupSheet.show(
@@ -119,10 +106,8 @@ class SecuritySection extends ConsumerWidget {
                       if (result == true && context.mounted) {
                         AppToast.success(
                           context,
-                          isRu
-                              ? 'PIN-код успешно изменен'
-                              : 'PIN code successfully changed',
-                          title: isRu ? 'Безопасность' : 'Security',
+                          l10n.securityPinChanged,
+                          title: l10n.securityGroup,
                         );
                       }
                     },
@@ -130,12 +115,8 @@ class SecuritySection extends ConsumerWidget {
                   const Divider(height: 1, indent: 56, endIndent: 16),
                   ListTile(
                     leading: const Icon(Icons.lock_clock_outlined),
-                    title: Text(isRu ? 'Заблокировать сейчас' : 'Lock App Now'),
-                    subtitle: Text(
-                      isRu
-                          ? 'Мгновенно перейти на экран блокировки'
-                          : 'Immediately switch to lock screen',
-                    ),
+                    title: Text(l10n.securityLockNow),
+                    subtitle: Text(l10n.lockScreenSubtitle),
                     trailing: const Icon(Icons.chevron_right_rounded),
                     onTap: () =>
                         ref.read(securityControllerProvider.notifier).lockManually(),
@@ -149,21 +130,17 @@ class SecuritySection extends ConsumerWidget {
     );
   }
 
-  void _confirmRemovePin(BuildContext context, WidgetRef ref, bool isRu) {
+  void _confirmRemovePin(BuildContext context, WidgetRef ref, AppLocalizations l10n) {
     showDialog<void>(
       context: context,
       builder: (dialogContext) {
         return AlertDialog(
-          title: Text(isRu ? 'Отключить защиту?' : 'Disable PIN Protection?'),
-          content: Text(
-            isRu
-                ? 'Для отключения защиты потребуется ввести текущий PIN-код.'
-                : 'Entering your current PIN is required to disable protection.',
-          ),
+          title: Text(l10n.securityDisableTitle),
+          content: Text(l10n.securityDisableDesc),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(dialogContext).pop(),
-              child: Text(isRu ? 'Отмена' : 'Cancel'),
+              child: Text(l10n.commonCancel),
             ),
             FilledButton(
               onPressed: () async {
@@ -179,15 +156,13 @@ class SecuritySection extends ConsumerWidget {
                   if (context.mounted) {
                     AppToast.info(
                       context,
-                      isRu
-                          ? 'Защита PIN-кодом отключена'
-                          : 'PIN protection disabled',
-                      title: isRu ? 'Безопасность' : 'Security',
+                      l10n.securityDisabledToast,
+                      title: l10n.securityGroup,
                     );
                   }
                 }
               },
-              child: Text(isRu ? 'Продолжить' : 'Continue'),
+              child: Text(l10n.commonContinue),
             ),
           ],
         );
@@ -199,13 +174,26 @@ class SecuritySection extends ConsumerWidget {
 class _AutoLockCard extends StatelessWidget {
   const _AutoLockCard({
     required this.currentDuration,
-    required this.isRu,
+    required this.l10n,
     required this.onChanged,
   });
 
   final AutoLockDuration currentDuration;
-  final bool isRu;
+  final AppLocalizations l10n;
   final ValueChanged<AutoLockDuration> onChanged;
+
+  String _formatDuration(AutoLockDuration duration) {
+    switch (duration) {
+      case AutoLockDuration.immediately:
+        return l10n.securityTimeoutImmediately;
+      case AutoLockDuration.oneMinute:
+        return l10n.securityTimeout1Min;
+      case AutoLockDuration.fiveMinutes:
+        return l10n.securityTimeout5Min;
+      case AutoLockDuration.fifteenMinutes:
+        return l10n.securityTimeout15Min;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -221,7 +209,7 @@ class _AutoLockCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              isRu ? 'Автоблокировка' : 'Auto-Lock',
+              l10n.securityAutoLock,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w600,
                 color: colorScheme.onSurface,
@@ -229,9 +217,7 @@ class _AutoLockCard extends StatelessWidget {
             ),
             const SizedBox(height: 6),
             Text(
-              isRu
-                  ? 'Время неактивности до блокировки'
-                  : 'Inactive time before locking',
+              l10n.securityAutoLock,
               style: theme.textTheme.bodySmall?.copyWith(
                 color: colorScheme.onSurfaceVariant,
               ),
@@ -243,9 +229,7 @@ class _AutoLockCard extends StatelessWidget {
                   if (i > 0) const SizedBox(width: 6),
                   Expanded(
                     child: _AutoLockChip(
-                      label: isRu
-                          ? AutoLockDuration.values[i].nameRu
-                          : AutoLockDuration.values[i].nameEn,
+                      label: _formatDuration(AutoLockDuration.values[i]),
                       isSelected: AutoLockDuration.values[i] == currentDuration,
                       onTap: () => onChanged(AutoLockDuration.values[i]),
                     ),

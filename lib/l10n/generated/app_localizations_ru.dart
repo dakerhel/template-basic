@@ -287,4 +287,294 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get navShowcase => 'Витрина';
+
+  @override
+  String get homeStarterTitle => 'Design System Starter';
+
+  @override
+  String get homeStarterSubtitle =>
+      'Flutter 3 • Riverpod • Liquid Glass UI Kit';
+
+  @override
+  String get homeActiveTokens => 'Активные токены системы';
+
+  @override
+  String get homeConfigure => 'Настроить';
+
+  @override
+  String get homeQuickActions => 'Быстрые действия';
+
+  @override
+  String get homeThemeSheet => 'Шторка тем';
+
+  @override
+  String get homeThemeSheetSubtitle => '9 палитр и режимы';
+
+  @override
+  String get homeShowcase => 'Витрина UI';
+
+  @override
+  String get homeShowcaseSubtitle => 'Все компоненты';
+
+  @override
+  String get homeSecurityTest => 'Тест защиты';
+
+  @override
+  String get homeSecurityTestSubtitle => 'Блокировка экрана';
+
+  @override
+  String get homeDiagnostics => 'Диагностика';
+
+  @override
+  String get homeDiagnosticsSubtitle => 'DPR, память, ОС';
+
+  @override
+  String get homeRiverpodState => 'Реактивное состояние Riverpod';
+
+  @override
+  String get homeIncrement => 'Увеличить';
+
+  @override
+  String get homeReset => 'Сбросить';
+
+  @override
+  String get liquidGlassEffect => 'Эффект Liquid Glass';
+
+  @override
+  String get liquidGlassSubtitle => 'Оптическое размытие и блики';
+
+  @override
+  String get colorSchemes => 'Цветовые палитры';
+
+  @override
+  String get securityGroup => 'Безопасность';
+
+  @override
+  String get securityPinTitle => 'Защита PIN-кодом';
+
+  @override
+  String get securityPinSubtitle =>
+      'Запрашивать PIN-код при входе в приложение';
+
+  @override
+  String get securityBiometricsTitle => 'Биометрия (Отпечаток / Face ID)';
+
+  @override
+  String get securityBiometricsSubtitle =>
+      'Быстрый вход с помощью датчика устройства';
+
+  @override
+  String get securityPrivacyTitle => 'Скрывать контент в списке задач';
+
+  @override
+  String get securityPrivacySubtitle =>
+      'Защита от подглядывания при переключении между приложениями';
+
+  @override
+  String get securityChangePin => 'Изменить PIN-код';
+
+  @override
+  String get securityChangePinSubtitle => 'Установить новый 4-значный пароль';
+
+  @override
+  String get securityAutoLock => 'Время автоблокировки';
+
+  @override
+  String get securityLockNow => 'Заблокировать сейчас';
+
+  @override
+  String get securityPinChanged => 'PIN-код успешно изменен';
+
+  @override
+  String get securityTimeoutImmediately => 'Сразу';
+
+  @override
+  String get securityTimeout1Min => '1 минута';
+
+  @override
+  String get securityTimeout5Min => '5 минут';
+
+  @override
+  String get securityTimeout15Min => '15 минут';
+
+  @override
+  String get lockScreenTitle => 'Введите PIN-код';
+
+  @override
+  String get lockScreenLockedTitle => 'Ввод заблокирован';
+
+  @override
+  String get lockScreenSubtitle => 'Для доступа к приложению';
+
+  @override
+  String get lockScreenBiometricsReason => 'Подтвердите личность для входа';
+
+  @override
+  String lockScreenBiometricsDisabled(String remaining) {
+    return 'Биометрия отключена после 3 ошибок. Введите PIN (осталось: $remaining)';
+  }
+
+  @override
+  String lockScreenAttemptsLeft(String remaining) {
+    return 'Неверный PIN. Осталось попыток: $remaining';
+  }
+
+  @override
+  String lockScreenTimer(String time) {
+    return 'Попробуйте снова через $time';
+  }
+
+  @override
+  String get pinSetupCreate => 'Создайте PIN-код';
+
+  @override
+  String get pinSetupConfirm => 'Подтверждение PIN-кода';
+
+  @override
+  String get pinSetupEnterCurrent => 'Текущий PIN-код';
+
+  @override
+  String get pinSetupEnterNew => 'Новый PIN-код';
+
+  @override
+  String get pinSetupPromptDigits => 'Введите 4 цифры для защиты приложения';
+
+  @override
+  String get pinSetupPromptConfirm => 'Повторите введенный PIN-код';
+
+  @override
+  String get pinSetupMismatch => 'PIN-коды не совпадают. Попробуйте снова';
+
+  @override
+  String get pinSetupTooSimple =>
+      'PIN-код слишком простой. Не используйте одинаковые или идущие подряд цифры';
+
+  @override
+  String get diagnosticsTitle => 'Системная диагностика';
+
+  @override
+  String get diagnosticsCopy => 'Копировать диагностику';
+
+  @override
+  String get diagnosticsCopied => 'Диагностика скопирована в буфер';
+
+  @override
+  String get showcaseButtonsTitle => 'Кнопки (AppButton & AppIconButton)';
+
+  @override
+  String get showcaseButtonsSubtitle =>
+      '5 вариантов, 3 размера, встроенная загрузка и пружинная физика';
+
+  @override
+  String get showcaseInputsTitle => 'Поля ввода (AppTextField & Search)';
+
+  @override
+  String get showcaseInputsSubtitle =>
+      'Быстрая очистка, переключение видимости и стилизованный поиск';
+
+  @override
+  String get showcaseToastsTitle => 'Плавающие тосты (AppToast HUD)';
+
+  @override
+  String get showcaseToastsSubtitle =>
+      'Всплывающие уведомления с размытием фона и жестом смахивания';
+
+  @override
+  String get showcaseSheetsTitle => 'Модальные шторки (AppBottomSheet)';
+
+  @override
+  String get showcaseSheetsSubtitle =>
+      'Унифицированные шторки со свайпом и Liquid Glass размытием';
+
+  @override
+  String get showcaseBadgesTitle => 'Бейджи и теги (AppBadge & AppChip)';
+
+  @override
+  String get showcaseBadgesSubtitle =>
+      'Статусные индикаторы со свечением и интерактивные фильтры';
+
+  @override
+  String get showcaseHapticsTitle => 'Тактильная отдача (AppHaptics Engine)';
+
+  @override
+  String get showcaseHapticsSubtitle =>
+      'Безопасные семантические паттерны вибрации устройства';
+
+  @override
+  String get showcaseSegmentsTitle =>
+      'Сегментированные контролы (AppSegmentedControl)';
+
+  @override
+  String get showcaseSegmentsSubtitle =>
+      'Скользящий Liquid Glass индикатор с поддержкой иконок';
+
+  @override
+  String get showcaseProgressTitle => 'Индикаторы прогресса (AppProgressBar)';
+
+  @override
+  String get showcaseProgressSubtitle =>
+      'Неоновые градиенты со свечением и круговые спиннеры';
+
+  @override
+  String get showcaseAvatarsTitle => 'Аватары и присутствие (AppAvatar)';
+
+  @override
+  String get showcaseAvatarsSubtitle =>
+      '4 размера, статусная точка, инициалы и градиентный контур';
+
+  @override
+  String get securityDisableTitle => 'Отключить защиту?';
+
+  @override
+  String get securityDisableDesc =>
+      'Для отключения защиты потребуется ввести текущий PIN-код.';
+
+  @override
+  String get securityDisabledToast => 'Защита PIN-кодом отключена';
+
+  @override
+  String get commonCancel => 'Отмена';
+
+  @override
+  String get commonContinue => 'Продолжить';
+
+  @override
+  String get diagnosticsDeviceGroup => 'Устройство и ОС';
+
+  @override
+  String get diagnosticsAppGroup => 'Сборка приложения';
+
+  @override
+  String get diagnosticsDisplayGroup => 'Экран и дисплей';
+
+  @override
+  String get diagnosticsNetworkGroup => 'Сеть и спец. возможности';
+
+  @override
+  String get notifRouterTestTitle => 'Notification Router & Тест';
+
+  @override
+  String get notifRouterTestDesc =>
+      'Отправить пуш с payload для проверки диспетчера маршрутов';
+
+  @override
+  String get notifSendTestButton => 'Отправить тестовый пуш';
+
+  @override
+  String get notifTestNotificationTitle => '🔔 Тестовое уведомление';
+
+  @override
+  String get notifTestNotificationBody =>
+      'Нажмите, чтобы проверить работу NotificationRouter';
+
+  @override
+  String get notifTestNotificationSent =>
+      'Тестовое уведомление отправлено! Нажмите на него в шторке.';
+
+  @override
+  String get notifPermissionOnboardingPreview =>
+      'Проверить онбординг разрешений';
+
+  @override
+  String get notifSingleTitle => 'Уведомление';
 }

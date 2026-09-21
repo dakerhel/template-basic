@@ -20,7 +20,6 @@ class NotificationsSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context)!;
     final settings = ref.watch(updateSettingsProvider);
-    final isRu = Localizations.localeOf(context).languageCode == 'ru';
     final colorScheme = Theme.of(context).colorScheme;
 
     return Column(
@@ -66,9 +65,7 @@ class NotificationsSection extends ConsumerWidget {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      isRu
-                          ? 'Notification Router & Тест'
-                          : 'Notification Router Test',
+                      l10n.notifRouterTestTitle,
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: colorScheme.primary,
@@ -78,9 +75,7 @@ class NotificationsSection extends ConsumerWidget {
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  isRu
-                      ? 'Отправить пуш с payload для проверки диспетчера маршрутов'
-                      : 'Send test push with payload to verify routing dispatcher',
+                  l10n.notifRouterTestDesc,
                   style: Theme.of(context).textTheme.bodySmall
                       ?.copyWith(color: colorScheme.onSurfaceVariant),
                 ),
@@ -89,11 +84,7 @@ class NotificationsSection extends ConsumerWidget {
                   width: double.infinity,
                   child: OutlinedButton.icon(
                     icon: const Icon(Icons.send_rounded, size: 16),
-                    label: Text(
-                      isRu
-                          ? 'Отправить тестовый пуш'
-                          : 'Send Test Notification',
-                    ),
+                    label: Text(l10n.notifSendTestButton),
                     style: OutlinedButton.styleFrom(
                       shape: RoundedRectangleBorder(
                         borderRadius: AppRadius.button,
@@ -103,12 +94,8 @@ class NotificationsSection extends ConsumerWidget {
                       HapticFeedback.lightImpact();
                       await NotificationService.show(
                         id: 99,
-                        title: isRu
-                            ? '🔔 Тестовое уведомление'
-                            : '🔔 Test Notification',
-                        body: isRu
-                            ? 'Нажмите, чтобы проверить работу NotificationRouter'
-                            : 'Tap to test NotificationRouter payload handling',
+                        title: l10n.notifTestNotificationTitle,
+                        body: l10n.notifTestNotificationBody,
                         channel: AppNotificationChannel.updates,
                         payload: const NotificationPayload(
                           type: 'update',
@@ -121,10 +108,8 @@ class NotificationsSection extends ConsumerWidget {
                       if (context.mounted) {
                         AppToast.success(
                           context,
-                          isRu
-                              ? 'Тестовое уведомление отправлено! Нажмите на него в шторке.'
-                              : 'Test notification sent! Tap it in the system tray.',
-                          title: isRu ? 'Уведомление' : 'Notification',
+                          l10n.notifTestNotificationSent,
+                          title: l10n.notifSingleTitle,
                         );
                       }
                     },
@@ -135,11 +120,7 @@ class NotificationsSection extends ConsumerWidget {
                   width: double.infinity,
                   child: TextButton.icon(
                     icon: const Icon(Icons.touch_app_outlined, size: 16),
-                    label: Text(
-                      isRu
-                          ? 'Проверить онбординг разрешений'
-                          : 'Preview Permission Onboarding',
-                    ),
+                    label: Text(l10n.notifPermissionOnboardingPreview),
                     onPressed: () {
                       HapticFeedback.lightImpact();
                       PermissionOnboardingSheet.show(context);

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:my_app/l10n/generated/app_localizations.dart';
+
 import '../../../../core/theme/widgets/app_glass.dart';
 import '../controllers/security_controller.dart';
 
@@ -139,7 +141,6 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
   }
 
   Future<void> _handleComplete() async {
-    final isRu = Localizations.localeOf(context).languageCode == 'ru';
     final effectiveMode = widget.isChanging
         ? PinSheetMode.change
         : widget.mode;
@@ -170,12 +171,13 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
           await _shakeController.forward(from: 0.0);
           if (!mounted) return;
           final currentLockout = ref.read(securityControllerProvider).lockout;
+          final l10n = AppLocalizations.of(context);
           setState(() {
             _errorMessage = currentLockout.isLockedOut
                 ? null
-                : (isRu
-                    ? 'Неверный текущий PIN-код (осталось попыток: ${currentLockout.attemptsUntilNextLockout})'
-                    : 'Incorrect current PIN (${currentLockout.attemptsUntilNextLockout} attempts left)');
+                : (l10n?.lockScreenAttemptsLeft(
+                        currentLockout.attemptsUntilNextLockout.toString()) ??
+                    'Incorrect PIN');
             _currentPin = '';
           });
         }
@@ -185,10 +187,10 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
           HapticFeedback.vibrate();
           await _shakeController.forward(from: 0.0);
           if (!mounted) return;
+          final l10n = AppLocalizations.of(context);
           setState(() {
-            _errorMessage = isRu
-                ? 'PIN-код слишком простой. Не используйте одинаковые или идущие подряд цифры'
-                : 'PIN is too weak. Avoid repeated or sequential digits';
+            _errorMessage = l10n?.pinSetupTooSimple ??
+                'PIN is too weak. Avoid repeated or sequential digits';
             _currentPin = '';
           });
           return;
@@ -214,10 +216,10 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
           HapticFeedback.vibrate();
           await _shakeController.forward(from: 0.0);
           if (!mounted) return;
+          final l10n = AppLocalizations.of(context);
           setState(() {
-            _errorMessage = isRu
-                ? 'PIN-коды не совпадают. Попробуйте снова'
-                : 'PINs do not match. Please try again';
+            _errorMessage = l10n?.pinSetupMismatch ??
+                'PINs do not match. Please try again';
             _currentPin = '';
             _firstPin = '';
             _step = 1;
@@ -235,7 +237,7 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
-    final isRu = Localizations.localeOf(context).languageCode == 'ru';
+    final l10n = AppLocalizations.of(context)!;
     final effectiveMode = widget.isChanging
         ? PinSheetMode.change
         : widget.mode;
@@ -252,38 +254,28 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
           ? Icons.shield_outlined
           : Icons.lock_open_outlined;
       title = effectiveMode == PinSheetMode.verify
-          ? (isRu ? 'Подтверждение PIN-кода' : 'Confirm Current PIN')
-          : (isRu ? 'Текущий PIN-код' : 'Current PIN Code');
+          ? l10n.pinSetupConfirm
+          : l10n.pinSetupEnterCurrent;
       defaultSubtitle = effectiveMode == PinSheetMode.verify
-          ? (isRu
-              ? 'Введите текущий PIN-код для подтверждения'
-              : 'Enter current PIN to confirm')
-          : (isRu
-              ? 'Введите текущий PIN-код для подтверждения личности'
-              : 'Enter current PIN to confirm your identity');
+          ? l10n.pinSetupPromptConfirm
+          : l10n.pinSetupEnterCurrent;
     } else if (_step == 1) {
       icon = Icons.pin_outlined;
       title = effectiveMode == PinSheetMode.change
-          ? (isRu ? 'Новый PIN-код' : 'New PIN Code')
-          : (isRu ? 'Создайте PIN-код' : 'Create PIN Code');
-      defaultSubtitle = isRu
-          ? 'Введите 4 цифры для защиты приложения'
-          : 'Enter 4 digits to protect the app';
+          ? l10n.pinSetupEnterNew
+          : l10n.pinSetupCreate;
+      defaultSubtitle = l10n.pinSetupPromptDigits;
     } else {
       icon = Icons.lock_clock_outlined;
-      title = isRu ? 'Подтвердите PIN-код' : 'Confirm PIN Code';
-      defaultSubtitle = isRu
-          ? 'Повторите введенный ранее PIN-код'
-          : 'Repeat the PIN code you just entered';
+      title = l10n.pinSetupConfirm;
+      defaultSubtitle = l10n.pinSetupPromptConfirm;
     }
 
     final String subtitle;
     final Color subtitleColor;
 
     if (lockout.isLockedOut) {
-      subtitle = isRu
-          ? 'Ввод заблокирован. Попробуйте снова через ${_formatLockoutTimer(lockout.remainingSeconds)}'
-          : 'Entry locked. Try again in ${_formatLockoutTimer(lockout.remainingSeconds)}';
+      subtitle = l10n.lockScreenTimer(_formatLockoutTimer(lockout.remainingSeconds));
       subtitleColor = colorScheme.error;
     } else if (_errorMessage != null) {
       subtitle = _errorMessage!;
@@ -340,7 +332,7 @@ class _PinSetupSheetState extends ConsumerState<PinSetupSheet>
               // Заголовок
               Text(
                 lockout.isLockedOut
-                    ? (isRu ? 'Ввод заблокирован' : 'Entry Locked')
+                    ? l10n.lockScreenLockedTitle
                     : title,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,

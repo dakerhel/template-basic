@@ -187,14 +187,14 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Design System Starter',
+                          l10n.homeStarterTitle,
                           style: theme.textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          'Flutter 3 • Riverpod • Liquid Glass UI Kit',
+                          l10n.homeStarterSubtitle,
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: colorScheme.onSurfaceVariant,
                           ),
@@ -227,7 +227,7 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
                     children: [
                       Expanded(
                         child: Text(
-                          'Активные токены системы',
+                          l10n.homeActiveTokens,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: theme.textTheme.labelLarge?.copyWith(
@@ -244,7 +244,7 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
                         child: Row(
                           children: [
                             Text(
-                              'Настроить',
+                              l10n.homeConfigure,
                               style: theme.textTheme.labelSmall?.copyWith(
                                 color: colorScheme.primary,
                                 fontWeight: FontWeight.bold,
@@ -303,7 +303,7 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                   child: Text(
-                    'Быстрые действия',
+                    l10n.homeQuickActions,
                     style: theme.textTheme.labelMedium?.copyWith(
                       color: colorScheme.onSurfaceVariant,
                       fontWeight: FontWeight.w600,
@@ -316,8 +316,8 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
                     Expanded(
                       child: _QuickActionCard(
                         icon: Icons.palette_rounded,
-                        label: 'Шторка тем',
-                        subtitle: '9 палитр и режимы',
+                        label: l10n.homeThemeSheet,
+                        subtitle: l10n.homeThemeSheetSubtitle,
                         color: colorScheme.primary,
                         onTap: () => UnifiedThemeSheet.show(context, ref),
                       ),
@@ -326,8 +326,8 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
                     Expanded(
                       child: _QuickActionCard(
                         icon: Icons.widgets_rounded,
-                        label: 'Витрина UI',
-                        subtitle: 'Все компоненты',
+                        label: l10n.homeShowcase,
+                        subtitle: l10n.homeShowcaseSubtitle,
                         color: colorScheme.secondary,
                         onTap: () => context.go('/showcase'),
                       ),
@@ -340,8 +340,8 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
                     Expanded(
                       child: _QuickActionCard(
                         icon: Icons.lock_outline_rounded,
-                        label: 'Тест защиты',
-                        subtitle: 'Блокировка экрана',
+                        label: l10n.homeSecurityTest,
+                        subtitle: l10n.homeSecurityTestSubtitle,
                         color: colorScheme.secondary,
                         onTap: () {
                           AppHaptics.light();
@@ -353,8 +353,8 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
                     Expanded(
                       child: _QuickActionCard(
                         icon: Icons.developer_mode_rounded,
-                        label: 'Диагностика',
-                        subtitle: 'DPR, память, ОС',
+                        label: l10n.homeDiagnostics,
+                        subtitle: l10n.homeDiagnosticsSubtitle,
                         color: colorScheme.primary,
                         onTap: () => SystemDiagnosticsSheet.show(context),
                       ),
@@ -376,7 +376,7 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
               child: Column(
                 children: [
                   Text(
-                    'Реактивное состояние Riverpod',
+                    l10n.homeRiverpodState,
                     style: theme.textTheme.labelMedium?.copyWith(
                       color: colorScheme.onSurfaceVariant,
                       fontWeight: FontWeight.w600,
@@ -404,7 +404,7 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
                     runSpacing: 10,
                     children: [
                       AppButton(
-                        label: 'Увеличить',
+                        label: l10n.homeIncrement,
                         variant: AppButtonVariant.filled,
                         leadingIcon: const Icon(Icons.add_rounded),
                         onPressed: () {
@@ -413,7 +413,7 @@ final class _HomeScreenState extends ConsumerState<HomeScreen> {
                         },
                       ),
                       AppButton(
-                        label: 'Сбросить',
+                        label: l10n.homeReset,
                         variant: AppButtonVariant.ghost,
                         leadingIcon: const Icon(Icons.refresh_rounded),
                         onPressed: () {

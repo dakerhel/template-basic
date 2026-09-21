@@ -37,10 +37,6 @@ class UnifiedThemeSheet extends ConsumerWidget {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final locale = Localizations.localeOf(context);
-    final lang = locale.languageCode;
-
-    final isRu = lang == 'ru';
-    final isZh = lang == 'zh';
 
     return Container(
       decoration: BoxDecoration(
@@ -135,11 +131,7 @@ class UnifiedThemeSheet extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            isRu
-                                ? 'Эффект Liquid Glass'
-                                : isZh
-                                ? '液态玻璃效果'
-                                : 'Liquid Glass Effect',
+                            l10n.liquidGlassEffect,
                             style: theme.textTheme.titleSmall?.copyWith(
                               fontWeight: FontWeight.w600,
                               color: colorScheme.onSurface,
@@ -147,11 +139,7 @@ class UnifiedThemeSheet extends ConsumerWidget {
                           ),
                           const SizedBox(height: 2),
                           Text(
-                            isRu
-                                ? 'Оптическое размытие и блики'
-                                : isZh
-                                ? '光学模糊与高光折射'
-                                : 'Optical blur & specular reflections',
+                            l10n.liquidGlassSubtitle,
                             style: theme.textTheme.bodySmall?.copyWith(
                               color: colorScheme.onSurfaceVariant,
                               fontSize: 11,
@@ -176,11 +164,7 @@ class UnifiedThemeSheet extends ConsumerWidget {
 
               // Подзаголовок палитр
               Text(
-                isRu
-                    ? 'Цветовые палитры'
-                    : isZh
-                    ? '配色方案'
-                    : 'Color Schemes',
+                l10n.colorSchemes,
                 style: theme.textTheme.titleSmall?.copyWith(
                   color: colorScheme.onSurface,
                   fontWeight: FontWeight.bold,

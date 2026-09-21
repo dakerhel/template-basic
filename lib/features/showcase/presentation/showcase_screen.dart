@@ -101,9 +101,9 @@ class _ShowcaseScreenState extends State<ShowcaseScreen> {
           AppStaggeredItem(
             index: 0,
             child: _ShowcaseSection(
-              title: 'Кнопки (AppButton & AppIconButton)',
-              subtitle:
-                  '5 вариантов, 3 размера, встроенная загрузка и пружинная физика',
+              title: l10n?.showcaseButtonsTitle ?? 'Buttons (AppButton & AppIconButton)',
+              subtitle: l10n?.showcaseButtonsSubtitle ??
+                  '5 variants, 3 sizes, loading states & spring physics',
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -183,8 +183,9 @@ class _ShowcaseScreenState extends State<ShowcaseScreen> {
           AppStaggeredItem(
             index: 1,
             child: _ShowcaseSection(
-              title: 'Поля ввода (AppTextField & Search)',
-              subtitle: 'Быстрая очистка, переключение видимости и стилизованный поиск',
+              title: l10n?.showcaseInputsTitle ?? 'Input Fields (AppTextField & Search)',
+              subtitle: l10n?.showcaseInputsSubtitle ??
+                  'Quick clear, password toggle & styled search',
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -218,8 +219,9 @@ class _ShowcaseScreenState extends State<ShowcaseScreen> {
           AppStaggeredItem(
             index: 2,
             child: _ShowcaseSection(
-              title: 'Плавающие тосты (AppToast HUD)',
-              subtitle: 'Всплывающие уведомления с размытием фона и жестом смахивания',
+              title: l10n?.showcaseToastsTitle ?? 'Floating HUD Toasts (AppToast)',
+              subtitle: l10n?.showcaseToastsSubtitle ??
+                  'Popup notifications with background blur & swipe dismiss',
               child: Wrap(
                 spacing: 8,
                 runSpacing: 8,
@@ -291,8 +293,9 @@ class _ShowcaseScreenState extends State<ShowcaseScreen> {
           AppStaggeredItem(
             index: 3,
             child: _ShowcaseSection(
-              title: 'Модальные шторки (AppBottomSheet)',
-              subtitle: 'Унифицированные шторки со свайпом и Liquid Glass размытием',
+              title: l10n?.showcaseSheetsTitle ?? 'Modal Sheets (AppBottomSheet)',
+              subtitle: l10n?.showcaseSheetsSubtitle ??
+                  'Unified bottom sheets with swipe & Liquid Glass blur',
               child: AppButton(
                 label: 'Открыть модальную шторку',
                 isFullWidth: true,
@@ -308,8 +311,9 @@ class _ShowcaseScreenState extends State<ShowcaseScreen> {
           AppStaggeredItem(
             index: 4,
             child: _ShowcaseSection(
-              title: 'Бейджи и теги (AppBadge & AppChip)',
-              subtitle: 'Статусные индикаторы со свечением и интерактивные фильтры',
+              title: l10n?.showcaseBadgesTitle ?? 'Badges & Tags (AppBadge & AppChip)',
+              subtitle: l10n?.showcaseBadgesSubtitle ??
+                  'Status indicators with glow & interactive filters',
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -372,8 +376,9 @@ class _ShowcaseScreenState extends State<ShowcaseScreen> {
           AppStaggeredItem(
             index: 5,
             child: _ShowcaseSection(
-              title: 'Тактильная отдача (AppHaptics Engine)',
-              subtitle: 'Безопасные семантические паттерны вибрации устройства',
+              title: l10n?.showcaseHapticsTitle ?? 'Haptic Feedback Engine (AppHaptics)',
+              subtitle: l10n?.showcaseHapticsSubtitle ??
+                  'Safe semantic device vibration patterns',
               child: Wrap(
                 spacing: 8,
                 runSpacing: 8,
@@ -442,8 +447,9 @@ class _ShowcaseScreenState extends State<ShowcaseScreen> {
           AppStaggeredItem(
             index: 6,
             child: _ShowcaseSection(
-              title: 'Сегментированные контролы (AppSegmentedControl)',
-              subtitle: 'Скользящий Liquid Glass индикатор с поддержкой иконок',
+              title: l10n?.showcaseSegmentsTitle ?? 'Segmented Controls (AppSegmentedControl)',
+              subtitle: l10n?.showcaseSegmentsSubtitle ??
+                  'Sliding Liquid Glass indicator with icon support',
               child: Column(
                 children: [
                   AppSegmentedControl<int>(
@@ -465,8 +471,9 @@ class _ShowcaseScreenState extends State<ShowcaseScreen> {
           AppStaggeredItem(
             index: 7,
             child: _ShowcaseSection(
-              title: 'Индикаторы прогресса (AppProgressBar)',
-              subtitle: 'Неоновые градиенты со свечением и круговые спиннеры',
+              title: l10n?.showcaseProgressTitle ?? 'Progress Indicators (AppProgressBar)',
+              subtitle: l10n?.showcaseProgressSubtitle ??
+                  'Neon gradients with glow & circular spinners',
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -513,8 +520,9 @@ class _ShowcaseScreenState extends State<ShowcaseScreen> {
           AppStaggeredItem(
             index: 8,
             child: _ShowcaseSection(
-              title: 'Аватары и присутствие (AppAvatar)',
-              subtitle: '4 размера, статусная точка, инициалы и градиентный контур',
+              title: l10n?.showcaseAvatarsTitle ?? 'Avatars & Presence (AppAvatar)',
+              subtitle: l10n?.showcaseAvatarsSubtitle ??
+                  '4 sizes, status indicator, initials & gradient outline',
               child: Wrap(
                 spacing: 14,
                 runSpacing: 14,

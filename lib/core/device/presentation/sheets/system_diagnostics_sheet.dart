@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:my_app/l10n/generated/app_localizations.dart';
+
 import '../../../theme/widgets/app_button.dart';
 import '../../../theme/widgets/app_toast.dart';
 
@@ -33,6 +35,7 @@ class SystemDiagnosticsSheet extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
+    final l10n = AppLocalizations.of(context)!;
     final isRu = Localizations.localeOf(context).languageCode == 'ru';
 
     final deviceAsync = ref.watch(deviceInfoProvider);
@@ -78,7 +81,7 @@ class SystemDiagnosticsSheet extends ConsumerWidget {
                   const SizedBox(width: 10),
                   Expanded(
                     child: Text(
-                      isRu ? 'Системная диагностика' : 'System Diagnostics',
+                      l10n.diagnosticsTitle,
                       style: theme.textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.bold,
                         color: colorScheme.onSurface,
@@ -100,7 +103,7 @@ class SystemDiagnosticsSheet extends ConsumerWidget {
                     // 1. Device Info Card
                     deviceAsync.when(
                       data: (device) => _DiagnosticGroup(
-                        title: isRu ? 'Устройство и ОС' : 'Device & OS',
+                        title: l10n.diagnosticsDeviceGroup,
                         icon: Icons.smartphone_rounded,
                         items: [
                           _DiagItem(
@@ -133,7 +136,7 @@ class SystemDiagnosticsSheet extends ConsumerWidget {
                     // 2. App Info Card
                     appAsync.when(
                       data: (app) => _DiagnosticGroup(
-                        title: isRu ? 'Сборка приложения' : 'App Build Info',
+                        title: l10n.diagnosticsAppGroup,
                         icon: Icons.apps_rounded,
                         items: [
                           _DiagItem(
@@ -161,7 +164,7 @@ class SystemDiagnosticsSheet extends ConsumerWidget {
 
                     // 3. Screen Metrics Card
                     _DiagnosticGroup(
-                      title: isRu ? 'Экран и дисплей' : 'Screen & Display',
+                      title: l10n.diagnosticsDisplayGroup,
                       icon: Icons.aspect_ratio_rounded,
                       items: [
                         _DiagItem(
@@ -186,9 +189,7 @@ class SystemDiagnosticsSheet extends ConsumerWidget {
 
                     // 4. Accessibility & Network
                     _DiagnosticGroup(
-                      title: isRu
-                          ? 'Сеть и спец. возможности'
-                          : 'Network & Accessibility',
+                      title: l10n.diagnosticsNetworkGroup,
                       icon: Icons.accessibility_new_rounded,
                       items: [
                         _DiagItem(
@@ -216,9 +217,7 @@ class SystemDiagnosticsSheet extends ConsumerWidget {
 
               // Copy full report button
               AppButton(
-                label: isRu
-                    ? 'Скопировать отчёт для поддержки'
-                    : 'Copy Diagnostics Report',
+                label: l10n.diagnosticsCopy,
                 leadingIcon: const Icon(Icons.copy_all_rounded, size: 20),
                 isFullWidth: true,
                 onPressed: () {
@@ -234,10 +233,8 @@ class SystemDiagnosticsSheet extends ConsumerWidget {
                   Navigator.of(context).pop();
                   AppToast.success(
                     context,
-                    isRu
-                        ? 'Отчёт диагностики скопирован в буфер обмена!'
-                        : 'Diagnostics report copied to clipboard!',
-                    title: isRu ? 'Диагностика' : 'Diagnostics',
+                    l10n.diagnosticsCopied,
+                    title: l10n.diagnosticsTitle,
                   );
                 },
               ),

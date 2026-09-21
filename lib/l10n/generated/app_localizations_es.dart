@@ -281,11 +281,303 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get profileDeleteConfirm =>
-      '¿Está seguro? Se eliminarán todos los datos locales y las sesiones en caché.';
+      '¿Estás seguro? Se eliminarán todos los datos locales.';
 
   @override
   String get navHome => 'Inicio';
 
   @override
   String get navShowcase => 'Galería';
+
+  @override
+  String get homeStarterTitle => 'Plantilla de Sistema de Diseño';
+
+  @override
+  String get homeStarterSubtitle =>
+      'Flutter 3 • Riverpod • Liquid Glass UI Kit';
+
+  @override
+  String get homeActiveTokens => 'Tokens activos del sistema';
+
+  @override
+  String get homeConfigure => 'Configurar';
+
+  @override
+  String get homeQuickActions => 'Acciones rápidas';
+
+  @override
+  String get homeThemeSheet => 'Menú de temas';
+
+  @override
+  String get homeThemeSheetSubtitle => '9 paletas y modos';
+
+  @override
+  String get homeShowcase => 'Muestrario UI';
+
+  @override
+  String get homeShowcaseSubtitle => 'Todos los componentes';
+
+  @override
+  String get homeSecurityTest => 'Test de seguridad';
+
+  @override
+  String get homeSecurityTestSubtitle => 'Bloqueo de pantalla';
+
+  @override
+  String get homeDiagnostics => 'Diagnóstico';
+
+  @override
+  String get homeDiagnosticsSubtitle => 'DPR, memoria, SO';
+
+  @override
+  String get homeRiverpodState => 'Estado reactivo de Riverpod';
+
+  @override
+  String get homeIncrement => 'Aumentar';
+
+  @override
+  String get homeReset => 'Restablecer';
+
+  @override
+  String get liquidGlassEffect => 'Efecto Liquid Glass';
+
+  @override
+  String get liquidGlassSubtitle => 'Desenfoque óptico y reflejos';
+
+  @override
+  String get colorSchemes => 'Paletas de color';
+
+  @override
+  String get securityGroup => 'Seguridad';
+
+  @override
+  String get securityPinTitle => 'Protección con PIN';
+
+  @override
+  String get securityPinSubtitle => 'Solicitar código PIN al abrir la app';
+
+  @override
+  String get securityBiometricsTitle => 'Biometría (Huella / Face ID)';
+
+  @override
+  String get securityBiometricsSubtitle =>
+      'Acceso rápido con sensor del dispositivo';
+
+  @override
+  String get securityPrivacyTitle => 'Ocultar en vista de tareas';
+
+  @override
+  String get securityPrivacySubtitle =>
+      'Protección de privacidad al cambiar de app';
+
+  @override
+  String get securityChangePin => 'Cambiar código PIN';
+
+  @override
+  String get securityChangePinSubtitle =>
+      'Configurar un nuevo código de 4 dígitos';
+
+  @override
+  String get securityAutoLock => 'Tiempo de autobloqueo';
+
+  @override
+  String get securityLockNow => 'Bloquear pantalla ahora';
+
+  @override
+  String get securityPinChanged => 'PIN cambiado con éxito';
+
+  @override
+  String get securityTimeoutImmediately => 'Inmediatamente';
+
+  @override
+  String get securityTimeout1Min => '1 minuto';
+
+  @override
+  String get securityTimeout5Min => '5 minutos';
+
+  @override
+  String get securityTimeout15Min => '15 minutos';
+
+  @override
+  String get lockScreenTitle => 'Ingrese el código PIN';
+
+  @override
+  String get lockScreenLockedTitle => 'Entrada bloqueada';
+
+  @override
+  String get lockScreenSubtitle => 'Para acceder a la aplicación';
+
+  @override
+  String get lockScreenBiometricsReason =>
+      'Verifique su identidad para ingresar';
+
+  @override
+  String lockScreenBiometricsDisabled(String remaining) {
+    return 'Biometría deshabilitada tras 3 fallos. Ingrese PIN (quedan: $remaining)';
+  }
+
+  @override
+  String lockScreenAttemptsLeft(String remaining) {
+    return 'PIN incorrecto. Intentos restantes: $remaining';
+  }
+
+  @override
+  String lockScreenTimer(String time) {
+    return 'Intente de nuevo en $time';
+  }
+
+  @override
+  String get pinSetupCreate => 'Crear código PIN';
+
+  @override
+  String get pinSetupConfirm => 'Confirmar código PIN';
+
+  @override
+  String get pinSetupEnterCurrent => 'Código PIN actual';
+
+  @override
+  String get pinSetupEnterNew => 'Nuevo código PIN';
+
+  @override
+  String get pinSetupPromptDigits => 'Ingrese 4 dígitos para proteger la app';
+
+  @override
+  String get pinSetupPromptConfirm => 'Reingrese el PIN para confirmar';
+
+  @override
+  String get pinSetupMismatch =>
+      'Los códigos PIN no coinciden. Intente de nuevo';
+
+  @override
+  String get pinSetupTooSimple =>
+      'PIN demasiado simple. Evite números iguales o consecutivos';
+
+  @override
+  String get diagnosticsTitle => 'Diagnóstico del sistema';
+
+  @override
+  String get diagnosticsCopy => 'Copiar diagnóstico';
+
+  @override
+  String get diagnosticsCopied => 'Diagnóstico copiado al portapapeles';
+
+  @override
+  String get showcaseButtonsTitle => 'Botones (AppButton & AppIconButton)';
+
+  @override
+  String get showcaseButtonsSubtitle =>
+      '5 variantes, 3 tamaños, carga y física de muelle';
+
+  @override
+  String get showcaseInputsTitle => 'Campos de texto (AppTextField & Search)';
+
+  @override
+  String get showcaseInputsSubtitle =>
+      'Limpieza rápida, alternancia de contraseña y búsqueda';
+
+  @override
+  String get showcaseToastsTitle => 'Notificaciones flotantes (AppToast HUD)';
+
+  @override
+  String get showcaseToastsSubtitle =>
+      'Avisos emergentes con desenfoque y gesto de descarte';
+
+  @override
+  String get showcaseSheetsTitle => 'Hojas modales (AppBottomSheet)';
+
+  @override
+  String get showcaseSheetsSubtitle =>
+      'Hojas unificadas con deslizamiento y Liquid Glass';
+
+  @override
+  String get showcaseBadgesTitle =>
+      'Insignias y etiquetas (AppBadge & AppChip)';
+
+  @override
+  String get showcaseBadgesSubtitle =>
+      'Indicadores de estado brillantes y filtros interactivos';
+
+  @override
+  String get showcaseHapticsTitle => 'Motor háptico (AppHaptics)';
+
+  @override
+  String get showcaseHapticsSubtitle =>
+      'Patrones seguros de vibración semántica';
+
+  @override
+  String get showcaseSegmentsTitle =>
+      'Controles segmentados (AppSegmentedControl)';
+
+  @override
+  String get showcaseSegmentsSubtitle =>
+      'Indicador deslizante Liquid Glass con iconos';
+
+  @override
+  String get showcaseProgressTitle => 'Barras de progreso (AppProgressBar)';
+
+  @override
+  String get showcaseProgressSubtitle =>
+      'Gradientes de neón con brillo y círculos de carga';
+
+  @override
+  String get showcaseAvatarsTitle => 'Avatares y presencia (AppAvatar)';
+
+  @override
+  String get showcaseAvatarsSubtitle =>
+      '4 tamaños, punto de estado, iniciales y borde gradiente';
+
+  @override
+  String get securityDisableTitle => '¿Desactivar la protección por PIN?';
+
+  @override
+  String get securityDisableDesc =>
+      'Se requiere ingresar su PIN actual para desactivar la protección.';
+
+  @override
+  String get securityDisabledToast => 'Protección por PIN desactivada';
+
+  @override
+  String get commonCancel => 'Cancelar';
+
+  @override
+  String get commonContinue => 'Continuar';
+
+  @override
+  String get diagnosticsDeviceGroup => 'Dispositivo y SO';
+
+  @override
+  String get diagnosticsAppGroup => 'Información de compilación';
+
+  @override
+  String get diagnosticsDisplayGroup => 'Pantalla y visualización';
+
+  @override
+  String get diagnosticsNetworkGroup => 'Red y accesibilidad';
+
+  @override
+  String get notifRouterTestTitle => 'Prueba de router de notificaciones';
+
+  @override
+  String get notifRouterTestDesc =>
+      'Enviar notificación de prueba con payload para verificar el enrutador';
+
+  @override
+  String get notifSendTestButton => 'Enviar notificación de prueba';
+
+  @override
+  String get notifTestNotificationTitle => '🔔 Notificación de prueba';
+
+  @override
+  String get notifTestNotificationBody =>
+      'Toque para probar el manejo de payload de NotificationRouter';
+
+  @override
+  String get notifTestNotificationSent =>
+      '¡Notificación de prueba enviada! Tóquela en la barra del sistema.';
+
+  @override
+  String get notifPermissionOnboardingPreview => 'Vista previa de permisos';
+
+  @override
+  String get notifSingleTitle => 'Notificación';
 }

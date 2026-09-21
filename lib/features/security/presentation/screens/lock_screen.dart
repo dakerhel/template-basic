@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:my_app/l10n/generated/app_localizations.dart';
+
 import '../../../../core/theme/widgets/app_glass.dart';
 import '../controllers/security_controller.dart';
 
@@ -49,9 +51,13 @@ class _LockScreenState extends ConsumerState<LockScreen>
         security.canUseBiometrics &&
         !security.lockout.isBiometricsLockedOut &&
         !security.lockout.isLockedOut) {
+      final reason = mounted && context.mounted
+          ? (AppLocalizations.of(context)?.lockScreenBiometricsReason ??
+              'Authenticate to unlock the app')
+          : 'Authenticate to unlock the app';
       await ref
           .read(securityControllerProvider.notifier)
-          .unlockWithBiometrics(reason: 'Подтвердите личность для входа');
+          .unlockWithBiometrics(reason: reason);
     }
   }
 
@@ -115,7 +121,7 @@ class _LockScreenState extends ConsumerState<LockScreen>
     final colorScheme = theme.colorScheme;
     final security = ref.watch(securityControllerProvider);
     final lockout = security.lockout;
-    final isRu = Localizations.localeOf(context).languageCode == 'ru';
+    final l10n = AppLocalizations.of(context)!;
 
     // Определение заголовка и подзаголовка
     final String titleText;
@@ -123,28 +129,25 @@ class _LockScreenState extends ConsumerState<LockScreen>
     final Color subtitleColor;
 
     if (lockout.isLockedOut) {
-      titleText = isRu ? 'Ввод заблокирован' : 'Entry Locked';
-      subtitleText = isRu
-          ? 'Попробуйте снова через ${_formatLockoutTimer(lockout.remainingSeconds)}'
-          : 'Try again in ${_formatLockoutTimer(lockout.remainingSeconds)}';
+      titleText = l10n.lockScreenLockedTitle;
+      subtitleText =
+          l10n.lockScreenTimer(_formatLockoutTimer(lockout.remainingSeconds));
       subtitleColor = colorScheme.error;
     } else if (lockout.isBiometricsLockedOut) {
-      titleText = isRu ? 'Введите PIN-код' : 'Enter PIN Code';
-      subtitleText = isRu
-          ? 'Биометрия отключена после 3 ошибок. Введите PIN (осталось: ${lockout.attemptsUntilNextLockout})'
-          : 'Biometrics disabled after 3 errors. Enter PIN (${lockout.attemptsUntilNextLockout} left)';
+      titleText = l10n.lockScreenTitle;
+      subtitleText = l10n.lockScreenBiometricsDisabled(
+        lockout.attemptsUntilNextLockout.toString(),
+      );
       subtitleColor = colorScheme.error;
     } else if (lockout.failedAttempts > 0) {
-      titleText = isRu ? 'Введите PIN-код' : 'Enter PIN Code';
-      subtitleText = isRu
-          ? 'Неверный PIN. Осталось попыток: ${lockout.attemptsUntilNextLockout}'
-          : 'Incorrect PIN. Attempts remaining: ${lockout.attemptsUntilNextLockout}';
+      titleText = l10n.lockScreenTitle;
+      subtitleText = l10n.lockScreenAttemptsLeft(
+        lockout.attemptsUntilNextLockout.toString(),
+      );
       subtitleColor = colorScheme.error;
     } else {
-      titleText = isRu ? 'Введите PIN-код' : 'Enter PIN Code';
-      subtitleText = isRu
-          ? 'Для доступа к приложению'
-          : 'To access the application';
+      titleText = l10n.lockScreenTitle;
+      subtitleText = l10n.lockScreenSubtitle;
       subtitleColor = colorScheme.onSurfaceVariant;
     }
 

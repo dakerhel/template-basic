@@ -286,4 +286,290 @@ class AppLocalizationsHi extends AppLocalizations {
 
   @override
   String get navShowcase => 'शोकेस';
+
+  @override
+  String get homeStarterTitle => 'डिजाइन सिस्टम स्टार्टर';
+
+  @override
+  String get homeStarterSubtitle =>
+      'Flutter 3 • Riverpod • Liquid Glass UI Kit';
+
+  @override
+  String get homeActiveTokens => 'सक्रिय सिस्टम टोकन';
+
+  @override
+  String get homeConfigure => 'कॉन्फ़िगर करें';
+
+  @override
+  String get homeQuickActions => 'त्वरित कार्रवाइयां';
+
+  @override
+  String get homeThemeSheet => 'थीम शीट';
+
+  @override
+  String get homeThemeSheetSubtitle => '9 पैलेट और मोड';
+
+  @override
+  String get homeShowcase => 'यूआई शोकेस';
+
+  @override
+  String get homeShowcaseSubtitle => 'सभी घटक';
+
+  @override
+  String get homeSecurityTest => 'सुरक्षा परीक्षण';
+
+  @override
+  String get homeSecurityTestSubtitle => 'स्क्रीन लॉक';
+
+  @override
+  String get homeDiagnostics => 'निदान';
+
+  @override
+  String get homeDiagnosticsSubtitle => 'DPR, मेमोरी, OS';
+
+  @override
+  String get homeRiverpodState => 'Riverpod प्रतिक्रियाशील स्थिति';
+
+  @override
+  String get homeIncrement => 'बढ़ाएं';
+
+  @override
+  String get homeReset => 'रीसेट करें';
+
+  @override
+  String get liquidGlassEffect => 'Liquid Glass प्रभाव';
+
+  @override
+  String get liquidGlassSubtitle => 'ऑप्टिकल ब्लर और चमकदार परावर्तन';
+
+  @override
+  String get colorSchemes => 'रंग योजनाएं';
+
+  @override
+  String get securityGroup => 'सुरक्षा';
+
+  @override
+  String get securityPinTitle => 'पिन सुरक्षा';
+
+  @override
+  String get securityPinSubtitle => 'ऐप खोलते समय पिन कोड आवश्यक करें';
+
+  @override
+  String get securityBiometricsTitle =>
+      'बायोमेट्रिक्स (फिंगरप्रिंट / फेस आईडी)';
+
+  @override
+  String get securityBiometricsSubtitle => 'डिवाइस सेंसर से त्वरित लॉगिन';
+
+  @override
+  String get securityPrivacyTitle => 'टास्क स्विचर में छिपाएं';
+
+  @override
+  String get securityPrivacySubtitle => 'ऐप्स बदलते समय गोपनीयता सुरक्षा';
+
+  @override
+  String get securityChangePin => 'पिन कोड बदलें';
+
+  @override
+  String get securityChangePinSubtitle => 'नया 4-अंकीय कोड सेट करें';
+
+  @override
+  String get securityAutoLock => 'ऑटो-लॉक समय';
+
+  @override
+  String get securityLockNow => 'अभी स्क्रीन लॉक करें';
+
+  @override
+  String get securityPinChanged => 'पिन कोड सफलतापूर्वक बदल दिया गया';
+
+  @override
+  String get securityTimeoutImmediately => 'तुरंत';
+
+  @override
+  String get securityTimeout1Min => '1 मिनट';
+
+  @override
+  String get securityTimeout5Min => '5 मिनट';
+
+  @override
+  String get securityTimeout15Min => '15 मिनट';
+
+  @override
+  String get lockScreenTitle => 'पिन कोड दर्ज करें';
+
+  @override
+  String get lockScreenLockedTitle => 'प्रवेश अवरुद्ध';
+
+  @override
+  String get lockScreenSubtitle => 'ऐप एक्सेस करने के लिए';
+
+  @override
+  String get lockScreenBiometricsReason =>
+      'लॉगिन करने के लिए अपनी पहचान सत्यापित करें';
+
+  @override
+  String lockScreenBiometricsDisabled(String remaining) {
+    return '3 गलत प्रयासों के बाद बायोमेट्रिक्स अक्षम। पिन दर्ज करें (शेष: $remaining)';
+  }
+
+  @override
+  String lockScreenAttemptsLeft(String remaining) {
+    return 'गलत पिन। शेष प्रयास: $remaining';
+  }
+
+  @override
+  String lockScreenTimer(String time) {
+    return '$time बाद पुनः प्रयास करें';
+  }
+
+  @override
+  String get pinSetupCreate => 'पिन कोड बनाएं';
+
+  @override
+  String get pinSetupConfirm => 'पिन कोड पुष्टि करें';
+
+  @override
+  String get pinSetupEnterCurrent => 'वर्तमान पिन कोड';
+
+  @override
+  String get pinSetupEnterNew => 'नया पिन कोड';
+
+  @override
+  String get pinSetupPromptDigits => 'ऐप सुरक्षित करने के लिए 4 अंक दर्ज करें';
+
+  @override
+  String get pinSetupPromptConfirm => 'पुष्टि के लिए पिन पुनः दर्ज करें';
+
+  @override
+  String get pinSetupMismatch => 'पिन कोड मेल नहीं खाते। पुनः प्रयास करें';
+
+  @override
+  String get pinSetupTooSimple =>
+      'पिन बहुत सरल है। समान या क्रमिक संख्याओं से बचें';
+
+  @override
+  String get diagnosticsTitle => 'सिस्टम निदान';
+
+  @override
+  String get diagnosticsCopy => 'निदान कॉपी करें';
+
+  @override
+  String get diagnosticsCopied => 'निदान क्लिपबोर्ड पर कॉपी किया गया';
+
+  @override
+  String get showcaseButtonsTitle => 'बटन (AppButton & AppIconButton)';
+
+  @override
+  String get showcaseButtonsSubtitle =>
+      '5 प्रकार, 3 आकार, लोडिंग स्थिति और स्प्रिंग एनिमेशन';
+
+  @override
+  String get showcaseInputsTitle => 'इनपुट फ़ील्ड (AppTextField & Search)';
+
+  @override
+  String get showcaseInputsSubtitle =>
+      'त्वरित क्लीयर, पासवर्ड टॉगल और स्टाइलिश खोज';
+
+  @override
+  String get showcaseToastsTitle => 'फ्लोटिंग नोटिफिकेशन (AppToast HUD)';
+
+  @override
+  String get showcaseToastsSubtitle =>
+      'बैकग्राउंड ब्लर और स्वाइप डिस्मिस के साथ पॉपअप';
+
+  @override
+  String get showcaseSheetsTitle => 'मॉडल शीट्स (AppBottomSheet)';
+
+  @override
+  String get showcaseSheetsSubtitle =>
+      'स्वाइप और Liquid Glass ब्लर के साथ एकीकृत शीट्स';
+
+  @override
+  String get showcaseBadgesTitle => 'बैज और टैग (AppBadge & AppChip)';
+
+  @override
+  String get showcaseBadgesSubtitle =>
+      'चमकदार स्थिति संकेतक और इंटरैक्टिव फ़िल्टर';
+
+  @override
+  String get showcaseHapticsTitle => 'हैप्टिक फीडबैक इंजन (AppHaptics)';
+
+  @override
+  String get showcaseHapticsSubtitle => 'सुरक्षित सिमेंटिक डिवाइस कंपन पैटर्न';
+
+  @override
+  String get showcaseSegmentsTitle => 'सेगमेंटेड कंट्रोल (AppSegmentedControl)';
+
+  @override
+  String get showcaseSegmentsSubtitle =>
+      'आइकन सपोर्ट के साथ स्लाइडिंग Liquid Glass संकेतक';
+
+  @override
+  String get showcaseProgressTitle => 'प्रगति संकेतक (AppProgressBar)';
+
+  @override
+  String get showcaseProgressSubtitle => 'चमकदार नियॉन ग्रेडिएंट और गोल स्पिनर';
+
+  @override
+  String get showcaseAvatarsTitle => 'अवतार और उपस्थिति (AppAvatar)';
+
+  @override
+  String get showcaseAvatarsSubtitle =>
+      '4 आकार, स्थिति बिंदु, आद्याक्षर और ग्रेडिएंट आउटलाइन';
+
+  @override
+  String get securityDisableTitle => 'क्या पिन सुरक्षा बंद करें?';
+
+  @override
+  String get securityDisableDesc =>
+      'सुरक्षा बंद करने के लिए आपका वर्तमान पिन दर्ज करना आवश्यक है।';
+
+  @override
+  String get securityDisabledToast => 'पिन सुरक्षा बंद कर दी गई';
+
+  @override
+  String get commonCancel => 'रद्द करें';
+
+  @override
+  String get commonContinue => 'जारी रखें';
+
+  @override
+  String get diagnosticsDeviceGroup => 'डिवाइस और ओएस';
+
+  @override
+  String get diagnosticsAppGroup => 'ऐप बिल्ड जानकारी';
+
+  @override
+  String get diagnosticsDisplayGroup => 'स्क्रीन और डिस्प्ले';
+
+  @override
+  String get diagnosticsNetworkGroup => 'नेटवर्क और सुलभता';
+
+  @override
+  String get notifRouterTestTitle => 'अधिसूचना राउटर परीक्षण';
+
+  @override
+  String get notifRouterTestDesc =>
+      'रूटिंग सत्यापन के लिए पेलोड के साथ परीक्षण पुश भेजें';
+
+  @override
+  String get notifSendTestButton => 'परीक्षण अधिसूचना भेजें';
+
+  @override
+  String get notifTestNotificationTitle => '🔔 परीक्षण अधिसूचना';
+
+  @override
+  String get notifTestNotificationBody =>
+      'NotificationRouter पेलोड परीक्षण के लिए टैप करें';
+
+  @override
+  String get notifTestNotificationSent =>
+      'परीक्षण अधिसूचना भेजी गई! सिस्टम ट्रे में इस पर टैप करें।';
+
+  @override
+  String get notifPermissionOnboardingPreview =>
+      'अनुमति ऑनबोर्डिंग पूर्वावलोकन';
+
+  @override
+  String get notifSingleTitle => 'अधिसूचना';
 }
