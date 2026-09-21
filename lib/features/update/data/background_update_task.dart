@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,6 +25,9 @@ void callbackDispatcher() {
 
 class UpdateBackgroundScheduler {
   static Future<void> sync() async {
+    if (Platform.environment.containsKey('FLUTTER_TEST')) {
+      return;
+    }
     try {
       final prefs = await SharedPreferences.getInstance();
       final enabled = prefs.getBool('background_check') ?? true;

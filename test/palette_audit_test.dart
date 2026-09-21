@@ -81,7 +81,7 @@ class _MockSecurityRepository implements SecurityRepository {
 
 void main() {
   const outputDir =
-      r'C:\Users\pavel\.gemini\antigravity-ide\brain\14337031-28ec-457d-bc19-f3019527f1fc\screenshots';
+      '/home/dak/.gemini/antigravity-ide/brain/b59563f2-e62e-409b-a3c7-3de0d262fbdc/screenshots';
 
   setUpAll(() async {
     Directory(outputDir).createSync(recursive: true);
@@ -90,8 +90,8 @@ void main() {
     PackageInfo.setMockInitialValues(
       appName: 'Template Basic',
       packageName: 'com.example.template_basic',
-      version: '1.0.53',
-      buildNumber: '54',
+      version: '1.0.59',
+      buildNumber: '60',
       buildSignature: 'mock',
     );
 
@@ -113,8 +113,8 @@ void main() {
       (MethodCall methodCall) async => {
         'appName': 'Template Basic',
         'packageName': 'com.example.template_basic',
-        'version': '1.0.53',
-        'buildNumber': '54',
+        'version': '1.0.59',
+        'buildNumber': '60',
         'buildSignature': 'mock',
       },
     );
@@ -132,7 +132,7 @@ void main() {
     await fontLoaderInter.load();
 
     final iconsPath =
-        r'E:\Tools\flutter\bin\cache\artifacts\material_fonts\MaterialIcons-Regular.otf';
+        '/home/dak/flutter/bin/cache/artifacts/material_fonts/MaterialIcons-Regular.otf';
     if (File(iconsPath).existsSync()) {
       final iconBytes = await File(iconsPath).readAsBytes();
       final fontLoaderIcons = FontLoader('MaterialIcons');
@@ -146,6 +146,7 @@ void main() {
     required Widget child,
     required String filename,
     required AppColorPalette palette,
+    required AppThemeMode themeMode,
   }) async {
     await tester.pumpWidget(const SizedBox());
     tester.view.physicalSize = const Size(412 * 2, 915 * 2);
@@ -153,12 +154,12 @@ void main() {
 
     SharedPreferences.setMockInitialValues({
       'app_color_palette_id': palette.id,
-      'app_theme_mode': AppThemeMode.light.name,
+      'app_theme_mode': themeMode.name,
       'app_language_code': 'ru',
       'app_font_family': 'Inter',
       'app_font_scale_delta': 0.0,
       'app_liquid_glass_enabled': true,
-      'last_run_version': '1.0.53',
+      'last_run_version': '1.0.59',
       'permission_onboarding_completed': true,
       'notifications_enabled': true,
       'periodic_reminder': true,
@@ -168,7 +169,13 @@ void main() {
     });
 
     final repaintKey = GlobalKey();
-    final theme = AppTheme.light(palette: palette, fontFamily: 'Inter');
+    final theme = themeMode == AppThemeMode.light
+        ? AppTheme.light(palette: palette, fontFamily: 'Inter')
+        : AppTheme.dark(
+            palette: palette,
+            fontFamily: 'Inter',
+            isOled: themeMode == AppThemeMode.oled,
+          );
     final fakeRepo = _MockSecurityRepository();
 
     final container = ProviderContainer(
@@ -184,7 +191,7 @@ void main() {
     container.read(securityControllerProvider);
     await tester.pump(const Duration(milliseconds: 50));
     await container.read(colorPaletteProvider.notifier).setPalette(palette);
-    await container.read(themeModeProvider.notifier).setThemeMode(AppThemeMode.light);
+    await container.read(themeModeProvider.notifier).setThemeMode(themeMode);
     await container.read(liquidGlassProvider.notifier).setLiquidGlassEnabled(true);
 
     await tester.pumpWidget(
@@ -234,30 +241,56 @@ void main() {
     });
   }
 
-  testWidgets('Generate Light Theme Audit for all 9 palettes', (tester) async {
+  testWidgets('Generate Theme Audit for all 9 palettes (Dark vs Light)', (tester) async {
     for (final palette in AppColorPalette.values) {
-      // 1. Home
+      // --- DARK MODE (ЭТАЛОН) ---
       await captureScreen(
         tester: tester,
         child: const HomeScreen(),
-        filename: 'audit_light_${palette.name}_01_home.png',
+        filename: 'dark_${palette.name}_home.png',
         palette: palette,
+        themeMode: AppThemeMode.dark,
       );
 
-      // 2. Showcase
       await captureScreen(
         tester: tester,
         child: const ShowcaseScreen(),
-        filename: 'audit_light_${palette.name}_02_showcase.png',
+        filename: 'dark_${palette.name}_showcase.png',
         palette: palette,
+        themeMode: AppThemeMode.dark,
       );
 
-      // 3. Settings
       await captureScreen(
         tester: tester,
         child: const SettingsScreen(),
-        filename: 'audit_light_${palette.name}_03_settings.png',
+        filename: 'dark_${palette.name}_settings.png',
         palette: palette,
+        themeMode: AppThemeMode.dark,
+      );
+
+      // --- LIGHT MODE (ТЕКУЩАЯ СВЕТЛАЯ) ---
+      await captureScreen(
+        tester: tester,
+        child: const HomeScreen(),
+        filename: 'light_${palette.name}_home.png',
+        palette: palette,
+        themeMode: AppThemeMode.light,
+      );
+
+      await captureScreen(
+        tester: tester,
+        child: const ShowcaseScreen(),
+        filename: 'light_${palette.name}_showcase.png',
+        palette: palette,
+        themeMode: AppThemeMode.light,
+      );
+
+      await captureScreen(
+        tester: tester,
+        child: const SettingsScreen(),
+        filename: 'light_${palette.name}_settings.png',
+        palette: palette,
+        themeMode: AppThemeMode.light,
       );
     }
   });
