@@ -12,9 +12,10 @@ import 'app_pressable.dart';
 ///    Светлая тема: #FFFFFF карточка, 1px border #E2E8F0, ультра-мягкая тень.
 ///    Тёмная тема:  surfaceContainerHighest, 1px border white.08.
 ///
-/// 2. **Liquid Frosted Glass Mode** (только тёмная тема!):
-///    BackdropFilter(sigma: 18) + alpha(0.50). В светлой теме Glass == Solid
-///    (BackdropFilter на белом фоне визуально бессмысленен).
+/// 2. **Liquid Frosted Glass Mode** (обе темы):
+///    Тёмная: BackdropFilter(sigma: 18) + alpha(0.50) + subtle specular.
+///    Светлая: BackdropFilter(sigma: 18) + полупрозрачный белый + palette-tinted
+///    бордер и specular highlight для видимого frost-эффекта.
 ///
 /// Параметр [isHighlighted] заменяет старую "магию" borderOpacity > 0.5:
 /// true → акцентный бордер primary + лёгкая тень primary.
@@ -65,7 +66,7 @@ class AppGlassCard extends ConsumerWidget {
       // ─── РЕЖИМ LIQUID FROSTED GLASS (Светлая и Тёмная темы) ─────────────────
       final glassColor = isDark
           ? colorScheme.surfaceContainerHighest.withValues(alpha: 0.50)
-          : Colors.white.withValues(alpha: 0.72);
+          : Colors.white.withValues(alpha: 0.55);
 
       final borderColor = isDark
           ? (isHighlighted
@@ -73,18 +74,18 @@ class AppGlassCard extends ConsumerWidget {
               : Colors.white.withValues(alpha: 0.12))
           : (isHighlighted
               ? colorScheme.primary.withValues(alpha: 0.60)
-              : Colors.white.withValues(alpha: 0.90));
+              : colorScheme.primary.withValues(alpha: 0.12));
 
       final List<BoxShadow> shadows = [
         BoxShadow(
-          color: const Color(0xFF0F172A).withValues(alpha: isDark ? 0.22 : 0.05),
+          color: const Color(0xFF0F172A).withValues(alpha: isDark ? 0.22 : 0.06),
           blurRadius: isDark ? 16 : 18,
           offset: const Offset(0, 3),
         ),
         if (!isDark)
           BoxShadow(
-            color: const Color(0xFF0F172A).withValues(alpha: 0.02),
-            blurRadius: 4,
+            color: const Color(0xFF0F172A).withValues(alpha: 0.03),
+            blurRadius: 6,
             offset: const Offset(0, 1),
           ),
         if (isHighlighted)

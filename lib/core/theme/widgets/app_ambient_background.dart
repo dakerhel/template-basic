@@ -53,7 +53,8 @@ class _AppAmbientBackgroundState extends ConsumerState<AppAmbientBackground>
             ? palette.accentColor.withValues(alpha: 0.20)
             : palette.accentColor.withValues(alpha: 0.15));
 
-    final secondarySource = palette.toColorScheme(brightness: Brightness.dark).secondary;
+    final effectiveBrightness = isDark ? Brightness.dark : Brightness.light;
+    final secondarySource = palette.toColorScheme(brightness: effectiveBrightness).secondary;
     final secondaryColor = isOled
         ? secondarySource.withValues(alpha: 0.05)
         : (isDark
@@ -65,7 +66,7 @@ class _AppAmbientBackgroundState extends ConsumerState<AppAmbientBackground>
         ? const BoxDecoration(color: Color(0xFF000000))
         : isDark
             ? BoxDecoration(color: theme.colorScheme.surface)
-            : const BoxDecoration(color: Color(0xFFF8FAFC)); // Чистый фарфоровый холст
+            : BoxDecoration(color: theme.colorScheme.surface);
 
     return Stack(
       fit: StackFit.expand,

@@ -219,12 +219,11 @@ class UnifiedThemeSheet extends ConsumerWidget {
                       ),
                       child: Row(
                         children: [
-                          // Фирменный двухцветный круг палитры (константа бренда: база + акцент)
+                          // Фирменный двухцветный круг палитры (реальные цвета текущей темы)
                           _PaletteSwatch(
-                            baseColor: currentMode == AppThemeMode.oled
-                                ? Colors.black
-                                : palette.baseColor,
-                            accentColor: palette.accentColor,
+                            palette: palette,
+                            brightness: theme.brightness,
+                            isOled: currentMode == AppThemeMode.oled,
                             isSelected: isSelected,
                           ),
                           const SizedBox(width: 14),
@@ -443,19 +442,26 @@ class _ThemeTabItem extends StatelessWidget {
 
 class _PaletteSwatch extends StatelessWidget {
   const _PaletteSwatch({
-    required this.baseColor,
-    required this.accentColor,
+    required this.palette,
+    required this.brightness,
+    required this.isOled,
     required this.isSelected,
   });
 
-  final Color baseColor;
-  final Color accentColor;
+  final AppColorPalette palette;
+  final Brightness brightness;
+  final bool isOled;
   final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
+
+    final (baseColor, accentColor) = palette.getSwatchColors(
+      brightness,
+      isOled: isOled,
+    );
 
     final borderColor = isSelected
         ? accentColor
